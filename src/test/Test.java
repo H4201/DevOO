@@ -2,6 +2,6 @@ package test;
 
 public class Test {
 	
-	private Integer i;
+	private Integer e;
 
 }
