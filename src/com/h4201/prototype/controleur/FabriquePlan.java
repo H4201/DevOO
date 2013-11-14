@@ -21,9 +21,10 @@ import javax.swing.JFileChooser;
 
 
 
-import org.sun.file.ExampleFileFilter;
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
+
+import com.sun.file.ExampleFileFilter;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.OutputKeys;

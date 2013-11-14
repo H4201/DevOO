@@ -1,4 +1,4 @@
-package org.sun.file;
+package com.sun.file;
 /*
  * @(#)ExampleFileFilter.java	1.16 04/07/26
  * 
