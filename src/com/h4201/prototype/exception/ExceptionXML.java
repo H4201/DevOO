@@ -1,6 +1,6 @@
-package exception;
+package com.h4201.prototype.exception;
 
-import utilitaire.Constante;
+import com.h4201.prototype.utilitaire.Constante;
 
 public class ExceptionXML extends Exception
 {

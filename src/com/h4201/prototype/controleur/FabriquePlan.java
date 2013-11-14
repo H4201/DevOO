@@ -1,4 +1,4 @@
-package controleur;
+package com.h4201.prototype.controleur;
 
 import java.io.File;
 
@@ -21,6 +21,7 @@ import javax.swing.JFileChooser;
 
 
 
+import org.sun.file.ExampleFileFilter;
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
 
@@ -34,7 +35,6 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import bibliotheque.ExampleFileFilter;
 
 public class FabriquePlan
 {
@@ -58,6 +58,8 @@ public class FabriquePlan
 		
 		    Element racine = document.getDocumentElement();
 		
+		    System.out.println(racine.getNodeName());
+		    
 	//	    if (racine.getNodeName().equals("dessin"))
 	//	    {
 	//	        int resultatConstruction = ConstruireToutAPartirDeDOMXML(racine);

@@ -1,4 +1,4 @@
-package tsp;
+package fr.insa.lyon.if4.tsp;
 import static org.junit.Assert.*;
 import org.junit.Test;
 

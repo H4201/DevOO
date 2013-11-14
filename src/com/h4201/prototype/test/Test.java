@@ -1,4 +1,4 @@
-package test;
+package com.h4201.prototype.test;
 
 public class Test {
 	

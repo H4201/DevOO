@@ -1,4 +1,4 @@
-package tsp;
+package fr.insa.lyon.if4.tsp;
 import java.util.ArrayList;
 
 /**
