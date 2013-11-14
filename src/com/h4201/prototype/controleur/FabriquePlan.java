@@ -86,8 +86,8 @@ public class FabriquePlan
 		    					noeuds.get(idNoeudOrigine), 
 		    					noeuds.get(idNoeudDestination), 
 		    					elementTronconSortant.getAttribute("nomRue"), 
-		    					Double.valueOf(elementTronconSortant.getAttribute("longueur")),
-		    					Double.valueOf(elementTronconSortant.getAttribute("vitesse")));
+		    					Double.valueOf(elementTronconSortant.getAttribute("longueur").replace(",", ".")),
+		    					Double.valueOf(elementTronconSortant.getAttribute("vitesse").replace(",", ".")));
 		    			
 		    			troncons.addElement(troncon);
 			    	}

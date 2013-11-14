@@ -26,14 +26,7 @@ public class Plan
 
 	@Override
 	public String toString() {
-		String s = "Plan [troncons=[";
-		
-	    for (Troncon troncon : troncons)
-	    {
-	        s += troncon.toString();
-	    }
-	    
-	    s += "], noeuds=" + noeuds + "]";
+		String s = "Plan [troncons=[" + troncons + "], noeuds=" + noeuds + "]";
 		
 		return s;
 	}

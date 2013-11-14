@@ -6,7 +6,8 @@ public class Troncon
   private double longueur;
   private double vitesse;
 
-  private static int idTroncon;
+  private static int dernierIdTroncon = 0;
+  private int idTroncon;
 
   private Noeud noeudOrigine;
   private Noeud noeudDestination;
@@ -19,7 +20,7 @@ public class Troncon
 	  this.nomRue = nomRue;
 	  this.longueur = longueur;
 	  this.vitesse = vitesse;
-	  Troncon.idTroncon++;
+	  idTroncon = Troncon.dernierIdTroncon++;
   }
   
   /**
@@ -57,9 +58,9 @@ public class Troncon
 
 	@Override
 	public String toString() {
-		return "Troncon [idTroncon=" + Troncon.idTroncon + "longueur=" + longueur 
+		return "Troncon [idTroncon=" + idTroncon + ", longueur=" + longueur 
 				+ ", vitesse=" + vitesse
 				+ ", noeudOrigine=" + noeudOrigine
-				+ ", noeudDestination=" + noeudDestination + "]";
+				+ ", noeudDestination=" + noeudDestination + "]\n";
 	}
 }
