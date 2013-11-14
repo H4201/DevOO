@@ -16,6 +16,6 @@ public class ExceptionXML extends Exception
 	
 	public ExceptionXML(String s)
 	{
-		super(s);
+		super(Constante.EXCEPTION_XML + " : " + s);
 	}
 }

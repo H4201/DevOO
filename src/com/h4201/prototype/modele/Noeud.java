@@ -8,18 +8,18 @@ public class Noeud
 
   private double y;
 
-  private static int idNoeud = 0;
+  private int idNoeud;
 
   private Vector<Troncon>  tronconsSortants;
 
   private Vector<Troncon>  tronconsEntrants;
 
 
-  public Noeud(double x, double y) 
+  public Noeud(int idNoeud, double x, double y) 
   {
 	  this.x = x;
 	  this.y = y;
-	  Noeud.idNoeud++;
+	  this.idNoeud = idNoeud;
   }
 
   public double getX()
@@ -34,7 +34,7 @@ public class Noeud
   
   public int getIdNoeud()
   {
-	  return Noeud.idNoeud;
+	  return this.idNoeud;
   }
 
   public Vector<Troncon> getTronconsEntrants()
@@ -56,4 +56,9 @@ public class Noeud
   {
 	  this.tronconsSortants.addElement(troncon);
   }
+
+	@Override
+	public String toString() {
+		return "Noeud [idNoeud=" + idNoeud + ", x=" + x + ", y=" + y + "]";
+	}
 }

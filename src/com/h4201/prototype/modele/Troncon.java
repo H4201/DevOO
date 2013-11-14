@@ -1,22 +1,25 @@
 package com.h4201.prototype.modele;
 
-public class Troncon {
-
+public class Troncon
+{
+  private String nomRue;
   private double longueur;
-
   private double vitesse;
 
-  private int idTroncon;
+  private static int idTroncon;
 
   private Noeud noeudOrigine;
   private Noeud noeudDestination;
 
-  public Troncon(Noeud noeudOrigine, Noeud noeudDestination, double longueur, double vitesse)
+  public Troncon(Noeud noeudOrigine, Noeud noeudDestination, String nomRue, 
+		  double longueur, double vitesse)
   {
 	  this.noeudOrigine = noeudOrigine;
 	  this.noeudDestination = noeudDestination;
+	  this.nomRue = nomRue;
 	  this.longueur = longueur;
 	  this.vitesse = vitesse;
+	  Troncon.idTroncon++;
   }
   
   /**
@@ -28,6 +31,10 @@ public class Troncon {
 	  return (longueur/vitesse);
   }
 
+    public String getNomRue() {
+    	return nomRue;
+    }
+    
 	public double getLongueur() {
 		return longueur;
 	}
@@ -40,11 +47,19 @@ public class Troncon {
 		return idTroncon;
 	}
 	
-	public Noeud getNoeudOrigine() {
+	public Noeud getNoeudOrigine() { 
 		return noeudOrigine;
 	}
 	
 	public Noeud getNoeudDestination() {
 		return noeudDestination;
+	}
+
+	@Override
+	public String toString() {
+		return "Troncon [idTroncon=" + Troncon.idTroncon + "longueur=" + longueur 
+				+ ", vitesse=" + vitesse
+				+ ", noeudOrigine=" + noeudOrigine
+				+ ", noeudDestination=" + noeudDestination + "]";
 	}
 }

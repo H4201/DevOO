@@ -1,54 +1,37 @@
 package com.h4201.prototype.controleur;
 
 import java.io.File;
-
-import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Iterator;
-import javax.swing.AbstractButton;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JFileChooser;
-
-
+import java.util.HashMap;
+import java.util.Vector;
 
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
 
-import com.sun.file.ExampleFileFilter;
+import com.h4201.prototype.exception.ExceptionXML;
+import com.h4201.prototype.modele.Noeud;
+import com.h4201.prototype.modele.Plan;
+import com.h4201.prototype.modele.Troncon;
 
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.OutputKeys;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerConfigurationException;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 public class FabriquePlan
 {
+	private static final String type = "Plan";
+	
 	public FabriquePlan()
 	{
 		
 	}
 	
-	public void depuisXML(File planXML)
+	public static Plan depuisXML(File planXML) throws ExceptionXML
 	{
+		Plan plan = null;
+		
 		try
 		{
-		
 			// cr�ation d'une fabrique de documents
 	        DocumentBuilderFactory fabrique = DocumentBuilderFactory.newInstance();
 	
@@ -59,24 +42,64 @@ public class FabriquePlan
 		
 		    Element racine = document.getDocumentElement();
 		
-		    System.out.println(racine.getNodeName());
-		    
-	//	    if (racine.getNodeName().equals("dessin"))
-	//	    {
-	//	        int resultatConstruction = ConstruireToutAPartirDeDOMXML(racine);
-	//	        if (resultatConstruction != Dessin.PARSE_OK)
-	//	        {
-	//	        	//histoire d'avoir un dessin 
-	//	        	dessin.initialiser(100, 100, Color.black);
-	//	        	vueDessin.setDessin(dessin);
-	//	        	System.out.println("PB de lecture de fichier!");
-	//	        } 
-	//	    }
-	//	    else
-	//	    {
-	//	    	System.out.println("L'element racine n'est pas bon !");
-	//	    }
-
+		    if (racine.getNodeName().equals("Reseau"))
+		    {
+	    		HashMap<Integer, Noeud> noeuds = new HashMap<Integer, Noeud>();
+	    		Vector<Troncon> troncons = new Vector<Troncon>();
+		    	
+		    	// Parcours des noeuds
+		    	Noeud noeud;
+		    	Element elementNoeud;
+		    	NodeList listeNoeud = racine.getElementsByTagName("Noeud");
+		    	for (int i = 0; i < listeNoeud.getLength(); i++)
+		    	{
+		    		elementNoeud = (Element) listeNoeud.item(i);
+		            noeud = new Noeud(Integer.valueOf(elementNoeud.getAttribute("id")),
+	            			Double.valueOf(elementNoeud.getAttribute("x")),
+	            			Double.valueOf(elementNoeud.getAttribute("y")));
+		            
+		            noeuds.put(Integer.valueOf(noeud.getIdNoeud()), noeud);
+		            
+			    	System.out.println(noeud.toString());
+		    	}
+		    	
+		    	// Parcours des troncons
+		    	Integer idNoeudOrigine;
+		    	Integer idNoeudDestination;
+		    	Troncon troncon;
+		    	NodeList listeTronconSortant;
+		    	Element elementTronconSortant;
+		    	for (int i = 0; i < listeNoeud.getLength(); i++)
+		    	{
+		    		elementNoeud = (Element) listeNoeud.item(i);
+		    		
+		    		idNoeudOrigine = Integer.valueOf(elementNoeud.getAttribute("id"));
+		    		
+		    		listeTronconSortant = elementNoeud.getElementsByTagName("TronconSortant");
+		    		for (int j = 0; j < listeTronconSortant.getLength(); j++)
+			    	{
+		    			elementTronconSortant = (Element) listeTronconSortant.item(j);
+		    			
+		    			idNoeudDestination = Integer.valueOf(elementTronconSortant.getAttribute("destination"));
+		    			
+		    			troncon = new Troncon(
+		    					noeuds.get(idNoeudOrigine), 
+		    					noeuds.get(idNoeudDestination), 
+		    					elementTronconSortant.getAttribute("nomRue"), 
+		    					Double.valueOf(elementTronconSortant.getAttribute("longueur")),
+		    					Double.valueOf(elementTronconSortant.getAttribute("vitesse")));
+		    			
+		    			troncons.addElement(troncon);
+			    	}
+		    	}
+		    	
+		    	// Plan
+		    	plan = new Plan(troncons, noeuds);
+		    }
+		    else
+		    {
+		    	throw new ExceptionXML(FabriquePlan.type);
+		    }
 		} 
 		catch (ParserConfigurationException e)
 		{
@@ -86,40 +109,7 @@ public class FabriquePlan
 		{
 			e.printStackTrace();
 		}
-	}
-	
-	private void extraireDonneesDuDOM()
-	{
-//		//lecture des attributs
-//        hauteur = Integer.parseInt(noeudDOMRacine.getAttribute("hauteur"));
-//        largeur = Integer.parseInt(noeudDOMRacine.getAttribute("largeur"));
-//
-//        NodeList liste = noeudDOMRacine.getElementsByTagName("couleurArrierePlan");
-//        if (liste.getLength() != 1) {
-//            return Dessin.PARSE_ERROR;
-//        }
-//        Element couleurElement = (Element) liste.item(0);
-//        int rouge = Integer.parseInt(couleurElement.getAttribute("rouge"));
-//        int vert = Integer.parseInt(couleurElement.getAttribute("vert"));
-//        int bleu = Integer.parseInt(couleurElement.getAttribute("bleu"));
-//        couleurArrierePlan = new Color(rouge, vert, bleu);
-//
-//        
-//        //cr�ation des Boules;
-//        String tag = "boule";
-//        liste = noeudDOMRacine.getElementsByTagName(tag);
-//        lesBoules.removeAllElements();
-//        for (int i = 0; i < liste.getLength(); i++) {
-//            Element bouleElement = (Element) liste.item(i);
-//            Boule laNouvelleBoule = new Boule();
-//            if (laNouvelleBoule.construireAPartirDeDOMXML(bouleElement)!= Dessin.PARSE_OK){
-//                return Dessin.PARSE_ERROR;
-//            }
-//            
-//            //ajout des ̩l̩ments cr̩̩s dans la structure objet
-//            //this.AjouterVueBoule(laNouvelleVueBoule);
-//            ajouterBoule(laNouvelleBoule);
-//            
-//        }
+
+	    return plan;
 	}
 }
