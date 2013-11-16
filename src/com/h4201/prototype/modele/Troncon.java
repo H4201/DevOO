@@ -61,6 +61,6 @@ public class Troncon
 		return "Troncon [idTroncon=" + idTroncon + ", longueur=" + longueur 
 				+ ", vitesse=" + vitesse
 				+ ", noeudOrigine=" + noeudOrigine
-				+ ", noeudDestination=" + noeudDestination + "]\n";
+				+ ", noeudDestination=" + noeudDestination + "]";
 	}
 }

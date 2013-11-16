@@ -2,48 +2,46 @@ package com.h4201.prototype.modele;
 
 import java.util.Vector;
 
-
 public class Tournee
 {
+	  private static int dernierIdTournee;
+	  private int idTournee;
+	  private Entrepot entrepot;
+	  private Vector<Chemin> chemins;
+	  private Vector<TrancheHoraire> trancheshoraire;
 
-  private static int idTournee;
-  private Entrepot entrepot;
-  private Vector<Chemin> chemins;
-  private Vector<TrancheHoraire> trancheshoraire;
+	  public Tournee(Entrepot entrepot, Vector<TrancheHoraire> trancheshoraire)
+	  {
+		  this.entrepot = entrepot;
+		  this.trancheshoraire = trancheshoraire;
+		  this.idTournee = Tournee.dernierIdTournee++;
+	  }
 
-  public Tournee(Entrepot entrepot, TrancheHoraire trancheshoraire)
-  {
-	  Tournee.idTournee++;
-  }
-  
-//  public void ajouterPointDeLivraison(PointLivraison pointLivraison)
-//  {
-//	  
-//  }
-//
-//  public void supprimerPointDeLivraison(Noeud noeud)
-//  {
-//	  
-//  }
+	  protected void ajouterChemin(Chemin chemin)
+	  {
+		  this.chemins.addElement(chemin);
+	  }
 
-  public void ajouterChemin(Chemin chemin)
-  {
-	  this.chemins.addElement(chemin);
-  }
+		public int getIdTournee() {
+			return idTournee;
+		}
+		
+		public Entrepot getEntrepot() {
+			return entrepot;
+		}
+		
+		public Vector<Chemin> getChemins() {
+			return chemins;
+		}
+		
+		public Vector<TrancheHoraire> getTrancheshoraire() {
+			return trancheshoraire;
+		}
 
-	public static int getIdTournee() {
-		return idTournee;
-	}
-	
-	public Entrepot getEntrepot() {
-		return entrepot;
-	}
-	
-	public Vector<Chemin> getChemins() {
-		return chemins;
-	}
-	
-	public Vector<TrancheHoraire> getTrancheshoraire() {
-		return trancheshoraire;
-	}
+		@Override
+		public String toString() {
+			return "Tournee [idTournee=" + idTournee + ", entrepot=" + entrepot
+					+ ", chemins=" + chemins + ", trancheshoraire="
+					+ trancheshoraire + "]";
+		}
 }
