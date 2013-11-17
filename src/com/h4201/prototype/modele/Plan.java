@@ -54,6 +54,23 @@ public final class Plan
 	  return noeuds;
   }
 
+  public void afficher()
+  {
+	  System.out.println("\nPLAN");
+	  
+	  System.out.println("Troncons : ");
+	  for(Troncon troncon : troncons)
+	  {
+		  troncon.afficher();
+	  }
+	  
+	  	System.out.println("Noeuds : ");
+		for (Integer key : noeuds.keySet())
+		{
+			noeuds.get(key).afficher();
+		}
+  }
+  
 	@Override
 	public String toString() {
 		String s = "Plan [troncons=[" + troncons + "], noeuds=" + noeuds + "]";

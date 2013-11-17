@@ -59,6 +59,11 @@ public class Noeud
 	  this.tronconsSortants.addElement(troncon);
   }
 
+  public void afficher()
+  {
+	  System.out.println(this.toString());
+  }
+  
 	@Override
 	public String toString() {
 		return "Noeud [idNoeud=" + idNoeud + ", x=" + x + ", y=" + y + "]";

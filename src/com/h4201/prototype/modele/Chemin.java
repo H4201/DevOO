@@ -42,4 +42,22 @@ public class Chemin
 	public Vector<Troncon> getTroncons() {
 		return troncons;
 	}
+	
+	public void afficher()
+	{
+		System.out.println(this.toString());
+		  
+		System.out.println("Troncons : ");
+		for(Troncon troncon : troncons)
+		{
+			troncon.afficher();
+		}
+	}
+
+	@Override
+	public String toString() {
+		return "Chemin [longueur=" + longueur + ", temps=" + temps
+				+ ", pointLivraisonOrigine=" + pointLivraisonOrigine
+				+ ", pointLivraisonDestination=" + pointLivraisonDestination + "]";
+	}
 }

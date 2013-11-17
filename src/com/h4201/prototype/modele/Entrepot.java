@@ -16,6 +16,6 @@ public class Entrepot extends PointLivraison
 
 @Override
 public String toString() {
-	return "Entrepot [idEntrepot=" + idEntrepot + "]";
+	return "Entrepot [idEntrepot=" + idEntrepot + ", noeud=" + super.toString() + "]";
 }
 }

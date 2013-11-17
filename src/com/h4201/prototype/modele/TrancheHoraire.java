@@ -12,19 +12,19 @@ public class TrancheHoraire
 	private int idTrancheHoraire;
 	private Calendar heureDebut;
 	private Calendar heureFin;
-	private Vector<PointLivraison> pointsLivraisons;
+	private Vector<PointLivraison> pointsLivraison;
 
   public TrancheHoraire(Calendar heureDebut, Calendar heureFin)
   {
 	  this.heureDebut = heureDebut;
 	  this.heureFin = heureFin;
 	  this.idTrancheHoraire = TrancheHoraire.dernierIdTrancheHoraire++;
-	  this.pointsLivraisons = new Vector<PointLivraison>();
+	  this.pointsLivraison = new Vector<PointLivraison>();
   }
 
   protected void ajouterPointLivraison(PointLivraison pointLivraison)
   {
-	  this.pointsLivraisons.add(pointLivraison);
+	  this.pointsLivraison.add(pointLivraison);
   }
 
     public int getIdTrancheHoraire()
@@ -41,14 +41,23 @@ public class TrancheHoraire
 	}
 	
 	public Vector<PointLivraison> getPointsLivraisons() {
-		return pointsLivraisons;
+		return pointsLivraison;
+	}
+	
+	public void afficher()
+	{
+		System.out.println(this.toString());
+		System.out.println("Points de livraison : ");
+		for(PointLivraison pointLivraison : pointsLivraison)
+		{
+			pointLivraison.afficher();
+		}
 	}
 
 	@Override
 	public String toString() {
 		return "TrancheHoraire [idTrancheHoraire=" + idTrancheHoraire
 				+ ", heureDebut=" + Date.getHeureFrDepuisCalendar(heureDebut) 
-				+ ", heureFin=" + Date.getHeureFrDepuisCalendar(heureFin)
-				+ ", pointsLivraisons=" + pointsLivraisons + "]";
+				+ ", heureFin=" + Date.getHeureFrDepuisCalendar(heureFin) + "]";
 	}
 }

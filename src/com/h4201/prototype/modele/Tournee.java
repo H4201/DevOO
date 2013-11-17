@@ -8,13 +8,15 @@ public class Tournee
 	  private int idTournee;
 	  private Entrepot entrepot;
 	  private Vector<Chemin> chemins;
-	  private Vector<TrancheHoraire> trancheshoraire;
+	  private Vector<TrancheHoraire> tranchesHoraire;
 
-	  public Tournee(Entrepot entrepot, Vector<TrancheHoraire> trancheshoraire)
+	  public Tournee(Entrepot entrepot, Vector<TrancheHoraire> tranchesHoraire)
 	  {
 		  this.entrepot = entrepot;
-		  this.trancheshoraire = trancheshoraire;
+		  this.tranchesHoraire = tranchesHoraire;
 		  this.idTournee = Tournee.dernierIdTournee++;
+		  this.chemins = new Vector<Chemin>();
+		  this.tranchesHoraire = new Vector<TrancheHoraire>();
 	  }
 
 	  protected void ajouterChemin(Chemin chemin)
@@ -35,13 +37,27 @@ public class Tournee
 		}
 		
 		public Vector<TrancheHoraire> getTrancheshoraire() {
-			return trancheshoraire;
+			return tranchesHoraire;
+		}
+		
+		public void afficher()
+		{
+			System.out.println("\n" + this.toString());
+			System.out.println("Chemins : ");
+			for(Chemin chemin : chemins)
+			{
+				chemin.afficher();
+			}
+			
+			System.out.println("Tranches horaire : ");
+			for(TrancheHoraire trancheHoraire : tranchesHoraire)
+			{
+				trancheHoraire.afficher();
+			}
 		}
 
 		@Override
 		public String toString() {
-			return "Tournee [idTournee=" + idTournee + ", entrepot=" + entrepot
-					+ ", chemins=" + chemins + ", trancheshoraire="
-					+ trancheshoraire + "]";
+			return "Tournee [idTournee=" + idTournee + ", entrepot=" + entrepot + "]";
 		}
 }

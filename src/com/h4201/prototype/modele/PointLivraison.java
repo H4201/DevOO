@@ -62,14 +62,17 @@ public class PointLivraison
 	public TrancheHoraire getTrancheHoraire() {
 		return trancheHoraire;
 	}
+	
+	public void afficher()
+	{
+		System.out.println(this.toString());
+	}
 
 	@Override
 	public String toString() {
 		return "PointLivraison [respecteTrancheHoraireDemandee="
 				+ respecteTrancheHoraireDemandee + ", idPointLivraison="
-				+ idPointLivraison + ", cheminEntrant=" + cheminEntrant
-				+ ", cheminSortant=" + cheminSortant + ", client=" + client
-				+ ", noeud=" + noeud + ", trancheHoraire=" + trancheHoraire
-				+ "]";
+				+ idPointLivraison + ", client=" + client
+				+ ", noeud=" + noeud + "]";
 	}
 }
