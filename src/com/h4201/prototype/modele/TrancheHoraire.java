@@ -3,6 +3,8 @@ package com.h4201.prototype.modele;
 import java.util.Calendar;
 import java.util.Vector;
 
+import com.h4201.prototype.utilitaire.Date;
+
 
 public class TrancheHoraire
 {
@@ -17,11 +19,12 @@ public class TrancheHoraire
 	  this.heureDebut = heureDebut;
 	  this.heureFin = heureFin;
 	  this.idTrancheHoraire = TrancheHoraire.dernierIdTrancheHoraire++;
+	  this.pointsLivraisons = new Vector<PointLivraison>();
   }
 
   protected void ajouterPointLivraison(PointLivraison pointLivraison)
   {
-	  this.pointsLivraisons.addElement(pointLivraison);
+	  this.pointsLivraisons.add(pointLivraison);
   }
 
     public int getIdTrancheHoraire()
@@ -44,7 +47,8 @@ public class TrancheHoraire
 	@Override
 	public String toString() {
 		return "TrancheHoraire [idTrancheHoraire=" + idTrancheHoraire
-				+ ", heureDebut=" + heureDebut + ", heureFin=" + heureFin
+				+ ", heureDebut=" + Date.getHeureFrDepuisCalendar(heureDebut) 
+				+ ", heureFin=" + Date.getHeureFrDepuisCalendar(heureFin)
 				+ ", pointsLivraisons=" + pointsLivraisons + "]";
 	}
 }
