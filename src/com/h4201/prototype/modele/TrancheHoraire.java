@@ -46,7 +46,7 @@ public class TrancheHoraire
 	
 	public void afficher()
 	{
-		System.out.println(this.toString());
+		System.out.println("\n" + this.toString());
 		System.out.println("Points de livraison : ");
 		for(PointLivraison pointLivraison : pointsLivraison)
 		{

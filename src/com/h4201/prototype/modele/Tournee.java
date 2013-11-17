@@ -16,7 +16,6 @@ public class Tournee
 		  this.tranchesHoraire = tranchesHoraire;
 		  this.idTournee = Tournee.dernierIdTournee++;
 		  this.chemins = new Vector<Chemin>();
-		  this.tranchesHoraire = new Vector<TrancheHoraire>();
 	  }
 
 	  protected void ajouterChemin(Chemin chemin)
