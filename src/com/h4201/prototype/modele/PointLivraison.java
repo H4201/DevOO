@@ -65,6 +65,11 @@ public class PointLivraison
 		return trancheHoraire;
 	}
 	
+	protected void setTrancheHoraire(TrancheHoraire trancheHoraire)
+	{
+		this.trancheHoraire = trancheHoraire;
+	}
+	
 	public void afficher()
 	{
 		System.out.println(this.toString());
