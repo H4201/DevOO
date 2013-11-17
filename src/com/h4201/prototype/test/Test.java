@@ -36,7 +36,7 @@ public class Test
 		File planXML = new File("test/plan10x10.xml");
 		Plan plan = CreationPlan.depuisXML(planXML);
 		
-		System.out.println(plan.toString());
+//		System.out.println(plan.toString());
 	} 
 	
 	public void testChargerDemandeLivraison() throws Exception
@@ -44,6 +44,6 @@ public class Test
 		File demandeLivraisonXML = new File("test/livraison20x20-2.xml");
 		Tournee tournee = CreationDemandeLivraison.depuisXML(demandeLivraisonXML);
 		
-		System.out.println(tournee.toString());
+//		System.out.println(tournee.toString());
 	}
 }
