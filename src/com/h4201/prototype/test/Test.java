@@ -4,6 +4,7 @@ import java.io.File;
 
 import com.h4201.prototype.modele.CreationDemandeLivraison;
 import com.h4201.prototype.modele.CreationPlan;
+import com.h4201.prototype.modele.Noeud;
 import com.h4201.prototype.modele.Plan;
 import com.h4201.prototype.modele.Tournee;
 
@@ -33,10 +34,10 @@ public class Test
 	
 	public void testChargerPlan() throws Exception
 	{
-		File planXML = new File("test/plan10x10.xml");
+		File planXML = new File("test/plan20x20.xml");
 		Plan plan = CreationPlan.depuisXML(planXML);
 		
-//		System.out.println(plan.toString());
+		plan.afficher();
 	} 
 	
 	public void testChargerDemandeLivraison() throws Exception
@@ -44,6 +45,6 @@ public class Test
 		File demandeLivraisonXML = new File("test/livraison20x20-2.xml");
 		Tournee tournee = CreationDemandeLivraison.depuisXML(demandeLivraisonXML);
 		
-//		System.out.println(tournee.toString());
+		tournee.afficher();
 	}
 }
