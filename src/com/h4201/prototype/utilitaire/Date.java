@@ -17,4 +17,9 @@ public abstract class Date
 		
 		return gcalendar;
 	}
+	
+	public static String getHeureFrDepuisCalendar(Calendar cal)
+	{
+		return cal.get(Calendar.HOUR) + "h" + cal.get(Calendar.MINUTE) + "m" + cal.get(Calendar.SECOND) + "s";
+	}
 }
