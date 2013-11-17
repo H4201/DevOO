@@ -4,7 +4,6 @@ import java.io.File;
 
 import com.h4201.prototype.modele.CreationDemandeLivraison;
 import com.h4201.prototype.modele.CreationPlan;
-import com.h4201.prototype.modele.Noeud;
 import com.h4201.prototype.modele.Plan;
 import com.h4201.prototype.modele.Tournee;
 
@@ -38,6 +37,8 @@ public class Test
 		Plan plan = CreationPlan.depuisXML(planXML);
 		
 		plan.afficher();
+		
+		// TODO : Tests avec jUnit
 	} 
 	
 	public void testChargerDemandeLivraison() throws Exception
@@ -46,5 +47,7 @@ public class Test
 		Tournee tournee = CreationDemandeLivraison.depuisXML(demandeLivraisonXML);
 		
 		tournee.afficher();
+		
+		// TODO : Tests avec jUnit
 	}
 }
