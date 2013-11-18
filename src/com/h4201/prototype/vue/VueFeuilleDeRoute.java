@@ -33,6 +33,8 @@ public class VueFeuilleDeRoute extends JFrame {
 	 * Create the frame.
 	 */
 	public VueFeuilleDeRoute() {
+		super();
+		setTitle("Feuille De Route");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -40,9 +42,18 @@ public class VueFeuilleDeRoute extends JFrame {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		
-		table = new JTable();
-		table.setModel(new FeuilleDeRouteModele());
-		contentPane.add(table, BorderLayout.CENTER);
+		table = new JTable(new FeuilleDeRouteModele());
+        getContentPane().add(table.getTableHeader(), BorderLayout.NORTH);
+        getContentPane().add(table, BorderLayout.CENTER);
+ 
+        pack();
+	
+	}
+
+	public void afficherFeuilleDeRoute()
+	{
+		
+		contentPane.setVisible(true);
 	}
 
 }
