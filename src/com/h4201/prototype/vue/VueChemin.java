@@ -1,6 +1,7 @@
 package com.h4201.prototype.vue;
 
 import java.awt.Color;
+import java.awt.Graphics;
 
 import com.h4201.prototype.modele.Chemin;
 
@@ -10,9 +11,9 @@ public class VueChemin
 	private Chemin chemin;
 	private Color couleur;
 	
-	public VueChemin()
+	public VueChemin(Chemin chemin)
 	{
-		
+		this.chemin = chemin;
 	}
 	
 	public VueChemin(Chemin chemin , Color couleur)
@@ -30,7 +31,7 @@ public class VueChemin
 		return couleur;
 	}
 	
-	public void dessinerChemin()
+	public void dessinerChemin(Graphics g)
 	{
 		
 	}

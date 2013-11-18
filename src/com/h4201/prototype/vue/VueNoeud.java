@@ -1,37 +1,26 @@
 package com.h4201.prototype.vue;
 
 import java.awt.Color;
+import java.awt.Graphics;
 
 import com.h4201.prototype.modele.Noeud;
 
 public class VueNoeud
 {
-	private double x;
-	private double y;
+	private Noeud noeud;
 	private double rayon;
 	private Color couleur;
 	
-	public VueNoeud()
+	public VueNoeud(Noeud Vuenoeud)
 	{
-		
+		this.noeud = noeud;
 	}
-	 
-	public VueNoeud(double x, double y, double r, Color couleur)
+	
+	public Noeud getNoeud()
 	{
-		this.x = x;
-        this.y =y;
-        rayon = r;
-        this.couleur=couleur;     
+		return noeud;
 	}
-	 
-	public double getX()
-	{
-		return x;
-	}
-	public double getY()
-	{
-		return y;
-	}
+
 	public double getRayon()
 	{
 		return rayon;
@@ -46,8 +35,13 @@ public class VueNoeud
 		return false;		
 	}
 	
-	public void dessinerNoeud()
+	public void dessinerNoeud(Graphics g)
 	{
-		
+		double x = noeud.getX();
+		double y = noeud.getY();
+		//g.fillRect(, , x, y);
 	}
+	
+	
+
 }

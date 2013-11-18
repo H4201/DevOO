@@ -8,24 +8,75 @@ import com.h4201.prototype.modele.Plan;
 import com.h4201.prototype.modele.Troncon;
 
 import java.awt.Color;
+import java.awt.Graphics;
 import java.util.Map;
 import java.util.Vector;
 
 @SuppressWarnings("serial")
 public class VuePlan extends JPanel
-
 {
 	
-	private Plan plan;
+	/*
+	 * constante pour le plan
+	 */
+	public static final int LONGUEUR = 240;
+	public static final int LARGEUR = 240;
+	public static final int RAYON = 5;
+	public static final int RAYONENTREPOT = 10;
+	public static final Color ARRIEREPLAN = Color.BLUE;
 	
-	public VuePlan()
+	private Plan plan;
+	private double largeur;
+	private double hauteur;
+	private Color couleurArrierePlan;
+	Vector<VueNoeud> lesVueNoeuds = new Vector<VueNoeud>();
+	Vector<VueTroncon> lesVueTroncons = new Vector<VueTroncon>();
+	Vector<VuePointDeLivraison> lesPointLivraisons = new Vector<VuePointDeLivraison>();
+	
+	public VuePlan(Plan plan)
 	{
-		setBackground(Color.BLUE);
+		this.plan = plan;
+	}
+	
+	public double getLargeur()
+	{
+	    return largeur;
+	}
+	    
+	public Color getCouleurArrierePlan()
+	{
+		return couleurArrierePlan ;
+	}
+	
+	public void setCouleurArrierePlan(Color couleur)
+	{
+		couleurArrierePlan = couleur;
+	}
+
+	public double getHauteur()
+	{
+	        return hauteur;
+	}
+	    
+	public void initialiserVuePlan()
+	{
 		try
 		{
 			plan = Plan.getInstance();
-		} 
-		catch (ExceptionNonInstancie e)
+			Map<Integer, Noeud> structureNoeuds = plan.getNoeuds();
+			Vector<Troncon> StructureTroncons= plan.getTroncons();
+			for(Integer idNoeud : structureNoeuds.keySet())
+			{
+				lesVueNoeuds.add(new VueNoeud(structureNoeuds.get(idNoeud)));
+			}
+			
+			for(Troncon leTroncon : StructureTroncons)
+			{
+				lesVueTroncons.add(new VueTroncon(leTroncon));
+			}
+				
+			
+		} catch (ExceptionNonInstancie e)
 		{
 			e.printStackTrace();
 		}
@@ -36,17 +87,9 @@ public class VuePlan extends JPanel
 	 * ( a partir de x, y  dessine un noeud, dessiner un point de livraison au noeud(associer une couleur))
 	 */
 	
-	public void dessinerPlan()
+	public void dessinerPlan(Graphics g)
 	{
-		Map<Integer, Noeud> lesNoeuds = plan.getNoeuds();
-		Vector<Troncon> lesTronçons = plan.getTroncons();
-		for(Integer idNoeud : lesNoeuds.keySet())
-		{
-			double x = lesNoeuds.get(idNoeud).getX();
-			double y = lesNoeuds.get(idNoeud).getY();
-			
-			//VueNoeud noeud = new VueNoeud(x,y,);
-		}
+		
 	}
 	
 	
@@ -55,9 +98,16 @@ public class VuePlan extends JPanel
 		return null;
 	}
 
-	public void afficher()
+	public void afficherPlan()
 	{
 		
 	}
+	/*
+	public Pair<double,double> ConvertirEnPixel(double coordXEnMetre, double coordXEnMetre )
+	{    
+	    coordXResult = (double) coordXEnMetre * getWidth() / VuePlan.getLargeur();
+	    coordYResult = (double) coordYEnMetre * getWidth() / VuePlan.getHauteur();	  
+	}
+	*/
 
 }

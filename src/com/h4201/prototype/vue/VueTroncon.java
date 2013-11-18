@@ -1,6 +1,7 @@
 package com.h4201.prototype.vue;
 
 import java.awt.Color;
+import java.awt.Graphics;
 
 import com.h4201.prototype.modele.Troncon;
 
@@ -15,9 +16,9 @@ public class VueTroncon
 	private boolean etat;
 	private Color couleur;
 	
-	public VueTroncon()
+	public VueTroncon(Troncon troncon)
 	{
-		
+		this.troncon = troncon;
 	}
 	
 	public VueTroncon(Troncon troncon , Color couleur)
@@ -40,7 +41,7 @@ public class VueTroncon
 		return etat;		
 	}
 	
-	public void dessinerTroncon()
+	public void dessinerTroncon(Graphics g)
 	{
 		
 	}
