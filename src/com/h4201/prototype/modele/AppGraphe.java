@@ -109,17 +109,16 @@ public class AppGraphe
 		Vector<Troncon> listeTronconsActuelle = new Vector<Troncon>();
 		Vector<Troncon> tronconsSortants = new Vector<Troncon>();
 		Vector<Troncon> tronconsParcourus = new Vector<Troncon>();
-		Vector<Pair<Noeud, Double>> noeudsAccessibles = new Vector<Pair<Noeud, Double>();
+		Vector<Pair<Noeud, Double>> noeudsAccessibles = new Vector<Pair<Noeud, Double>>();
 		
 		listeTroncons.add(new Pair(new Vector<Troncon>(), 0));
 		int indexListeTronconsActuelle = 0;
-		Noeud noeudActuel = pointLivraisonDepart.getNoeud();
+		Pair<Noeud, Double> noeudActuel = new Pair(pointLivraisonDepart.getNoeud(), 0);
 		Noeud noeudFin = pointLivraisonArivee.getNoeud();
 		
-		while(noeudActuel != noeudFin){
+		while(noeudActuel.getFirst() != noeudFin){
 			listeTronconsActuelle = listeTroncons.get(indexListeTronconsActuelle).getFirst();
-			tronconsSortants = noeudActuel.getTronconsSortants();
-			Troncon minTroncon;
+			tronconsSortants = noeudActuel.getFirst().getTronconsSortants();
 			double minTemps = Double.MAX_VALUE;
 			
 			// Supprimer les troncons parcourus
@@ -127,24 +126,43 @@ public class AppGraphe
 				tronconsSortants.remove(tronconsParcourus.get(i));
 			}
 			
-			// Sélectionner le tronçon suivant de valeur minimale
+			// Ajouter/remplacer les noeuds acessibles
 			for (int i=0; i<tronconsSortants.size(); i++){
 				double temps = tronconsSortants.get(i).calculerTemps();
-				if (temps<minTemps){
-					minTemps = temps;
-					minTroncon = tronconsSortants.get(i);
+				boolean aEteRemplace = false;
+				for(int j=0; j<noeudsAccessibles.size(); j++){
+					if(noeudsAccessibles.get(i).getFirst() == tronconsSortants.get(i).getNoeudDestination()){
+						aEteRemplace = true;
+						// Affecter le nouveau poids s'il est plus petit
+						noeudsAccessibles.get(i).setSecond(Math.min(noeudsAccessibles.get(i).getSecond(), noeudActuel.getSecond()+temps));
+						break;
+					}
 				}
-				// Ajouter les noeuds acessibles
-				noeudsAccessibles.add(new Pair(tronconsSortants.get(i).getNoeudDestination(),listeTroncons.get(indexListeTronconsActuelle).getSecond()+temps));
+				if(!aEteRemplace){
+					noeudsAccessibles.add(new Pair(tronconsSortants.get(i).getNoeudDestination(), listeTroncons.get(indexListeTronconsActuelle).getSecond()+temps));
+				}
+				
+				// Sélectionne le noeud de poids le plus faible
+				for(int j=0; j<noeudsAccessibles.size(); j++){
+					if(noeudsAccessibles.get(j).getSecond() < minTemps){
+						noeudActuel = noeudsAccessibles.get(j);
+						minTemps = noeudsAccessibles.get(j).getSecond();
+					}
+				}	
 			}
-			listeTronconsActuelle.add(minTroncon);
-			tronconsParcourus.add(minTroncon);
-			
-			// Sélectionne le chemin de poids le plus faible
-			for(int i=0; i<listeTroncons.size(); i++){
-				listeTroncons.add(new Pair(new Vector<Troncon>(), 0));
+
+			// Supprimer les noeuds entièrement testés
+			if(tronconsSortants.size() == 0){
+				for(int i=0; i<noeudsAccessibles.size(); i++){
+					if (noeudsAccessibles.get(i).getFirst() == noeudActuel.getFirst()){
+						noeudsAccessibles.remove(i);
+					}else if(noeudsAccessibles.get(i).getSecond() < minTemps){
+						noeudActuel = noeudsAccessibles.get(i);
+						minTemps = noeudsAccessibles.get(i).getSecond();
+					}
+				}	
 			}
-			noeudActuel = listeTronconsActuelle.lastElement().getNoeudDestination();	
+					
 		}
 
 		return listeTronconsActuelle;
