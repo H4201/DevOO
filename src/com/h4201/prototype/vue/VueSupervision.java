@@ -1,9 +1,16 @@
 package com.h4201.prototype.vue;
 
+import javax.swing.JPanel;
+
 import com.h4201.prototype.modele.Noeud;
 
-public abstract class VueSupervision
+@SuppressWarnings("serial")
+public class VueSupervision extends JPanel
 {
-	public abstract Noeud clic(double x, double y);
-	public abstract void afficher();
+	public Noeud clic(double x, double y){
+		return null;
+	}
+	public void afficher(){
+		
+	}
 }

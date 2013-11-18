@@ -9,7 +9,7 @@ import org.w3c.dom.Element;
 import com.h4201.prototype.modele.Noeud;
 import com.h4201.prototype.modele.TrancheHoraire;
 
-public class VuePlan extends VueSupervision 
+public class VuePlan 
 {
 	private Vector<VueNoeud> lesNoeuds = new Vector<VueNoeud>();
 	private Vector<VueChemin> lesChemins = new Vector<VueChemin>();
@@ -91,17 +91,16 @@ public class VuePlan extends VueSupervision
 		
 	}
 
-	@Override
-	public Noeud clic(double x, double y)
-	{
-		// TODO Auto-generated method stub
+
+	public Noeud clicPlan(double x, double y){
+
 		return null;
 	}
 
-	@Override
+
 	public void afficher()
 	{
-		// TODO Auto-generated method stub
+
 		
 	}
 
