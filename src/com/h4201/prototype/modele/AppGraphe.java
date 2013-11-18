@@ -2,6 +2,7 @@ package com.h4201.prototype.modele;
 
 import java.util.Vector;
 
+import com.h4201.prototype.utilitaire.Pair;
 import com.h4201.prototype.exception.ExceptionNonInstancie;
 import com.h4201.prototype.exception.ExceptionTranchesHorairesNonOrdonees;
 
@@ -91,8 +92,8 @@ public class AppGraphe
 		double temps = 0;
 		
 		// Créer le chemin
-		//Chemin new chemin(pointLivraisonDepart, pointLivraisonArrivee, troncons, longueur, temps);
-		Chemin chemin = null;
+		Chemin new chemin(pointLivraisonDepart, pointLivraisonArrivee, troncons, longueur, temps);
+		
 		return chemin;
 	}
 
@@ -103,22 +104,50 @@ public class AppGraphe
 	 * @return La liste des Tronçons constituant le plus court chemin entre les 2 points.
 	 */
 	private Vector<Troncon> calculerPlusCourtChemin(PointLivraison pointLivraisonDepart, PointLivraison pointLivraisonArivee){
-		  
-		Vector<Vector<Troncon>> troncons = new Vector<Vector<Troncon>>();
-		Vector<Double> tempsTroncons = new Vector<Double>();
+		 
+		Vector<Pair<Vector<Troncon>, Double>> listeTroncons = new Vector<Pair<Vector<Troncon>, Double>>();
+		Vector<Troncon> listeTronconsActuelle = new Vector<Troncon>();
 		Vector<Troncon> tronconsSortants = new Vector<Troncon>();
+		Vector<Troncon> tronconsParcourus = new Vector<Troncon>();
+		Vector<Pair<Noeud, Double>> noeudsAccessibles = new Vector<Pair<Noeud, Double>();
 		
-		int indexTronconActuel = 0;
+		listeTroncons.add(new Pair(new Vector<Troncon>(), 0));
+		int indexListeTronconsActuelle = 0;
 		Noeud noeudActuel = pointLivraisonDepart.getNoeud();
 		Noeud noeudFin = pointLivraisonArivee.getNoeud();
-
-		tronconsSortants = noeudActuel.getTronconsSortants();
-		for (int i=0; i<tronconsSortants.size(); i++){
-			double temps = tronconsSortants.get(i).calculerTemps();
+		
+		while(noeudActuel != noeudFin){
+			listeTronconsActuelle = listeTroncons.get(indexListeTronconsActuelle).getFirst();
+			tronconsSortants = noeudActuel.getTronconsSortants();
+			Troncon minTroncon;
+			double minTemps = Double.MAX_VALUE;
 			
+			// Supprimer les troncons parcourus
+			for(int i=0; i<tronconsParcourus.size(); i++){
+				tronconsSortants.remove(tronconsParcourus.get(i));
+			}
+			
+			// Sélectionner le tronçon suivant de valeur minimale
+			for (int i=0; i<tronconsSortants.size(); i++){
+				double temps = tronconsSortants.get(i).calculerTemps();
+				if (temps<minTemps){
+					minTemps = temps;
+					minTroncon = tronconsSortants.get(i);
+				}
+				// Ajouter les noeuds acessibles
+				noeudsAccessibles.add(new Pair(tronconsSortants.get(i).getNoeudDestination(),listeTroncons.get(indexListeTronconsActuelle).getSecond()+temps));
+			}
+			listeTronconsActuelle.add(minTroncon);
+			tronconsParcourus.add(minTroncon);
+			
+			// Sélectionne le chemin de poids le plus faible
+			for(int i=0; i<listeTroncons.size(); i++){
+				listeTroncons.add(new Pair(new Vector<Troncon>(), 0));
+			}
+			noeudActuel = listeTronconsActuelle.lastElement().getNoeudDestination();	
 		}
-		Vector<Troncon> plusCourtChemin = null;
-		return plusCourtChemin;
+
+		return listeTronconsActuelle;
 	}
 }
 
