@@ -2,6 +2,18 @@ package com.h4201.prototype.modele;
 
 import java.util.Vector;
 
+<<<<<<< HEAD
+import com.h4201.prototype.modele.PointLivraison;
+import com.h4201.prototype.modele.Troncon;
+import com.h4201.prototype.modele.Entrepot;
+import com.h4201.prototype.modele.Plan;
+import com.h4201.prototype.modele.TrancheHoraire;
+import com.h4201.prototype.modele.AppGraphe;
+import com.h4201.prototype.modele.Chemin;
+import com.h4201.prototype.exception.ExceptionTranchesHorairesNonOrdonees;
+
+=======
+>>>>>>> 1bf41f2d2e48722fbd612e24293eea5d48e8a67f
 public class Tournee
 {
 	  private static int dernierIdTournee;
