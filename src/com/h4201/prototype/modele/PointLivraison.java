@@ -1,6 +1,10 @@
 package com.h4201.prototype.modele;
 
-
+/**
+ * 
+ * @author @macbric
+ *
+ */
 public class PointLivraison
 {
   private static int dernierIdPointLivraison;
@@ -12,6 +16,12 @@ public class PointLivraison
   private TrancheHoraire trancheHoraire;
   private boolean respecteTrancheHoraireDemandee;
 
+  /**
+   * 
+   * @param client
+   * @param noeud
+   * @param trancheHoraire
+   */
   public PointLivraison(String client, Noeud noeud, TrancheHoraire trancheHoraire)
   {
 	  this.idPointLivraison = PointLivraison.dernierIdPointLivraison++;
