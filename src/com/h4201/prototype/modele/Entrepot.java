@@ -4,9 +4,9 @@ public class Entrepot extends PointLivraison
 {
 	private int idEntrepot;
 
-  public Entrepot(Noeud noeud, TrancheHoraire trancheHoraire)
+  public Entrepot(Noeud noeud)
   {
-	  super(noeud, trancheHoraire);
+	  super(null, noeud, null);
   }
 
   public int getIdEntrepot()
@@ -14,4 +14,8 @@ public class Entrepot extends PointLivraison
 	  return this.idEntrepot;
   }
 
+@Override
+public String toString() {
+	return "Entrepot [idEntrepot=" + idEntrepot + ", pointLivraison=" + super.toString() + "]";
+}
 }

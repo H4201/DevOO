@@ -20,6 +20,8 @@ public class Noeud
 	  this.x = x;
 	  this.y = y;
 	  this.idNoeud = idNoeud;
+	  this.tronconsSortants = new Vector<Troncon>();
+	  this.tronconsEntrants = new Vector<Troncon>();
   }
 
   public double getX()
@@ -42,7 +44,7 @@ public class Noeud
 	  return this.tronconsEntrants;
   }
 
-  public void ajouterTronconEntrant(Troncon troncon)
+  protected void ajouterTronconEntrant(Troncon troncon)
   {
 	  this.tronconsEntrants.addElement(troncon);
   }
@@ -52,11 +54,16 @@ public class Noeud
 	  return this.tronconsEntrants;
   }
 
-  public void ajouterTronconSortant(Troncon troncon)
+  protected void ajouterTronconSortant(Troncon troncon)
   {
 	  this.tronconsSortants.addElement(troncon);
   }
 
+  public void afficher()
+  {
+	  System.out.println(this.toString());
+  }
+  
 	@Override
 	public String toString() {
 		return "Noeud [idNoeud=" + idNoeud + ", x=" + x + ", y=" + y + "]";

@@ -2,8 +2,10 @@ package com.h4201.prototype.test;
 
 import java.io.File;
 
-import com.h4201.prototype.controleur.FabriquePlan;
+import com.h4201.prototype.modele.CreationDemandeLivraison;
+import com.h4201.prototype.modele.CreationPlan;
 import com.h4201.prototype.modele.Plan;
+import com.h4201.prototype.modele.Tournee;
 
 public class Test
 {
@@ -19,6 +21,7 @@ public class Test
 		try
 		{
 			testChargerPlan();
+			testChargerDemandeLivraison();
 		}
 		catch(Exception e)
 		{
@@ -30,10 +33,21 @@ public class Test
 	
 	public void testChargerPlan() throws Exception
 	{
-		File planXML = new File("test/plan10x10.xml");
-		Plan plan = FabriquePlan.depuisXML(planXML);
+		File planXML = new File("test/plan20x20.xml");
+		Plan plan = CreationPlan.depuisXML(planXML);
 		
-		System.out.print(plan.toString());
+		plan.afficher();
+		
+		// TODO : Tests avec jUnit
 	} 
-
+	
+	public void testChargerDemandeLivraison() throws Exception
+	{
+		File demandeLivraisonXML = new File("test/livraison20x20-2.xml");
+		Tournee tournee = CreationDemandeLivraison.depuisXML(demandeLivraisonXML);
+		
+		tournee.afficher();
+		
+		// TODO : Tests avec jUnit
+	}
 }

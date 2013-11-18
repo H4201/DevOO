@@ -3,18 +3,48 @@ package com.h4201.prototype.modele;
 import java.util.HashMap;
 import java.util.Vector;
 
-public class Plan
-{
-  private Vector<Troncon> troncons;
-  private HashMap<Integer, Noeud> noeuds;
+import com.h4201.prototype.exception.ExceptionNonInstancie;
 
-  public Plan(Vector<Troncon> troncons, HashMap<Integer, Noeud> noeuds)
+public final class Plan
+{
+	private static volatile Plan instance = null;
+	
+	private Vector<Troncon> troncons;
+	private HashMap<Integer, Noeud> noeuds;
+
+  private Plan(Vector<Troncon> troncons, HashMap<Integer, Noeud> noeuds)
   {
 	  this.troncons = troncons;
 	  this.noeuds = noeuds;
   }
+  
+  public final static Plan setInstance(Vector<Troncon> troncons, 
+		  HashMap<Integer, Noeud> noeuds) throws ExceptionNonInstancie
+  {
+	synchronized(Plan.class)
+	{
+		Plan.instance = new Plan(troncons, noeuds);
+	}
+	
+	return getInstance();
+  }
+  
+  public final static Plan getInstance() throws ExceptionNonInstancie
+  {
+      if(Plan.instance == null) 
+      {
+    	  throw new ExceptionNonInstancie(Plan.class.getName());
+      }
+      
+	  return Plan.instance;
+  }
+  
+  public final Noeud getNoeudDepuisIdNoeud(Integer idNoeud)
+  {
+	  return noeuds.get(idNoeud);
+  }
 
-  public Vector<Troncon> getTroncons()
+  public final Vector<Troncon> getTroncons()
   {
 	  return troncons;
   }
@@ -24,6 +54,23 @@ public class Plan
 	  return noeuds;
   }
 
+  public void afficher()
+  {
+	  System.out.println("\nPLAN");
+	  
+	  System.out.println("Troncons : ");
+	  for(Troncon troncon : troncons)
+	  {
+		  troncon.afficher();
+	  }
+	  
+	  	System.out.println("Noeuds : ");
+		for (Integer key : noeuds.keySet())
+		{
+			noeuds.get(key).afficher();
+		}
+  }
+  
 	@Override
 	public String toString() {
 		String s = "Plan [troncons=[" + troncons + "], noeuds=" + noeuds + "]";

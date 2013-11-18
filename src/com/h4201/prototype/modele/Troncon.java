@@ -55,12 +55,17 @@ public class Troncon
 	public Noeud getNoeudDestination() {
 		return noeudDestination;
 	}
+	
+	public void afficher()
+	{
+		System.out.println(this.toString());
+	}
 
 	@Override
 	public String toString() {
 		return "Troncon [idTroncon=" + idTroncon + ", longueur=" + longueur 
 				+ ", vitesse=" + vitesse
 				+ ", noeudOrigine=" + noeudOrigine
-				+ ", noeudDestination=" + noeudDestination + "]\n";
+				+ ", noeudDestination=" + noeudDestination + "]";
 	}
 }
