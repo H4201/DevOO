@@ -8,8 +8,16 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JTable;
 
 
-@SuppressWarnings("serial")
+
 public class VueFeuilleDeRoute extends JFrame {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
+	 * 
+	 */
 
 	private JPanel contentPane;
 	private JTable table;
