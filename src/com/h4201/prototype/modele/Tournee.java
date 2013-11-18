@@ -1,8 +1,6 @@
 package com.h4201.prototype.modele;
 
 import java.util.Vector;
-
-
 import com.h4201.prototype.modele.Entrepot;
 import com.h4201.prototype.modele.TrancheHoraire;
 import com.h4201.prototype.modele.Chemin;
