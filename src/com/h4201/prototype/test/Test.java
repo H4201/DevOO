@@ -7,6 +7,7 @@ import com.h4201.prototype.modele.CreationPlan;
 import com.h4201.prototype.modele.Plan;
 import com.h4201.prototype.modele.Tournee;
 
+
 public class Test
 {
 	public Test()
@@ -50,4 +51,5 @@ public class Test
 		
 		// TODO : Tests avec jUnit
 	}
+
 }

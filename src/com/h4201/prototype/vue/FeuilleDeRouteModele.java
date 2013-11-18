@@ -47,7 +47,7 @@ public class FeuilleDeRouteModele extends AbstractTableModel  {
 		            case 0:
 		                return lesPointsLivraisons.get(rowIndex).getIdPointLivraison();
 		            case 1:
-		                return lesPointsLivraisons.get(rowIndex).getNoeud();// ajouter getadresse, adresse n'apparait null part
+		                return lesPointsLivraisons.get(rowIndex).getNoeud().getIdNoeud();// ajouter getadresse, adresse n'apparait null part
 		            case 2:
 		                return lesPointsLivraisons.get(rowIndex).getTrancheHoraire().getHeureDebut();
 		            case 3:

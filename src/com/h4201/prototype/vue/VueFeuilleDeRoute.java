@@ -1,7 +1,6 @@
 package com.h4201.prototype.vue;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -16,20 +15,11 @@ public class VueFeuilleDeRoute extends JFrame {
 	private JTable table;
 
 	/**
-	 * Launch the application.
+	 * 
+	 * 
+	 * @param 
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VueFeuilleDeRoute frame = new VueFeuilleDeRoute();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	
 
 	/**
 	 * Create the frame.
