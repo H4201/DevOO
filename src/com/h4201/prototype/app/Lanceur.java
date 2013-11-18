@@ -1,6 +1,7 @@
 package com.h4201.prototype.app;
 
 import com.h4201.prototype.test.Test;
+import com.h4201.prototype.test.TestInterface;
 
 public class Lanceur
 {
@@ -14,6 +15,11 @@ public class Lanceur
 		{
 			Test phaseDeTests = new Test();
 			phaseDeTests.executerTests();
+		}
+		else if(argv[0].equals("supervision")) // Lancement des tests de l'affichage de l'interface
+		{
+			TestInterface superv = new TestInterface();
+			superv.executerTest();
 		}
 	}
 }
