@@ -2,6 +2,14 @@ package com.h4201.prototype.modele;
 
 import java.util.Vector;
 
+import com.h4201.prototype.modele.PointLivraison;
+import com.h4201.prototype.modele.Troncon;
+import com.h4201.prototype.modele.Entrepot;
+import com.h4201.prototype.modele.Plan;
+import com.h4201.prototype.modele.TrancheHoraire;
+import com.h4201.prototype.modele.AppGraphe;
+import com.h4201.prototype.modele.Chemin;
+import com.h4201.prototype.exception.ExceptionTranchesHorairesNonOrdonees;
 
 public class Tournee
 {
