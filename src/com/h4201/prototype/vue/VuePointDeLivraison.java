@@ -23,6 +23,11 @@ public class VuePointDeLivraison extends VueNoeud
 	{
 		
 	}
+	
+	public void dessinerPointLivraison()
+	{
+		
+	}
 
 
 }

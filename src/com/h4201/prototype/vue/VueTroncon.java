@@ -40,7 +40,7 @@ public class VueTroncon
 		return etat;		
 	}
 	
-	public void afficherChemin()
+	public void dessinerTroncon()
 	{
 		
 	}

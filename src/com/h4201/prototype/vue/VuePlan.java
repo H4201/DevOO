@@ -1,114 +1,62 @@
 package com.h4201.prototype.vue;
 
+import javax.swing.JPanel;
+
+import com.h4201.prototype.exception.ExceptionNonInstancie;
+import com.h4201.prototype.modele.Noeud;
+import com.h4201.prototype.modele.Plan;
+import com.h4201.prototype.modele.Troncon;
+
 import java.awt.Color;
+import java.util.Map;
 import java.util.Vector;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-
-import com.h4201.prototype.modele.Noeud;
-import com.h4201.prototype.modele.TrancheHoraire;
-
 @SuppressWarnings("serial")
-public class VuePlan extends VueSupervision 
-{
-	private Vector<VueNoeud> lesNoeuds = new Vector<VueNoeud>();
-	private Vector<VueChemin> lesChemins = new Vector<VueChemin>();
-	private Vector<VueTroncon> lesTroncons = new Vector<VueTroncon>();
-	private double largeur;
-	private double hauteur;
-	private Color couleurArrierePlan;
+public class VuePlan extends JPanel
 
+{
+	
+	private Plan plan;
+	
 	public VuePlan()
 	{
-		
+		setBackground(Color.BLUE);
+		try
+		{
+			plan = Plan.getInstance();
+		} 
+		catch (ExceptionNonInstancie e)
+		{
+			e.printStackTrace();
+		}
 	}
 	
-	public VuePlan(double larg, double haute, Color arrierePlan)
+	/*
+	 * methode permettant de dessiner  tt (appel dessiner de chemin au troncon associé, appel dessiner de tt les tronçons, appel dessiner de noeud
+	 * ( a partir de x, y  dessine un noeud, dessiner un point de livraison au noeud(associer une couleur))
+	 */
+	
+	public void dessinerPlan()
 	{
-		largeur = larg;
-        hauteur = haute;
-        couleurArrierePlan = arrierePlan;
+		Map<Integer, Noeud> lesNoeuds = plan.getNoeuds();
+		Vector<Troncon> lesTronçons = plan.getTroncons();
+		for(Integer idNoeud : lesNoeuds.keySet())
+		{
+			double x = lesNoeuds.get(idNoeud).getX();
+			double y = lesNoeuds.get(idNoeud).getY();
+			
+			//VueNoeud noeud = new VueNoeud(x,y,);
+		}
 	}
 	
-	public Vector<VueNoeud> getLesNoeuds()
-	{
-		return lesNoeuds;
-	}
 	
-	public Vector<VueChemin> getLesChemins()
-	{
-		return lesChemins;
-	}
-	
-	public Vector<VueTroncon> getLesTroncons()
-	{
-		return lesTroncons;
-	}
-
-	public double getLargeur()
-	{
-		return largeur;
-	}
-
-	public double getHauteur()
-	{
-		return hauteur;
-	}
-	
-	public Color getCouleurArrierePlan()
-	{
-		return couleurArrierePlan;
-	}
-	
-	public void setCouleurArrierePlan(Color couleur)
-	{
-		couleurArrierePlan = couleur;
-	}
-	
-	public Noeud getNoeud(double x, double y)
+	public Noeud clicPlan(double x, double y)
 	{
 		return null;
 	}
-	
-	public Element creerNoeudXML(Document document)
-	{
-		return null;
-		
-	}
-	
-	public int construireAPartirDeDOMXML(Element noeudDOMRacine)
-	{
-		return 0;
-		
-	}
-	
-	public void ajouterNoeud(VueNoeud noeud)
-	{
-		
-	}
-	
-	public void ajouterPointDeLivraison(VueNoeud noeud, TrancheHoraire trancheHoraire, Color couleur)
-	{
-		
-	}
-	
-	public void supprimerPointDeLivraison(VueNoeud noeud, TrancheHoraire trancheHoraire)
-	{
-		
-	}
 
-	@Override
-	public Noeud clic(double x, double y)
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public void afficher()
 	{
-		// TODO Auto-generated method stub
 		
 	}
 

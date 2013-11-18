@@ -2,6 +2,8 @@ package com.h4201.prototype.vue;
 
 import java.awt.Color;
 
+import com.h4201.prototype.modele.Noeud;
+
 public class VueNoeud
 {
 	private double x;
@@ -44,7 +46,7 @@ public class VueNoeud
 		return false;		
 	}
 	
-	public void afficherNoeud()
+	public void dessinerNoeud()
 	{
 		
 	}

@@ -30,7 +30,7 @@ public class VueChemin
 		return couleur;
 	}
 	
-	public void afficherChemin()
+	public void dessinerChemin()
 	{
 		
 	}
