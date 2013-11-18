@@ -9,10 +9,12 @@ import org.w3c.dom.Element;
 import com.h4201.prototype.modele.Noeud;
 import com.h4201.prototype.modele.TrancheHoraire;
 
+@SuppressWarnings("serial")
 public class VuePlan extends VueSupervision 
 {
 	private Vector<VueNoeud> lesNoeuds = new Vector<VueNoeud>();
 	private Vector<VueChemin> lesChemins = new Vector<VueChemin>();
+	private Vector<VueTroncon> lesTroncons = new Vector<VueTroncon>();
 	private double largeur;
 	private double hauteur;
 	private Color couleurArrierePlan;
@@ -37,6 +39,11 @@ public class VuePlan extends VueSupervision
 	public Vector<VueChemin> getLesChemins()
 	{
 		return lesChemins;
+	}
+	
+	public Vector<VueTroncon> getLesTroncons()
+	{
+		return lesTroncons;
 	}
 
 	public double getLargeur()
@@ -104,8 +111,5 @@ public class VuePlan extends VueSupervision
 		// TODO Auto-generated method stub
 		
 	}
-
-
-
 
 }
