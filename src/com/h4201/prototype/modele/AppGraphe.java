@@ -2,6 +2,7 @@ package com.h4201.prototype.modele;
 
 import java.util.Vector;
 
+import com.h4201.prototype.exception.ExceptionNonInstancie;
 import com.h4201.prototype.exception.ExceptionTranchesHorairesNonOrdonees;
 
 public class AppGraphe
@@ -14,10 +15,22 @@ public class AppGraphe
 		
 	}
 	
-	public Tournee GenererTournee(Plan plan, Entrepot entrepot, TrancheHoraire[] tranchesHoraire)
-		  throws ExceptionTranchesHorairesNonOrdonees{	
+	/**
+	 * Génère et crée la tournée optimisée de la journée. Il faut au préalable que le modèle soit entièrement généré
+	 * (tranchesHoraires etc.). Ne vérifie pas si les tranches horaires sont respectées 
+	 * @param entrepot
+	 * @param tranchesHoraire
+	 * @return La tournée créée.
+	 * @throws ExceptionTranchesHorairesNonOrdonees Si les tranches horaires ne sont pas dans l'ordre, et sans
+	 * chevauchement, la tournée n'est pas calculée.
+	 * @throws ExceptionNonInstancie Si le plan n'est pas correctement instancié
+	 */
+	public Tournee GenererTournee(Entrepot entrepot, TrancheHoraire[] tranchesHoraire)
+		  throws ExceptionTranchesHorairesNonOrdonees, ExceptionNonInstancie{	
+		Plan plan = Plan.getInstance();
+		
 		// Créer un nouveau Graphe
-		AppGraphe graphe = null;
+		Tournee tournee = null;
 		
 		// Parcourir les tranches horaires de manière ordonnée
 		for (int i=0; i<tranchesHoraire.length; i++){
@@ -33,7 +46,7 @@ public class AppGraphe
 					// Créer un chemin vers tous les autres points de livraison de la même tranche
 					for (int k=0; k<pointsLivraison.size(); k++){
 						if (pointsLivraison.get(j) != pointsLivraison.get(k)) {
-							creerChemin(pointsLivraison.get(j), pointsLivraison.get(k), plan, graphe);
+							creerChemin(pointsLivraison.get(j), pointsLivraison.get(k));
 						}
 					}
 					
@@ -41,19 +54,19 @@ public class AppGraphe
 					if (i < tranchesHoraire.length-1){
 						Vector<PointLivraison> pointsLivraisonTrancheSuivante = tranchesHoraire[i+1].getPointsLivraisons();
 						for (int k=0; k<pointsLivraisonTrancheSuivante.size(); k++){
-							creerChemin(pointsLivraison.get(j), pointsLivraisonTrancheSuivante.get(k), plan, graphe);
+							creerChemin(pointsLivraison.get(j), pointsLivraisonTrancheSuivante.get(k));
 						}
 					}
 	
 					
 					// Pour la première tranche, créer un chemin depuis l'entrepôt 
 					if (i==0) {
-						creerChemin(entrepot, pointsLivraison.get(j), plan, graphe);
+						creerChemin(entrepot, pointsLivraison.get(j));
 					}
 					
 					// Pour la dernière tranche, créer un chemin vers l'entrepôt 
 					if (i==tranchesHoraire.length-1) {
-						creerChemin(pointsLivraison.get(j), entrepot, plan, graphe);
+						creerChemin(pointsLivraison.get(j), entrepot);
 					}
 				}
 			} else {
@@ -61,30 +74,55 @@ public class AppGraphe
 			}
 		}	
 		
-		return this;
+		return tournee;
 	}
 	  
-	  private Chemin creerChemin(PointLivraison pointLivraisonDepart, PointLivraison pointLivraisonArrivee, Plan plan, AppGraphe graphe){ 
+	/**
+	 * Crée l'objet chemin entre pointLivraisonDepart et pointLivraisonArrivee, en y incluant le chemin le plus court.
+	 * @param pointLivraisonDepart
+	 * @param pointLivraisonArrivee
+	 * @param plan
+	 * @return Le chemin créé.
+	 */
+	private Chemin creerChemin(PointLivraison pointLivraisonDepart, PointLivraison pointLivraisonArrivee){ 
 		//Calcule le plus court chemin entre pointLivraisonDepart et pointLivraisonArivee dans G
-		  Vector<Troncon> troncons = calculerPlusCourtChemin(pointLivraisonDepart, pointLivraisonArrivee, plan);
-
-		for (int i=0; i<troncons.size(); i++){
-			// des trucs
-		}
+		Vector<Troncon> troncons = calculerPlusCourtChemin(pointLivraisonDepart, pointLivraisonArrivee);
+		double longueur = 0;
+		double temps = 0;
 		
 		// Créer le chemin
+		//Chemin new chemin(pointLivraisonDepart, pointLivraisonArrivee, troncons, longueur, temps);
 		Chemin chemin = null;
-		
 		return chemin;
-	  }
+	}
 
-	  private Vector<Troncon> calculerPlusCourtChemin(PointLivraison pointLivraisonDepart, PointLivraison pointLivraisonArivee, Plan plan){
+	/**
+	 * Implémente l'algorithme de Dijkstra entre pointLivraisonDepart et pointLivraisonArivee.
+	 * @param pointLivraisonDepart
+	 * @param pointLivraisonArivee
+	 * @return La liste des Tronçons constituant le plus court chemin entre les 2 points.
+	 */
+	private Vector<Troncon> calculerPlusCourtChemin(PointLivraison pointLivraisonDepart, PointLivraison pointLivraisonArivee){
 		  
-		  
-		  
-		  Vector<Troncon> plusCourtChemin = null;
-		  
-		  
-		  return plusCourtChemin;
-	  }
+		Vector<Vector<Troncon>> troncons = new Vector<Vector<Troncon>>();
+		Vector<Double> tempsTroncons = new Vector<Double>();
+		Vector<Troncon> tronconsSortants = new Vector<Troncon>();
+		
+		int indexTronconActuel = 0;
+		Noeud noeudActuel = pointLivraisonDepart.getNoeud();
+		Noeud noeudFin = pointLivraisonArivee.getNoeud();
+
+		tronconsSortants = noeudActuel.getTronconsSortants();
+		for (int i=0; i<tronconsSortants.size(); i++){
+			double temps = tronconsSortants.get(i).calculerTemps();
+			
+		}
+		Vector<Troncon> plusCourtChemin = null;
+		return plusCourtChemin;
+	}
 }
+
+
+
+
+
