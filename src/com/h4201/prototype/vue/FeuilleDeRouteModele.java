@@ -1,5 +1,6 @@
 package com.h4201.prototype.vue;
 
+
 import com.h4201.prototype.modele.PointLivraison;
 
 import java.util.ArrayList;
@@ -9,17 +10,19 @@ import javax.swing.table.AbstractTableModel;
 
 @SuppressWarnings("serial")
 public class FeuilleDeRouteModele extends AbstractTableModel  {
-
-
+	
 	private final ArrayList<PointLivraison> lesPointsLivraisons = new ArrayList<PointLivraison> ();
+	
 	 
     private final String[] entetes = {"Point de Livraison", "Adresse de livraison", "Heure d'arrivée", "Heure de départ", "Itinéraire", "Contact Client"};
     
-
-	public FeuilleDeRouteModele() {
+ 
+	public FeuilleDeRouteModele()
+	{
 		 super();
-	      lesPointsLivraisons.add(new PointLivraison(null, null, null)); // ajouter les paramètres
-		
+		for(PointLivraison pointLivraison:lesPointsLivraisons){
+	      lesPointsLivraisons.add(new PointLivraison(pointLivraison.getClient(), pointLivraison.getNoeud() , pointLivraison.getTrancheHoraire())); // ajouter les paramètres
+		}
 	}
 
 	@Override
