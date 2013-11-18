@@ -1,9 +1,7 @@
 package com.h4201.prototype.app;
 
 import com.h4201.prototype.test.Test;
-
-import com.h4201.prototype.test.TestVueFeuilleDeRoute;
-
+import com.h4201.prototype.test.TestChargementXml;
 import com.h4201.prototype.test.TestInterface;
 
 
@@ -15,18 +13,10 @@ public class Lanceur
 		{
 			// TODO Lancement de l'application
 		}
-		else if(argv[0].equals("test")) // Lancement des tests
+		else if(argv[0].equals("testChargementXml"))
 		{
-			Test phaseDeTests = new Test();
-			phaseDeTests.executerTests();
-			
-			
-		}
-		
-		else if(argv[0].equals("testVueFeuilleDeRoute")){
-			TestVueFeuilleDeRoute phaseDeTestVueFeuilleDeRoute = new TestVueFeuilleDeRoute();
-			phaseDeTestVueFeuilleDeRoute.executerTestVueFeuilleDeRoute();
-			
+			TestChargementXml testChargementXml = new TestChargementXml();
+			testChargementXml.executerTests();
 		}
 		else if(argv[0].equals("supervision")) // Lancement des tests de l'affichage de l'interface
 		{
