@@ -42,23 +42,16 @@ public final class Controleur
         return Controleur.instance;
     }
     
-    public void annuler()
-    {
-    	
-    }
-    
-    public void retablir()
-    {
-    	
-    	
-    }
-    
     public void ajoutPointLivraison(int idTournee, Noeud noeud, TrancheHoraire trancheHoraire)
     {
     	Tournee tournee = tournees.get(Integer.valueOf(idTournee));
     	CmdAjouterPtLivraison commandeAjout = new CmdAjouterPtLivraison(tournee, noeud, trancheHoraire);
     	commandeAjout.do_();
+    	
+    	//MAJ des redos/undos
+    	redos.clear(); // popAll()
     	undos.push(commandeAjout);
+    	// sur la vue : griser 'retablir' && degriser 'annuler'
     }
     
     public void supprimerPointLivraison(int idTournee, PointLivraison pointLivraison)
@@ -66,7 +59,57 @@ public final class Controleur
     	Tournee tournee = tournees.get(Integer.valueOf(idTournee));
     	CmdSupprimerPtLivraison commandeSuppr = new CmdSupprimerPtLivraison(tournee, pointLivraison);
     	commandeSuppr.do_();
+    	
+    	//MAJ des redos/undos
+    	redos.clear(); // popAll()
     	undos.push(commandeSuppr);
+    	// sur la vue : griser 'retablir' && degriser 'annuler'
+    }
+
+    /**
+     * Annuler la derniere Commande effectuee.
+     * @return true si il n'y a plus d'annulation possible (avant ou) après l'execution de cette methode, false sinon.
+     * Permet d'informer la vue qu'il faux griser/muter le bouton 'annuler' dans l'interface si plus d'annulation possible.
+     */
+    public boolean annuler()
+    {
+    	if(!undos.isEmpty())
+    	{
+    		Commande cmd = undos.pop();
+    		cmd.do_();
+    		redos.push(cmd);
+    	} 
+    	// else il n'y a rien a annuler.
+    	
+    	// determiner le grisage eventuel du bouton 'annuler'
+    	if(undos.isEmpty())
+    		return true;
+    	
+    	return false;
+    }
+    
+    /**
+     * Retablir la derniere Commande annulee.
+     * @return true si il n'y a plus de retablissement possible (avant ou) après l'execution de cette methode, false sinon.
+     * Permet d'informer la vue qu'il faux griser/muter le bouton 'retablir' dans l'interface si plus de retablissement possible.
+     */    
+    public boolean retablir()
+    {
+    	if(!redos.isEmpty())
+    	{
+    		Commande cmd = redos.pop();
+    		cmd.do_();
+    		undos.push(cmd);
+    	} 
+    	// else il n'y a rien a retablir.
+    	
+    	// determiner le grisage eventuel du bouton 'retablir'
+    	if(redos.isEmpty())
+    	{
+    		return true;
+    	}
+    	
+    	return false;
     }
     
     public void chargerPlan(File fichierXML)
