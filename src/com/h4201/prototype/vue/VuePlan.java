@@ -1,29 +1,22 @@
 package com.h4201.prototype.vue;
 
+import java.awt.Color;
+import java.awt.Graphics;
+import java.util.Map;
+import java.util.Vector;
+
 import javax.swing.JPanel;
 
 import com.h4201.prototype.exception.ExceptionNonInstancie;
 import com.h4201.prototype.modele.Noeud;
 import com.h4201.prototype.modele.Plan;
 import com.h4201.prototype.modele.Troncon;
-
-import java.awt.Color;
-import java.awt.Graphics;
-import java.util.Map;
-import java.util.Vector;
+import com.h4201.prototype.utilitaire.Constante;
 
 @SuppressWarnings("serial")
 public class VuePlan extends JPanel
 {
 	
-	/*
-	 * constante pour le plan
-	 */
-	public static final int LONGUEUR = 240;
-	public static final int LARGEUR = 240;
-	public static final int RAYON = 5;
-	public static final int RAYONENTREPOT = 10;
-	public static final Color ARRIEREPLAN = Color.BLUE;
 	
 	private Plan plan;
 	private double largeur;
@@ -74,7 +67,6 @@ public class VuePlan extends JPanel
 			{
 				lesVueTroncons.add(new VueTroncon(leTroncon));
 			}
-				
 			
 		} catch (ExceptionNonInstancie e)
 		{
@@ -82,17 +74,23 @@ public class VuePlan extends JPanel
 		}
 	}
 	
-	/*
-	 * methode permettant de dessiner  tt (appel dessiner de chemin au troncon associé, appel dessiner de tt les tronçons, appel dessiner de noeud
-	 * ( a partir de x, y  dessine un noeud, dessiner un point de livraison au noeud(associer une couleur))
-	 */
-	
 	public void dessinerPlan(Graphics g)
 	{
+		super.paintComponent(g);
+		this.setBackground(Constante.ARRIEREPLAN);
+		
+		for(VueNoeud vueNoeud : lesVueNoeuds )
+		{
+			vueNoeud.dessinerNoeud(g);
+		}
+		
+		for(VueTroncon vueTroncon : lesVueTroncons )
+		{
+			vueTroncon.dessinerTroncon(g);
+		}
 		
 	}
-	
-	
+		
 	public Noeud clicPlan(double x, double y)
 	{
 		return null;
@@ -102,12 +100,5 @@ public class VuePlan extends JPanel
 	{
 		
 	}
-	/*
-	public Pair<double,double> ConvertirEnPixel(double coordXEnMetre, double coordXEnMetre )
-	{    
-	    coordXResult = (double) coordXEnMetre * getWidth() / VuePlan.getLargeur();
-	    coordYResult = (double) coordYEnMetre * getWidth() / VuePlan.getHauteur();	  
-	}
-	*/
 
 }

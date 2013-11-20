@@ -3,37 +3,25 @@ package com.h4201.prototype.vue;
 import java.awt.Color;
 import java.awt.Graphics;
 
+import javax.swing.JPanel;
+
 import com.h4201.prototype.modele.Troncon;
+import com.h4201.prototype.utilitaire.Constante;
 
-/* on affichera dans le plan les noeuds et les points de livraisons depuis les fichiers XML
- * puis la tournée constituée d'un ensemble de chemins ( entre deux points de livraisons)
- * et non les tronçons (entre deux noeuds quelconques)
- */
-
-public class VueTroncon
+@SuppressWarnings("serial")
+public class VueTroncon extends JPanel
 {
 	private Troncon troncon;
 	private boolean etat;
-	private Color couleur;
 	
 	public VueTroncon(Troncon troncon)
 	{
 		this.troncon = troncon;
 	}
 	
-	public VueTroncon(Troncon troncon , Color couleur)
-	{
-		
-	}
-	
 	public Troncon getTroncon()
 	{
 		return troncon;
-	}
-	
-	public Color getCouleur()
-	{
-		return couleur;
 	}
 	
 	public boolean getEtat()
@@ -43,6 +31,15 @@ public class VueTroncon
 	
 	public void dessinerTroncon(Graphics g)
 	{
+		Color cTemp = g.getColor();
+		int x1 = (int)  troncon.getNoeudDestination().getX() * getWidth() / Constante.LARGEUR;
+		int y1 = (int)  troncon.getNoeudDestination().getY() * getWidth() / Constante.HAUTEUR;
+		int x2 = (int)  troncon.getNoeudOrigine().getX() * getWidth() / Constante.LARGEUR;
+		int y2 = (int)  troncon.getNoeudOrigine().getY() * getWidth() / Constante.HAUTEUR;
+		g.setColor(Constante.COULEURTRONCON);
+		g.drawLine(x1, y1, x2, y2);
+		g.setColor(cTemp);
+		
 		
 	}
 	

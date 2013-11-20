@@ -3,15 +3,17 @@ package com.h4201.prototype.vue;
 import java.awt.Color;
 import java.awt.Graphics;
 
-import com.h4201.prototype.modele.Noeud;
+import javax.swing.JPanel;
 
-public class VueNoeud
+import com.h4201.prototype.modele.Noeud;
+import com.h4201.prototype.utilitaire.Constante;
+
+@SuppressWarnings("serial")
+public class VueNoeud extends JPanel
 {
 	private Noeud noeud;
-	private double rayon;
-	private Color couleur;
 	
-	public VueNoeud(Noeud Vuenoeud)
+	public VueNoeud(Noeud noeud)
 	{
 		this.noeud = noeud;
 	}
@@ -21,27 +23,20 @@ public class VueNoeud
 		return noeud;
 	}
 
-	public double getRayon()
-	{
-		return rayon;
-	}
-	public Color getCouleur()
-	{
-		return couleur;
-	}
-	
 	public boolean estClique(double x, double y)
 	{
 		return false;		
 	}
 	
 	public void dessinerNoeud(Graphics g)
-	{
-		double x = noeud.getX();
-		double y = noeud.getY();
-		//g.fillRect(, , x, y);
+	{	
+		Color cTemp = g.getColor();
+		int x = (int) noeud.getX() * getWidth() / Constante.LARGEUR;
+		int y = (int) noeud.getY() * getWidth() / Constante.HAUTEUR;
+		int rayon = (int) (Constante.RAYONNOEUD * getWidth() / Constante.LARGEUR);
+		g.setColor(Constante.COULEURNOEUD);
+		g.fillOval((int) x - rayon ,(int) y - rayon , 2*rayon , 2*rayon);
+        g.setColor(cTemp);
 	}
-	
-	
 
 }
