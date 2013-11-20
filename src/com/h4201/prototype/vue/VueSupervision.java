@@ -16,9 +16,6 @@ import javax.swing.AbstractButton;
 import com.h4201.prototype.modele.Noeud;
 //import com.h4201.prototype.modele.Plan;
 
-@SuppressWarnings("serial")
-
-public class VueSupervision extends JPanel
 
 public class VueSupervision extends MouseAdapter implements ActionListener
 {
@@ -102,7 +99,7 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 	// Methode appelee quand un bouton est clique 
 	@Override
 	public void actionPerformed(ActionEvent evt) {
-		if (evt.getActionCommand().equals("Charger plan"))
+		/*if (evt.getActionCommand().equals("Charger plan"))
 			//dessin.setCouleurArrierePlan(Color.blue);
 		else if (evt.getActionCommand().equals("Charger demande de livraisons"))
 			
@@ -119,7 +116,7 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 		else if (evt.getActionCommand().equals("Supprimer"))
 			
 	    else // Quitter
-			System.exit(0);
+			System.exit(0);*/
 		fenetre.repaint();
 	}
 	
