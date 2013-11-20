@@ -16,10 +16,6 @@ import javax.swing.AbstractButton;
 import com.h4201.prototype.modele.Noeud;
 //import com.h4201.prototype.modele.Plan;
 
-@SuppressWarnings("serial")
-
-public class VueSupervision extends JPanel
-
 public class VueSupervision extends MouseAdapter implements ActionListener
 {
 	//le modele
@@ -104,7 +100,6 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 	public void actionPerformed(ActionEvent evt) {
         
 	}
-	
 	
 	public Noeud clic(double x, double y){
 		return null;
