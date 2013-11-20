@@ -98,7 +98,25 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 	// Methode appelee quand un bouton est clique 
 	@Override
 	public void actionPerformed(ActionEvent evt) {
-        
+		if (evt.getActionCommand().equals("Charger plan"))
+			//dessin.setCouleurArrierePlan(Color.blue);
+		else if (evt.getActionCommand().equals("Charger demande de livraisons"))
+			
+		else if (evt.getActionCommand().equals("Generer la feuille de route"))
+			
+ 		else if (evt.getActionCommand().equals("Annuler"))
+			
+		else if (evt.getActionCommand().equals("Retablir"))
+			
+		else if (evt.getActionCommand().equals("Calculer la tournee"))
+			
+		else if (evt.getActionCommand().equals("Ajouter"))
+			
+		else if (evt.getActionCommand().equals("Supprimer"))
+			
+	    else // Quitter
+			System.exit(0);
+		fenetre.repaint();
 	}
 	
 	
