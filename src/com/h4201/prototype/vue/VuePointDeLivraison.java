@@ -4,10 +4,13 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Vector;
 
 import javax.swing.JPanel;
 
+import com.h4201.prototype.controleur.Controleur;
 import com.h4201.prototype.modele.PointLivraison;
+import com.h4201.prototype.modele.Tournee;
 import com.h4201.prototype.modele.TrancheHoraire;
 import com.h4201.prototype.utilitaire.Constante;
 
@@ -15,6 +18,7 @@ import com.h4201.prototype.utilitaire.Constante;
 public class VuePointDeLivraison extends JPanel
 {
 	private PointLivraison pointLivraison;
+	private Vector<Tournee> lesTournees = new Vector<Tournee>();
 	private Map<TrancheHoraire, Color> CouleursTranchesHoraires = new HashMap<TrancheHoraire,Color>();
 
 	
@@ -25,6 +29,7 @@ public class VuePointDeLivraison extends JPanel
 	
 	public Map<TrancheHoraire, Color> initMap()
 	{
+		Controleur controleur = Controleur.getInstance();
 		return CouleursTranchesHoraires;
 		
 	}

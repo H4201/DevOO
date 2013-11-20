@@ -23,7 +23,7 @@ public class Lanceur
 			TestInterface superv = new TestInterface();
 			superv.executerTest();
 		}
-		else if(argv[0].equals("supervision")) // Lancement des tests de l'affichage de l'interface
+		else if(argv[0].equals("feuilleDeRoute")) // Lancement des tests de l'affichage de l'interface
 		{
 			TestVueFeuilleDeRoute testVueFeuilleDeRoute = new TestVueFeuilleDeRoute();
 			testVueFeuilleDeRoute.executerTestVueFeuilleDeRoute();
