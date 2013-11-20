@@ -27,7 +27,7 @@ public class VueNoeud
 	}
 	
 
-	public void dessinerNoeud(Graphics g, int facteurConversion)
+	public Graphics dessinerNoeud(Graphics g, int facteurConversion)
 	{	
 		Color cTemp = g.getColor();
 		int x = (int) noeud.getX() * facteurConversion / Constante.LARGEUR;
@@ -36,6 +36,8 @@ public class VueNoeud
 		g.setColor(Constante.COULEURNOEUD);
 		g.fillOval((int) x - rayon ,(int) y - rayon , 2*rayon , 2*rayon);
         g.setColor(cTemp);
+        
+        return g;
 	}
 
 }

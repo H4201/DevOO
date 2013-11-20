@@ -1,5 +1,6 @@
 package com.h4201.prototype.vue;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.util.Map;
 import java.util.Vector;
@@ -82,13 +83,13 @@ public class VuePlan extends JPanel
 		
 		for(VueNoeud vueNoeud : lesVueNoeuds )
 		{
-			vueNoeud.dessinerNoeud(g, getWidth());
+			g = vueNoeud.dessinerNoeud(g, getWidth());
 			
 		}
 		System.out.println("j'ai dessiné les noeuds\n");
 		for(VueTroncon vueTroncon : lesVueTroncons )
 		{
-			vueTroncon.dessinerTroncon(g,getWidth());
+			g = vueTroncon.dessinerTroncon(g,getWidth());
 		}
 		System.out.println("j'ai dessiné les tronçons");
 	}
