@@ -2,6 +2,7 @@ package com.h4201.prototype.modele;
 
 import java.util.Vector;
 
+import com.h4201.prototype.utilitaire.Pair;
 import com.h4201.prototype.exception.ExceptionNonInstancie;
 import com.h4201.prototype.exception.ExceptionTranchesHorairesNonOrdonees;
 
@@ -25,12 +26,9 @@ public class AppGraphe
 	 * chevauchement, la tournée n'est pas calculée.
 	 * @throws ExceptionNonInstancie Si le plan n'est pas correctement instancié
 	 */
-	public Tournee GenererTournee(Entrepot entrepot, TrancheHoraire[] tranchesHoraire)
-		  throws ExceptionTranchesHorairesNonOrdonees, ExceptionNonInstancie{	
-		Plan plan = Plan.getInstance();
-		
-		// Créer un nouveau Graphe
-		Tournee tournee = null;
+	public Tournee GenererTournee(Tournee tournee, Entrepot entrepot, TrancheHoraire[] tranchesHoraire)
+		  throws ExceptionTranchesHorairesNonOrdonees, ExceptionNonInstancie{
+		Chemin chemin = null;
 		
 		// Parcourir les tranches horaires de manière ordonnée
 		for (int i=0; i<tranchesHoraire.length; i++){
@@ -46,7 +44,8 @@ public class AppGraphe
 					// Créer un chemin vers tous les autres points de livraison de la même tranche
 					for (int k=0; k<pointsLivraison.size(); k++){
 						if (pointsLivraison.get(j) != pointsLivraison.get(k)) {
-							creerChemin(pointsLivraison.get(j), pointsLivraison.get(k));
+							chemin = creerChemin(pointsLivraison.get(j), pointsLivraison.get(k));
+							tournee.ajouterChemin(chemin);
 						}
 					}
 					
@@ -54,19 +53,22 @@ public class AppGraphe
 					if (i < tranchesHoraire.length-1){
 						Vector<PointLivraison> pointsLivraisonTrancheSuivante = tranchesHoraire[i+1].getPointsLivraisons();
 						for (int k=0; k<pointsLivraisonTrancheSuivante.size(); k++){
-							creerChemin(pointsLivraison.get(j), pointsLivraisonTrancheSuivante.get(k));
+							chemin = creerChemin(pointsLivraison.get(j), pointsLivraisonTrancheSuivante.get(k));
+							tournee.ajouterChemin(chemin);
 						}
 					}
 	
 					
 					// Pour la première tranche, créer un chemin depuis l'entrepôt 
 					if (i==0) {
-						creerChemin(entrepot, pointsLivraison.get(j));
+						chemin = creerChemin(entrepot, pointsLivraison.get(j));
+						tournee.ajouterChemin(chemin);
 					}
 					
 					// Pour la dernière tranche, créer un chemin vers l'entrepôt 
 					if (i==tranchesHoraire.length-1) {
-						creerChemin(pointsLivraison.get(j), entrepot);
+						chemin = creerChemin(pointsLivraison.get(j), entrepot);
+						tournee.ajouterChemin(chemin);
 					}
 				}
 			} else {
@@ -91,8 +93,8 @@ public class AppGraphe
 		double temps = 0;
 		
 		// Créer le chemin
-		//Chemin new chemin(pointLivraisonDepart, pointLivraisonArrivee, troncons, longueur, temps);
-		Chemin chemin = null;
+		Chemin chemin = new Chemin(pointLivraisonDepart, pointLivraisonArrivee, troncons, longueur, temps);
+		
 		return chemin;
 	}
 
@@ -103,22 +105,148 @@ public class AppGraphe
 	 * @return La liste des Tronçons constituant le plus court chemin entre les 2 points.
 	 */
 	private Vector<Troncon> calculerPlusCourtChemin(PointLivraison pointLivraisonDepart, PointLivraison pointLivraisonArivee){
-		  
-		Vector<Vector<Troncon>> troncons = new Vector<Vector<Troncon>>();
-		Vector<Double> tempsTroncons = new Vector<Double>();
+		 
 		Vector<Troncon> tronconsSortants = new Vector<Troncon>();
+		Vector<Troncon> tronconsParcourus = new Vector<Troncon>();
+		Vector<Pair<Noeud, Double>> noeudsAccessibles = new Vector<Pair<Noeud, Double>>();
+		Vector<Pair<Noeud, Vector<Troncon>>> plusCourtChemins = new Vector<Pair<Noeud, Vector<Troncon>>>();
 		
-		int indexTronconActuel = 0;
-		Noeud noeudActuel = pointLivraisonDepart.getNoeud();
+		Pair<Noeud, Double> pairNoeudActuel = new Pair(pointLivraisonDepart.getNoeud(), 0);
 		Noeud noeudFin = pointLivraisonArivee.getNoeud();
-
-		tronconsSortants = noeudActuel.getTronconsSortants();
-		for (int i=0; i<tronconsSortants.size(); i++){
-			double temps = tronconsSortants.get(i).calculerTemps();
+		
+		// Critère d'arrêt
+		while(pairNoeudActuel.getFirst() != noeudFin){
+			tronconsSortants = pairNoeudActuel.getFirst().getTronconsSortants();
+			double minTemps = Double.MAX_VALUE;
 			
+			// Supprimer les troncons parcourus
+			for(int i=0; i<tronconsParcourus.size(); i++){
+				tronconsSortants.remove(tronconsParcourus.get(i));
+			}
+			
+			// Parcourir les troncons sortants et ajouter/remplacer les noeuds acessibles
+			for (int i=0; i<tronconsSortants.size(); i++){
+				Pair<Noeud, Double> pairNoeudDestination = retournerPairDepuisNoeudAccessibles(noeudsAccessibles, tronconsSortants.get(i).getNoeudDestination());
+				double tempsNoeud = Double.MAX_VALUE;
+				if(pairNoeudDestination != null){
+					tempsNoeud = pairNoeudDestination.getSecond();
+				}
+				double tempsTroncon = tronconsSortants.get(i).calculerTemps();
+				
+				// Cas ou le nouveau chemin est meilleur
+				if (pairNoeudActuel.getSecond()+tempsTroncon < tempsNoeud){
+					tempsNoeud = pairNoeudActuel.getSecond()+tempsTroncon;
+					Vector<Troncon> meilleursTroncons = retournerPairDepuisPlusCourtChemin(plusCourtChemins, pairNoeudActuel.getFirst()).getSecond();
+					meilleursTroncons.add( tronconsSortants.get(i));
+					AjouterOuRemplacerPlusCourtChemin(plusCourtChemins, pairNoeudActuel.getFirst(), meilleursTroncons);
+				}
+				noeudsAccessibles = AjouterOuRemplacerNoeudsAccessibles(noeudsAccessibles, tronconsSortants.get(i).getNoeudDestination(), tempsNoeud);	
+			}
+
+			// Supprimer les noeuds entièrement testés
+			if(tronconsSortants.size() == 0){
+				for(int i=0; i<noeudsAccessibles.size(); i++){
+					if (noeudsAccessibles.get(i).getFirst() == pairNoeudActuel.getFirst()){
+						noeudsAccessibles.remove(i);
+					}else if(noeudsAccessibles.get(i).getSecond() < minTemps){
+						pairNoeudActuel = noeudsAccessibles.get(i);
+						minTemps = noeudsAccessibles.get(i).getSecond();
+					}
+				}	
+			}
+			
+			// Sélectionne le noeud de poids le plus faible
+			for(int j=0; j<noeudsAccessibles.size(); j++){
+				if(noeudsAccessibles.get(j).getSecond() < minTemps){
+					pairNoeudActuel = noeudsAccessibles.get(j);
+					minTemps = noeudsAccessibles.get(j).getSecond();
+				}
+			}	
 		}
-		Vector<Troncon> plusCourtChemin = null;
-		return plusCourtChemin;
+
+		return retournerPairDepuisPlusCourtChemin(plusCourtChemins, noeudFin).getSecond();
+	}
+	
+	/**
+	 * Ajoute ou met à jour le noeud dans noeudsAccessibles.
+	 * @param noeudsAccessibles
+	 * @param noeud
+	 * @param temps
+	 * @return l'objet noeudsAccessibles modifié.
+	 */
+	private Vector<Pair<Noeud, Double>> AjouterOuRemplacerNoeudsAccessibles(Vector<Pair<Noeud, Double>> noeudsAccessibles, Noeud noeud, Double temps) {
+		boolean trouve = false;
+		for(int i=0; i<noeudsAccessibles.size(); i++){
+			if (noeudsAccessibles.get(i).getFirst() == noeud){
+				trouve = true;
+				noeudsAccessibles.get(i).setSecond(temps);
+				break;
+			}
+		}
+		if(!trouve){
+			noeudsAccessibles.add(new Pair(noeud, temps));
+		}
+		
+		return noeudsAccessibles;
+	}
+	
+	/**
+	 * Ajoute ou met à jour le noeud dans plusCourtChemin.
+	 * @param noeudsAccessibles
+	 * @param noeud
+	 * @param temps
+	 * @return l'objet plusCourtChemin modifié.
+	 */
+	private Vector<Pair<Noeud, Vector<Troncon>>> AjouterOuRemplacerPlusCourtChemin(Vector<Pair<Noeud, Vector<Troncon>>> plusCourtChemins, Noeud noeud, Vector<Troncon> troncons) {
+		boolean trouve = false;
+		for(int i=0; i<plusCourtChemins.size(); i++){
+			if (plusCourtChemins.get(i).getFirst() == noeud){
+				trouve = true;
+				plusCourtChemins.get(i).setSecond(troncons);
+				break;
+			}
+		}
+		if(!trouve){
+			plusCourtChemins.add(new Pair(noeud, troncons));
+		}
+		
+		return plusCourtChemins;
+	}
+	
+	/**
+	 * Retourne la paire en prenant le noeud comme argument pour noeudsAccessibles.
+	 * @param noeudsAccessibles
+	 * @param noeud
+	 * @return la paire en prenant le noeud comme argument.
+	 */
+	private Pair<Noeud, Double> retournerPairDepuisNoeudAccessibles(Vector<Pair<Noeud, Double>> noeudsAccessibles, Noeud noeud){
+		Pair<Noeud, Double> pair = null;
+		for(int i=0; i<noeudsAccessibles.size(); i++){
+			if (noeudsAccessibles.get(i).getFirst() == noeud){
+				pair = noeudsAccessibles.get(i);
+				break;
+			}
+		}
+		
+		return pair;
+	}
+	
+	/**
+	 * Retourne la paire en prenant le noeud comme argument pour plusCourtChemins.
+	 * @param plusCourtChemins
+	 * @param noeud
+	 * @return la paire en prenant le noeud comme argument.
+	 */
+	private Pair<Noeud, Vector<Troncon>> retournerPairDepuisPlusCourtChemin(Vector<Pair<Noeud, Vector<Troncon>>> plusCourtChemins, Noeud noeud){
+		Pair<Noeud, Vector<Troncon>> pair = null;
+		for(int i=0; i<plusCourtChemins.size(); i++){
+			if (plusCourtChemins.get(i).getFirst() == noeud){
+				pair = plusCourtChemins.get(i);
+				break;
+			}
+		}
+		
+		return pair;
 	}
 }
 

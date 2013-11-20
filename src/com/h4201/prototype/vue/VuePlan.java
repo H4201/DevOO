@@ -74,6 +74,11 @@ public class VuePlan extends JPanel
 		}
 	}
 	
+	public void initialiserVuePointLivraison()
+	{
+		
+	}
+	
 	public void dessinerPlan(Graphics g)
 	{
 		super.paintComponent(g);
@@ -87,8 +92,7 @@ public class VuePlan extends JPanel
 		for(VueTroncon vueTroncon : lesVueTroncons )
 		{
 			vueTroncon.dessinerTroncon(g);
-		}
-		
+		}		
 	}
 		
 	public Noeud clicPlan(double x, double y)
