@@ -5,18 +5,15 @@ import java.util.Stack;
 import java.util.Vector;
 import java.util.HashMap;
 
-import com.h4201.prototype.exception.ExceptionFichier;
-import com.h4201.prototype.exception.ExceptionNonInstancie;
-import com.h4201.prototype.exception.ExceptionXML;
 import com.h4201.prototype.modele.*;
 import com.h4201.prototype.vue.VuePlan;
 
 public final class Controleur
 {
 	private static volatile Controleur instance = null;
-	private HashMap<Integer, Tournee> tournees = new HashMap<Integer, Tournee>();
-	private Stack<Commande> undos = new Stack();
-	private Stack<Commande> redos = new Stack();
+	private Stack<Commande> undos = new Stack<Commande>();
+	private Stack<Commande> redos = new Stack<Commande>();
+	private boolean enModification = false; // superviseur en cours de modification interactive ou non.
 	
     private Controleur() 
     {
@@ -43,22 +40,17 @@ public final class Controleur
         return Controleur.instance;
     }
     
-    public Vector<TrancheHoraire> getTranchesHoraire(int idTournee)
+    /**
+     * Ajouter un Point de Livraison a la Tournee.
+     * @param noeud
+     * @param trancheHoraire
+     */
+    public void ajoutPointLivraison(Noeud noeud, TrancheHoraire trancheHoraire)
     {
-    	Tournee tournee = tournees.get(Integer.valueOf(idTournee));
-    	return tournee.getTranchesHoraire();
-    }
-    
-    public Tournee getTournee(int idTournee)
-    {
-    	return tournees.get(Integer.valueOf(idTournee));
-    }    
-    
-    
-    public void ajoutPointLivraison(int idTournee, Noeud noeud, TrancheHoraire trancheHoraire)
-    {
-    	Tournee tournee = tournees.get(Integer.valueOf(idTournee));
-    	CmdAjouterPtLivraison commandeAjout = new CmdAjouterPtLivraison(tournee, noeud, trancheHoraire);
+    	enModification = true;
+    	
+    	Tournee tournee = Tournee.getInstance();
+    	CmdAjouterPtLivraison commandeAjout = new CmdAjouterPtLivraison(noeud, trancheHoraire);
     	commandeAjout.do_();
     	
     	//MAJ des redos/undos
@@ -67,10 +59,15 @@ public final class Controleur
     	// sur la vue : griser 'retablir' && degriser 'annuler'
     }
     
+    /**
+     * Supprimer un Point de Livraison de la Tournee.
+     * @param pointLivraison
+     */
     public void supprimerPointLivraison(int idTournee, PointLivraison pointLivraison)
     {
-    	Tournee tournee = tournees.get(Integer.valueOf(idTournee));
-    	CmdSupprimerPtLivraison commandeSuppr = new CmdSupprimerPtLivraison(tournee, pointLivraison);
+    	enModification = true;
+    	
+    	CmdSupprimerPtLivraison commandeSuppr = new CmdSupprimerPtLivraison(pointLivraison);
     	commandeSuppr.do_();
     	
     	//MAJ des redos/undos
@@ -80,7 +77,7 @@ public final class Controleur
     }
 
     /**
-     * Annuler la derniere Commande effectuee.
+     * Annuler la derniere Commande effectuee dans l'interface interactive du superviseur.
      * @return true si il n'y a plus d'annulation possible (avant ou) après l'execution de cette methode, false sinon.
      * Permet d'informer la vue qu'il faux griser/muter le bouton 'annuler' dans l'interface si plus d'annulation possible.
      */
@@ -102,7 +99,7 @@ public final class Controleur
     }
     
     /**
-     * Retablir la derniere Commande annulee.
+     * Retablir la derniere Commande annulee dans l'interface interactive du superviseur.
      * @return true si il n'y a plus de retablissement possible (avant ou) après l'execution de cette methode, false sinon.
      * Permet d'informer la vue qu'il faux griser/muter le bouton 'retablir' dans l'interface si plus de retablissement possible.
      */    
@@ -124,13 +121,17 @@ public final class Controleur
     	
     	return false;
     }
-    
+
+    /**
+     * Charger un Plan a partir d'un fichier XML.
+     * @param fichierXML
+     */
     public void chargerPlan(File fichierXML)
     {
     	try
     	{
 	    	CreationPlan.depuisXML(fichierXML);
-	    	// VuePlan.getInstance().dessinerPlan(new Graphic());
+	    	VuePlan.getInstance();
     	}
     	catch(Exception e)
     	{
@@ -138,22 +139,30 @@ public final class Controleur
     	}
     }
     
+    /**
+     * Charger une demande de Livraison a partir d'un fichier XML.
+     * @param fichierXML
+     */
     public void chargerDemandeLivraison(File fichierXML)
     {
     	try
     	{
-        	Tournee tournee = CreationDemandeLivraison.depuisXML(fichierXML);
-        	int idTournee = tournee.getIdTournee();
-        	tournees.put(Integer.valueOf(idTournee), tournee);
+        	CreationDemandeLivraison.depuisXML(fichierXML);
+        	// appeller la vue
     	}
     	catch(Exception e)
     	{
     		// construire VueException v(f.getMessage());
     	}
     }
-    
-    public void calculTournee(Tournee tournee)
+   
+    /**
+     * Calcul des plus courts chemins entre les points de livraisons, une fois la modification interactive sur l'interface (Vue) terminee.
+     * Verification de la faisabilite de la tournee.
+     */
+    public void calculTournee()
     {
+    	Tournee t = Tournee.getInstance();
     	
     }
 }

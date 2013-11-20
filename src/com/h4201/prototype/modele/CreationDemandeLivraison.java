@@ -89,7 +89,7 @@ public abstract class CreationDemandeLivraison
 		    	tranchesHoraire.add(trancheHoraire);
 	    	}
 	    	
-	    	tournee = new Tournee(entrepot, tranchesHoraire);
+	    	tournee = Tournee.setInstance(entrepot, tranchesHoraire);
 	    }
 	    else
 	    {

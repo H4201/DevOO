@@ -8,18 +8,17 @@ import com.h4201.prototype.modele.TrancheHoraire;
 
 public class CmdSupprimerPtLivraison extends Commande 
 {
-	public Tournee tournee;
 	public PointLivraison pointLivraison;
 	
-	public CmdSupprimerPtLivraison(Tournee tournee,	PointLivraison pointLivraison)
+	public CmdSupprimerPtLivraison(PointLivraison pointLivraison)
 	{
-		this.tournee = tournee;
 		this.pointLivraison = pointLivraison;
 	}
 
 	public void do_()
 	{
-		Vector<TrancheHoraire> tranches = tournee.getTranchesHoraire();
+		Tournee t = Tournee.getInstance();
+		Vector<TrancheHoraire> tranches = t.getTranchesHoraire();
     	
     	for(int i=0 ; i<tranches.size() ; i++)
     	{
@@ -40,7 +39,8 @@ public class CmdSupprimerPtLivraison extends Commande
 	
 	public void undo()
 	{
-    	Vector<TrancheHoraire> tranches = tournee.getTranchesHoraire();
+		Tournee t = Tournee.getInstance();
+    	Vector<TrancheHoraire> tranches = t.getTranchesHoraire();
     	TrancheHoraire trancheHoraire = pointLivraison.getTrancheHoraire();
     	
     	for(int i=0 ; i<tranches.size() ; i++)
@@ -51,7 +51,8 @@ public class CmdSupprimerPtLivraison extends Commande
 	
 	public void redo()
 	{
-		Vector<TrancheHoraire> tranches = tournee.getTranchesHoraire();
+		Tournee t = Tournee.getInstance();
+		Vector<TrancheHoraire> tranches = t.getTranchesHoraire();
     	
     	for(int i=0 ; i<tranches.size() ; i++)
     	{

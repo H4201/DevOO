@@ -9,14 +9,12 @@ import com.h4201.prototype.modele.TrancheHoraire;
 
 public class CmdAjouterPtLivraison extends Commande 
 {	
-    public Tournee tournee;
     public Noeud noeud;
     public TrancheHoraire trancheHoraire;
     public PointLivraison ptLivraison;
 
-	public CmdAjouterPtLivraison(Tournee tournee, Noeud noeud, TrancheHoraire trancheHoraire)
+	public CmdAjouterPtLivraison(Noeud noeud, TrancheHoraire trancheHoraire)
 	{
-		this.tournee = tournee;
 		this.noeud = noeud;
 		this.trancheHoraire = trancheHoraire;
 		this.ptLivraison = new PointLivraison("CLIENT", noeud, trancheHoraire); 
@@ -24,7 +22,8 @@ public class CmdAjouterPtLivraison extends Commande
 	
 	public void do_()
 	{
-    	Vector<TrancheHoraire> tranches = tournee.getTranchesHoraire();
+		Tournee t = Tournee.getInstance();
+    	Vector<TrancheHoraire> tranches = t.getTranchesHoraire();
     	
     	for(int i=0 ; i<tranches.size() ; i++)
     		if(tranches.get(i).getHeureDebut() == trancheHoraire.getHeureDebut())
@@ -34,7 +33,8 @@ public class CmdAjouterPtLivraison extends Commande
 	
 	public void undo()
 	{
-		Vector<TrancheHoraire> tranches = tournee.getTranchesHoraire();
+		Tournee t = Tournee.getInstance();
+		Vector<TrancheHoraire> tranches = t.getTranchesHoraire();
     	
     	for(int i=0 ; i<tranches.size() ; i++)
     	{ 
@@ -48,18 +48,19 @@ public class CmdAjouterPtLivraison extends Commande
     					ptsLivraison.remove(j);
     				}
     			}    	
-    			// postcondition : on a necessairement suprimmé ptLivraison 1 et 1 seule fois.
+    			// postcondition : on a necessairement supprimé ptLivraison 1 et 1 seule fois.
     		}
     	}
 	}
 	
 	public void redo()
 	{
-    	Vector<TrancheHoraire> tranches = tournee.getTranchesHoraire();
+		Tournee t = Tournee.getInstance();
+    	Vector<TrancheHoraire> tranches = t.getTranchesHoraire();
     	
     	for(int i=0 ; i<tranches.size() ; i++)
     		if(tranches.get(i).getHeureDebut() == trancheHoraire.getHeureDebut())
     			tranches.get(i).getPointsLivraisons().add(ptLivraison);
-    	// postcondition : on a necessairement ajoute ptLivraison a 1 et 1 seulle trancheHoraire
+    	// postcondition : on a necessairement ajoute ptLivraison a 1 et 1 seule trancheHoraire
 	}
 }
