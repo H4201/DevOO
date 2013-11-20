@@ -46,7 +46,7 @@ public class Tournee
 		return getInstance();
 	  }
 	  
-	  public final static Tournee getInstance() throws ExceptionNonInstancie
+	  public final static Tournee getInstance()
 	  {
 	      return Tournee.instance;
 	  }
