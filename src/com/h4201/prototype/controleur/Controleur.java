@@ -162,6 +162,8 @@ public final class Controleur
      */
     public void calculTournee()
     {
+    	enModification = false;
+    	
     	Tournee t = Tournee.getInstance();
     	
     }
