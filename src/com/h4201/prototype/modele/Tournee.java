@@ -1,6 +1,9 @@
 package com.h4201.prototype.modele;
 
+import java.util.HashMap;
 import java.util.Vector;
+
+import com.h4201.prototype.exception.ExceptionNonInstancie;
 import com.h4201.prototype.modele.Entrepot;
 import com.h4201.prototype.modele.TrancheHoraire;
 import com.h4201.prototype.modele.Chemin;
@@ -14,11 +17,10 @@ import com.h4201.prototype.modele.Chemin;
  */
 public class Tournee
 {
-	  private static int dernierIdTournee;
-	  private int idTournee;
-	  private Entrepot entrepot;
-	  private Vector<Chemin> chemins;
-	  private Vector<TrancheHoraire> tranchesHoraire;
+	private static volatile Tournee instance = null;
+	private Entrepot entrepot;
+	private Vector<Chemin> chemins;
+	private Vector<TrancheHoraire> tranchesHoraire;
 
 	  /**
 	   * Constructeur de Tournee.
@@ -26,22 +28,38 @@ public class Tournee
 	   * @param tranchesHoraire Liste des tranches horaires contenant 
 	   * les points de livraison
 	   */
-	  public Tournee(Entrepot entrepot, Vector<TrancheHoraire> tranchesHoraire)
+	  private Tournee(Entrepot entrepot, Vector<TrancheHoraire> tranchesHoraire)
 	  {
 		  this.entrepot = entrepot;
 		  this.tranchesHoraire = tranchesHoraire;
-		  this.idTournee = Tournee.dernierIdTournee++;
 		  this.chemins = new Vector<Chemin>();
+	  }
+	  
+	  protected final static Tournee setInstance(Entrepot entrepot, 
+			  Vector<TrancheHoraire> tranchesHoraire) throws ExceptionNonInstancie
+	  {
+		synchronized(Tournee.class)
+		{
+			Tournee.instance = new Tournee(entrepot, tranchesHoraire);
+		}
+		
+		return getInstance();
+	  }
+	  
+	  public final static Tournee getInstance() throws ExceptionNonInstancie
+	  {
+	      if(Tournee.instance == null) 
+	      {
+	    	  throw new ExceptionNonInstancie(Tournee.class.getName());
+	      }
+	      
+		  return Tournee.instance;
 	  }
 
 	  protected void ajouterChemin(Chemin chemin)
 	  {
 		  this.chemins.addElement(chemin);
 	  }
-
-		public int getIdTournee() {
-			return idTournee;
-		}
 		
 		public Entrepot getEntrepot() {
 			return entrepot;
@@ -73,6 +91,6 @@ public class Tournee
 
 		@Override
 		public String toString() {
-			return "Tournee [idTournee=" + idTournee + ", entrepot=" + entrepot + "]";
+			return "Tournee [entrepot=" + entrepot + "]";
 		}
 }
