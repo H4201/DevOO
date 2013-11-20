@@ -25,7 +25,7 @@ public class AppGraphe
 	 * chevauchement, la tournée n'est pas calculée.
 	 * @throws ExceptionNonInstancie Si le plan n'est pas correctement instancié
 	 */
-	public Tournee genererTournee()
+	public void genererTournee()
 		  throws ExceptionTranchesHorairesNonOrdonees, ExceptionNonInstancie{
 		Tournee tournee = Tournee.getInstance();
 		Vector<TrancheHoraire> tranchesHoraire = tournee.getTranchesHoraire();
@@ -76,8 +76,6 @@ public class AppGraphe
 				throw new ExceptionTranchesHorairesNonOrdonees();
 			}
 		}	
-		
-		return tournee;
 	}
 	  
 	/**
@@ -118,7 +116,7 @@ public class AppGraphe
 		plusCourtChemins.add(new Pair(pairNoeudActuel.getFirst(), new Vector<Troncon>()));
 		// Critère d'arrêt
 		while(pairNoeudActuel.getFirst() != noeudFin){
-			System.out.println("1- Boucle Principale");
+			pairNoeudActuel.getFirst().afficher(); /////////////////////////////////////
 			tronconsSortants = pairNoeudActuel.getFirst().getTronconsSortants();
 			double minTemps = Double.MAX_VALUE;
 			
@@ -131,13 +129,13 @@ public class AppGraphe
 			// Parcourir les troncons sortants et ajouter/remplacer les noeuds acessibles
 			for (int i=0; i<tronconsSortants.size(); i++){
 				System.out.println("3 - ajouter/remplacer les noeuds acessible");
+				tronconsSortants.get(i).afficher(); /////////////////////////////////////
 				Pair<Noeud, Double> pairNoeudDestination = retournerPairDepuisNoeudAccessibles(noeudsAccessibles, tronconsSortants.get(i).getNoeudDestination());
 				double tempsNoeud = Double.MAX_VALUE;
 				if(pairNoeudDestination != null){
 					tempsNoeud = pairNoeudDestination.getSecond();
 				}
 				double tempsTroncon = tronconsSortants.get(i).calculerTemps();
-				
 				// Cas ou le nouveau chemin est meilleur
 				if (pairNoeudActuel.getSecond()+tempsTroncon < tempsNoeud){
 					tempsNoeud = pairNoeudActuel.getSecond()+tempsTroncon;
@@ -146,7 +144,7 @@ public class AppGraphe
 					AjouterOuRemplacerPlusCourtChemin(plusCourtChemins, pairNoeudActuel.getFirst(), meilleursTroncons);
 				}
 				noeudsAccessibles = AjouterOuRemplacerNoeudsAccessibles(noeudsAccessibles, tronconsSortants.get(i).getNoeudDestination(), tempsNoeud);	
-				//tronconsParcourus.add(tronconsSortants.get(i));
+				tronconsParcourus.add(tronconsSortants.get(i));
 			}
 
 			// Supprimer les noeuds entièrement testés
@@ -176,6 +174,7 @@ public class AppGraphe
 	 */
 	public Vector<Pair<Noeud, Double>> AjouterOuRemplacerNoeudsAccessibles(Vector<Pair<Noeud, Double>> noeudsAccessibles, Noeud noeud, Double temps) {
 		boolean trouve = false;
+		System.out.println("7");
 		for(int i=0; i<noeudsAccessibles.size(); i++){
 			if (noeudsAccessibles.get(i).getFirst() == noeud){
 				trouve = true;
@@ -184,6 +183,7 @@ public class AppGraphe
 			}
 		}
 		if(!trouve){
+			System.out.println("8");
 			noeudsAccessibles.add(new Pair(noeud, temps));
 		}
 		
