@@ -25,7 +25,7 @@ public final class Plan
 	  this.noeuds = noeuds;
   }
   
-  public final static Plan setInstance(Vector<Troncon> troncons, 
+  protected final static Plan setInstance(Vector<Troncon> troncons, 
 		  HashMap<Integer, Noeud> noeuds) throws ExceptionNonInstancie
   {
 	synchronized(Plan.class)
