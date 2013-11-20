@@ -26,13 +26,13 @@ public abstract class Constante
 	/*
 	 * constante pour le plan
 	 */
-	public static final int HAUTEUR = 240;
-	public static final int LARGEUR = 240;
+	public static final int HAUTEUR = 140;
+	public static final int LARGEUR = 140;
 	public static final int RAYONNOEUD = 1;
 	public static final int RAYONENTREPOT = 5;
 	public static final Color COULEURNOEUD = Color.GRAY;
 	public static final Color COULEURTRONCON = Color.GRAY;
-	public static final Color ARRIEREPLAN = Color.BLUE;
+	public static final Color ARRIEREPLAN = Color.PINK;
 	
 	
 	/*

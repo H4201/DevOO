@@ -19,8 +19,11 @@ import javax.swing.AbstractButton;
 import com.h4201.prototype.controleur.Controleur;
 import com.h4201.prototype.modele.Noeud;
 //import com.h4201.prototype.modele.Plan;
+<<<<<<< HEAD
+=======
 import com.sun.file.ExampleFileFilter;
 
+>>>>>>> branch 'master' of https://github.com/H4201/DevOO.git
 
 public class VueSupervision extends MouseAdapter implements ActionListener
 {
@@ -159,7 +162,6 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 			*/
 		fenetre.repaint();
 	}
-	
 	
 	public Noeud clic(double x, double y){
 		return null;
