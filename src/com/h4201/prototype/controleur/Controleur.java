@@ -11,7 +11,6 @@ import com.h4201.prototype.vue.VuePlan;
 public final class Controleur
 {
 	private static volatile Controleur instance = null;
-	private HashMap<Integer, Tournee> tournees = new HashMap<Integer, Tournee>();
 	private Stack<Commande> undos = new Stack<Commande>();
 	private Stack<Commande> redos = new Stack<Commande>();
 	private boolean enModification = false; // superviseur en cours de modification interactive ou non.
@@ -42,26 +41,16 @@ public final class Controleur
     }
     
     /**
-     * Retourner la liste des tournees.
-     * @return
-     */
-    public HashMap<Integer, Tournee> tournees()
-    {
-    	return tournees;
-    }
-    
-    /**
-     * Ajouter un Point de Livraison a la Tournee identifiee en parametre.
-     * @param idTournee
+     * Ajouter un Point de Livraison a la Tournee.
      * @param noeud
      * @param trancheHoraire
      */
-    public void ajoutPointLivraison(int idTournee, Noeud noeud, TrancheHoraire trancheHoraire)
+    public void ajoutPointLivraison(Noeud noeud, TrancheHoraire trancheHoraire)
     {
     	enModification = true;
     	
-    	Tournee tournee = tournees.get(Integer.valueOf(idTournee));
-    	CmdAjouterPtLivraison commandeAjout = new CmdAjouterPtLivraison(tournee, noeud, trancheHoraire);
+    	Tournee tournee = Tournee.getInstance();
+    	CmdAjouterPtLivraison commandeAjout = new CmdAjouterPtLivraison(noeud, trancheHoraire);
     	commandeAjout.do_();
     	
     	//MAJ des redos/undos
@@ -71,16 +60,14 @@ public final class Controleur
     }
     
     /**
-     * Supprimer un Point de Livraison de la Tournee identifiee en parametre.
-     * @param idTournee
+     * Supprimer un Point de Livraison de la Tournee.
      * @param pointLivraison
      */
     public void supprimerPointLivraison(int idTournee, PointLivraison pointLivraison)
     {
     	enModification = true;
     	
-    	Tournee tournee = tournees.get(Integer.valueOf(idTournee));
-    	CmdSupprimerPtLivraison commandeSuppr = new CmdSupprimerPtLivraison(tournee, pointLivraison);
+    	CmdSupprimerPtLivraison commandeSuppr = new CmdSupprimerPtLivraison(pointLivraison);
     	commandeSuppr.do_();
     	
     	//MAJ des redos/undos
@@ -160,9 +147,8 @@ public final class Controleur
     {
     	try
     	{
-        	Tournee tournee = CreationDemandeLivraison.depuisXML(fichierXML);
-        	int idTournee = tournee.getIdTournee();
-        	tournees.put(Integer.valueOf(idTournee), tournee);
+        	CreationDemandeLivraison.depuisXML(fichierXML);
+        	// appeller la vue
     	}
     	catch(Exception e)
     	{
@@ -173,10 +159,10 @@ public final class Controleur
     /**
      * Calcul des plus courts chemins entre les points de livraisons, une fois la modification interactive sur l'interface (Vue) terminee.
      * Verification de la faisabilite de la tournee.
-     * @param tournee
      */
-    public void calculTournee(Tournee tournee)
+    public void calculTournee()
     {
+    	Tournee t = Tournee.getInstance();
     	
     }
 }
