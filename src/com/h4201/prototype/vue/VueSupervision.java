@@ -16,6 +16,10 @@ import javax.swing.AbstractButton;
 import com.h4201.prototype.modele.Noeud;
 //import com.h4201.prototype.modele.Plan;
 
+@SuppressWarnings("serial")
+
+public class VueSupervision extends JPanel
+
 public class VueSupervision extends MouseAdapter implements ActionListener
 {
 	//le modele

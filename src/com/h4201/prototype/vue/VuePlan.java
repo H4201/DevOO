@@ -1,110 +1,104 @@
 package com.h4201.prototype.vue;
 
 import java.awt.Color;
+import java.awt.Graphics;
+import java.util.Map;
 import java.util.Vector;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
+import javax.swing.JPanel;
 
+import com.h4201.prototype.exception.ExceptionNonInstancie;
 import com.h4201.prototype.modele.Noeud;
-import com.h4201.prototype.modele.TrancheHoraire;
+import com.h4201.prototype.modele.Plan;
+import com.h4201.prototype.modele.Troncon;
+import com.h4201.prototype.utilitaire.Constante;
 
-public class VuePlan 
+@SuppressWarnings("serial")
+public class VuePlan extends JPanel
 {
-	private Vector<VueNoeud> lesNoeuds = new Vector<VueNoeud>();
-	private Vector<VueChemin> lesChemins = new Vector<VueChemin>();
+	
+	
+	private Plan plan;
 	private double largeur;
 	private double hauteur;
 	private Color couleurArrierePlan;
-
-	public VuePlan()
+	Vector<VueNoeud> lesVueNoeuds = new Vector<VueNoeud>();
+	Vector<VueTroncon> lesVueTroncons = new Vector<VueTroncon>();
+	Vector<VuePointDeLivraison> lesPointLivraisons = new Vector<VuePointDeLivraison>();
+	
+	public VuePlan(Plan plan)
 	{
-		
+		this.plan = plan;
 	}
 	
-	public VuePlan(double larg, double haute, Color arrierePlan)
-	{
-		largeur = larg;
-        hauteur = haute;
-        couleurArrierePlan = arrierePlan;
-	}
-	
-	public Vector<VueNoeud> getLesNoeuds()
-	{
-		return lesNoeuds;
-	}
-	
-	public Vector<VueChemin> getLesChemins()
-	{
-		return lesChemins;
-	}
-
 	public double getLargeur()
 	{
-		return largeur;
+	    return largeur;
 	}
-
-	public double getHauteur()
-	{
-		return hauteur;
-	}
-	
+	    
 	public Color getCouleurArrierePlan()
 	{
-		return couleurArrierePlan;
+		return couleurArrierePlan ;
 	}
 	
 	public void setCouleurArrierePlan(Color couleur)
 	{
 		couleurArrierePlan = couleur;
 	}
+
+	public double getHauteur()
+	{
+	        return hauteur;
+	}
+	    
+	public void initialiserVuePlan()
+	{
+		try
+		{
+			plan = Plan.getInstance();
+			Map<Integer, Noeud> structureNoeuds = plan.getNoeuds();
+			Vector<Troncon> StructureTroncons= plan.getTroncons();
+			for(Integer idNoeud : structureNoeuds.keySet())
+			{
+				lesVueNoeuds.add(new VueNoeud(structureNoeuds.get(idNoeud)));
+			}
+			
+			for(Troncon leTroncon : StructureTroncons)
+			{
+				lesVueTroncons.add(new VueTroncon(leTroncon));
+			}
+			
+		} catch (ExceptionNonInstancie e)
+		{
+			e.printStackTrace();
+		}
+	}
 	
-	public Noeud getNoeud(double x, double y)
+	public void dessinerPlan(Graphics g)
+	{
+		super.paintComponent(g);
+		this.setBackground(Constante.ARRIEREPLAN);
+		
+		for(VueNoeud vueNoeud : lesVueNoeuds )
+		{
+			vueNoeud.dessinerNoeud(g);
+		}
+		
+		for(VueTroncon vueTroncon : lesVueTroncons )
+		{
+			vueTroncon.dessinerTroncon(g);
+		}
+		
+	}
+		
+	public Noeud clicPlan(double x, double y)
 	{
 		return null;
 	}
-	
-	public Element creerNoeudXML(Document document)
-	{
-		return null;
-		
-	}
-	
-	public int construireAPartirDeDOMXML(Element noeudDOMRacine)
-	{
-		return 0;
-		
-	}
-	
-	public void ajouterNoeud(VueNoeud noeud)
+
+	public void afficherPlan()
 	{
 		
 	}
-	
-	public void ajouterPointDeLivraison(VueNoeud noeud, TrancheHoraire trancheHoraire, Color couleur)
-	{
-		
-	}
-	
-	public void supprimerPointDeLivraison(VueNoeud noeud, TrancheHoraire trancheHoraire)
-	{
-		
-	}
-
-
-	public Noeud clicPlan(double x, double y){
-
-		return null;
-	}
-
-
-	public void afficher()
-	{
-
-		
-	}
-
-
-
 
 }
