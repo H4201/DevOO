@@ -9,6 +9,7 @@ import com.h4201.prototype.exception.ExceptionFichier;
 import com.h4201.prototype.exception.ExceptionNonInstancie;
 import com.h4201.prototype.exception.ExceptionXML;
 import com.h4201.prototype.modele.*;
+import com.h4201.prototype.vue.VuePlan;
 
 public final class Controleur
 {
@@ -41,6 +42,18 @@ public final class Controleur
         
         return Controleur.instance;
     }
+    
+    public Vector<TrancheHoraire> getTranchesHoraire(int idTournee)
+    {
+    	Tournee tournee = tournees.get(Integer.valueOf(idTournee));
+    	return tournee.getTranchesHoraire();
+    }
+    
+    public Tournee getTournee(int idTournee)
+    {
+    	return tournees.get(Integer.valueOf(idTournee));
+    }    
+    
     
     public void ajoutPointLivraison(int idTournee, Noeud noeud, TrancheHoraire trancheHoraire)
     {
@@ -117,7 +130,7 @@ public final class Controleur
     	try
     	{
 	    	CreationPlan.depuisXML(fichierXML);
-	    	/* a dessiner le singleton Plan......*/
+	    	// VuePlan.getInstance().dessinerPlan(new Graphic());
     	}
     	catch(Exception e)
     	{
