@@ -51,7 +51,7 @@ public class Tournee
 			return chemins;
 		}
 		
-		public Vector<TrancheHoraire> getTranchesHoraire() {
+		public Vector<TrancheHoraire> getTranchesHoraire() { 
 			return tranchesHoraire;
 		}
 		
