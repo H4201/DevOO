@@ -26,12 +26,9 @@ public class AppGraphe
 	 * chevauchement, la tournée n'est pas calculée.
 	 * @throws ExceptionNonInstancie Si le plan n'est pas correctement instancié
 	 */
-	public Tournee GenererTournee(Entrepot entrepot, TrancheHoraire[] tranchesHoraire)
-		  throws ExceptionTranchesHorairesNonOrdonees, ExceptionNonInstancie{	
-		Plan plan = Plan.getInstance();
-		
-		// Créer un nouveau Graphe
-		Tournee tournee = null;
+	public Tournee GenererTournee(Tournee tournee, Entrepot entrepot, TrancheHoraire[] tranchesHoraire)
+		  throws ExceptionTranchesHorairesNonOrdonees, ExceptionNonInstancie{
+		Chemin chemin = null;
 		
 		// Parcourir les tranches horaires de manière ordonnée
 		for (int i=0; i<tranchesHoraire.length; i++){
@@ -47,7 +44,8 @@ public class AppGraphe
 					// Créer un chemin vers tous les autres points de livraison de la même tranche
 					for (int k=0; k<pointsLivraison.size(); k++){
 						if (pointsLivraison.get(j) != pointsLivraison.get(k)) {
-							creerChemin(pointsLivraison.get(j), pointsLivraison.get(k));
+							chemin = creerChemin(pointsLivraison.get(j), pointsLivraison.get(k));
+							tournee.ajouterChemin(chemin);
 						}
 					}
 					
@@ -55,19 +53,22 @@ public class AppGraphe
 					if (i < tranchesHoraire.length-1){
 						Vector<PointLivraison> pointsLivraisonTrancheSuivante = tranchesHoraire[i+1].getPointsLivraisons();
 						for (int k=0; k<pointsLivraisonTrancheSuivante.size(); k++){
-							creerChemin(pointsLivraison.get(j), pointsLivraisonTrancheSuivante.get(k));
+							chemin = creerChemin(pointsLivraison.get(j), pointsLivraisonTrancheSuivante.get(k));
+							tournee.ajouterChemin(chemin);
 						}
 					}
 	
 					
 					// Pour la première tranche, créer un chemin depuis l'entrepôt 
 					if (i==0) {
-						creerChemin(entrepot, pointsLivraison.get(j));
+						chemin = creerChemin(entrepot, pointsLivraison.get(j));
+						tournee.ajouterChemin(chemin);
 					}
 					
 					// Pour la dernière tranche, créer un chemin vers l'entrepôt 
 					if (i==tranchesHoraire.length-1) {
-						creerChemin(pointsLivraison.get(j), entrepot);
+						chemin = creerChemin(pointsLivraison.get(j), entrepot);
+						tournee.ajouterChemin(chemin);
 					}
 				}
 			} else {
@@ -105,14 +106,11 @@ public class AppGraphe
 	 */
 	private Vector<Troncon> calculerPlusCourtChemin(PointLivraison pointLivraisonDepart, PointLivraison pointLivraisonArivee){
 		 
-		Vector<Pair<Vector<Troncon>, Double>> listeTroncons = new Vector<Pair<Vector<Troncon>, Double>>();
 		Vector<Troncon> tronconsSortants = new Vector<Troncon>();
 		Vector<Troncon> tronconsParcourus = new Vector<Troncon>();
 		Vector<Pair<Noeud, Double>> noeudsAccessibles = new Vector<Pair<Noeud, Double>>();
 		Vector<Pair<Noeud, Vector<Troncon>>> plusCourtChemins = new Vector<Pair<Noeud, Vector<Troncon>>>();
 		
-		listeTroncons.add(new Pair(new Vector<Troncon>(), 0));
-		int indexListeTronconsActuelle = 0;
 		Pair<Noeud, Double> pairNoeudActuel = new Pair(pointLivraisonDepart.getNoeud(), 0);
 		Noeud noeudFin = pointLivraisonArivee.getNoeud();
 		
@@ -219,7 +217,7 @@ public class AppGraphe
 	 * Retourne la paire en prenant le noeud comme argument pour noeudsAccessibles.
 	 * @param noeudsAccessibles
 	 * @param noeud
-	 * @return
+	 * @return la paire en prenant le noeud comme argument.
 	 */
 	private Pair<Noeud, Double> retournerPairDepuisNoeudAccessibles(Vector<Pair<Noeud, Double>> noeudsAccessibles, Noeud noeud){
 		Pair<Noeud, Double> pair = null;
@@ -233,7 +231,12 @@ public class AppGraphe
 		return pair;
 	}
 	
-	
+	/**
+	 * Retourne la paire en prenant le noeud comme argument pour plusCourtChemins.
+	 * @param plusCourtChemins
+	 * @param noeud
+	 * @return la paire en prenant le noeud comme argument.
+	 */
 	private Pair<Noeud, Vector<Troncon>> retournerPairDepuisPlusCourtChemin(Vector<Pair<Noeud, Vector<Troncon>>> plusCourtChemins, Noeud noeud){
 		Pair<Noeud, Vector<Troncon>> pair = null;
 		for(int i=0; i<plusCourtChemins.size(); i++){
