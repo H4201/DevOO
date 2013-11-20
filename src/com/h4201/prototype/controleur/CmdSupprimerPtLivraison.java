@@ -46,7 +46,7 @@ public class CmdSupprimerPtLivraison extends Commande
     	for(int i=0 ; i<tranches.size() ; i++)
     		if(tranches.get(i).getHeureDebut() == trancheHoraire.getHeureDebut())
     			tranches.get(i).getPointsLivraisons().add(pointLivraison);
-    	// postcondition : on a necessairement ajoute ptLivraison a 1 et 1 seulle trancheHoraire
+    	// postcondition : on a necessairement ajoute ptLivraison a 1 et 1 seule trancheHoraire
 	}
 	
 	public void redo()

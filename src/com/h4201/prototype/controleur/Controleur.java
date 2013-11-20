@@ -5,6 +5,8 @@ import java.util.Stack;
 import java.util.Vector;
 import java.util.HashMap;
 
+import com.h4201.prototype.exception.ExceptionNonInstancie;
+import com.h4201.prototype.exception.ExceptionTranchesHorairesNonOrdonees;
 import com.h4201.prototype.modele.*;
 import com.h4201.prototype.vue.VuePlan;
 import com.h4201.prototype.modele.AppGraphe;
@@ -64,7 +66,7 @@ public final class Controleur
      * Supprimer un Point de Livraison de la Tournee.
      * @param pointLivraison
      */
-    public void supprimerPointLivraison(int idTournee, PointLivraison pointLivraison)
+    public void supprimerPointLivraison(PointLivraison pointLivraison)
     {
     	enModification = true;
     	
@@ -162,14 +164,25 @@ public final class Controleur
     }
    
     /**
-     * Calcul des plus courts chemins entre les points de livraisons, une fois la modification interactive sur l'interface (Vue) terminee.
-     * Verification de la faisabilite de la tournee.
+     * Calcul de la tournee et affichage sur le Plan interactif.
      */
     public void calculTournee()
-    {
-    	enModification = false;
+    {    	
+    	AppGraphe appG = AppGraphe.getInstance();
     	
-    	genererTournee();
-    	// VueTournee.afficher
+    	try 
+    	{
+			appG.genererTournee();
+	    	// VueTournee.afficher
+	    	enModification = false;
+		} 
+    	catch (ExceptionTranchesHorairesNonOrdonees e) 
+    	{
+			e.printStackTrace();
+		} 
+    	catch (ExceptionNonInstancie e) 
+		{
+			e.printStackTrace();
+		}
     }
 }
