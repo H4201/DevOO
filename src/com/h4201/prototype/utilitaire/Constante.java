@@ -32,6 +32,7 @@ public abstract class Constante
 	public static final int RAYONENTREPOT = 5;
 	public static final Color COULEURNOEUD = Color.BLACK;
 	public static final Color COULEURTRONCON = Color.BLACK;
+	public static final Color COULEURENTREPOT = Color.BLACK;
 	public static final Color ARRIEREPLAN = Color.WHITE;
 	
 	

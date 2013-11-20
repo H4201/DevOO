@@ -21,9 +21,14 @@ public class VueNoeud
 		return noeud;
 	}
 
-	public boolean estClique(double x, double y)
+	public Boolean estClique(double x, double y)
 	{
-		return false;		
+		boolean flag = false;
+		if(x == noeud.getX() &&  y == noeud.getY())
+		{
+			flag = true;
+		}
+		return flag;
 	}
 	
 
