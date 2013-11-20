@@ -2,22 +2,24 @@ package com.h4201.prototype.vue;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Vector;
 
 import javax.swing.JPanel;
 
+import com.h4201.prototype.controleur.Controleur;
 import com.h4201.prototype.exception.ExceptionNonInstancie;
 import com.h4201.prototype.modele.Noeud;
 import com.h4201.prototype.modele.Plan;
+import com.h4201.prototype.modele.Tournee;
 import com.h4201.prototype.modele.Troncon;
 import com.h4201.prototype.utilitaire.Constante;
 
 @SuppressWarnings("serial")
 public class VuePlan extends JPanel
 {
-	
-	
+	private static volatile VuePlan instance = null;
 	private Plan plan;
 	private double largeur;
 	private double hauteur;
@@ -26,10 +28,25 @@ public class VuePlan extends JPanel
 	Vector<VueTroncon> lesVueTroncons = new Vector<VueTroncon>();
 	Vector<VuePointDeLivraison> lesPointLivraisons = new Vector<VuePointDeLivraison>();
 	
-	public VuePlan(Plan plan)
+	private VuePlan(Plan plan)
 	{
 		this.plan = plan;
 	}
+	
+	public final static VuePlan setInstance(Plan plan)
+	  {
+		synchronized(VuePlan.class)
+		{
+			VuePlan.instance = new VuePlan(plan);
+		}
+		
+		return getInstance();
+	  }
+	  
+  public final static VuePlan getInstance()
+  {
+      return VuePlan.instance;
+  }
 	
 	public double getLargeur()
 	{
@@ -73,11 +90,20 @@ public class VuePlan extends JPanel
 			e.printStackTrace();
 		}
 	}
-	
+/*	
 	public void initialiserVuePointLivraison()
 	{
+		Controleur controleur = Controleur.getInstance();
+		lesTournees = controleur.getTournee();
+		for(Tournee tournee : lesTournees)
+		{
+			tournee.getTrancheshoraire()
+			
+			
+		}
 		
 	}
+	*/
 	
 	public void dessinerPlan(Graphics g)
 	{
