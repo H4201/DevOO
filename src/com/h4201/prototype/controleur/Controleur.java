@@ -7,6 +7,7 @@ import java.util.HashMap;
 
 import com.h4201.prototype.modele.*;
 import com.h4201.prototype.vue.VuePlan;
+import com.h4201.prototype.modele.AppGraphe;
 
 public final class Controleur
 {
@@ -168,7 +169,7 @@ public final class Controleur
     {
     	enModification = false;
     	
-    	Tournee t = Tournee.getInstance();
-    	
+    	genererTournee();
+    	// VueTournee.afficher
     }
 }
