@@ -48,7 +48,7 @@ public class CmdAjouterPtLivraison extends Commande
     					ptsLivraison.remove(j);
     				}
     			}    	
-    			// postcondition : on a necessairement suprimmé ptLivraison 1 et 1 seule fois.
+    			// postcondition : on a necessairement supprimé ptLivraison 1 et 1 seule fois.
     		}
     	}
 	}
@@ -60,6 +60,6 @@ public class CmdAjouterPtLivraison extends Commande
     	for(int i=0 ; i<tranches.size() ; i++)
     		if(tranches.get(i).getHeureDebut() == trancheHoraire.getHeureDebut())
     			tranches.get(i).getPointsLivraisons().add(ptLivraison);
-    	// postcondition : on a necessairement ajoute ptLivraison a 1 et 1 seulle trancheHoraire
+    	// postcondition : on a necessairement ajoute ptLivraison a 1 et 1 seule trancheHoraire
 	}
 }

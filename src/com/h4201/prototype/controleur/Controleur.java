@@ -5,9 +5,6 @@ import java.util.Stack;
 import java.util.Vector;
 import java.util.HashMap;
 
-import com.h4201.prototype.exception.ExceptionFichier;
-import com.h4201.prototype.exception.ExceptionNonInstancie;
-import com.h4201.prototype.exception.ExceptionXML;
 import com.h4201.prototype.modele.*;
 import com.h4201.prototype.vue.VuePlan;
 
@@ -17,6 +14,7 @@ public final class Controleur
 	private HashMap<Integer, Tournee> tournees = new HashMap<Integer, Tournee>();
 	private Stack<Commande> undos = new Stack<Commande>();
 	private Stack<Commande> redos = new Stack<Commande>();
+	private boolean enModification = false; // superviseur en cours de modification interactive ou non.
 	
     private Controleur() 
     {
@@ -44,25 +42,13 @@ public final class Controleur
     }
     
     /**
-     * Retourner la Tournee identifiee en parametre a partir de la liste des tourness Tournees.
-     * @param idTournee
+     * Retourner la liste des tournees.
      * @return
      */
-    public Tournee getTournee(int idTournee)
+    public HashMap<Integer, Tournee> tournees()
     {
-    	return tournees.get(Integer.valueOf(idTournee));
+    	return tournees;
     }
-    
-    /**
-     * Retourner pour une Tournee identifiee en parametre, ses Tranches Horaires
-     * @param idTournee
-     * @return
-     */
-    public Vector<TrancheHoraire> getTranchesHoraire(int idTournee)
-    {
-    	Tournee tournee = tournees.get(Integer.valueOf(idTournee));
-    	return tournee.getTranchesHoraire();
-    }    
     
     /**
      * Ajouter un Point de Livraison a la Tournee identifiee en parametre.
@@ -72,6 +58,8 @@ public final class Controleur
      */
     public void ajoutPointLivraison(int idTournee, Noeud noeud, TrancheHoraire trancheHoraire)
     {
+    	enModification = true;
+    	
     	Tournee tournee = tournees.get(Integer.valueOf(idTournee));
     	CmdAjouterPtLivraison commandeAjout = new CmdAjouterPtLivraison(tournee, noeud, trancheHoraire);
     	commandeAjout.do_();
@@ -89,6 +77,8 @@ public final class Controleur
      */
     public void supprimerPointLivraison(int idTournee, PointLivraison pointLivraison)
     {
+    	enModification = true;
+    	
     	Tournee tournee = tournees.get(Integer.valueOf(idTournee));
     	CmdSupprimerPtLivraison commandeSuppr = new CmdSupprimerPtLivraison(tournee, pointLivraison);
     	commandeSuppr.do_();
