@@ -30,9 +30,9 @@ public abstract class Constante
 	public static final int LARGEUR = 140;
 	public static final int RAYONNOEUD = 1;
 	public static final int RAYONENTREPOT = 5;
-	public static final Color COULEURNOEUD = Color.GRAY;
-	public static final Color COULEURTRONCON = Color.GRAY;
-	public static final Color ARRIEREPLAN = Color.PINK;
+	public static final Color COULEURNOEUD = Color.BLACK;
+	public static final Color COULEURTRONCON = Color.BLACK;
+	public static final Color ARRIEREPLAN = Color.WHITE;
 	
 	
 	/*
