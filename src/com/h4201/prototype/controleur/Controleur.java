@@ -125,7 +125,7 @@ public final class Controleur
     	}
     }
     
-    public void chargerDemandeLivraison(File fichierXML) throws ExceptionXML, ExceptionFichier, ExceptionNonInstancie
+    public void chargerDemandeLivraison(File fichierXML)
     {
     	try
     	{
