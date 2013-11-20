@@ -1,18 +1,15 @@
 package com.h4201.prototype.vue;
 
-import java.awt.Color;
 import java.awt.Graphics;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Vector;
 
 import javax.swing.JPanel;
 
-import com.h4201.prototype.controleur.Controleur;
 import com.h4201.prototype.exception.ExceptionNonInstancie;
 import com.h4201.prototype.modele.Noeud;
 import com.h4201.prototype.modele.Plan;
-import com.h4201.prototype.modele.Tournee;
+import com.h4201.prototype.modele.TrancheHoraire;
 import com.h4201.prototype.modele.Troncon;
 import com.h4201.prototype.utilitaire.Constante;
 
@@ -20,59 +17,37 @@ import com.h4201.prototype.utilitaire.Constante;
 public class VuePlan extends JPanel
 {
 	private static volatile VuePlan instance = null;
-	private Plan plan;
-	private double largeur;
-	private double hauteur;
-	private Color couleurArrierePlan;
 	Vector<VueNoeud> lesVueNoeuds = new Vector<VueNoeud>();
 	Vector<VueTroncon> lesVueTroncons = new Vector<VueTroncon>();
-	Vector<VuePointDeLivraison> lesPointLivraisons = new Vector<VuePointDeLivraison>();
+	Vector<TrancheHoraire> lesTrancheHoraires = new Vector<TrancheHoraire>();
+	Vector<VuePointDeLivraison> lesVuePointLivraisons = new Vector<VuePointDeLivraison>();
 	
-	private VuePlan(Plan plan)
+	private VuePlan()
 	{
-		this.plan = plan;
+		super();
 	}
-	
-	public final static VuePlan setInstance(Plan plan)
-	  {
-		synchronized(VuePlan.class)
-		{
-			VuePlan.instance = new VuePlan(plan);
-		}
-		
-		return getInstance();
-	  }
 	  
   public final static VuePlan getInstance()
   {
-      return VuePlan.instance;
+	  if (VuePlan.instance == null)
+      {
+         synchronized(VuePlan.class)
+         {
+			 if (VuePlan.instance == null)
+			 {
+				 VuePlan.instance = new VuePlan();
+			 }
+         }
+      }
+	  
+	  return VuePlan.instance;
   }
-	
-	public double getLargeur()
-	{
-	    return largeur;
-	}
-	    
-	public Color getCouleurArrierePlan()
-	{
-		return couleurArrierePlan ;
-	}
-	
-	public void setCouleurArrierePlan(Color couleur)
-	{
-		couleurArrierePlan = couleur;
-	}
-
-	public double getHauteur()
-	{
-	        return hauteur;
-	}
 	    
 	public void initialiserVuePlan()
 	{
 		try
 		{
-			plan = Plan.getInstance();
+			Plan plan = Plan.getInstance();
 			Map<Integer, Noeud> structureNoeuds = plan.getNoeuds();
 			Vector<Troncon> StructureTroncons= plan.getTroncons();
 			for(Integer idNoeud : structureNoeuds.keySet())
@@ -90,35 +65,32 @@ public class VuePlan extends JPanel
 			e.printStackTrace();
 		}
 	}
-/*	
+	
+
 	public void initialiserVuePointLivraison()
 	{
-		Controleur controleur = Controleur.getInstance();
-		lesTournees = controleur.getTournee();
-		for(Tournee tournee : lesTournees)
-		{
-			tournee.getTrancheshoraire()
-			
-			
-		}
 		
 	}
-	*/
 	
-	public void dessinerPlan(Graphics g)
+	
+	@Override
+	public void paintComponent(Graphics g)
 	{
 		super.paintComponent(g);
+		System.out.println("je dessine le plan\n");
 		this.setBackground(Constante.ARRIEREPLAN);
 		
 		for(VueNoeud vueNoeud : lesVueNoeuds )
 		{
-			vueNoeud.dessinerNoeud(g);
+			vueNoeud.dessinerNoeud(g, getWidth());
+			
 		}
-		
+		System.out.println("j'ai dessiné les noeuds\n");
 		for(VueTroncon vueTroncon : lesVueTroncons )
 		{
-			vueTroncon.dessinerTroncon(g);
-		}		
+			vueTroncon.dessinerTroncon(g,getWidth());
+		}
+		System.out.println("j'ai dessiné les tronçons");
 	}
 		
 	public Noeud clicPlan(double x, double y)
