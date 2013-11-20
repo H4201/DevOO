@@ -67,7 +67,7 @@ public class VuePlan extends JPanel
 	}
 	
 
-	public void initialiserVuePointLivraison()
+	public void initialiserTournee()
 	{
 		
 	}
@@ -82,15 +82,19 @@ public class VuePlan extends JPanel
 		
 		for(VueNoeud vueNoeud : lesVueNoeuds )
 		{
+
 			vueNoeud.dessinerNoeud(g, getWidth());
 			
+
+			vueNoeud.dessinerNoeud(g, getWidth());	
+
 		}
-		System.out.println("j'ai dessiné les noeuds\n");
+		System.out.println("j'ai dessinï¿½ les noeuds\n");
 		for(VueTroncon vueTroncon : lesVueTroncons )
 		{
 			vueTroncon.dessinerTroncon(g,getWidth());
 		}
-		System.out.println("j'ai dessiné les tronçons");
+		System.out.println("j'ai dessinï¿½ les tronï¿½ons");
 	}
 		
 	public Noeud clicPlan(double x, double y)

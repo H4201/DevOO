@@ -11,10 +11,7 @@ public class VuePointDeLivraison
 {
 	private PointLivraison pointLivraison;
 	private Color couleur;
-	/*
-	private Vector<Tournee> lesTournees = new Vector<Tournee>();
-	private Map<TrancheHoraire, Color> CouleursTranchesHoraires = new HashMap<TrancheHoraire,Color>();
-	*/
+
 	public VuePointDeLivraison(PointLivraison pointLivraison, Color couleur)
 	{
 		this.pointLivraison = pointLivraison;
