@@ -3,22 +3,24 @@ package com.h4201.prototype.vue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
+import java.io.File;
 import java.util.ArrayList;
 
 
 
 
+import java.util.Iterator;
+
 import javax.swing.JButton;
-//import javax.swing.JFileChooser;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.AbstractButton;
 
+import com.h4201.prototype.controleur.Controleur;
 import com.h4201.prototype.modele.Noeud;
 //import com.h4201.prototype.modele.Plan;
+import com.sun.file.ExampleFileFilter;
 
-@SuppressWarnings("serial")
-
-public class VueSupervision extends JPanel
 
 public class VueSupervision extends MouseAdapter implements ActionListener
 {
@@ -29,12 +31,20 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 	//la fenetre
 	private JFrame fenetre;
 	//pour la sauvegarde et la lecture des fichiers en xml
-	//private JFileChooser jFileChooserXML;
+	private JFileChooser jFileChooserXML;
 	
 	public VueSupervision(int x, int y){
 		
 		//creation de la fenetre
 		fenetre = new JFrame("Supervision");
+		
+		jFileChooserXML = new JFileChooser();
+	    ExampleFileFilter filter = new ExampleFileFilter();
+	    filter.addExtension("xml");
+	    filter.setDescription("Fichier XML");
+	    jFileChooserXML.setFileFilter(filter);
+	    jFileChooserXML.setFileSelectionMode(JFileChooser.FILES_ONLY);
+		
 		fenetre.setSize(x,y);
 		//un clic sur la croix entraine la fermeture de la fenetre
 		fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -94,6 +104,14 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 		fenetre.getContentPane().add(boutonSupprimer, "South");
 		boutons.add(boutonSupprimer);
 		
+		//Incrisption de this comme ecouteur (listener) des boutons
+		Iterator<AbstractButton> it = boutons.iterator();
+		while(it.hasNext())
+			it.next().addActionListener(this);
+		
+		//Inscription de this comme ecouteur des evenements souris dans la fenetre
+		//fenetre.addMouseListener(this);
+		
 		fenetre.repaint();
 		
 		fenetre.setVisible(true);
@@ -102,7 +120,44 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 	// Methode appelee quand un bouton est clique 
 	@Override
 	public void actionPerformed(ActionEvent evt) {
-        
+		if (evt.getActionCommand().equals("Charger plan")){
+			int returnVal = jFileChooserXML.showOpenDialog(null);
+			if (returnVal == JFileChooser.APPROVE_OPTION) {
+				// debug
+				System.out.println("nom de fichier " + jFileChooserXML.getSelectedFile().getAbsolutePath());
+				
+				//lecture du contenu d'un fichier XML avec DOM
+				File xml = new File(jFileChooserXML.getSelectedFile().getAbsolutePath());
+				//Controleur.getInstance().chargerPlan(xml);
+			}
+		}
+		else if (evt.getActionCommand().equals("Charger demandes de livraisons")){
+			int returnVal = jFileChooserXML.showOpenDialog(null);
+			if (returnVal == JFileChooser.APPROVE_OPTION) {
+				// debug
+				System.out.println("nom de fichier " + jFileChooserXML.getSelectedFile().getAbsolutePath());
+					
+				//lecture du contenu d'un fichier XML avec DOM
+				File xml = new File(jFileChooserXML.getSelectedFile().getAbsolutePath());
+				//Controleur.getInstance().chargerDemandeLivraison(xml);
+			}
+		}
+			
+		/*else if (evt.getActionCommand().equals("Generer la feuille de route"))
+			
+ 		else if (evt.getActionCommand().equals("Annuler"))
+			
+		else if (evt.getActionCommand().equals("Retablir"))
+			
+		else if (evt.getActionCommand().equals("Calculer la tournee"))
+			
+		else if (evt.getActionCommand().equals("Ajouter"))
+			
+		else if (evt.getActionCommand().equals("Supprimer"))
+			
+	    else // ne rien faire
+			*/
+		fenetre.repaint();
 	}
 	
 	

@@ -26,13 +26,14 @@ public class Chemin
      * @param temps duree totale necessaire pour parcourir le chemin
      */
     public Chemin(PointLivraison pointLivraisonOrigine,
-    		PointLivraison pointLivraisonDestination,
+    		PointLivraison pointLivraisonDestination, Vector<Troncon> troncons,
     		double longueur, double temps)
     {
     	this.longueur = longueur;
     	this.temps = temps;
     	this.pointLivraisonOrigine = pointLivraisonOrigine;
     	this.pointLivraisonDestination = pointLivraisonDestination;
+    	this.troncons = troncons;
     }
 
 	public double getLongueur() {
