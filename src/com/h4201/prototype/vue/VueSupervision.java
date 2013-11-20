@@ -3,6 +3,7 @@ package com.h4201.prototype.vue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.File;
 import java.util.ArrayList;
 
@@ -29,6 +30,14 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 	private JFrame fenetre;
 	//pour la sauvegarde et la lecture des fichiers en xml
 	private JFileChooser jFileChooserXML;
+	private JButton boutonChargerPlan;
+	private JButton boutonChargerDemande;
+	private JButton boutonFeuilleDeRoute;
+	private JButton boutonAnnuler;
+	private JButton boutonRetablir;
+	private JButton boutonCalcT;
+	private JButton boutonAjouter;
+	private JButton boutonSupprimer;
 	
 	public VueSupervision(int x, int y){
 		
@@ -53,54 +62,55 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 		
 		fenetre.getContentPane().setLayout(null);
 		
-		JButton boutonChargerPlan = new JButton("Charger plan");
+		boutonChargerPlan = new JButton("Charger plan");
 		boutonChargerPlan.setLayout(null);
 		boutonChargerPlan.setBounds(0, 0, 300, 30);
 		fenetre.getContentPane().add(boutonChargerPlan, "North");
 		boutons.add(boutonChargerPlan);
 		
-		JButton boutonChargerDemande = new JButton("Charger demandes de livraisons");
+		boutonChargerDemande = new JButton("Charger demandes de livraisons");
 		boutonChargerDemande.setLayout(null);
 		boutonChargerDemande.setBounds(300, 0, 300, 30);
+		boutonChargerDemande.setEnabled(false);
 		fenetre.getContentPane().add(boutonChargerDemande, "North");
 		boutons.add(boutonChargerDemande);
 		
-		JButton boutonFeuilleDeRoute = new JButton("Generer la feuille de route");
+		boutonFeuilleDeRoute = new JButton("Generer la feuille de route");
 		boutonFeuilleDeRoute.setLayout(null);
 		boutonFeuilleDeRoute.setBounds(600, 0, 300, 30);
 		boutonFeuilleDeRoute.setEnabled(false);
 		fenetre.getContentPane().add(boutonFeuilleDeRoute, "North");
 		boutons.add(boutonFeuilleDeRoute);
 		
-		JButton boutonAnnuler = new JButton("Annuler");
+		boutonAnnuler = new JButton("Annuler");
 		boutonAnnuler.setLayout(null);
 		boutonAnnuler.setBounds(0, 25, 300, 30);
 		boutonAnnuler.setEnabled(false);
 		fenetre.getContentPane().add(boutonAnnuler, "North");
 		boutons.add(boutonAnnuler);
 		
-		JButton boutonRetablir = new JButton("Retablir");
+		boutonRetablir = new JButton("Retablir");
 		boutonRetablir.setLayout(null);
 		boutonRetablir.setBounds(300, 25, 300, 30);
 		boutonRetablir.setEnabled(false);
 		fenetre.getContentPane().add(boutonRetablir, "North");
 		boutons.add(boutonRetablir);
 		
-		JButton boutonCalcT = new JButton("Calculer la tournee");
+		boutonCalcT = new JButton("Calculer la tournee");
 		boutonCalcT.setLayout(null);
 		boutonCalcT.setBounds(0, 650, 300, 30);
 		boutonCalcT.setEnabled(false);
 		fenetre.getContentPane().add(boutonCalcT, "South");
 		boutons.add(boutonCalcT);
 		
-		JButton boutonAjouter = new JButton("Ajouter");
+		boutonAjouter = new JButton("Ajouter");
 		boutonAjouter.setLayout(null);
 		boutonAjouter.setBounds(300, 650, 300, 30);
 		boutonAjouter.setEnabled(false);
 		fenetre.getContentPane().add(boutonAjouter, "South");
 		boutons.add(boutonAjouter);
 		
-		JButton boutonSupprimer = new JButton("Supprimer");
+		boutonSupprimer = new JButton("Supprimer");
 		boutonSupprimer.setLayout(null);
 		boutonSupprimer.setBounds(600, 650, 300, 30);
 		boutonSupprimer.setEnabled(false);
@@ -113,7 +123,7 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 			it.next().addActionListener(this);
 		
 		//Inscription de this comme ecouteur des evenements souris dans la fenetre
-		//fenetre.addMouseListener(this);
+		fenetre.addMouseListener(this);
 		
 		fenetre.repaint();
 		
@@ -134,9 +144,10 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 				Controleur.getInstance().chargerPlan(xml);
 				fenetre.getContentPane().add(VuePlan.getInstance());
 				VuePlan.getInstance().setLayout(null);
-				VuePlan.getInstance().setBounds(500, 100, 400, 400);
+				VuePlan.getInstance().setBounds(350, 100, 600, 450);
 				VuePlan.getInstance().repaint();
-				//boutonChargerDemande.setEnabled(true);
+				boutonChargerDemande.setEnabled(true);
+				
 			}
 		}
 		else if (evt.getActionCommand().equals("Charger demandes de livraisons")){
@@ -168,10 +179,15 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 		fenetre.repaint();
 	}
 	
+	
+	//Methode appelee quand la souris est cliquee dans la fenetre
+	@Override
+	public void mouseClicked(MouseEvent evt){
+		System.out.println("Souris cliquee en x="+evt.getX()+" y="+evt.getY());
+	}
+	
 	public Noeud clic(double x, double y){
 		return null;
 	}
-	public void afficher(){
-		
-	}
+
 }
