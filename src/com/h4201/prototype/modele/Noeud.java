@@ -2,6 +2,12 @@ package com.h4201.prototype.modele;
 
 import java.util.Vector;
 
+/**
+ * Noeud du Plan, intersection de troncons.
+ * Un noeud est un point de livraison possible.
+ * @author Paul
+ *
+ */
 public class Noeud
 {
   private double x;
@@ -14,7 +20,12 @@ public class Noeud
 
   private Vector<Troncon>  tronconsEntrants;
 
-
+	/**
+	 * Constructeur d'un noeud.
+	 * @param idNoeud id du noeud donne par le xml
+	 * @param x coordonnee sur l'axe des x
+	 * @param y coordonnee sur l'axe des y
+	 */
   public Noeud(int idNoeud, double x, double y) 
   {
 	  this.x = x;
@@ -59,6 +70,9 @@ public class Noeud
 	  this.tronconsSortants.addElement(troncon);
   }
 
+  /**
+   * Permet d'afficher les informations du noeud.
+   */
   public void afficher()
   {
 	  System.out.println(this.toString());

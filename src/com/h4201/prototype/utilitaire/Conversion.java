@@ -3,7 +3,7 @@ package com.h4201.prototype.utilitaire;
 import com.h4201.prototype.utilitaire.Constante;
 
 /**
- * Classe 
+ * Classe de conversion des unites de mesure.
  * Classe qui ne contient que des classes statiques. Elle est abstraite car non instanciable. 
  * @author Paul
  */

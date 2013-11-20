@@ -21,13 +21,10 @@ import com.h4201.prototype.modele.Noeud;
 //import com.h4201.prototype.modele.Plan;
 import com.sun.file.ExampleFileFilter;
 
-
 public class VueSupervision extends MouseAdapter implements ActionListener
 {
 	//le modele
 	//private Plan plan;
-	//la vue
-	//private VuePlan vuePlan;
 	//la fenetre
 	private JFrame fenetre;
 	//pour la sauvegarde et la lecture des fichiers en xml
@@ -128,7 +125,8 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 				
 				//lecture du contenu d'un fichier XML avec DOM
 				File xml = new File(jFileChooserXML.getSelectedFile().getAbsolutePath());
-				//Controleur.getInstance().chargerPlan(xml);
+				Controleur.getInstance().chargerPlan(xml);
+				//VuePlan.getInstance().dessinerPlan();
 			}
 		}
 		else if (evt.getActionCommand().equals("Charger demandes de livraisons")){
@@ -159,7 +157,6 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 			*/
 		fenetre.repaint();
 	}
-	
 	
 	public Noeud clic(double x, double y){
 		return null;

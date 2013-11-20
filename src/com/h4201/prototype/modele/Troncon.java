@@ -1,5 +1,13 @@
 package com.h4201.prototype.modele;
 
+
+/**
+ * Arc entre 2 noeuds.
+ * Representation d'une rue avec son nom, sa longueur 
+ * et la vitesse moyenne des automobilistes.
+ * @author Paul
+ *
+ */
 public class Troncon
 {
   private String nomRue;
@@ -12,6 +20,14 @@ public class Troncon
   private Noeud noeudOrigine;
   private Noeud noeudDestination;
 
+  /**
+   * Constructeur d'un troncon.
+   * @param noeudOrigine Noeud de depart du troncon
+   * @param noeudDestination Noeud d'arrivee du troncon
+   * @param nomRue Le nom de la rue
+   * @param longueur la longueur de la rue
+   * @param vitesse la vitesse moyenne dans cette rue
+   */
   public Troncon(Noeud noeudOrigine, Noeud noeudDestination, String nomRue, 
 		  double longueur, double vitesse)
   {
@@ -24,8 +40,8 @@ public class Troncon
   }
   
   /**
-   * Calcul du temps nécessaire pour parcourir le troncon
-   * @return Temps en secondes
+   * Calcul du temps necessaire pour parcourir le troncon
+   * @return temps en secondes
    */
   public double calculerTemps()
   {

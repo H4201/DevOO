@@ -2,7 +2,12 @@ package com.h4201.prototype.modele;
 
 import java.util.Vector;
 
-/*
+/**
+ * Un chemin est une succession orientee de un ou plusieurs troncons.
+ * Un chemin est un parcours optimise en temps de troncons pour aller 
+ * d'un noeud origine a un noeud destination.
+ * @author Paul
+ *
  */
 public class Chemin
 {
@@ -13,6 +18,13 @@ public class Chemin
     private PointLivraison pointLivraisonDestination;
     private Vector<Troncon> troncons;
 
+    /**
+     * Constructeur d'un chemin.
+     * @param pointLivraisonOrigine Noeud de depart
+     * @param pointLivraisonDestination Noeud d'arrivee
+     * @param longueur longueur totale du chemin (= somme des troncons)
+     * @param temps duree totale necessaire pour parcourir le chemin
+     */
     public Chemin(PointLivraison pointLivraisonOrigine,
     		PointLivraison pointLivraisonDestination, Vector<Troncon> troncons,
     		double longueur, double temps)

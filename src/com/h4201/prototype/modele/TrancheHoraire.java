@@ -5,7 +5,11 @@ import java.util.Vector;
 
 import com.h4201.prototype.utilitaire.Date;
 
-
+/**
+ * Une tranche horaire est un intervalle entre deux heures.
+ * @author Paul
+ *
+ */
 public class TrancheHoraire
 {
 	private static int dernierIdTrancheHoraire;
@@ -14,6 +18,11 @@ public class TrancheHoraire
 	private Calendar heureFin;
 	private Vector<PointLivraison> pointsLivraison;
 
+	/**
+	 * Constructeur de tranche horaire.
+	 * @param heureDebut Heure de debut du creneau horaire.
+	 * @param heureFin Heure de fin du creneau horaire.
+	 */
   public TrancheHoraire(Calendar heureDebut, Calendar heureFin)
   {
 	  this.heureDebut = heureDebut;
