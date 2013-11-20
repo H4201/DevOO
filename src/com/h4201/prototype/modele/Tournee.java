@@ -48,12 +48,7 @@ public class Tournee
 	  
 	  public final static Tournee getInstance() throws ExceptionNonInstancie
 	  {
-	      if(Tournee.instance == null) 
-	      {
-	    	  throw new ExceptionNonInstancie(Tournee.class.getName());
-	      }
-	      
-		  return Tournee.instance;
+	      return Tournee.instance;
 	  }
 
 	  protected void ajouterChemin(Chemin chemin)
