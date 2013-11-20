@@ -11,9 +11,8 @@ public class AppGraphe
 	private Plan plan;
 	private Tournee tournee;
 	
-	public AppGraphe(Plan plan, Tournee tournee)
+	public AppGraphe()
 	{
-		
 	}
 	
 	/**
@@ -26,19 +25,21 @@ public class AppGraphe
 	 * chevauchement, la tournée n'est pas calculée.
 	 * @throws ExceptionNonInstancie Si le plan n'est pas correctement instancié
 	 */
-	public Tournee GenererTournee(Tournee tournee, Entrepot entrepot, TrancheHoraire[] tranchesHoraire)
+	public Tournee genererTournee()
 		  throws ExceptionTranchesHorairesNonOrdonees, ExceptionNonInstancie{
+		Tournee tournee = Tournee.getInstance();
+		Vector<TrancheHoraire> tranchesHoraire = tournee.getTranchesHoraire();
 		Chemin chemin = null;
 		
 		// Parcourir les tranches horaires de manière ordonnée
-		for (int i=0; i<tranchesHoraire.length; i++){
+		for (int i=0; i<tranchesHoraire.size(); i++){
 			
 			// Vérifier que les tranches horaires du jour sont bien ordonées
-			if (i>0 && tranchesHoraire[i-1].getHeureFin().before(tranchesHoraire[i].getHeureDebut())
-				|| i<tranchesHoraire.length && tranchesHoraire[i+1].getHeureDebut().after(tranchesHoraire[i].getHeureFin())){
+			if (i>0 && tranchesHoraire.get(i-1).getHeureFin().before(tranchesHoraire.get(i).getHeureDebut())
+				|| i<tranchesHoraire.size() && tranchesHoraire.get(i+1).getHeureDebut().after(tranchesHoraire.get(i).getHeureFin())){
 				
 				// Parcourir les points de livraison de cette tranche
-				Vector<PointLivraison> pointsLivraison = tranchesHoraire[i].getPointsLivraisons();
+				Vector<PointLivraison> pointsLivraison = tranchesHoraire.get(i).getPointsLivraisons();
 				for (int j=0; j<pointsLivraison.size(); j++){
 					
 					// Créer un chemin vers tous les autres points de livraison de la même tranche
@@ -50,8 +51,8 @@ public class AppGraphe
 					}
 					
 					// Créer un chemin vers tous les points de livraison de la tranche suivante (sauf dernière)
-					if (i < tranchesHoraire.length-1){
-						Vector<PointLivraison> pointsLivraisonTrancheSuivante = tranchesHoraire[i+1].getPointsLivraisons();
+					if (i < tranchesHoraire.size()-1){
+						Vector<PointLivraison> pointsLivraisonTrancheSuivante = tranchesHoraire.get(i+1).getPointsLivraisons();
 						for (int k=0; k<pointsLivraisonTrancheSuivante.size(); k++){
 							chemin = creerChemin(pointsLivraison.get(j), pointsLivraisonTrancheSuivante.get(k));
 							tournee.ajouterChemin(chemin);
@@ -61,13 +62,13 @@ public class AppGraphe
 					
 					// Pour la première tranche, créer un chemin depuis l'entrepôt 
 					if (i==0) {
-						chemin = creerChemin(entrepot, pointsLivraison.get(j));
+						chemin = creerChemin(tournee.getEntrepot(), pointsLivraison.get(j));
 						tournee.ajouterChemin(chemin);
 					}
 					
 					// Pour la dernière tranche, créer un chemin vers l'entrepôt 
-					if (i==tranchesHoraire.length-1) {
-						chemin = creerChemin(pointsLivraison.get(j), entrepot);
+					if (i==tranchesHoraire.size()-1) {
+						chemin = creerChemin(pointsLivraison.get(j), tournee.getEntrepot());
 						tournee.ajouterChemin(chemin);
 					}
 				}
@@ -86,7 +87,7 @@ public class AppGraphe
 	 * @param plan
 	 * @return Le chemin créé.
 	 */
-	private Chemin creerChemin(PointLivraison pointLivraisonDepart, PointLivraison pointLivraisonArrivee){ 
+	public Chemin creerChemin(PointLivraison pointLivraisonDepart, PointLivraison pointLivraisonArrivee){ 
 		//Calcule le plus court chemin entre pointLivraisonDepart et pointLivraisonArivee dans G
 		Vector<Troncon> troncons = calculerPlusCourtChemin(pointLivraisonDepart, pointLivraisonArrivee);
 		double longueur = 0;
@@ -104,28 +105,32 @@ public class AppGraphe
 	 * @param pointLivraisonArivee
 	 * @return La liste des Tronçons constituant le plus court chemin entre les 2 points.
 	 */
-	private Vector<Troncon> calculerPlusCourtChemin(PointLivraison pointLivraisonDepart, PointLivraison pointLivraisonArivee){
+	public Vector<Troncon> calculerPlusCourtChemin(PointLivraison pointLivraisonDepart, PointLivraison pointLivraisonArivee){
 		 
 		Vector<Troncon> tronconsSortants = new Vector<Troncon>();
 		Vector<Troncon> tronconsParcourus = new Vector<Troncon>();
 		Vector<Pair<Noeud, Double>> noeudsAccessibles = new Vector<Pair<Noeud, Double>>();
 		Vector<Pair<Noeud, Vector<Troncon>>> plusCourtChemins = new Vector<Pair<Noeud, Vector<Troncon>>>();
 		
-		Pair<Noeud, Double> pairNoeudActuel = new Pair(pointLivraisonDepart.getNoeud(), 0);
+		Pair<Noeud, Double> pairNoeudActuel = new Pair(pointLivraisonDepart.getNoeud(), (double) 0);
 		Noeud noeudFin = pointLivraisonArivee.getNoeud();
-		
+		noeudsAccessibles.add(pairNoeudActuel);
+		plusCourtChemins.add(new Pair(pairNoeudActuel.getFirst(), new Vector<Troncon>()));
 		// Critère d'arrêt
 		while(pairNoeudActuel.getFirst() != noeudFin){
+			System.out.println("1- Boucle Principale");
 			tronconsSortants = pairNoeudActuel.getFirst().getTronconsSortants();
 			double minTemps = Double.MAX_VALUE;
 			
 			// Supprimer les troncons parcourus
 			for(int i=0; i<tronconsParcourus.size(); i++){
+				System.out.println("2 - SUPPR troncons parcourus");
 				tronconsSortants.remove(tronconsParcourus.get(i));
 			}
 			
 			// Parcourir les troncons sortants et ajouter/remplacer les noeuds acessibles
 			for (int i=0; i<tronconsSortants.size(); i++){
+				System.out.println("3 - ajouter/remplacer les noeuds acessible");
 				Pair<Noeud, Double> pairNoeudDestination = retournerPairDepuisNoeudAccessibles(noeudsAccessibles, tronconsSortants.get(i).getNoeudDestination());
 				double tempsNoeud = Double.MAX_VALUE;
 				if(pairNoeudDestination != null){
@@ -137,26 +142,21 @@ public class AppGraphe
 				if (pairNoeudActuel.getSecond()+tempsTroncon < tempsNoeud){
 					tempsNoeud = pairNoeudActuel.getSecond()+tempsTroncon;
 					Vector<Troncon> meilleursTroncons = retournerPairDepuisPlusCourtChemin(plusCourtChemins, pairNoeudActuel.getFirst()).getSecond();
-					meilleursTroncons.add( tronconsSortants.get(i));
+					meilleursTroncons.add(tronconsSortants.get(i));
 					AjouterOuRemplacerPlusCourtChemin(plusCourtChemins, pairNoeudActuel.getFirst(), meilleursTroncons);
 				}
 				noeudsAccessibles = AjouterOuRemplacerNoeudsAccessibles(noeudsAccessibles, tronconsSortants.get(i).getNoeudDestination(), tempsNoeud);	
+				//tronconsParcourus.add(tronconsSortants.get(i));
 			}
 
 			// Supprimer les noeuds entièrement testés
 			if(tronconsSortants.size() == 0){
-				for(int i=0; i<noeudsAccessibles.size(); i++){
-					if (noeudsAccessibles.get(i).getFirst() == pairNoeudActuel.getFirst()){
-						noeudsAccessibles.remove(i);
-					}else if(noeudsAccessibles.get(i).getSecond() < minTemps){
-						pairNoeudActuel = noeudsAccessibles.get(i);
-						minTemps = noeudsAccessibles.get(i).getSecond();
-					}
-				}	
+				SupprimerNoeudsAccessibles(noeudsAccessibles, pairNoeudActuel.getFirst());
 			}
 			
 			// Sélectionne le noeud de poids le plus faible
 			for(int j=0; j<noeudsAccessibles.size(); j++){
+				System.out.println("5 - Sélectionne le noeud de poids le plus faible");
 				if(noeudsAccessibles.get(j).getSecond() < minTemps){
 					pairNoeudActuel = noeudsAccessibles.get(j);
 					minTemps = noeudsAccessibles.get(j).getSecond();
@@ -174,7 +174,7 @@ public class AppGraphe
 	 * @param temps
 	 * @return l'objet noeudsAccessibles modifié.
 	 */
-	private Vector<Pair<Noeud, Double>> AjouterOuRemplacerNoeudsAccessibles(Vector<Pair<Noeud, Double>> noeudsAccessibles, Noeud noeud, Double temps) {
+	public Vector<Pair<Noeud, Double>> AjouterOuRemplacerNoeudsAccessibles(Vector<Pair<Noeud, Double>> noeudsAccessibles, Noeud noeud, Double temps) {
 		boolean trouve = false;
 		for(int i=0; i<noeudsAccessibles.size(); i++){
 			if (noeudsAccessibles.get(i).getFirst() == noeud){
@@ -190,6 +190,17 @@ public class AppGraphe
 		return noeudsAccessibles;
 	}
 	
+	public Vector<Pair<Noeud, Double>> SupprimerNoeudsAccessibles(Vector<Pair<Noeud, Double>> noeudsAccessibles, Noeud noeud){
+		for(int i=0; i<noeudsAccessibles.size(); i++){
+			if (noeudsAccessibles.get(i).getFirst() == noeud){
+				noeudsAccessibles.remove(i);
+				break;
+			}
+		}
+		
+		return noeudsAccessibles;
+	}
+	
 	/**
 	 * Ajoute ou met à jour le noeud dans plusCourtChemin.
 	 * @param noeudsAccessibles
@@ -197,7 +208,7 @@ public class AppGraphe
 	 * @param temps
 	 * @return l'objet plusCourtChemin modifié.
 	 */
-	private Vector<Pair<Noeud, Vector<Troncon>>> AjouterOuRemplacerPlusCourtChemin(Vector<Pair<Noeud, Vector<Troncon>>> plusCourtChemins, Noeud noeud, Vector<Troncon> troncons) {
+	public Vector<Pair<Noeud, Vector<Troncon>>> AjouterOuRemplacerPlusCourtChemin(Vector<Pair<Noeud, Vector<Troncon>>> plusCourtChemins, Noeud noeud, Vector<Troncon> troncons) {
 		boolean trouve = false;
 		for(int i=0; i<plusCourtChemins.size(); i++){
 			if (plusCourtChemins.get(i).getFirst() == noeud){
@@ -219,7 +230,7 @@ public class AppGraphe
 	 * @param noeud
 	 * @return la paire en prenant le noeud comme argument.
 	 */
-	private Pair<Noeud, Double> retournerPairDepuisNoeudAccessibles(Vector<Pair<Noeud, Double>> noeudsAccessibles, Noeud noeud){
+	public Pair<Noeud, Double> retournerPairDepuisNoeudAccessibles(Vector<Pair<Noeud, Double>> noeudsAccessibles, Noeud noeud){
 		Pair<Noeud, Double> pair = null;
 		for(int i=0; i<noeudsAccessibles.size(); i++){
 			if (noeudsAccessibles.get(i).getFirst() == noeud){
@@ -237,7 +248,7 @@ public class AppGraphe
 	 * @param noeud
 	 * @return la paire en prenant le noeud comme argument.
 	 */
-	private Pair<Noeud, Vector<Troncon>> retournerPairDepuisPlusCourtChemin(Vector<Pair<Noeud, Vector<Troncon>>> plusCourtChemins, Noeud noeud){
+	public Pair<Noeud, Vector<Troncon>> retournerPairDepuisPlusCourtChemin(Vector<Pair<Noeud, Vector<Troncon>>> plusCourtChemins, Noeud noeud){
 		Pair<Noeud, Vector<Troncon>> pair = null;
 		for(int i=0; i<plusCourtChemins.size(); i++){
 			if (plusCourtChemins.get(i).getFirst() == noeud){

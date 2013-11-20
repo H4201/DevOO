@@ -3,6 +3,7 @@ package com.h4201.prototype.app;
 import com.h4201.prototype.test.TestChargementXml;
 import com.h4201.prototype.test.TestInterface;
 import com.h4201.prototype.test.TestVueFeuilleDeRoute;
+import com.h4201.prototype.test.TestLogic;
 
 
 public class Lanceur
@@ -28,6 +29,10 @@ public class Lanceur
 			TestVueFeuilleDeRoute testVueFeuilleDeRoute = new TestVueFeuilleDeRoute();
 			testVueFeuilleDeRoute.executerTestVueFeuilleDeRoute();
 		}
-		
+		else if(argv[0].equals("logic")) // Lancement des tests de l'affichage de l'interface
+		{
+			TestLogic testLogic = new TestLogic();
+			testLogic.executerTests();
+		}
 	}
 }
