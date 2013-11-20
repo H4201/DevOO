@@ -15,8 +15,8 @@ public final class Controleur
 {
 	private static volatile Controleur instance = null;
 	private HashMap<Integer, Tournee> tournees = new HashMap<Integer, Tournee>();
-	private Stack<Commande> undos = new Stack();
-	private Stack<Commande> redos = new Stack();
+	private Stack<Commande> undos = new Stack<Commande>();
+	private Stack<Commande> redos = new Stack<Commande>();
 	
     private Controleur() 
     {
@@ -43,18 +43,33 @@ public final class Controleur
         return Controleur.instance;
     }
     
+    /**
+     * Retourner la Tournee identifiee en parametre a partir de la liste des tourness Tournees.
+     * @param idTournee
+     * @return
+     */
+    public Tournee getTournee(int idTournee)
+    {
+    	return tournees.get(Integer.valueOf(idTournee));
+    }
+    
+    /**
+     * Retourner pour une Tournee identifiee en parametre, ses Tranches Horaires
+     * @param idTournee
+     * @return
+     */
     public Vector<TrancheHoraire> getTranchesHoraire(int idTournee)
     {
     	Tournee tournee = tournees.get(Integer.valueOf(idTournee));
     	return tournee.getTranchesHoraire();
-    }
-    
-    public Tournee getTournee(int idTournee)
-    {
-    	return tournees.get(Integer.valueOf(idTournee));
     }    
     
-    
+    /**
+     * Ajouter un Point de Livraison a la Tournee identifiee en parametre.
+     * @param idTournee
+     * @param noeud
+     * @param trancheHoraire
+     */
     public void ajoutPointLivraison(int idTournee, Noeud noeud, TrancheHoraire trancheHoraire)
     {
     	Tournee tournee = tournees.get(Integer.valueOf(idTournee));
@@ -67,6 +82,11 @@ public final class Controleur
     	// sur la vue : griser 'retablir' && degriser 'annuler'
     }
     
+    /**
+     * Supprimer un Point de Livraison de la Tournee identifiee en parametre.
+     * @param idTournee
+     * @param pointLivraison
+     */
     public void supprimerPointLivraison(int idTournee, PointLivraison pointLivraison)
     {
     	Tournee tournee = tournees.get(Integer.valueOf(idTournee));
@@ -80,7 +100,7 @@ public final class Controleur
     }
 
     /**
-     * Annuler la derniere Commande effectuee.
+     * Annuler la derniere Commande effectuee dans l'interface interactive du superviseur.
      * @return true si il n'y a plus d'annulation possible (avant ou) après l'execution de cette methode, false sinon.
      * Permet d'informer la vue qu'il faux griser/muter le bouton 'annuler' dans l'interface si plus d'annulation possible.
      */
@@ -102,7 +122,7 @@ public final class Controleur
     }
     
     /**
-     * Retablir la derniere Commande annulee.
+     * Retablir la derniere Commande annulee dans l'interface interactive du superviseur.
      * @return true si il n'y a plus de retablissement possible (avant ou) après l'execution de cette methode, false sinon.
      * Permet d'informer la vue qu'il faux griser/muter le bouton 'retablir' dans l'interface si plus de retablissement possible.
      */    
@@ -124,13 +144,17 @@ public final class Controleur
     	
     	return false;
     }
-    
+
+    /**
+     * Charger un Plan a partir d'un fichier XML.
+     * @param fichierXML
+     */
     public void chargerPlan(File fichierXML)
     {
     	try
     	{
 	    	CreationPlan.depuisXML(fichierXML);
-	    	// VuePlan.getInstance().dessinerPlan(new Graphic());
+	    	VuePlan.getInstance();
     	}
     	catch(Exception e)
     	{
@@ -138,6 +162,10 @@ public final class Controleur
     	}
     }
     
+    /**
+     * Charger une demande de Livraison a partir d'un fichier XML.
+     * @param fichierXML
+     */
     public void chargerDemandeLivraison(File fichierXML)
     {
     	try
@@ -151,7 +179,12 @@ public final class Controleur
     		// construire VueException v(f.getMessage());
     	}
     }
-    
+   
+    /**
+     * Calcul des plus courts chemins entre les points de livraisons, une fois la modification interactive sur l'interface (Vue) terminee.
+     * Verification de la faisabilite de la tournee.
+     * @param tournee
+     */
     public void calculTournee(Tournee tournee)
     {
     	
