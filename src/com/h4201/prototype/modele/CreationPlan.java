@@ -11,9 +11,25 @@ import com.h4201.prototype.exception.ExceptionNonInstancie;
 import com.h4201.prototype.exception.ExceptionXML;
 import com.h4201.prototype.utilitaire.Fichier;
 
+/**
+ * Classe permettant de creer l'instance de plan a partir d'un fichier XML.
+ * Classe ne contenant que des methodes statiques. 
+ * Declaree abstract car ne peut etre instanciee.
+ * 
+ * @author Paul
+ *
+ */
 public abstract class CreationPlan
 {
-	
+	/**
+	 * Permet d'instancier le plan depuis un fichier XML.
+	 * 
+	 * @param planXML Fichier contenant le XML
+	 * @return L'instance du plan
+	 * @throws ExceptionXML
+	 * @throws ExceptionFichier
+	 * @throws ExceptionNonInstancie
+	 */
 	public static Plan depuisXML(File planXML) 
 			throws ExceptionXML, ExceptionFichier, ExceptionNonInstancie
 	{

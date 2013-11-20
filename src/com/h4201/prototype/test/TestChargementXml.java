@@ -30,7 +30,7 @@ public class TestChargementXml
 			e.printStackTrace();
 		}
 		
-		System.out.println("Les tests sont terminés");
+		System.out.println("Les tests sont termines");
 	}
 	
 	public void testChargerPlan() throws Exception
@@ -52,10 +52,10 @@ public class TestChargementXml
 		
 		
 		assertTrue(tournee.getEntrepot() != null);
-		assertTrue(!tournee.getTrancheshoraire().isEmpty());
+		assertTrue(!tournee.getTranchesHoraire().isEmpty());
 		
 		assertTrue(tournee2.getEntrepot() != null);
-		assertTrue(!tournee2.getTrancheshoraire().isEmpty());
+		assertTrue(!tournee2.getTranchesHoraire().isEmpty());
 		
 		tournee2.afficher();
 	}

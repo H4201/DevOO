@@ -13,9 +13,29 @@ import com.h4201.prototype.utilitaire.Date;
 import com.h4201.prototype.utilitaire.Fichier;
 
 
+/**
+ * Classe permettant de creer une instance de tournee a partir d'un fichier XML.
+ * Classe ne contenant que des methodes statiques. 
+ * Declaree abstract car ne peut etre instanciee.
+ * 
+ * @author Paul
+ *
+ */
 public abstract class CreationDemandeLivraison
 {
-	
+	/**
+	 * Permet d'instancier une Tournee sans ses chemins.
+	 * En effet, l'instance comprendra les points de livraison, tranches horaire, 
+	 * entrepot mais pas les chemins, ils seront calcules par la suite 
+	 * et ajoutes a l'instance.
+	 * 
+	 * @param demandeLivraisonXML Fichier contenant le XML
+	 * @return Une tournee sans les chemins pour aller 
+	 * d'un point de livraison a l'autre.
+	 * @throws ExceptionXML
+	 * @throws ExceptionFichier
+	 * @throws ExceptionNonInstancie
+	 */
 	public static Tournee depuisXML(File demandeLivraisonXML) 
 			throws ExceptionXML, ExceptionFichier, ExceptionNonInstancie
 	{

@@ -5,6 +5,13 @@ import java.util.Vector;
 
 import com.h4201.prototype.exception.ExceptionNonInstancie;
 
+/**
+ * Un plan est une carte composee de noeuds et de troncons.
+ * Il s'agit d'une modelisation d'une carte d'une ville avec ses rues 
+ * et les points de livraison.
+ * @author Paul
+ *
+ */
 public final class Plan
 {
 	private static volatile Plan instance = null;

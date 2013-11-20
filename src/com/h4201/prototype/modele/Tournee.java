@@ -5,6 +5,13 @@ import com.h4201.prototype.modele.Entrepot;
 import com.h4201.prototype.modele.TrancheHoraire;
 import com.h4201.prototype.modele.Chemin;
 
+/**
+ * Une tournee est l'itineraire d'un livreur passant par tous les points de livraison 
+ * et optimise pour aller le plus vite possible (choix des troncons).
+ * 
+ * @author Paul
+ *
+ */
 public class Tournee
 {
 	  private static int dernierIdTournee;
@@ -13,6 +20,12 @@ public class Tournee
 	  private Vector<Chemin> chemins;
 	  private Vector<TrancheHoraire> tranchesHoraire;
 
+	  /**
+	   * Constructeur de Tournee.
+	   * @param entrepot Noeud de depart
+	   * @param tranchesHoraire Liste des tranches horaires contenant 
+	   * les points de livraison
+	   */
 	  public Tournee(Entrepot entrepot, Vector<TrancheHoraire> tranchesHoraire)
 	  {
 		  this.entrepot = entrepot;
@@ -38,7 +51,7 @@ public class Tournee
 			return chemins;
 		}
 		
-		public Vector<TrancheHoraire> getTrancheshoraire() {
+		public Vector<TrancheHoraire> getTranchesHoraire() {
 			return tranchesHoraire;
 		}
 		
