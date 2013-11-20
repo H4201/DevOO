@@ -83,6 +83,8 @@ public final class Controleur
      */
     public boolean annuler()
     {
+    	enModification = true;
+    	
     	if(!undos.isEmpty())
     	{
     		Commande cmd = undos.pop();
@@ -105,6 +107,8 @@ public final class Controleur
      */    
     public boolean retablir()
     {
+    	enModification = true;
+    	
     	if(!redos.isEmpty())
     	{
     		Commande cmd = redos.pop();
