@@ -25,13 +25,13 @@ public class VueChemin extends JPanel
 		return chemin;
 	}
 	
-	public void dessinerChemin(Graphics g)
+	public void dessinerChemin(Graphics g, int facteurConversion)
 	{
 		Color cTemp = g.getColor();
-		int x1 = (int)  chemin.getPointLivraisonOrigine().getNoeud().getX() * getWidth() / Constante.LARGEUR;
-		int y1 = (int)  chemin.getPointLivraisonOrigine().getNoeud().getY() * getWidth() / Constante.HAUTEUR;
-		int x2 = (int)  chemin.getPointLivraisonDestination().getNoeud().getX() * getWidth() / Constante.LARGEUR;
-		int y2 = (int)  chemin.getPointLivraisonDestination().getNoeud().getY() * getWidth() / Constante.HAUTEUR;
+		int x1 = (int)  chemin.getPointLivraisonOrigine().getNoeud().getX() * facteurConversion / Constante.LARGEUR;
+		int y1 = (int)  chemin.getPointLivraisonOrigine().getNoeud().getY() * facteurConversion / Constante.HAUTEUR;
+		int x2 = (int)  chemin.getPointLivraisonDestination().getNoeud().getX() * facteurConversion / Constante.LARGEUR;
+		int y2 = (int)  chemin.getPointLivraisonDestination().getNoeud().getY() * facteurConversion/ Constante.HAUTEUR;
 		
 		// g.setColor(CouleurTH); set la couleur de la tranchehoraire correspondante
 		g.drawLine(x1, y1, x2, y2);

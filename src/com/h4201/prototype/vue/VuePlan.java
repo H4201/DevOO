@@ -1,18 +1,14 @@
 package com.h4201.prototype.vue;
 
-import java.awt.Color;
 import java.awt.Graphics;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Vector;
 
 import javax.swing.JPanel;
 
-import com.h4201.prototype.controleur.Controleur;
 import com.h4201.prototype.exception.ExceptionNonInstancie;
 import com.h4201.prototype.modele.Noeud;
 import com.h4201.prototype.modele.Plan;
-import com.h4201.prototype.modele.Tournee;
 import com.h4201.prototype.modele.TrancheHoraire;
 import com.h4201.prototype.modele.Troncon;
 import com.h4201.prototype.utilitaire.Constante;
@@ -70,36 +66,31 @@ public class VuePlan extends JPanel
 		}
 	}
 	
-	/*
+
 	public void initialiserVuePointLivraison()
 	{
-		Controleur controleur = Controleur.getInstance();
-		lesTournees = controleur.getTournee();
-		for(Tournee tournee : lesTournees)
-		{
-			lesTrancheHoraires = tournee.getTranchesHoraires(tournee.getIdTournee());
-			
-			
-		}
 		
 	}
-	*/
+	
 	
 	@Override
 	public void paintComponent(Graphics g)
 	{
 		super.paintComponent(g);
+		System.out.println("je dessine le plan\n");
 		this.setBackground(Constante.ARRIEREPLAN);
 		
 		for(VueNoeud vueNoeud : lesVueNoeuds )
 		{
-			vueNoeud.dessinerNoeud(g);
+			vueNoeud.dessinerNoeud(g, getWidth());
+			
 		}
-		
+		System.out.println("j'ai dessiné les noeuds\n");
 		for(VueTroncon vueTroncon : lesVueTroncons )
 		{
-			vueTroncon.dessinerTroncon(g);
-		}		
+			vueTroncon.dessinerTroncon(g,getWidth());
+		}
+		System.out.println("j'ai dessiné les tronçons");
 	}
 		
 	public Noeud clicPlan(double x, double y)

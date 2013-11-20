@@ -3,13 +3,11 @@ package com.h4201.prototype.vue;
 import java.awt.Color;
 import java.awt.Graphics;
 
-import javax.swing.JPanel;
-
 import com.h4201.prototype.modele.PointLivraison;
 import com.h4201.prototype.utilitaire.Constante;
 
-@SuppressWarnings("serial")
-public class VuePointDeLivraison extends JPanel
+
+public class VuePointDeLivraison
 {
 	private PointLivraison pointLivraison;
 	private Color couleur;
@@ -43,12 +41,12 @@ public class VuePointDeLivraison extends JPanel
 		return false;		
 	}
 	
-	public void dessinerPointLivraison(Graphics g)
+	public void dessinerPointLivraison(Graphics g, int facteurConversion)
 	{
 		Color cTemp = g.getColor();
-		int x = (int) pointLivraison.getNoeud().getX() * getWidth() / Constante.LARGEUR;
-		int y = (int) pointLivraison.getNoeud().getY() * getWidth() / Constante.HAUTEUR;
-		int rayon = (int) (Constante.RAYONNOEUD * getWidth() / Constante.LARGEUR);
+		int x = (int) pointLivraison.getNoeud().getX() * facteurConversion / Constante.LARGEUR;
+		int y = (int) pointLivraison.getNoeud().getY() * facteurConversion / Constante.HAUTEUR;
+		int rayon = (int) (Constante.RAYONNOEUD * facteurConversion / Constante.LARGEUR);
 	
 		//g.setColor();
 		g.fillOval((int) x - rayon ,(int) y - rayon , 2*rayon , 2*rayon);

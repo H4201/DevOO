@@ -3,13 +3,11 @@ package com.h4201.prototype.vue;
 import java.awt.Color;
 import java.awt.Graphics;
 
-import javax.swing.JPanel;
-
 import com.h4201.prototype.modele.Noeud;
 import com.h4201.prototype.utilitaire.Constante;
 
-@SuppressWarnings("serial")
-public class VueNoeud extends JPanel
+
+public class VueNoeud
 {
 	private Noeud noeud;
 	
@@ -28,12 +26,13 @@ public class VueNoeud extends JPanel
 		return false;		
 	}
 	
-	public void dessinerNoeud(Graphics g)
+
+	public void dessinerNoeud(Graphics g, int facteurConversion)
 	{	
 		Color cTemp = g.getColor();
-		int x = (int) noeud.getX() * getWidth() / Constante.LARGEUR;
-		int y = (int) noeud.getY() * getWidth() / Constante.HAUTEUR;
-		int rayon = (int) (Constante.RAYONNOEUD * getWidth() / Constante.LARGEUR);
+		int x = (int) noeud.getX() * facteurConversion / Constante.LARGEUR;
+		int y = (int) noeud.getY() * facteurConversion / Constante.HAUTEUR;
+		int rayon = (int) (Constante.RAYONNOEUD * facteurConversion / Constante.LARGEUR);
 		g.setColor(Constante.COULEURNOEUD);
 		g.fillOval((int) x - rayon ,(int) y - rayon , 2*rayon , 2*rayon);
         g.setColor(cTemp);
