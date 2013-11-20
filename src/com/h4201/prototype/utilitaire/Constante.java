@@ -1,5 +1,7 @@
 package com.h4201.prototype.utilitaire;
 
+import java.awt.Color;
+
 /**
  * 
  * @author Paul
@@ -19,4 +21,23 @@ public abstract class Constante
 	 * Conversion
 	 */
 	public static final double CONVERSION_METRES_EN_PIXELS = 0.1;
+	
+	
+	/*
+	 * constante pour le plan
+	 */
+	public static final int HAUTEUR = 240;
+	public static final int LARGEUR = 240;
+	public static final int RAYONNOEUD = 1;
+	public static final int RAYONENTREPOT = 5;
+	public static final Color COULEURNOEUD = Color.GRAY;
+	public static final Color COULEURTRONCON = Color.GRAY;
+	public static final Color ARRIEREPLAN = Color.BLUE;
+	
+	
+	/*
+	 * tableau couleurs des tranches horaires
+	 */
+	public static final Color tabCouleur[] = { Color.WHITE, Color.RED, Color.YELLOW, Color.BLUE,Color.GREEN,Color.GRAY,Color.PINK, Color.ORANGE, Color.BLACK,Color.DARK_GRAY };
+
 }

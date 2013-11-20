@@ -1,27 +1,23 @@
 package com.h4201.prototype.vue;
 
 import java.awt.Color;
+import java.awt.Graphics;
+import java.util.Vector;
+
+import javax.swing.JPanel;
 
 import com.h4201.prototype.modele.Chemin;
+import com.h4201.prototype.utilitaire.Constante;
 
-/* on affichera dans le plan les noeuds et les points de livraisons depuis les fichiers XML
- * puis la tournée constituée d'un ensemble de chemins ( entre deux points de livraisons)
- * et non les tronçons (entre deux noeuds quelconques)
- */
-
-public class VueChemin
+@SuppressWarnings("serial")
+public class VueChemin extends JPanel
 {
+
 	private Chemin chemin;
-	private boolean etat;
-	
-	public VueChemin()
+	Vector<VuePointDeLivraison> lesPointLivraisons = new Vector<VuePointDeLivraison>();
+	public VueChemin(Chemin chemin)
 	{
-		
-	}
-	
-	public VueChemin(Chemin chemin, Color couleur)
-	{
-		
+		this.chemin = chemin;
 	}
 	
 	public Chemin getChemin()
@@ -29,19 +25,24 @@ public class VueChemin
 		return chemin;
 	}
 	
-	public boolean getEtat()
+	public void dessinerChemin(Graphics g)
 	{
-		return etat;		
-	}
-	
-	public void afficherChemin()
-	{
+		Color cTemp = g.getColor();
+		int x1 = (int)  chemin.getPointLivraisonOrigine().getNoeud().getX() * getWidth() / Constante.LARGEUR;
+		int y1 = (int)  chemin.getPointLivraisonOrigine().getNoeud().getY() * getWidth() / Constante.HAUTEUR;
+		int x2 = (int)  chemin.getPointLivraisonDestination().getNoeud().getX() * getWidth() / Constante.LARGEUR;
+		int y2 = (int)  chemin.getPointLivraisonDestination().getNoeud().getY() * getWidth() / Constante.HAUTEUR;
 		
+		// g.setColor(CouleurTH); set la couleur de la tranchehoraire correspondante
+		g.drawLine(x1, y1, x2, y2);
+		g.setColor(cTemp);	
 	}
 	
 	public void desactiverChemin(boolean etat)
 	{
 		
 	}
+
+
 	
 }
