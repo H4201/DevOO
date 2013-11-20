@@ -68,36 +68,42 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 		JButton boutonFeuilleDeRoute = new JButton("Generer la feuille de route");
 		boutonFeuilleDeRoute.setLayout(null);
 		boutonFeuilleDeRoute.setBounds(600, 0, 300, 30);
+		boutonFeuilleDeRoute.setEnabled(false);
 		fenetre.getContentPane().add(boutonFeuilleDeRoute, "North");
 		boutons.add(boutonFeuilleDeRoute);
 		
 		JButton boutonAnnuler = new JButton("Annuler");
 		boutonAnnuler.setLayout(null);
 		boutonAnnuler.setBounds(0, 25, 300, 30);
+		boutonAnnuler.setEnabled(false);
 		fenetre.getContentPane().add(boutonAnnuler, "North");
 		boutons.add(boutonAnnuler);
 		
 		JButton boutonRetablir = new JButton("Retablir");
 		boutonRetablir.setLayout(null);
 		boutonRetablir.setBounds(300, 25, 300, 30);
+		boutonRetablir.setEnabled(false);
 		fenetre.getContentPane().add(boutonRetablir, "North");
 		boutons.add(boutonRetablir);
 		
 		JButton boutonCalcT = new JButton("Calculer la tournee");
 		boutonCalcT.setLayout(null);
 		boutonCalcT.setBounds(0, 650, 300, 30);
+		boutonCalcT.setEnabled(false);
 		fenetre.getContentPane().add(boutonCalcT, "South");
 		boutons.add(boutonCalcT);
 		
 		JButton boutonAjouter = new JButton("Ajouter");
 		boutonAjouter.setLayout(null);
 		boutonAjouter.setBounds(300, 650, 300, 30);
+		boutonAjouter.setEnabled(false);
 		fenetre.getContentPane().add(boutonAjouter, "South");
 		boutons.add(boutonAjouter);
 		
 		JButton boutonSupprimer = new JButton("Supprimer");
 		boutonSupprimer.setLayout(null);
 		boutonSupprimer.setBounds(600, 650, 300, 30);
+		boutonSupprimer.setEnabled(false);
 		fenetre.getContentPane().add(boutonSupprimer, "South");
 		boutons.add(boutonSupprimer);
 		
@@ -127,6 +133,10 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 				File xml = new File(jFileChooserXML.getSelectedFile().getAbsolutePath());
 				Controleur.getInstance().chargerPlan(xml);
 				fenetre.getContentPane().add(VuePlan.getInstance());
+				VuePlan.getInstance().setLayout(null);
+				VuePlan.getInstance().setBounds(500, 100, 400, 400);
+				VuePlan.getInstance().repaint();
+				//boutonChargerDemande.setEnabled(true);
 			}
 		}
 		else if (evt.getActionCommand().equals("Charger demandes de livraisons")){
