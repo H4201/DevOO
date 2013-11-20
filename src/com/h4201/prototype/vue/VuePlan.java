@@ -21,9 +21,6 @@ import com.h4201.prototype.utilitaire.Constante;
 public class VuePlan extends JPanel
 {
 	private static volatile VuePlan instance = null;
-	private double largeur;
-	private double hauteur;
-	private Color couleurArrierePlan;
 	Vector<VueNoeud> lesVueNoeuds = new Vector<VueNoeud>();
 	Vector<VueTroncon> lesVueTroncons = new Vector<VueTroncon>();
 	Vector<TrancheHoraire> lesTrancheHoraires = new Vector<TrancheHoraire>();
@@ -49,26 +46,6 @@ public class VuePlan extends JPanel
 	  
 	  return VuePlan.instance;
   }
-	
-	public double getLargeur()
-	{
-	    return largeur;
-	}
-	    
-	public Color getCouleurArrierePlan()
-	{
-		return couleurArrierePlan ;
-	}
-	
-	public void setCouleurArrierePlan(Color couleur)
-	{
-		couleurArrierePlan = couleur;
-	}
-
-	public double getHauteur()
-	{
-	        return hauteur;
-	}
 	    
 	public void initialiserVuePlan()
 	{
@@ -92,6 +69,7 @@ public class VuePlan extends JPanel
 			e.printStackTrace();
 		}
 	}
+	
 	/*
 	public void initialiserVuePointLivraison()
 	{
