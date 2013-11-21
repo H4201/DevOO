@@ -62,7 +62,7 @@ public class Noeud
 
   public Vector<Troncon> getTronconsSortants()
   {
-	  return this.tronconsEntrants;
+	  return this.tronconsSortants;
   }
 
   protected void ajouterTronconSortant(Troncon troncon)

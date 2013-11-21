@@ -21,13 +21,18 @@ public class VueNoeud
 		return noeud;
 	}
 
-	public boolean estClique(double x, double y)
+	public Boolean estClique(double x, double y)
 	{
-		return false;		
+		boolean flag = false;
+		if(x == noeud.getX() &&  y == noeud.getY())
+		{
+			flag = true;
+		}
+		return flag;
 	}
 	
 
-	public Graphics dessinerNoeud(Graphics g, int facteurConversion)
+	public void dessinerNoeud(Graphics g, int facteurConversion)
 	{	
 		Color cTemp = g.getColor();
 		int x = (int) noeud.getX() * facteurConversion / Constante.LARGEUR;
@@ -36,8 +41,6 @@ public class VueNoeud
 		g.setColor(Constante.COULEURNOEUD);
 		g.fillOval((int) x - rayon ,(int) y - rayon , 2*rayon , 2*rayon);
         g.setColor(cTemp);
-        
-        return g;
 	}
 
 }

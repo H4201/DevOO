@@ -11,55 +11,43 @@ public class VuePointDeLivraison
 {
 	private PointLivraison pointLivraison;
 	private Color couleur;
-	/*
-	private Vector<Tournee> lesTournees = new Vector<Tournee>();
-	private Map<TrancheHoraire, Color> CouleursTranchesHoraires = new HashMap<TrancheHoraire,Color>();
-	*/
+
 	public VuePointDeLivraison(PointLivraison pointLivraison, Color couleur)
 	{
 		this.pointLivraison = pointLivraison;
 		this.couleur = couleur;
 	}
-	/*
-	public Map<TrancheHoraire, Color> initMap()
+
+	public PointLivraison getPointLivraison()
 	{
-		return CouleursTranchesHoraires;	
+		return pointLivraison;
 	}
-	*/
+
 	public Color getCouleur()
 	{
 		return couleur;
 	}
-/*
-	public Color getCouleurTrancheHoraire(TrancheHoraire trancheHoraire)
-	{
-		return CouleursTranchesHoraires.get(trancheHoraire);	
-	}
-*/
+	
 	public boolean estClique(double x, double y)
 	{
-		return false;		
+		boolean flag = false;
+		if(x == pointLivraison.getNoeud().getX() && y == pointLivraison.getNoeud().getY())
+		{
+			flag = true;
+		}
+		return flag;		
 	}
 	
-	public void dessinerPointLivraison(Graphics g, int facteurConversion)
+	public void dessinerPointLivraison(Graphics g, int facteurConversion, Color couleur)
 	{
 		Color cTemp = g.getColor();
 		int x = (int) pointLivraison.getNoeud().getX() * facteurConversion / Constante.LARGEUR;
 		int y = (int) pointLivraison.getNoeud().getY() * facteurConversion / Constante.HAUTEUR;
-		int rayon = (int) (Constante.RAYONNOEUD * facteurConversion / Constante.LARGEUR);
-	
-		//g.setColor();
+		int rayon = (int) (Constante.RAYONNOEUD * facteurConversion / Constante.LARGEUR);	
+		g.setColor(couleur);
 		g.fillOval((int) x - rayon ,(int) y - rayon , 2*rayon , 2*rayon);
 	    g.setColor(cTemp);
 
-		
-		//TODO   
-		// si entrepot d'une tournee dessiner l'entrepot avec sa taille
-		// recuperer la couleur de la tranche horaire
-		// dessiner le noeud et colorier le noeud en fonction de la couleur de la tranchehoraire
-		//g.setColor();
 	}
-
-
 
 }
