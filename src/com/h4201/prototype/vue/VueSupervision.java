@@ -142,6 +142,7 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 				//lecture du contenu d'un fichier XML avec DOM
 				File xml = new File(jFileChooserXML.getSelectedFile().getAbsolutePath());
 				Controleur.getInstance().chargerPlan(xml);
+				VuePlan.getInstance().initialiserVuePlan();
 				fenetre.getContentPane().add(VuePlan.getInstance());
 				VuePlan.getInstance().setLayout(null);
 				VuePlan.getInstance().setBounds(350, 100, 600, 450);
