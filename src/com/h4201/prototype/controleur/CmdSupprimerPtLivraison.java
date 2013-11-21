@@ -70,4 +70,12 @@ public class CmdSupprimerPtLivraison extends Commande
     		}
     	}
 	}
+	
+	/**
+	 * connaitre le mode (enSuppression=2) de la commande
+	 */
+	public int getMode()
+	{
+		return 2;
+	}
 }
