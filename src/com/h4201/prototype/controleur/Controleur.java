@@ -52,7 +52,6 @@ public final class Controleur
     {
     	enModification = true;
     	
-    	Tournee tournee = Tournee.getInstance();
     	CmdAjouterPtLivraison commandeAjout = new CmdAjouterPtLivraison(noeud, trancheHoraire);
     	commandeAjout.do_();
     	
