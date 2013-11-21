@@ -29,7 +29,6 @@ public class VueTroncon
 	
 	public void dessinerTroncon(Graphics g, int facteurConversion)
 	{
-		System.out.println("test troncon");
 		Color cTemp = g.getColor();
 		int x1 = (int)  troncon.getNoeudDestination().getX() * facteurConversion / Constante.LARGEUR;
 		int y1 = (int)  troncon.getNoeudDestination().getY() * facteurConversion / Constante.HAUTEUR;

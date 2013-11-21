@@ -31,10 +31,10 @@ public abstract class Constante
 	public static final int POSVUEX = 350;
 	public static final int POSVUEY = 100;
 	public static final int RAYONNOEUD = 5;
-	public static final int RAYONENTREPOT = 5;
+	public static final int RAYONENTREPOT = 10;
 	public static final Color COULEURNOEUD = Color.GRAY;
 	public static final Color COULEURTRONCON = Color.BLACK;
-	public static final Color COULEURENTREPOT = Color.BLACK;
+	public static final Color COULEURENTREPOT = Color.CYAN;
 	public static final Color ARRIEREPLAN = Color.WHITE;
 	public static final int HBOUTON = 30;
 	public static final int LBOUTON = 200;
@@ -45,6 +45,6 @@ public abstract class Constante
 	/*
 	 * tableau couleurs des tranches horaires
 	 */
-	public static final Color tabCouleur[] = { Color.WHITE, Color.RED, Color.YELLOW, Color.BLUE,Color.GREEN,Color.GRAY,Color.PINK, Color.ORANGE, Color.BLACK,Color.DARK_GRAY };
+	public static final Color tabCouleur[] = {Color.RED, Color.YELLOW, Color.BLUE,Color.GREEN,Color.MAGENTA,Color.PINK, Color.ORANGE, Color.LIGHT_GRAY,Color.DARK_GRAY };
 
 }
