@@ -147,7 +147,7 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 				VuePlan.getInstance().initialiserVuePlan();
 				fenetre.getContentPane().add(VuePlan.getInstance());
 				VuePlan.getInstance().setLayout(null);
-				VuePlan.getInstance().setBounds(350, 100, Constante.LARGEUR, Constante.HAUTEUR);
+				VuePlan.getInstance().setBounds(Constante.POSVUEX, Constante.POSVUEY, Constante.LARGEUR, Constante.HAUTEUR);
 				VuePlan.getInstance().repaint();
 				boutonChargerDemande.setEnabled(true);
 				

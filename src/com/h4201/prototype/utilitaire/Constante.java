@@ -28,6 +28,8 @@ public abstract class Constante
 	 */
 	public static final int HAUTEUR = 450;
 	public static final int LARGEUR = 600;
+	public static final int POSVUEX = 350;
+	public static final int POSVUEY = 100;
 	public static final int RAYONNOEUD = 1;
 	public static final int RAYONENTREPOT = 5;
 	public static final Color COULEURNOEUD = Color.BLACK;
