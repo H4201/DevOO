@@ -26,8 +26,6 @@ import com.sun.file.ExampleFileFilter;
 
 public class VueSupervision extends MouseAdapter implements ActionListener
 {
-	//le modele
-	//private Plan plan;
 	//la fenetre
 	private JFrame fenetre;
 	//pour la sauvegarde et la lecture des fichiers en xml
@@ -143,6 +141,8 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 	// Methode appelee quand un bouton est clique 
 	@Override
 	public void actionPerformed(ActionEvent evt) {
+		boolean videRetablir;
+		boolean videAnnuler;
 		if (evt.getActionCommand().equals("Charger plan")){
 			int returnVal = jFileChooserXML.showOpenDialog(null);
 			if (returnVal == JFileChooser.APPROVE_OPTION) {
@@ -158,10 +158,9 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 				VuePlan.getInstance().setBounds(Constante.POSVUEX, Constante.POSVUEY, Constante.LARGEUR, Constante.HAUTEUR);
 				VuePlan.getInstance().repaint();
 				boutonChargerDemande.setEnabled(true);
-				
 			}
 		}
-		else if (evt.getActionCommand().equals("Charger demandes de livraisons")){
+		else if (evt.getActionCommand().equals("Charger demandes")){
 			int returnVal = jFileChooserXML.showOpenDialog(null);
 			if (returnVal == JFileChooser.APPROVE_OPTION) {
 				// debug
@@ -175,21 +174,43 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 				boutonSupprimer.setEnabled(true);
 			}
 		}
+		else if (evt.getActionCommand().equals("Generer la feuille de route")){
+			//fonction xinlu pour enregistrer dans un fichier
+		}
+ 		else if (evt.getActionCommand().equals("Annuler")){
+ 			boutonRetablir.setEnabled(true);
+ 			videAnnuler = Controleur.getInstance().annuler();
+ 			if(videAnnuler){
+ 				boutonAnnuler.setEnabled(false);
+ 			}
+ 			boutonCalcT.setEnabled(true);
+ 			//reste?
+ 		}
+		else if (evt.getActionCommand().equals("Retablir")){
+			boutonAnnuler.setEnabled(true);
+			videRetablir = Controleur.getInstance().retablir();
+ 			if(videRetablir){
+ 				boutonRetablir.setEnabled(false);
+ 			}
+ 			//reste?
+		}	
+		else if (evt.getActionCommand().equals("Calculer la tournee")){
+			Controleur.getInstance().calculTournee();
+			boutonFeuilleDeRoute.setEnabled(true);
+			boutonCalcT.setEnabled(false);
+			//reste?
+		}
+		else if (evt.getActionCommand().equals("Mode ajouter")){
+			//passer le mode ajouter et decolorer les troncons
+		}
+		else if (evt.getActionCommand().equals("Mode supprimer")){
+			//passer le mode supprimer et decolorer les troncons
+		}
+		else if (evt.getActionCommand().equals("Mode normal")){
+			//changer un truc pour que quand on clique ca fasse l'affichage
+		}
+	    //else // ne rien faire
 			
-		/*else if (evt.getActionCommand().equals("Generer la feuille de route"))
-			
- 		else if (evt.getActionCommand().equals("Annuler"))
-			
-		else if (evt.getActionCommand().equals("Retablir"))
-			
-		else if (evt.getActionCommand().equals("Calculer la tournee"))
-			
-		else if (evt.getActionCommand().equals("Ajouter"))
-			
-		else if (evt.getActionCommand().equals("Supprimer"))
-			
-	    else // ne rien faire
-			*/
 		fenetre.repaint();
 	}
 	
@@ -198,10 +219,25 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 	@Override
 	public void mouseClicked(MouseEvent evt){
 		System.out.println("Souris cliquee en x="+evt.getX()+" y="+evt.getY());
+		//si en mode ajout
+			//si clique sur un noeud
+				//ouvre pop up avec tranches horaires
+				//apres validation -> degriser calcT, griser genere feuille de route, griser redo, degriser undo, ajouter le point de livraison, repaindre le plan
+		//si en mode suppression
+			//si clique sur un noeud colore (point de livraison)
+				//degriser calcT, griser generer feuille de route, griser redo, degriser undo, supprimer le point de livraison, repaindre le plan      ------> cas de plusieurs livraisons?
+		//si en mode normal
+			//si clique sur un noeud colore (point de livraison)
+				//affiche les donnees
+		
+		
+		
+		
+		
+		//dans plan? -> (POSVUEX<=x<=POSVUEX+LARGEUR) et (POSVUEY<=y<=POSVUEY+HAUTEUR).
+		//coord des noeuds par rapport a fenetre supervision a convertir car doit etre par rapport au plan (cf aussi passage metres -> pixels)
+		
 	}
 	
-	public Noeud clic(double x, double y){
-		return null;
-	}
 
 }
