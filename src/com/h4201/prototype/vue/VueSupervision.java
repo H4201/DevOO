@@ -40,6 +40,7 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 	private JButton boutonCalcT;
 	private JButton boutonAjouter;
 	private JButton boutonSupprimer;
+	private JButton boutonModeNormal;
 	
 	public VueSupervision(int x, int y){
 		
@@ -70,7 +71,7 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 		fenetre.getContentPane().add(boutonChargerPlan, "North");
 		boutons.add(boutonChargerPlan);
 		
-		boutonChargerDemande = new JButton("Charger demandes de livraisons");
+		boutonChargerDemande = new JButton("Charger demandes");
 		boutonChargerDemande.setLayout(null);
 		boutonChargerDemande.setBounds(1*Constante.LBOUTON, Constante.LIGNEBOUTON1, Constante.LBOUTON, Constante.HBOUTON);
 		boutonChargerDemande.setEnabled(false);
@@ -79,7 +80,7 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 		
 		boutonFeuilleDeRoute = new JButton("Generer la feuille de route");
 		boutonFeuilleDeRoute.setLayout(null);
-		boutonFeuilleDeRoute.setBounds(2*Constante.LBOUTON, Constante.LIGNEBOUTON1, Constante.LBOUTON, Constante.HBOUTON);
+		boutonFeuilleDeRoute.setBounds(4*Constante.LBOUTON, Constante.LIGNEBOUTON1, Constante.LBOUTON, Constante.HBOUTON);
 		boutonFeuilleDeRoute.setEnabled(false);
 		fenetre.getContentPane().add(boutonFeuilleDeRoute, "North");
 		boutons.add(boutonFeuilleDeRoute);
@@ -105,19 +106,26 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 		fenetre.getContentPane().add(boutonCalcT, "South");
 		boutons.add(boutonCalcT);
 		
-		boutonAjouter = new JButton("Ajouter");
+		boutonAjouter = new JButton("Mode ajouter");
 		boutonAjouter.setLayout(null);
-		boutonAjouter.setBounds(1*Constante.LBOUTON, Constante.LIGNEBOUTON3, Constante.LBOUTON, Constante.HBOUTON);
+		boutonAjouter.setBounds(2*Constante.LBOUTON, Constante.LIGNEBOUTON3, Constante.LBOUTON, Constante.HBOUTON);
 		boutonAjouter.setEnabled(false);
 		fenetre.getContentPane().add(boutonAjouter, "South");
 		boutons.add(boutonAjouter);
 		
-		boutonSupprimer = new JButton("Supprimer");
+		boutonSupprimer = new JButton("Mode supprimer");
 		boutonSupprimer.setLayout(null);
-		boutonSupprimer.setBounds(2*Constante.LBOUTON, Constante.LIGNEBOUTON3, Constante.LBOUTON, Constante.HBOUTON);
+		boutonSupprimer.setBounds(3*Constante.LBOUTON, Constante.LIGNEBOUTON3, Constante.LBOUTON, Constante.HBOUTON);
 		boutonSupprimer.setEnabled(false);
 		fenetre.getContentPane().add(boutonSupprimer, "South");
 		boutons.add(boutonSupprimer);
+		
+		boutonModeNormal = new JButton("Mode normal");
+		boutonModeNormal.setLayout(null);
+		boutonModeNormal.setBounds(4*Constante.LBOUTON, Constante.LIGNEBOUTON3, Constante.LBOUTON, Constante.HBOUTON);
+		boutonModeNormal.setEnabled(false);
+		fenetre.getContentPane().add(boutonModeNormal, "South");
+		boutons.add(boutonModeNormal);
 		
 		//Incrisption de this comme ecouteur (listener) des boutons
 		Iterator<AbstractButton> it = boutons.iterator();
@@ -162,6 +170,9 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 				//lecture du contenu d'un fichier XML avec DOM
 				File xml = new File(jFileChooserXML.getSelectedFile().getAbsolutePath());
 				Controleur.getInstance().chargerDemandeLivraison(xml);
+				boutonCalcT.setEnabled(true);
+				boutonAjouter.setEnabled(true);
+				boutonSupprimer.setEnabled(true);
 			}
 		}
 			

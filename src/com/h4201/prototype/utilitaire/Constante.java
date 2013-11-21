@@ -37,9 +37,9 @@ public abstract class Constante
 	public static final Color COULEURENTREPOT = Color.BLACK;
 	public static final Color ARRIEREPLAN = Color.WHITE;
 	public static final int HBOUTON = 30;
-	public static final int LBOUTON = 300;
+	public static final int LBOUTON = 200;
 	public static final int LIGNEBOUTON1 = 0;
-	public static final int LIGNEBOUTON2 = 25;
+	public static final int LIGNEBOUTON2 = 50;
 	public static final int LIGNEBOUTON3 = 650;
 	
 	/*
