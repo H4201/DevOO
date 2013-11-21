@@ -12,9 +12,9 @@ public abstract class Constante
 	/*
 	 * Exception
 	 */
-	public static final String EXCEPTION_XML = "Le XML ne correspond pas à ce qui est attendu";
+	public static final String EXCEPTION_XML = "Le XML ne correspond pas a ce qui est attendu";
 	public static final String EXCEPTION_FICHIER = "Le fichier n'existe pas ou est illisible";
-	public static final String EXCEPTION_NON_INSTANCIE = "L'objet n'a pas été instancié";
+	public static final String EXCEPTION_NON_INSTANCIE = "L'objet n'a pas ete instancie";
 	
 	
 	/*
@@ -34,7 +34,11 @@ public abstract class Constante
 	public static final Color COULEURTRONCON = Color.BLACK;
 	public static final Color COULEURENTREPOT = Color.BLACK;
 	public static final Color ARRIEREPLAN = Color.WHITE;
-	
+	public static final int HBOUTON = 30;
+	public static final int LBOUTON = 300;
+	public static final int LIGNEBOUTON1 = 0;
+	public static final int LIGNEBOUTON2 = 25;
+	public static final int LIGNEBOUTON3 = 650;
 	
 	/*
 	 * tableau couleurs des tranches horaires
