@@ -194,8 +194,8 @@ public class VueSupervision2 extends MouseAdapter implements ActionListener
 		}	
 		else if (evt.getActionCommand().equals("Calculer la tournee")){
 			Controleur.getInstance().calculTournee();
-			VueTournee.getInstance().initialiserTout();
-			VueTournee.getInstance().initialiserTournee();
+			//VueTournee.getInstance().initialiserTout();
+			//VueTournee.getInstance().initialiserTournee();
 			boutonFeuilleDeRoute.setEnabled(true);
 			boutonCalcT.setEnabled(false);
 			//reste?
