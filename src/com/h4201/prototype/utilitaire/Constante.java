@@ -26,8 +26,8 @@ public abstract class Constante
 	/*
 	 * constante pour le plan
 	 */
-	public static final int HAUTEUR = 140;
-	public static final int LARGEUR = 140;
+	public static final int HAUTEUR = 450;
+	public static final int LARGEUR = 600;
 	public static final int RAYONNOEUD = 1;
 	public static final int RAYONENTREPOT = 5;
 	public static final Color COULEURNOEUD = Color.BLACK;
