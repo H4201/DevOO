@@ -63,4 +63,12 @@ public class CmdAjouterPtLivraison extends Commande
     			tranches.get(i).getPointsLivraisons().add(ptLivraison);
     	// postcondition : on a necessairement ajoute ptLivraison a 1 et 1 seule trancheHoraire
 	}
+	
+	/**
+	 * connaitre le mode (enAjout=1) de la commande
+	 */
+	public int getMode()
+	{
+		return 1;
+	}
 }

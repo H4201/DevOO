@@ -5,15 +5,18 @@ import java.util.Stack;
 import java.util.Vector;
 import java.util.HashMap;
 
+import com.h4201.prototype.exception.ExceptionNonInstancie;
+import com.h4201.prototype.exception.ExceptionTranchesHorairesNonOrdonees;
 import com.h4201.prototype.modele.*;
 import com.h4201.prototype.vue.VuePlan;
+import com.h4201.prototype.modele.AppGraphe;
 
 public final class Controleur
 {
 	private static volatile Controleur instance = null;
 	private Stack<Commande> undos = new Stack<Commande>();
 	private Stack<Commande> redos = new Stack<Commande>();
-	private boolean enModification = false; // superviseur en cours de modification interactive ou non.
+	private int mode = 0; // dans la modification interactive : 0=mode normal ; 1=en ajout ; 2=en suppression
 	
     private Controleur() 
     {
@@ -41,15 +44,63 @@ public final class Controleur
     }
     
     /**
+     * Methode appellee par la vue pour connaitre le mode actuel (normal, enAjout ou enSuppression)
+     * @return
+     */
+    public int getMode()
+    {
+    	return mode;
+    }
+    
+    // Notifications de la vue
+
+    public void notifierClicNormal()
+    {
+    	mode=0;
+    }
+    
+    public void notifierClicAjouter()
+    {
+    	mode=1;
+    }
+    
+    public void notifierClicSupprimer()
+    {
+    	mode=2;
+    }
+    
+    /**
+     * Calcul de la tournee et affichage sur le Plan interactif.
+     */
+    public void calculTournee()
+    {    	
+    	AppGraphe appG = AppGraphe.getInstance();
+    	
+    	try 
+    	{
+			appG.genererTournee();
+	    	// VueTournee.afficher
+	    	mode = 0;
+		} 
+    	catch (ExceptionTranchesHorairesNonOrdonees e) 
+    	{
+			e.printStackTrace();
+		} 
+    	catch (ExceptionNonInstancie e) 
+		{
+			e.printStackTrace();
+		}
+    }
+    
+    /**
      * Ajouter un Point de Livraison a la Tournee.
      * @param noeud
      * @param trancheHoraire
      */
     public void ajoutPointLivraison(Noeud noeud, TrancheHoraire trancheHoraire)
     {
-    	enModification = true;
+    	mode=1;
     	
-    	Tournee tournee = Tournee.getInstance();
     	CmdAjouterPtLivraison commandeAjout = new CmdAjouterPtLivraison(noeud, trancheHoraire);
     	commandeAjout.do_();
     	
@@ -63,9 +114,9 @@ public final class Controleur
      * Supprimer un Point de Livraison de la Tournee.
      * @param pointLivraison
      */
-    public void supprimerPointLivraison(int idTournee, PointLivraison pointLivraison)
+    public void supprimerPointLivraison(PointLivraison pointLivraison)
     {
-    	enModification = true;
+    	mode=2;
     	
     	CmdSupprimerPtLivraison commandeSuppr = new CmdSupprimerPtLivraison(pointLivraison);
     	commandeSuppr.do_();
@@ -82,16 +133,19 @@ public final class Controleur
      * Permet d'informer la vue qu'il faux griser/muter le bouton 'annuler' dans l'interface si plus d'annulation possible.
      */
     public boolean annuler()
-    {
-    	enModification = true;
-    	
+    {    	
     	if(!undos.isEmpty())
     	{
     		Commande cmd = undos.pop();
-    		cmd.do_();
+    		cmd.undo();
     		redos.push(cmd);
-    	} 
-    	// else il n'y a rien a annuler.
+    	} // else il n'y a rien a annuler.
+    	
+    	//MAJ du mode : celui de la commande precedente celle que l'on vient d'annuler
+    	if(!undos.isEmpty())
+    		mode = undos.get(undos.size()-1).getMode();
+    	else // cas particulier ou l'on est revenu a l'etat inital ou aucune commande n'a encore ete faite.
+    		mode = 0;
     	
     	// determiner le grisage eventuel du bouton 'annuler'
     	if(undos.isEmpty())
@@ -107,15 +161,16 @@ public final class Controleur
      */    
     public boolean retablir()
     {
-    	enModification = true;
-    	
     	if(!redos.isEmpty())
     	{
     		Commande cmd = redos.pop();
-    		cmd.do_();
+    		cmd.redo();
     		undos.push(cmd);
-    	} 
-    	// else il n'y a rien a retablir.
+
+        	//MAJ du mode : celui de la commande retablie
+    		mode = cmd.getMode();
+    		
+    	} // else il n'y a rien a retablir et le mode reste le meme.
     	
     	// determiner le grisage eventuel du bouton 'retablir'
     	if(redos.isEmpty())
@@ -136,6 +191,7 @@ public final class Controleur
     	{
 	    	CreationPlan.depuisXML(fichierXML);
 	    	VuePlan.getInstance();
+	    	mode = 0;
     	}
     	catch(Exception e)
     	{
@@ -153,6 +209,7 @@ public final class Controleur
     	{
         	CreationDemandeLivraison.depuisXML(fichierXML);
         	// appeller la vue
+	    	mode = 0;
     	}
     	catch(Exception e)
     	{
@@ -160,15 +217,4 @@ public final class Controleur
     	}
     }
    
-    /**
-     * Calcul des plus courts chemins entre les points de livraisons, une fois la modification interactive sur l'interface (Vue) terminee.
-     * Verification de la faisabilite de la tournee.
-     */
-    public void calculTournee()
-    {
-    	enModification = false;
-    	
-    	Tournee t = Tournee.getInstance();
-    	
-    }
 }
