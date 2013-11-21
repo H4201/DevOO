@@ -75,7 +75,7 @@ public class VuePlan extends JPanel
 		}
 	}
 
-	
+	/*
 	public void initialiserTournee()
 	{
 		// On recupere la tournee
@@ -92,6 +92,7 @@ public class VuePlan extends JPanel
 		/*
 		 * On charge l'entrepot et les points de livraisons de la tournee
 		 */
+	/*
 		vueEntrepot = new VueEntrepot(tournee.getEntrepot());
 		for(TrancheHoraire trancheHoraire : CouleursTranchesHoraires.keySet())
 		{
@@ -100,17 +101,19 @@ public class VuePlan extends JPanel
 				lesVuePointLivraisons.add(new VuePointDeLivraison(pointLivraison,CouleursTranchesHoraires.get(trancheHoraire)));
 			}
 		}
-		
+		*/
 		/*
 		 * on charge les chemins de la tournee
 		 */
+	/*
 		for(Chemin chemin : tournee.getChemins())
 		{
 			TrancheHoraire th = chemin.getPointLivraisonDestination().getTrancheHoraire();
 			lesVueChemins.add(new VueChemin(chemin,CouleursTranchesHoraires.get(th)));
 		}
 	}
-
+*/
+	
 	@Override
 	public void paintComponent(Graphics g)
 	{
@@ -136,6 +139,7 @@ public class VuePlan extends JPanel
 		 * 1. On dessine l'entrepot 
 		 * 2. On dessine les points de livraisons
 		 */
+		/*
 		vueEntrepot.dessinerEntrepot(g, getWidth(), Constante.COULEURENTREPOT);
 		for(VuePointDeLivraison vuePointLivraison : lesVuePointLivraisons)
 		{
@@ -147,11 +151,12 @@ public class VuePlan extends JPanel
 		 * 1. Bouton calculer tournee
 		 * 2. On dessine la tournee
 		 */
+		/*
 		for(VueChemin vueChemin : lesVueChemins)
 		{
 			vueChemin.dessinerChemin(g, getWidth(), vueChemin.getCouleur());
 		}
-		
+		*/
 	}
 
 	public Noeud clicPlan(double x, double y)
