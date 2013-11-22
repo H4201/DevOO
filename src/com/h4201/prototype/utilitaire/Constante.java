@@ -47,4 +47,17 @@ public abstract class Constante
 	 */
 	public static final Color tabCouleur[] = {Color.RED, Color.YELLOW, Color.BLUE,Color.GREEN,Color.MAGENTA,Color.PINK, Color.ORANGE, Color.LIGHT_GRAY,Color.DARK_GRAY };
 
+	
+	/*
+	 * Fenetre supervision
+	 */
+	public static final int TAILLE_FENETRE_LARGEUR = 1000;
+	public static final int TAILLE_FENETRE_HAUTEUR = 700;
+	
+	/*
+	 * Controleur
+	 */
+	public static final int MODE_NORMAL = 0;
+	public static final int MODE_AJOUTER = 1;
+	public static final int MODE_SUPPRIMER = 2;
 }
