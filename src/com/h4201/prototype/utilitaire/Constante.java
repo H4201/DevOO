@@ -36,15 +36,22 @@ public abstract class Constante
 	public static final Color COULEURTRONCON = Color.BLACK;
 	public static final Color COULEURENTREPOT = Color.CYAN;
 	public static final Color ARRIEREPLAN = Color.WHITE;
-	public static final int HBOUTON = 30;
-	public static final int LBOUTON = 200;
-	public static final int LIGNEBOUTON1 = 0;
-	public static final int LIGNEBOUTON2 = 50;
-	public static final int LIGNEBOUTON3 = 650;
+	
 	
 	/*
 	 * tableau couleurs des tranches horaires
 	 */
 	public static final Color tabCouleur[] = {Color.RED, Color.YELLOW, Color.BLUE,Color.GREEN,Color.MAGENTA,Color.PINK, Color.ORANGE, Color.LIGHT_GRAY,Color.DARK_GRAY };
+	
+	/*
+	 * constante pour la fenetre de supervision
+	 */
+	public static final int LARGEURSUPERV = 1000;
+	public static final int HAUTEURSUPERV = 700;
+	public static final int HBOUTON = 30;
+	public static final int LBOUTON = 200;
+	public static final int LIGNEBOUTON1 = 0;
+	public static final int LIGNEBOUTON2 = 50;
+	public static final int LIGNEBOUTON3 = 650;
 
 }
