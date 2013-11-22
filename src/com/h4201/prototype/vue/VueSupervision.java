@@ -224,40 +224,34 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 	//Methode appelee quand la souris est cliquee dans la fenetre
 	@Override
 	public void mouseClicked(MouseEvent evt){
-		//System.out.println("Souris cliquee en x="+evt.getX()+" y="+evt.getY());
-		if(Controleur.getInstance().getMode()==1){
-			//si clique sur un noeud
-				//ouvre pop up avec tranches horaires
-				//apres validation -> ajouter le point de livraison, repaindre le plan
-				boutonCalcT.setEnabled(true);
-				boutonFeuilleDeRoute.setEnabled(false);
-				boutonAnnuler.setEnabled(true);
-				boutonRetablir.setEnabled(false);
-		}
-		else if(Controleur.getInstance().getMode()==2){
-			//si clique sur un noeud colore (point de livraison)
-				//ouvre pop up avec tranches horaires
-				//repaindre le plan      ------> cas de plusieurs livraisons?
-				boutonCalcT.setEnabled(true);
-				boutonFeuilleDeRoute.setEnabled(false);
-				boutonAnnuler.setEnabled(true);
-				boutonRetablir.setEnabled(false);
-		}
-		else if(Controleur.getInstance().getMode()==0){
-			//si clique sur un noeud colore (point de livraison)
-				//affiche les donnees
-		}
-
-
-		
-		
-		
-		
-		
-		//dans plan? -> (POSVUEX<=x<=POSVUEX+LARGEUR) et (POSVUEY<=y<=POSVUEY+HAUTEUR).
-		//coord des noeuds par rapport a fenetre supervision a convertir car doit etre par rapport au plan (cf aussi passage metres -> pixels)
-		
+		//si le clic a eu lieu dans le plan (POSVUEX<=x<=POSVUEX+LARGEUR et POSVUEY<=y<=POSVUEY+HAUTEUR)
+		int posX;
+		int posY;
+		if(Constante.POSVUEX<=evt.getX() && evt.getX()<=Constante.POSVUEX+Constante.LARGEUR && Constante.POSVUEY<=evt.getY() && evt.getY()<=Constante.POSVUEY+Constante.HAUTEUR){
+			posX=evt.getX()-Constante.POSVUEX;
+			posY=evt.getY()-Constante.POSVUEY;
+			if(Controleur.getInstance().getMode()==1){
+				//si clique sur un noeud (conversion?)
+					//ouvre pop up avec tranches horaires
+					//apres validation -> ajouter le point de livraison, repaindre le plan
+					boutonCalcT.setEnabled(true);
+					boutonFeuilleDeRoute.setEnabled(false);
+					boutonAnnuler.setEnabled(true);
+					boutonRetablir.setEnabled(false);
+			}
+			else if(Controleur.getInstance().getMode()==2){
+				//si clique sur un noeud colore (point de livraison) (conversion?)
+					//ouvre pop up avec tranches horaires
+					//repaindre le plan      ------> cas de plusieurs livraisons?
+					boutonCalcT.setEnabled(true);
+					boutonFeuilleDeRoute.setEnabled(false);
+					boutonAnnuler.setEnabled(true);
+					boutonRetablir.setEnabled(false);
+			}
+			else if(Controleur.getInstance().getMode()==0){
+				//si clique sur un noeud colore (point de livraison) (conversion?)
+					//affiche les donnees
+			}
+		}		
 	}
-	
-
 }
