@@ -18,10 +18,8 @@ import javax.swing.JFrame;
 import javax.swing.AbstractButton;
 
 import com.h4201.prototype.controleur.Controleur;
-import com.h4201.prototype.modele.Noeud;
 import com.h4201.prototype.utilitaire.Constante;
 
-//import com.h4201.prototype.modele.Plan;
 import com.sun.file.ExampleFileFilter;
 
 public class VueSupervision extends MouseAdapter implements ActionListener
@@ -156,7 +154,7 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 				fenetre.getContentPane().add(VuePlan.getInstance());
 				VuePlan.getInstance().setLayout(null);
 				VuePlan.getInstance().setBounds(Constante.POSVUEX, Constante.POSVUEY, Constante.LARGEUR, Constante.HAUTEUR);
-				VuePlan.getInstance().repaint();
+				//VuePlan.getInstance().repaint();
 				boutonChargerDemande.setEnabled(true);
 			}
 		}
@@ -169,6 +167,11 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 				//lecture du contenu d'un fichier XML avec DOM
 				File xml = new File(jFileChooserXML.getSelectedFile().getAbsolutePath());
 				Controleur.getInstance().chargerDemandeLivraison(xml);
+				VueTournee.getInstance().initialiserTout();
+				VueTournee.getInstance().initialiserPointLivraisons();
+				fenetre.getContentPane().add(VueTournee.getInstance());
+				VueTournee.getInstance().setLayout(null);
+				VueTournee.getInstance().setBounds(Constante.POSVUEX, Constante.POSVUEY, Constante.LARGEUR, Constante.HAUTEUR);
 				boutonCalcT.setEnabled(true);
 				boutonAjouter.setEnabled(true);
 				boutonSupprimer.setEnabled(true);
@@ -202,12 +205,15 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 		}
 		else if (evt.getActionCommand().equals("Mode ajouter")){
 			//passer le mode ajouter et decolorer les troncons
+			Controleur.getInstance().notifierClicAjouter();
 		}
 		else if (evt.getActionCommand().equals("Mode supprimer")){
 			//passer le mode supprimer et decolorer les troncons
+			Controleur.getInstance().notifierClicSupprimer();
 		}
 		else if (evt.getActionCommand().equals("Mode normal")){
 			//changer un truc pour que quand on clique ca fasse l'affichage
+			Controleur.getInstance().notifierClicNormal();
 		}
 	    //else // ne rien faire
 			
