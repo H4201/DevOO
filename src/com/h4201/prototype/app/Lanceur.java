@@ -1,10 +1,11 @@
 package com.h4201.prototype.app;
 
+
 import com.h4201.prototype.test.TestChargementXml;
 import com.h4201.prototype.test.TestControleur;
 import com.h4201.prototype.test.TestInterface;
-import com.h4201.prototype.test.TestVueFeuilleDeRoute;
 import com.h4201.prototype.test.TestLogic;
+import com.h4201.prototype.vue.FeuilleDeRouteEnText;
 
 
 public class Lanceur
@@ -27,8 +28,7 @@ public class Lanceur
 		}
 		else if(argv[0].equals("feuilleDeRoute")) // Lancement des tests de l'affichage de l'interface
 		{
-			TestVueFeuilleDeRoute testVueFeuilleDeRoute = new TestVueFeuilleDeRoute();
-			testVueFeuilleDeRoute.executerTestVueFeuilleDeRoute();
+			new FeuilleDeRouteEnText("feuille_de_route.txt");
 		}
 		else if(argv[0].equals("logic")) // Lancement des tests de l'affichage de l'interface
 		{
