@@ -1,6 +1,7 @@
 package com.h4201.prototype.app;
 
 import com.h4201.prototype.test.TestChargementXml;
+import com.h4201.prototype.test.TestControleur;
 import com.h4201.prototype.test.TestInterface;
 import com.h4201.prototype.test.TestVueFeuilleDeRoute;
 import com.h4201.prototype.test.TestLogic;
@@ -33,6 +34,11 @@ public class Lanceur
 		{
 			TestLogic testLogic = new TestLogic();
 			testLogic.executerTests();
+		}
+		else if(argv[0].equals("controleur")) // Lancement des tests de l'affichage de l'interface
+		{
+			TestControleur testControleur = new TestControleur();
+			testControleur.executerTests();
 		}
 	}
 }
