@@ -12,7 +12,7 @@ import com.h4201.prototype.utilitaire.Date;
  */
 public class TrancheHoraire
 {
-	private static int dernierIdTrancheHoraire;
+	private static int dernierIdTrancheHoraire = 0;
 	private int idTrancheHoraire;
 	private Calendar heureDebut;
 	private Calendar heureFin;
