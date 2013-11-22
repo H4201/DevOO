@@ -8,11 +8,27 @@ import com.h4201.prototype.exception.ExceptionTranchesHorairesNonOrdonees;
 
 public class AppGraphe
 {
+	private static volatile AppGraphe instance = null;
 	private Plan plan;
 	private Tournee tournee;
 	
 	public AppGraphe()
 	{
+	}
+	
+	protected final static AppGraphe setInstance() throws ExceptionNonInstancie
+	{
+		synchronized(Tournee.class)
+		{
+			AppGraphe.instance = new AppGraphe();
+		}
+		
+		return getInstance();
+	}
+	  
+	public final static AppGraphe getInstance()
+	{
+	    return AppGraphe.instance;
 	}
 	
 	/**
@@ -106,7 +122,6 @@ public class AppGraphe
 	public Vector<Troncon> calculerPlusCourtChemin(PointLivraison pointLivraisonDepart, PointLivraison pointLivraisonArivee){
 		 
 		Vector<Troncon> tronconsSortants = new Vector<Troncon>();
-		Vector<Troncon> tronconsParcourus = new Vector<Troncon>();
 		Vector<Pair<Noeud, Double>> noeudsAccessibles = new Vector<Pair<Noeud, Double>>();
 		Vector<Pair<Noeud, Vector<Troncon>>> plusCourtChemins = new Vector<Pair<Noeud, Vector<Troncon>>>();
 		
@@ -119,12 +134,6 @@ public class AppGraphe
 			pairNoeudActuel.getFirst().afficher(); /////////////////////////////////////
 			tronconsSortants = pairNoeudActuel.getFirst().getTronconsSortants();
 			double minTemps = Double.MAX_VALUE;
-			
-			// Supprimer les troncons parcourus
-			for(int i=0; i<tronconsParcourus.size(); i++){
-				System.out.println("2 - SUPPR troncons parcourus");
-				tronconsSortants.remove(tronconsParcourus.get(i));
-			}
 			
 			// Parcourir les troncons sortants et ajouter/remplacer les noeuds acessibles
 			for (int i=0; i<tronconsSortants.size(); i++){
@@ -143,8 +152,7 @@ public class AppGraphe
 					meilleursTroncons.add(tronconsSortants.get(i));
 					AjouterOuRemplacerPlusCourtChemin(plusCourtChemins, pairNoeudActuel.getFirst(), meilleursTroncons);
 				}
-				noeudsAccessibles = AjouterOuRemplacerNoeudsAccessibles(noeudsAccessibles, tronconsSortants.get(i).getNoeudDestination(), tempsNoeud);	
-				tronconsParcourus.add(tronconsSortants.get(i));
+				noeudsAccessibles = AjouterOuRemplacerNoeudsAccessibles(noeudsAccessibles, tronconsSortants.get(i).getNoeudDestination(), tempsNoeud);
 			}
 
 			// Supprimer les noeuds entièrement testés
@@ -152,7 +160,7 @@ public class AppGraphe
 				SupprimerNoeudsAccessibles(noeudsAccessibles, pairNoeudActuel.getFirst());
 			}
 			
-			// Sélectionne le noeud de poids le plus faible
+			// Sélectionne le noeud de poids le plus faible TOCHANGE
 			for(int j=0; j<noeudsAccessibles.size(); j++){
 				System.out.println("5 - Sélectionne le noeud de poids le plus faible");
 				if(noeudsAccessibles.get(j).getSecond() < minTemps){
