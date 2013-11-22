@@ -53,13 +53,7 @@ public abstract class Constante
 	public static final int LIGNEBOUTON1 = 0;
 	public static final int LIGNEBOUTON2 = 50;
 	public static final int LIGNEBOUTON3 = 650;
-
 	
-	/*
-	 * Fenetre supervision
-	 */
-	public static final int TAILLE_FENETRE_LARGEUR = 1000;
-	public static final int TAILLE_FENETRE_HAUTEUR = 700;
 	
 	/*
 	 * Controleur
