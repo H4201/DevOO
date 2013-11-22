@@ -154,7 +154,6 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 				fenetre.getContentPane().add(VuePlan.getInstance());
 				VuePlan.getInstance().setLayout(null);
 				VuePlan.getInstance().setBounds(Constante.POSVUEX, Constante.POSVUEY, Constante.LARGEUR, Constante.HAUTEUR);
-				//VuePlan.getInstance().repaint();
 				boutonChargerDemande.setEnabled(true);
 			}
 		}
@@ -195,6 +194,7 @@ public class VueSupervision extends MouseAdapter implements ActionListener
  			if(videRetablir){
  				boutonRetablir.setEnabled(false);
  			}
+ 			boutonCalcT.setEnabled(true);
  			//reste?
 		}	
 		else if (evt.getActionCommand().equals("Calculer la tournee")){
@@ -224,17 +224,31 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 	//Methode appelee quand la souris est cliquee dans la fenetre
 	@Override
 	public void mouseClicked(MouseEvent evt){
-		System.out.println("Souris cliquee en x="+evt.getX()+" y="+evt.getY());
-		//si en mode ajout
+		//System.out.println("Souris cliquee en x="+evt.getX()+" y="+evt.getY());
+		if(Controleur.getInstance().getMode()==1){
 			//si clique sur un noeud
 				//ouvre pop up avec tranches horaires
-				//apres validation -> degriser calcT, griser genere feuille de route, griser redo, degriser undo, ajouter le point de livraison, repaindre le plan
-		//si en mode suppression
+				//apres validation -> ajouter le point de livraison, repaindre le plan
+				boutonCalcT.setEnabled(true);
+				boutonFeuilleDeRoute.setEnabled(false);
+				boutonAnnuler.setEnabled(true);
+				boutonRetablir.setEnabled(false);
+		}
+		else if(Controleur.getInstance().getMode()==2){
 			//si clique sur un noeud colore (point de livraison)
-				//degriser calcT, griser generer feuille de route, griser redo, degriser undo, supprimer le point de livraison, repaindre le plan      ------> cas de plusieurs livraisons?
-		//si en mode normal
+				//ouvre pop up avec tranches horaires
+				//repaindre le plan      ------> cas de plusieurs livraisons?
+				boutonCalcT.setEnabled(true);
+				boutonFeuilleDeRoute.setEnabled(false);
+				boutonAnnuler.setEnabled(true);
+				boutonRetablir.setEnabled(false);
+		}
+		else if(Controleur.getInstance().getMode()==0){
 			//si clique sur un noeud colore (point de livraison)
 				//affiche les donnees
+		}
+
+
 		
 		
 		
