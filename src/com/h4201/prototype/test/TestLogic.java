@@ -23,8 +23,8 @@ public class TestLogic
 		{
 			testChargerPlan();
 			Tournee tournee = testChargerDemandeLivraison();
-			testDijkstra(tournee.getTranchesHoraire().get(0).getPointsLivraisons().get(0),
-						 tournee.getTranchesHoraire().get(0).getPointsLivraisons().get(1));
+			testDijkstra(tournee.getTranchesHoraire().get(0).getPointsLivraisons().get(1),
+						 tournee.getTranchesHoraire().get(0).getPointsLivraisons().get(2));
 		}
 		catch(Exception e)
 		{
@@ -64,7 +64,7 @@ public class TestLogic
 	}
 	
 	public void testDijkstra(PointLivraison pointLivraisonDepart, PointLivraison pointLivraisonArrivee){
-		AppGraphe appGraphe = new AppGraphe();
+		AppGraphe appGraphe = AppGraphe.getInstance();
 		Chemin chemin = appGraphe.creerChemin(pointLivraisonDepart, pointLivraisonArrivee);
 		
 		chemin.afficher();
