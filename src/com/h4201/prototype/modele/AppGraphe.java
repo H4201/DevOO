@@ -123,49 +123,67 @@ public class AppGraphe
 		 
 		Vector<Troncon> tronconsSortants = new Vector<Troncon>();
 		Vector<Pair<Noeud, Double>> noeudsAccessibles = new Vector<Pair<Noeud, Double>>();
+		Vector<Noeud> noeudsParcourus = new Vector<Noeud>();
 		Vector<Pair<Noeud, Vector<Troncon>>> plusCourtChemins = new Vector<Pair<Noeud, Vector<Troncon>>>();
 		
-		Pair<Noeud, Double> pairNoeudActuel = new Pair(pointLivraisonDepart.getNoeud(), (double) 0);
+		Pair<Noeud, Double> pairNoeudActuel = new Pair<Noeud, Double>(pointLivraisonDepart.getNoeud(), (double) 0);
 		Noeud noeudFin = pointLivraisonArivee.getNoeud();
 		noeudsAccessibles.add(pairNoeudActuel);
-		plusCourtChemins.add(new Pair(pairNoeudActuel.getFirst(), new Vector<Troncon>()));
+		plusCourtChemins.add(new Pair<Noeud, Vector<Troncon>>(pairNoeudActuel.getFirst(), new Vector<Troncon>()));
 		// Critère d'arrêt
 		while(pairNoeudActuel.getFirst() != noeudFin){
+		//for(int a=0; a<3; a++){
+			System.out.println("BOUCLE NOEUD");
 			pairNoeudActuel.getFirst().afficher(); /////////////////////////////////////
 			tronconsSortants = pairNoeudActuel.getFirst().getTronconsSortants();
 			double minTemps = Double.MAX_VALUE;
 			
 			// Parcourir les troncons sortants et ajouter/remplacer les noeuds acessibles
 			for (int i=0; i<tronconsSortants.size(); i++){
-				System.out.println("3 - ajouter/remplacer les noeuds acessible");
-				tronconsSortants.get(i).afficher(); /////////////////////////////////////
-				Pair<Noeud, Double> pairNoeudDestination = retournerPairDepuisNoeudAccessibles(noeudsAccessibles, tronconsSortants.get(i).getNoeudDestination());
-				double tempsNoeud = Double.MAX_VALUE;
-				if(pairNoeudDestination != null){
-					tempsNoeud = pairNoeudDestination.getSecond();
+				if(!noeudsParcourus.contains(tronconsSortants.get(i).getNoeudDestination())){ // Pas de retour en arrière
+					System.out.println("3 - ajouter/remplacer les noeuds acessible");
+					Pair<Noeud, Double> pairNoeudDestination = retournerPairDepuisNoeudAccessibles(noeudsAccessibles, tronconsSortants.get(i).getNoeudDestination());
+					double tempsNoeud = Double.MAX_VALUE;
+					if(pairNoeudDestination != null){
+						tempsNoeud = pairNoeudDestination.getSecond();
+					}
+					double tempsTroncon = tronconsSortants.get(i).calculerTemps();
+					// Cas ou le nouveau chemin est meilleur
+					if (pairNoeudActuel.getSecond()+tempsTroncon < tempsNoeud){
+						tempsNoeud = pairNoeudActuel.getSecond()+tempsTroncon;
+						
+						
+						Vector<Troncon> meilleursTroncons = (Vector<Troncon>) retournerPairDepuisPlusCourtChemin(plusCourtChemins, pairNoeudActuel.getFirst()).getSecond().clone();
+						
+						if (meilleursTroncons.size() > 0 && tronconsSortants.get(i).getNoeudOrigine() == meilleursTroncons.lastElement().getNoeudOrigine()) {
+							meilleursTroncons.remove(meilleursTroncons.size()-1);
+						}	
+						
+						meilleursTroncons.add(tronconsSortants.get(i));
+						
+						System.out.println("Meilleurs troncons ");
+						if (meilleursTroncons.size() >1){
+							meilleursTroncons.get(meilleursTroncons.size()-2).afficher(); /////////////////////////////////////
+						}
+						if (meilleursTroncons.size() >0){
+							meilleursTroncons.get(meilleursTroncons.size()-1).afficher(); /////////////////////////////////////
+						}
+						AjouterOuRemplacerPlusCourtChemin(plusCourtChemins, tronconsSortants.get(i).getNoeudDestination(), meilleursTroncons);
+					}
+
+					noeudsAccessibles = AjouterOuRemplacerNoeudsAccessibles(noeudsAccessibles, tronconsSortants.get(i).getNoeudDestination(), tempsNoeud);
 				}
-				double tempsTroncon = tronconsSortants.get(i).calculerTemps();
-				// Cas ou le nouveau chemin est meilleur
-				if (pairNoeudActuel.getSecond()+tempsTroncon < tempsNoeud){
-					tempsNoeud = pairNoeudActuel.getSecond()+tempsTroncon;
-					Vector<Troncon> meilleursTroncons = retournerPairDepuisPlusCourtChemin(plusCourtChemins, pairNoeudActuel.getFirst()).getSecond();
-					meilleursTroncons.add(tronconsSortants.get(i));
-					AjouterOuRemplacerPlusCourtChemin(plusCourtChemins, pairNoeudActuel.getFirst(), meilleursTroncons);
-				}
-				noeudsAccessibles = AjouterOuRemplacerNoeudsAccessibles(noeudsAccessibles, tronconsSortants.get(i).getNoeudDestination(), tempsNoeud);
 			}
 
-			// Supprimer les noeuds entièrement testés
-			if(tronconsSortants.size() == 0){
-				SupprimerNoeudsAccessibles(noeudsAccessibles, pairNoeudActuel.getFirst());
-			}
+			// Retirer le noeud de la liste à parcourir
+			noeudsParcourus.add(pairNoeudActuel.getFirst());
+			noeudsAccessibles.remove(pairNoeudActuel);
 			
-			// Sélectionne le noeud de poids le plus faible TOCHANGE
-			for(int j=0; j<noeudsAccessibles.size(); j++){
-				System.out.println("5 - Sélectionne le noeud de poids le plus faible");
-				if(noeudsAccessibles.get(j).getSecond() < minTemps){
-					pairNoeudActuel = noeudsAccessibles.get(j);
-					minTemps = noeudsAccessibles.get(j).getSecond();
+			// Sélectionne le noeud de poids le plus faible
+			for(int i=0; i<noeudsAccessibles.size(); i++){
+				if(noeudsAccessibles.get(i).getSecond() < minTemps){
+					pairNoeudActuel = noeudsAccessibles.get(i);
+					minTemps = noeudsAccessibles.get(i).getSecond();
 				}
 			}	
 		}
@@ -182,17 +200,15 @@ public class AppGraphe
 	 */
 	public Vector<Pair<Noeud, Double>> AjouterOuRemplacerNoeudsAccessibles(Vector<Pair<Noeud, Double>> noeudsAccessibles, Noeud noeud, Double temps) {
 		boolean trouve = false;
-		System.out.println("7");
 		for(int i=0; i<noeudsAccessibles.size(); i++){
-			if (noeudsAccessibles.get(i).getFirst() == noeud){
+			if (noeudsAccessibles.get(i).getFirst().getIdNoeud() == noeud.getIdNoeud()){
 				trouve = true;
 				noeudsAccessibles.get(i).setSecond(temps);
 				break;
 			}
 		}
 		if(!trouve){
-			System.out.println("8");
-			noeudsAccessibles.add(new Pair(noeud, temps));
+			noeudsAccessibles.add(new Pair<Noeud, Double>(noeud, temps));
 		}
 		
 		return noeudsAccessibles;
@@ -200,7 +216,7 @@ public class AppGraphe
 	
 	public Vector<Pair<Noeud, Double>> SupprimerNoeudsAccessibles(Vector<Pair<Noeud, Double>> noeudsAccessibles, Noeud noeud){
 		for(int i=0; i<noeudsAccessibles.size(); i++){
-			if (noeudsAccessibles.get(i).getFirst() == noeud){
+			if (noeudsAccessibles.get(i).getFirst().getIdNoeud() == noeud.getIdNoeud()){
 				noeudsAccessibles.remove(i);
 				break;
 			}
@@ -218,15 +234,20 @@ public class AppGraphe
 	 */
 	public Vector<Pair<Noeud, Vector<Troncon>>> AjouterOuRemplacerPlusCourtChemin(Vector<Pair<Noeud, Vector<Troncon>>> plusCourtChemins, Noeud noeud, Vector<Troncon> troncons) {
 		boolean trouve = false;
+		System.out.println("modifier plusCourtChemins");
 		for(int i=0; i<plusCourtChemins.size(); i++){
-			if (plusCourtChemins.get(i).getFirst() == noeud){
+			if (plusCourtChemins.get(i).getFirst().getIdNoeud() == noeud.getIdNoeud()){
 				trouve = true;
+				System.out.println("REMPLACEMENT d'un chemein existant pour :");
+				noeud.afficher(); /////////////////////////////////////
 				plusCourtChemins.get(i).setSecond(troncons);
 				break;
 			}
 		}
 		if(!trouve){
-			plusCourtChemins.add(new Pair(noeud, troncons));
+			System.out.println("AJOUT d'un chemin existant pour :");
+			noeud.afficher(); /////////////////////////////////////
+			plusCourtChemins.add(new Pair<Noeud, Vector<Troncon>>(noeud, troncons));
 		}
 		
 		return plusCourtChemins;
@@ -241,7 +262,7 @@ public class AppGraphe
 	public Pair<Noeud, Double> retournerPairDepuisNoeudAccessibles(Vector<Pair<Noeud, Double>> noeudsAccessibles, Noeud noeud){
 		Pair<Noeud, Double> pair = null;
 		for(int i=0; i<noeudsAccessibles.size(); i++){
-			if (noeudsAccessibles.get(i).getFirst() == noeud){
+			if (noeudsAccessibles.get(i).getFirst().getIdNoeud() == noeud.getIdNoeud()){
 				pair = noeudsAccessibles.get(i);
 				break;
 			}
@@ -259,7 +280,7 @@ public class AppGraphe
 	public Pair<Noeud, Vector<Troncon>> retournerPairDepuisPlusCourtChemin(Vector<Pair<Noeud, Vector<Troncon>>> plusCourtChemins, Noeud noeud){
 		Pair<Noeud, Vector<Troncon>> pair = null;
 		for(int i=0; i<plusCourtChemins.size(); i++){
-			if (plusCourtChemins.get(i).getFirst() == noeud){
+			if (plusCourtChemins.get(i).getFirst().getIdNoeud() == noeud.getIdNoeud()){
 				pair = plusCourtChemins.get(i);
 				break;
 			}
