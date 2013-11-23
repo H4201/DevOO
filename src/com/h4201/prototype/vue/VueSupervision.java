@@ -238,11 +238,13 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 	@Override
 	public void mouseClicked(MouseEvent evt){
 		//si le clic a eu lieu dans le plan (POSVUEX<=x<=POSVUEX+LARGEUR et POSVUEY<=y<=POSVUEY+HAUTEUR)
-		int posX;
-		int posY;
+		double posX;
+		double posY;
 		if(Constante.POSVUEX<=evt.getX() && evt.getX()<=Constante.POSVUEX+Constante.LARGEUR && Constante.POSVUEY<=evt.getY() && evt.getY()<=Constante.POSVUEY+Constante.HAUTEUR){
 			posX=evt.getX()-Constante.POSVUEX;
 			posY=evt.getY()-Constante.POSVUEY;
+			posX=posX*Constante.CONVERSION_PIXELS_EN_METRES;
+			posY=posY*Constante.CONVERSION_PIXELS_EN_METRES;
 			if(Controleur.getInstance().getMode()==1){
 				//si clique sur un noeud (conversion?)
 					//ouvre pop up avec tranches horaires

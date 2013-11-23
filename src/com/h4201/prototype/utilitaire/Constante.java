@@ -21,6 +21,7 @@ public abstract class Constante
 	 * Conversion
 	 */
 	public static final double CONVERSION_METRES_EN_PIXELS = 0.1;
+	public static final double CONVERSION_PIXELS_EN_METRES = 10;
 	
 	
 	/*

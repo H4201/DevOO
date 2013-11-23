@@ -13,5 +13,9 @@ public abstract class Conversion
 	{
 		return distanceEnMetres * Constante.CONVERSION_METRES_EN_PIXELS;
 	}
+	
+	public static double getMetreDepuisPixel(double distanceEnPixels){
+		return distanceEnPixels * Constante.CONVERSION_PIXELS_EN_METRES;
+	}
 
 }
