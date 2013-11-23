@@ -131,7 +131,7 @@ public final class Controleur
 
     /**
      * Annuler la derniere Commande effectuee dans l'interface interactive du superviseur.
-     * @return true si il n'y a plus d'annulation possible (avant ou) après l'execution de cette methode, false sinon.
+     * @return true si une annulation possible est possible après l'execution de cette methode, false sinon.
      * Permet d'informer la vue qu'il faux griser/muter le bouton 'annuler' dans l'interface si plus d'annulation possible.
      */
     public boolean annuler()
@@ -146,7 +146,7 @@ public final class Controleur
     	majModeApresAnnulation();
     	
     	// determiner le grisage eventuel du bouton 'annuler'
-    	if(undos.isEmpty())
+    	if(!undos.isEmpty())
     		return true;
     	
     	return false;
@@ -154,7 +154,7 @@ public final class Controleur
     
     /**
      * Retablir la derniere Commande annulee dans l'interface interactive du superviseur.
-     * @return true si il n'y a plus de retablissement possible (avant ou) après l'execution de cette methode, false sinon.
+     * @return true si un retablissement est possible après l'execution de cette methode, false sinon.
      * Permet d'informer la vue qu'il faux griser/muter le bouton 'retablir' dans l'interface si plus de retablissement possible.
      */    
     public boolean retablir()
@@ -169,7 +169,7 @@ public final class Controleur
     	} // else il n'y a rien a retablir et le mode reste le meme.
     	
     	// determiner le grisage eventuel du bouton 'retablir'
-    	if(redos.isEmpty())
+    	if(!redos.isEmpty())
     		return true;
     	
     	return false;
