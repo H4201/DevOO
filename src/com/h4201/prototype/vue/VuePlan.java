@@ -10,6 +10,7 @@ import com.h4201.prototype.exception.ExceptionNonInstancie;
 import com.h4201.prototype.modele.Noeud;
 import com.h4201.prototype.modele.Plan;
 import com.h4201.prototype.modele.PointLivraison;
+import com.h4201.prototype.modele.Tournee;
 import com.h4201.prototype.modele.Troncon;
 import com.h4201.prototype.utilitaire.Constante;
 
@@ -60,8 +61,6 @@ public class VuePlan extends JPanel
 		return pointLivraison;
 	}
 	
-	
-	
 	private VuePlan()
 	{
 		super();
@@ -99,13 +98,6 @@ public class VuePlan extends JPanel
 			{
 				lesVueTroncons.add(new VueTroncon(leTroncon));
 			}
-			/*
-			if(VueTournee.getInstance().initialiserTout())
-			{
-				VueTournee.getInstance().initialiserPointLivraisons();
-			}
-			*/
-			
 
 		} catch (ExceptionNonInstancie e)
 		{
@@ -113,6 +105,18 @@ public class VuePlan extends JPanel
 		}
 	}
 	
+	public void dessinerNoeudsTroncons(Graphics g, int facteurConversion)
+	{
+		for(VueNoeud vueNoeud : lesVueNoeuds)
+		{
+			vueNoeud.dessinerNoeud(g, facteurConversion);
+		}
+
+		for(VueTroncon vueTroncon : lesVueTroncons )
+		{
+			vueTroncon.dessinerTroncon(g,facteurConversion);
+		}
+	}
 	/**
 	 * Chargement du plan.
 	 * On dessine le cadre du plan, puis tous les noeuds et tronçons.
@@ -122,31 +126,33 @@ public class VuePlan extends JPanel
 	{
 		super.paintComponent(g);
 		this.setBackground(Constante.ARRIEREPLAN);
-
-		for(VueNoeud vueNoeud : lesVueNoeuds)
+		
+		if((Tournee.getInstance() == null))
 		{
-			vueNoeud.dessinerNoeud(g, getWidth());
+			dessinerNoeudsTroncons(g, getWidth());
 		}
-
-		for(VueTroncon vueTroncon : lesVueTroncons )
+		
+		if((Tournee.getInstance() != null) && (VueTournee.getInstance().initialiserTout()==true))
 		{
-			vueTroncon.dessinerTroncon(g,getWidth());
+			dessinerNoeudsTroncons(g, getWidth());
+			
+			if(VueTournee.getInstance().initialiserPointLivraisons() == true)
+			{
+				VueTournee.getInstance().dessinerLespointLivraisons(g, getWidth());
+			}			
 		}
-		/*
-		if(VueTournee.getInstance().initialiserPointLivraisons() == true)
+		
+		if((Tournee.getInstance() != null) && (VueTournee.getInstance().initialiserTout()==true) && (VueTournee.getInstance().initialiserPointLivraisons() == true))
 		{
+			dessinerNoeudsTroncons(g, getWidth());
+			
 			VueTournee.getInstance().dessinerLespointLivraisons(g, getWidth());
-		}
-		/*
-		if(VueTournee.getInstance().initialiserTournee() == true)
-		{
-			VueTournee.getInstance().dessinerTournee(g, getWidth());
-		}
-		else
-		{
-			return;
-		}
-		*/
+			
+			if(VueTournee.getInstance().initialiserTournee()==true)
+			{
+				VueTournee.getInstance().dessinerTournee(g, getWidth());
+			}		
+		}		
 	}
 
 }
