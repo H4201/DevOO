@@ -233,7 +233,8 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 		}
  		else if (evt.getActionCommand().equals("Annuler")){
  			boutonRetablir.setEnabled(true);
- 			videAnnuler = Controleur.getInstance().annuler();
+ 			Controleur.getInstance().annuler();
+ 			videAnnuler = Controleur.getInstance().annulationPossible();
  			if(!videAnnuler){
  				boutonAnnuler.setEnabled(false);
  			}
@@ -242,7 +243,8 @@ public class VueSupervision extends MouseAdapter implements ActionListener
  		}
 		else if (evt.getActionCommand().equals("Retablir")){
 			boutonAnnuler.setEnabled(true);
-			videRetablir = Controleur.getInstance().retablir();
+			videRetablir = Controleur.getInstance().retablissementPossible();
+			Controleur.getInstance().retablir();
  			if(!videRetablir){
  				boutonRetablir.setEnabled(false);
  			}
