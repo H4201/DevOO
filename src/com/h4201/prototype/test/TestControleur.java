@@ -30,9 +30,7 @@ public class TestControleur
 			Controleur controleur = Controleur.getInstance();
 			
 			// Ouvrir la fenetre
-			new VueSupervision(
-					Constante.LARGEURSUPERV, 
-					Constante.HAUTEURSUPERV);
+			VueSupervision.getInstance();
 			
 			// Chargement des donnees
 			controleur.chargerPlan(new File("test/plan20x20.xml"));

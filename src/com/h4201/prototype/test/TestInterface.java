@@ -17,7 +17,7 @@ public class TestInterface {
 		try
 		{
 
-			VueSupervision intSuperv = new VueSupervision(100, 100);
+			//VueSupervision intSuperv = new VueSupervision(100, 100);
 
 			VueSupervision.getInstance();
 		}
@@ -26,7 +26,7 @@ public class TestInterface {
 			e.printStackTrace();
 		}
 		
-		System.out.println("Les tests sont terminés");
+		System.out.println("Les tests sont termines");
 	}
 
 }

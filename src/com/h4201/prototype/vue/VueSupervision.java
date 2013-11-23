@@ -52,7 +52,7 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 		return VueSupervision.instance;
 	}
 	
-	public VueSupervision(int x, int y){
+	private VueSupervision(int x, int y){
 		
 		//creation de la fenetre
 		fenetre = new JFrame("Supervision");
