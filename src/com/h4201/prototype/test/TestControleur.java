@@ -30,7 +30,7 @@ public class TestControleur
 			Controleur controleur = Controleur.getInstance();
 			
 			// Ouvrir la fenetre
-			VueSupervision.getInstance();
+//			VueSupervision.getInstance();
 			
 			// Chargement des donnees
 			controleur.chargerPlan(new File("test/plan20x20.xml"));
@@ -40,9 +40,9 @@ public class TestControleur
 			// Notification du mode
 			assertEquals(controleur.getMode(), Constante.MODE_NORMAL);
 			controleur.notifierClicAjouter();
-			assertEquals(controleur.getMode(), Constante.MODE_AJOUTER);
+			assertEquals(controleur.getMode(), Constante.MODE_AJOUT);
 			controleur.notifierClicSupprimer();
-			assertEquals(controleur.getMode(), Constante.MODE_SUPPRIMER);
+			assertEquals(controleur.getMode(), Constante.MODE_SUPPRESSION);
 			controleur.notifierClicNormal();
 			assertEquals(controleur.getMode(), Constante.MODE_NORMAL);
 			

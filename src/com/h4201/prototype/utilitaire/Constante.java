@@ -57,9 +57,9 @@ public abstract class Constante
 	
 	
 	/*
-	 * Controleur
+	 * Controleur : 3 modes dans l'interaction de supervision 
 	 */
 	public static final int MODE_NORMAL = 0;
-	public static final int MODE_AJOUTER = 1;
-	public static final int MODE_SUPPRIMER = 2;
+	public static final int MODE_AJOUT = 1;
+	public static final int MODE_SUPPRESSION = 2;
 }
