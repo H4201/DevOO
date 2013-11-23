@@ -15,14 +15,14 @@ public class TestInterface {
 		
 		try
 		{
-			VueSupervision intSuperv = new VueSupervision(1000, 700);
+			VueSupervision intSuperv = new VueSupervision(100, 100);
 		}
 		catch(Exception e)
 		{
 			e.printStackTrace();
 		}
 		
-		System.out.println("Les tests sont termines");
+		System.out.println("Les tests sont terminés");
 	}
 
 }
