@@ -135,7 +135,6 @@ public class VuePlan extends JPanel
 		if((Tournee.getInstance() != null) && (VueTournee.getInstance().initialiserTout()==true))
 		{
 			dessinerNoeudsTroncons(g, getWidth());
-			
 			if(VueTournee.getInstance().initialiserPointLivraisons() == true)
 			{
 				VueTournee.getInstance().dessinerLespointLivraisons(g, getWidth());
