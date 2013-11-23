@@ -58,6 +58,7 @@ public class TestControleur
 			assertEquals(nbNoeuds+1, trancheHoraireTmp.getPointsLivraisons().size());
 			
 			// Suppression d'un point de livraison
+			int tailleTrancheHoraireTmp = Tournee.getInstance().getTranchesHoraire().get(0).getPointsLivraisons().size();
 			PointLivraison pointLivraisonTmp = Tournee.getInstance().getTranchesHoraire().get(0).getPointsLivraisons().get(0);
 			controleur.supprimerPointLivraison(pointLivraisonTmp);
 			assertTrue(pointLivraisonTmp.getIdPointLivraison() !=
@@ -66,13 +67,25 @@ public class TestControleur
 			
 			// Annuler
 			assertTrue(controleur.annuler());
-			assertEquals(pointLivraisonTmp.getIdPointLivraison(),
+			assertEquals(tailleTrancheHoraireTmp,
 					Tournee.getInstance().getTranchesHoraire().get(0)
-						.getPointsLivraisons().get(0).getIdPointLivraison());
+						.getPointsLivraisons().size());
+			
 			assertTrue(controleur.annuler());
 			assertEquals(nbNoeuds, trancheHoraireTmp.getPointsLivraisons().size());
 			
+			assertTrue(!controleur.annuler());
+			
 			// Retablir
+			assertTrue(controleur.retablir());
+			assertEquals(nbNoeuds+1, trancheHoraireTmp.getPointsLivraisons().size());
+			
+			assertTrue(controleur.retablir());
+			assertTrue(tailleTrancheHoraireTmp != Tournee.getInstance()
+					.getTranchesHoraire().get(0)
+					.getPointsLivraisons().size());
+			
+			assertTrue(!controleur.retablir());
 			
 		}
 		catch(Exception e)
