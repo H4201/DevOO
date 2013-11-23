@@ -131,10 +131,8 @@ public final class Controleur
 
     /**
      * Annuler la derniere Commande effectuee dans l'interface interactive du superviseur.
-     * @return true si une annulation possible est possible après l'execution de cette methode, false sinon.
-     * Permet d'informer la vue qu'il faux griser/muter le bouton 'annuler' dans l'interface si plus d'annulation possible.
      */
-    public boolean annuler()
+    public void annuler()
     {    	
     	if(!undos.isEmpty())
     	{
@@ -144,20 +142,12 @@ public final class Controleur
     	} // else il n'y a rien a annuler.
     	
     	majModeApresAnnulation();
-    	
-    	// determiner le grisage eventuel du bouton 'annuler'
-    	if(!undos.isEmpty())
-    		return true;
-    	
-    	return false;
     }
     
     /**
      * Retablir la derniere Commande annulee dans l'interface interactive du superviseur.
-     * @return true si un retablissement est possible après l'execution de cette methode, false sinon.
-     * Permet d'informer la vue qu'il faux griser/muter le bouton 'retablir' dans l'interface si plus de retablissement possible.
      */    
-    public boolean retablir()
+    public void retablir()
     {
     	if(!redos.isEmpty())
     	{
@@ -166,13 +156,8 @@ public final class Controleur
     		undos.push(cmd);
 
     		majModeApresRetablissement();    		
-    	} // else il n'y a rien a retablir et le mode reste le meme.
-    	
-    	// determiner le grisage eventuel du bouton 'retablir'
-    	if(!redos.isEmpty())
-    		return true;
-    	
-    	return false;
+    	} 
+    	// else il n'y a rien a retablir et le mode reste le meme.
     }
 
     /**
@@ -243,5 +228,23 @@ public final class Controleur
     private void majModeApresRetablissement()
     {
     	mode = undos.get(undos.size()-1).getMode();
+    }
+    
+    /**
+     * @return true si il est possible d'annuler, false sinon.
+     * Permet d'informer la vue qu'il faux griser/muter le bouton 'annuler' dans l'interface si plus d'annulation possible.
+     */
+    public boolean annulationPossible()
+    {
+    	return !undos.isEmpty();
+    }
+    
+    /**
+     * @return true si il est possible de rétablir, false sinon.
+     * Permet d'informer la vue qu'il faux griser/muter le bouton 'retablir' dans l'interface si plus de retablissement possible.
+     */
+    public boolean retablissementPossible()
+    {
+    	return !redos.isEmpty();
     }
 }
