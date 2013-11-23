@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 
 import java.util.Iterator;
-import java.util.Vector;
+
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -21,8 +21,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
 import com.h4201.prototype.controleur.Controleur;
+import com.h4201.prototype.modele.Noeud;
+import com.h4201.prototype.modele.PointLivraison;
 import com.h4201.prototype.modele.Tournee;
-import com.h4201.prototype.modele.TrancheHoraire;
 import com.h4201.prototype.utilitaire.Constante;
 import com.sun.file.ExampleFileFilter;
 
@@ -193,10 +194,10 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 				tableRecap = new TableRecap(Tournee.getInstance().getTranchesHoraire());
 			
 				Object[][] objets = new Object[1][tableRecap.getLongueur()];
-				String[] entetes = new String[tableRecap.getLongueur()];
+				String[] entetes = {"Livraisons par plages H."};
+				
 				for(int compte=0; compte<tableRecap.getLongueur(); compte=compte+1){
-					objets[1][compte]=tableRecap.getLesLivraisons().get(compte);
-					entetes[compte]=tableRecap.getLesTranchesHoraires().get(compte);
+					objets[compte][0]=tableRecap.getLesLivraisons().get(compte);
 				}
 				
 				tableau = new JTable(objets,entetes);
@@ -213,7 +214,7 @@ public class VueSupervision extends MouseAdapter implements ActionListener
  		else if (evt.getActionCommand().equals("Annuler")){
  			boutonRetablir.setEnabled(true);
  			videAnnuler = Controleur.getInstance().annuler();
- 			if(videAnnuler){
+ 			if(!videAnnuler){
  				boutonAnnuler.setEnabled(false);
  			}
  			boutonCalcT.setEnabled(true);
@@ -222,7 +223,7 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 		else if (evt.getActionCommand().equals("Retablir")){
 			boutonAnnuler.setEnabled(true);
 			videRetablir = Controleur.getInstance().retablir();
- 			if(videRetablir){
+ 			if(!videRetablir){
  				boutonRetablir.setEnabled(false);
  			}
  			boutonCalcT.setEnabled(true);
@@ -230,6 +231,7 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 		}	
 		else if (evt.getActionCommand().equals("Calculer la tournee")){
 			Controleur.getInstance().calculTournee();
+			VuePlan.getInstance().repaint();
 			boutonFeuilleDeRoute.setEnabled(true);
 			boutonCalcT.setEnabled(false);
 			//reste?
@@ -257,21 +259,16 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 	public void mouseClicked(MouseEvent evt){
 		double posX;
 		double posY;
-		boolean clicNoeud = false;
+		Noeud noeudClique;
+		PointLivraison noeudEstLiv;
 		//si le clic a eu lieu dans le plan (POSVUEX<=x<=POSVUEX+LARGEUR et POSVUEY<=y<=POSVUEY+HAUTEUR)
 		if(Constante.POSVUEX<=evt.getX() && evt.getX()<=Constante.POSVUEX+Constante.LARGEUR && Constante.POSVUEY<=evt.getY() && evt.getY()<=Constante.POSVUEY+Constante.HAUTEUR){
 			posX=evt.getX()-Constante.POSVUEX;
 			posY=evt.getY()-Constante.POSVUEY;
 			posX=posX*Constante.CONVERSION_PIXELS_EN_METRES;
 			posY=posY*Constante.CONVERSION_PIXELS_EN_METRES;
-			/*Vector <VueNoeud> lesVuesNoeuds = VuePlan.getInstance().getLesVuesNoeuds();
-			for(VueNoeud vueNoeud : lesVueNoeuds ) //passer en while
-			{
-				if(vueNoeud.estClique(posX, posY)){
-					clicNoeud=true;
-				}
-			}*/
-			if(clicNoeud){
+			noeudClique = VuePlan.getInstance().getLeNoeud(posX, posY);
+			if(noeudClique != null){
 				if(Controleur.getInstance().getMode()==1){
 					//ouvre pop up avec tranches horaires
 					//apres validation -> ajouter le point de livraison, repaindre le plan
@@ -281,17 +278,21 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 					boutonRetablir.setEnabled(false);
 				}
 				else if(Controleur.getInstance().getMode()==2){
-					//si clique sur un noeud colore (point de livraison)
+					noeudEstLiv = VuePlan.getInstance().getLePointLivraison(posX, posY, VueTournee.getInstance().getLesVuePointLivraisons());
+					if(noeudEstLiv!=null){
 						//ouvre pop up avec tranches horaires
 						//repaindre le plan      ------> cas de plusieurs livraisons?
 						boutonCalcT.setEnabled(true);
 						boutonFeuilleDeRoute.setEnabled(false);
 						boutonAnnuler.setEnabled(true);
 						boutonRetablir.setEnabled(false);
+					}
 				}
 				else if(Controleur.getInstance().getMode()==0){
-					//si clique sur un noeud colore (point de livraison)
+					noeudEstLiv = VuePlan.getInstance().getLePointLivraison(posX, posY, VueTournee.getInstance().getLesVuePointLivraisons());
+					if(noeudEstLiv!=null){
 						//affiche les donnees
+					}
 				}
 			}
 		}		
