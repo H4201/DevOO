@@ -11,14 +11,18 @@ import java.util.ArrayList;
 
 
 import java.util.Iterator;
+import java.util.Vector;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.AbstractButton;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
 import com.h4201.prototype.controleur.Controleur;
+import com.h4201.prototype.modele.Tournee;
+import com.h4201.prototype.modele.TrancheHoraire;
 import com.h4201.prototype.utilitaire.Constante;
 import com.sun.file.ExampleFileFilter;
 
@@ -37,6 +41,7 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 	private JButton boutonAjouter;
 	private JButton boutonSupprimer;
 	private JButton boutonModeNormal;
+	private TableRecap tableRecap;
 	private JTable tableau;
 	
 	private static volatile VueSupervision instance = null;
@@ -180,22 +185,26 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 				//lecture du contenu d'un fichier XML avec DOM
 				File xml = new File(jFileChooserXML.getSelectedFile().getAbsolutePath());
 				Controleur.getInstance().chargerDemandeLivraison(xml);
-				if(VueTournee.getInstance().initialiserTout()==true)
-				{
-					VuePlan.getInstance().repaint();
-				}
-				/*
-				VueTournee.getInstance().initialiserTout();
-				VueTournee.getInstance().initialiserPointLivraisons();
 				VuePlan.getInstance().repaint();
-				*/
 				boutonCalcT.setEnabled(true);
 				boutonAjouter.setEnabled(true);
 				boutonSupprimer.setEnabled(true);
-				//tableau = new JTable(donnees, entetes);
-				 
-		        //fenetre.getContentPane().add(tableau.getTableHeader(), BorderLayout.NORTH);
-		        //fenetre.getContentPane().add(tableau, BorderLayout.CENTER);
+				
+				tableRecap = new TableRecap(Tournee.getInstance().getTranchesHoraire());
+			
+				Object[][] objets = new Object[1][tableRecap.getLongueur()];
+				String[] entetes = new String[tableRecap.getLongueur()];
+				for(int compte=0; compte<tableRecap.getLongueur(); compte=compte+1){
+					objets[1][compte]=tableRecap.getLesLivraisons().get(compte);
+					entetes[compte]=tableRecap.getLesTranchesHoraires().get(compte);
+				}
+				
+				tableau = new JTable(objets,entetes);
+				//tableau.setLayout(null);
+				//tableau.setBounds(0, 60, 100, 300);
+		        
+				fenetre.getContentPane().add(new JScrollPane(tableau));
+				fenetre.repaint();
 			}
 		}
 		else if (evt.getActionCommand().equals("Generer la feuille de route")){

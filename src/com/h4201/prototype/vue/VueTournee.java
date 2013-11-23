@@ -17,7 +17,7 @@ public class VueTournee
 	private static volatile VueTournee instance = null;
 	private Vector<VueChemin> lesVueChemins = new Vector<VueChemin>();
 	private VueEntrepot vueEntrepot;
-	private Vector<VuePointDeLivraison> lesVuePointLivraisons = new Vector<VuePointDeLivraison>();
+	private Vector<VuePointLivraison> lesVuePointLivraisons = new Vector<VuePointLivraison>();
 	private TrancheHoraire lesTrancheHoraires[];
 	private Map<TrancheHoraire, Color> CouleursTranchesHoraires = new HashMap<TrancheHoraire,Color>();
 	
@@ -28,7 +28,7 @@ public class VueTournee
 		return vueEntrepot;
 	}
 
-	public Vector<VuePointDeLivraison> getLesVuePointLivraisons()
+	public Vector<VuePointLivraison> getLesVuePointLivraisons()
 	{
 		return lesVuePointLivraisons;
 	}
@@ -97,13 +97,13 @@ public class VueTournee
 		 * On charge l'entrepot et les points de livraisons de la tournee
 		 */
 		boolean flag = false;
-		boolean rep = initialiserTout();
+		boolean ret = initialiserTout();
 		vueEntrepot = new VueEntrepot(Tournee.getInstance().getEntrepot());
 		for(TrancheHoraire trancheHoraire : CouleursTranchesHoraires.keySet())
 		{
 			for(PointLivraison pointLivraison : trancheHoraire.getPointsLivraisons())
 			{
-				lesVuePointLivraisons.add(new VuePointDeLivraison(pointLivraison,CouleursTranchesHoraires.get(trancheHoraire)));
+				lesVuePointLivraisons.add(new VuePointLivraison(pointLivraison,CouleursTranchesHoraires.get(trancheHoraire)));
 			}
 		}
 		if(lesVuePointLivraisons.size()!=0)
@@ -119,7 +119,7 @@ public class VueTournee
 		 */
 	
 		boolean flag = false;
-		boolean rep  = initialiserTout();
+		boolean ret  = initialiserTout();
 		for(Chemin chemin : Tournee.getInstance().getChemins())
 		{
 			TrancheHoraire th = chemin.getPointLivraisonDestination().getTrancheHoraire();
@@ -136,11 +136,10 @@ public class VueTournee
 	{
 		
 		vueEntrepot.dessinerEntrepot(g, facteurConversion, Constante.COULEURENTREPOT);
-		for(VuePointDeLivraison vuePointLivraison : lesVuePointLivraisons)
+		for(VuePointLivraison vuePointLivraison : lesVuePointLivraisons)
 		{
 			vuePointLivraison.dessinerPointLivraison(g, facteurConversion, vuePointLivraison.getCouleur());			
-		}
-		
+		}		
 	}
 	
 	public void dessinerTournee(Graphics g,  int facteurConversion)
