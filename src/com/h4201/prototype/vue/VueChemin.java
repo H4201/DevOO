@@ -24,13 +24,13 @@ public class VueChemin
 		return couleur;
 	}
 
-	public void dessinerChemin(Graphics g, int facteurConversion, Color couleur)
+	public void dessinerChemin(Graphics g, int facteurConversionLarg, int facteurConversionHaut, Color couleur)
 	{
 			Color cTemp = g.getColor();
-			int x1 = (int)  chemin.getPointLivraisonOrigine().getNoeud().getX() * facteurConversion / Constante.LARGEUR;
-			int y1 = (int)  chemin.getPointLivraisonOrigine().getNoeud().getY() * facteurConversion / Constante.HAUTEUR;
-			int x2 = (int)  chemin.getPointLivraisonDestination().getNoeud().getX() * facteurConversion / Constante.LARGEUR;
-			int y2 = (int)  chemin.getPointLivraisonDestination().getNoeud().getY() * facteurConversion/ Constante.HAUTEUR;
+			int x1 = (int)  chemin.getPointLivraisonOrigine().getNoeud().getX() * facteurConversionLarg / Constante.LARGEURSUPERV;
+			int y1 = (int)  chemin.getPointLivraisonOrigine().getNoeud().getY() * facteurConversionHaut / Constante.HAUTEURSUPERV;
+			int x2 = (int)  chemin.getPointLivraisonDestination().getNoeud().getX() * facteurConversionLarg / Constante.LARGEURSUPERV;
+			int y2 = (int)  chemin.getPointLivraisonDestination().getNoeud().getY() * facteurConversionHaut/ Constante.HAUTEURSUPERV;
 			
 			g.setColor(couleur);
 			g.drawLine(x1, y1, x2, y2);

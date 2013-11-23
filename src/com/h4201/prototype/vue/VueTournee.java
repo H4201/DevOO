@@ -73,23 +73,6 @@ public class VueTournee
 		}
 		return flag;
 	}
-	/*
-	public Tournee initialiserTout()
-	{
-		// On recupere la tournee
-		Tournee tournee = Tournee.getInstance();
-
-		lesTrancheHoraires = tournee.getTranchesHoraire().toArray(new TrancheHoraire[tournee.getTranchesHoraire().size()]);
-		Color CouleurTrancheHoraire[] = Constante.tabCouleur;
-
-		for(int i=0; i<CouleurTrancheHoraire.length && i<lesTrancheHoraires.length; i++)
-		{
-			CouleursTranchesHoraires.put(lesTrancheHoraires[i], CouleurTrancheHoraire[i]);				
-		}
-		return tournee;
-	}
-	*/
-	
 	
 	public boolean initialiserPointLivraisons()
 	{
@@ -132,21 +115,21 @@ public class VueTournee
 		return flag;
 	}
 	
-	public void dessinerLespointLivraisons(Graphics g,  int facteurConversion)
+	public void dessinerLespointLivraisons(Graphics g,  int facteurConversionLarg, int facteurConversionHaut)
 	{
 		
-		vueEntrepot.dessinerEntrepot(g, facteurConversion, Constante.COULEURENTREPOT);
+		vueEntrepot.dessinerEntrepot(g, facteurConversionLarg, facteurConversionHaut, Constante.COULEURENTREPOT);
 		for(VuePointLivraison vuePointLivraison : lesVuePointLivraisons)
 		{
-			vuePointLivraison.dessinerPointLivraison(g, facteurConversion, vuePointLivraison.getCouleur());			
+			vuePointLivraison.dessinerPointLivraison(g, facteurConversionLarg, facteurConversionHaut, vuePointLivraison.getCouleur());			
 		}		
 	}
 	
-	public void dessinerTournee(Graphics g,  int facteurConversion)
+	public void dessinerTournee(Graphics g,  int facteurConversionLarg, int facteurConversionHaut)
 	{
 		for(VueChemin vueChemin : lesVueChemins)
 		{
-			vueChemin.dessinerChemin(g, facteurConversion, vueChemin.getCouleur());
+			vueChemin.dessinerChemin(g, facteurConversionLarg, facteurConversionHaut, vueChemin.getCouleur());
 		}		
 	}
 

@@ -27,14 +27,14 @@ public class VueTroncon
 		return etat;		
 	}
 	
-	public void dessinerTroncon(Graphics g, int facteurConversion)
+	public void dessinerTroncon(Graphics g, int facteurConversionLarg, int facteurConversionHaut)
 	{
 		Color cTemp = g.getColor();
 		
-		int x1 = (int)  troncon.getNoeudDestination().getX() * facteurConversion / Constante.LARGEURSUPERV;
-		int y1 = (int)  troncon.getNoeudDestination().getY() * facteurConversion / Constante.HAUTEURSUPERV;
-		int x2 = (int)  troncon.getNoeudOrigine().getX() * facteurConversion / Constante.LARGEURSUPERV;
-		int y2 = (int)  troncon.getNoeudOrigine().getY() * facteurConversion / Constante.HAUTEURSUPERV;
+		int x1 = (int)  troncon.getNoeudDestination().getX() * facteurConversionLarg / Constante.LARGEURSUPERV;
+		int y1 = (int)  troncon.getNoeudDestination().getY() * facteurConversionHaut / Constante.HAUTEURSUPERV;
+		int x2 = (int)  troncon.getNoeudOrigine().getX() * facteurConversionLarg / Constante.LARGEURSUPERV;
+		int y2 = (int)  troncon.getNoeudOrigine().getY() * facteurConversionHaut / Constante.HAUTEURSUPERV;
 		
 		
 		g.setColor(Constante.COULEURTRONCON);

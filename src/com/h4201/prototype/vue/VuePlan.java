@@ -105,16 +105,16 @@ public class VuePlan extends JPanel
 		}
 	}
 	
-	public void dessinerNoeudsTroncons(Graphics g, int facteurConversion)
+	public void dessinerNoeudsTroncons(Graphics g, int facteurConversionLarg, int facteurConversionHaut)
 	{
 		for(VueNoeud vueNoeud : lesVueNoeuds)
 		{
-			vueNoeud.dessinerNoeud(g, facteurConversion);
+			vueNoeud.dessinerNoeud(g, facteurConversionLarg, facteurConversionHaut);
 		}
 
 		for(VueTroncon vueTroncon : lesVueTroncons )
 		{
-			vueTroncon.dessinerTroncon(g,facteurConversion);
+			vueTroncon.dessinerTroncon(g,facteurConversionLarg, facteurConversionHaut );
 		}
 	}
 	/**
@@ -129,27 +129,27 @@ public class VuePlan extends JPanel
 		
 		if((Tournee.getInstance() == null))
 		{
-			dessinerNoeudsTroncons(g, getWidth());
+			dessinerNoeudsTroncons(g, getWidth(), getHeight());
 		}
 		
 		if((Tournee.getInstance() != null) && (VueTournee.getInstance().initialiserTout()==true))
 		{
-			dessinerNoeudsTroncons(g, getWidth());
+			dessinerNoeudsTroncons(g, getWidth(), getHeight());
 			if(VueTournee.getInstance().initialiserPointLivraisons() == true)
 			{
-				VueTournee.getInstance().dessinerLespointLivraisons(g, getWidth());
+				VueTournee.getInstance().dessinerLespointLivraisons(g, getWidth(), getHeight());
 			}			
 		}
 		
 		if((Tournee.getInstance() != null) && (VueTournee.getInstance().initialiserTout()==true) && (VueTournee.getInstance().initialiserPointLivraisons() == true))
 		{
-			dessinerNoeudsTroncons(g, getWidth());
+			dessinerNoeudsTroncons(g, getWidth(), getHeight());
 			
-			VueTournee.getInstance().dessinerLespointLivraisons(g, getWidth());
+			VueTournee.getInstance().dessinerLespointLivraisons(g, getWidth(), getHeight());
 			
 			if(VueTournee.getInstance().initialiserTournee()==true)
 			{
-				VueTournee.getInstance().dessinerTournee(g, getWidth());
+				VueTournee.getInstance().dessinerTournee(g, getWidth(), getHeight());
 			}		
 		}		
 	}

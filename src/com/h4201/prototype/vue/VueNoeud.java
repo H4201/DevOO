@@ -32,17 +32,15 @@ public class VueNoeud
 	}
 	
 
-	public void dessinerNoeud(Graphics g, int facteurConversion)
+	public void dessinerNoeud(Graphics g, int facteurConversionLarg, int facteurConversionHaut)
 	{	
 		Color cTemp = g.getColor();
 		
-		int x = (int) noeud.getX() * facteurConversion / Constante.LARGEURSUPERV;
-		int y = (int) noeud.getY() * facteurConversion / Constante.HAUTEURSUPERV;
-		int rayon = (int) (Constante.RAYONNOEUD * facteurConversion / Constante.LARGEUR);
-		
-		
+		int x = (int) noeud.getX() * facteurConversionLarg / Constante.LARGEURSUPERV;
+		int y = (int) noeud.getY() * facteurConversionHaut / Constante.HAUTEURSUPERV;
+		int rayon = (int) (Constante.RAYONNOEUD * facteurConversionLarg / Constante.LARGEURSUPERV);
 		g.setColor(Constante.COULEURNOEUD);
-		g.fillOval((int) x - rayon ,(int) y - rayon , 2*rayon , 2*rayon);
+		g.fillOval((int)( x - rayon) ,(int)( y - rayon) , 2*rayon , 2*rayon);
         g.setColor(cTemp);
 	}
 

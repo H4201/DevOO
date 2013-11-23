@@ -38,12 +38,12 @@ public class VuePointLivraison
 		return flag;		
 	}
 	
-	public void dessinerPointLivraison(Graphics g, int facteurConversion, Color couleur)
+	public void dessinerPointLivraison(Graphics g, int facteurConversionLarg, int facteurConversionHaut, Color couleur)
 	{
 		Color cTemp = g.getColor();
-		int x = (int) pointLivraison.getNoeud().getX() * facteurConversion / Constante.LARGEUR;
-		int y = (int) pointLivraison.getNoeud().getY() * facteurConversion / Constante.HAUTEUR;
-		int rayon = (int) (Constante.RAYONNOEUD * facteurConversion / Constante.LARGEUR);	
+		int x = (int) pointLivraison.getNoeud().getX() * facteurConversionLarg / Constante.LARGEURSUPERV;
+		int y = (int) pointLivraison.getNoeud().getY() * facteurConversionHaut / Constante.HAUTEURSUPERV;
+		int rayon = (int) (Constante.RAYONNOEUD * facteurConversionLarg / Constante.LARGEURSUPERV);	
 		g.setColor(couleur);
 		g.fillOval((int) x - rayon ,(int) y - rayon , 2*rayon , 2*rayon);
 	    g.setColor(cTemp);
