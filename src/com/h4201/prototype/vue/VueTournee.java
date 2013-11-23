@@ -21,6 +21,18 @@ public class VueTournee
 	private TrancheHoraire lesTrancheHoraires[];
 	private Map<TrancheHoraire, Color> CouleursTranchesHoraires = new HashMap<TrancheHoraire,Color>();
 	
+	
+	
+	public VueEntrepot getVueEntrepot()
+	{
+		return vueEntrepot;
+	}
+
+	public Vector<VuePointDeLivraison> getLesVuePointLivraisons()
+	{
+		return lesVuePointLivraisons;
+	}
+	
 	private VueTournee()
 	{
 		super();
@@ -100,16 +112,15 @@ public class VueTournee
 		}
 		return flag;		
 	}
-/*
 	public boolean initialiserTournee()
 	{
 		/*
 		 * on charge les chemins de la tournee
 		 */
-	/*
+	
 		boolean flag = false;
-		Tournee tournee = initialiserTout();
-		for(Chemin chemin : tournee.getChemins())
+		boolean rep  = initialiserTout();
+		for(Chemin chemin : Tournee.getInstance().getChemins())
 		{
 			TrancheHoraire th = chemin.getPointLivraisonDestination().getTrancheHoraire();
 			lesVueChemins.add(new VueChemin(chemin,CouleursTranchesHoraires.get(th)));
@@ -120,7 +131,6 @@ public class VueTournee
 		}
 		return flag;
 	}
-*/
 	
 	public void dessinerLespointLivraisons(Graphics g,  int facteurConversion)
 	{
@@ -138,9 +148,7 @@ public class VueTournee
 		for(VueChemin vueChemin : lesVueChemins)
 		{
 			vueChemin.dessinerChemin(g, facteurConversion, vueChemin.getCouleur());
-		}
-		
-		
+		}		
 	}
 
 }
