@@ -285,8 +285,8 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 			posX=evt.getX()-Constante.POSVUEX;
 			posY=evt.getY()-Constante.POSVUEY-22;
 			
-			posX=posX*Constante.CONVERSION_PIXELS_EN_METRES*Constante.LARGEUR;
-			posY=posY*Constante.CONVERSION_PIXELS_EN_METRES*Constante.HAUTEUR;
+			posX=posX*Constante.LARGEUR/600;
+			posY=posY*Constante.HAUTEUR/600;
 			noeudClique = VuePlan.getInstance().getLeNoeud(posX, posY);
 			System.out.println("il y a eu un clic");
 			System.out.println("evt : " + evt.getX() + ", " + evt.getY());
