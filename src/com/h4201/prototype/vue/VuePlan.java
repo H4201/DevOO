@@ -45,10 +45,10 @@ public class VuePlan extends JPanel
 		return noeud;
 	}
 	
-	public PointLivraison getLePointLivraison(double x, double y, Vector<VuePointDeLivraison> lesVuePointDeLivraisons)
+	public PointLivraison getLePointLivraison(double x, double y, Vector<VuePointLivraison> lesVuePointDeLivraisons)
 	{
 		PointLivraison pointLivraison = null;
-		for(VuePointDeLivraison laVuePointDeLivraison : lesVuePointDeLivraisons )
+		for(VuePointLivraison laVuePointDeLivraison : lesVuePointDeLivraisons )
 		{
 			double coordX = laVuePointDeLivraison.getPointLivraison().getNoeud().getX();
 			double coordY = laVuePointDeLivraison.getPointLivraison().getNoeud().getY();
