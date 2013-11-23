@@ -31,7 +31,7 @@ public class VuePlan extends JPanel
 		return lesVueTroncons;
 	}
 	
-	public Noeud getLeNoeud(double x, double y, Vector<VueNoeud> lesVueNoeuds)
+	public Noeud getLeNoeud(double x, double y)
 	{
 		Noeud noeud = null;
 		for(VueNoeud laVueNoeud : lesVueNoeuds )
