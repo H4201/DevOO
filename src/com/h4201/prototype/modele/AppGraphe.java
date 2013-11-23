@@ -107,38 +107,51 @@ public class AppGraphe implements Graph {
 		Vector<Pair<PointLivraison, Integer>> match = new Vector<Pair<PointLivraison, Integer>>(); // Permet de faire le lien entre les chemins et leur place dans le tableau de coûts
 		for(int i = 0; i<chemins.size(); i++){
 			int sizeMatch = match.size();
-			AjouterOuRemplacerMatch(match, chemins.get(i).getPointLivraisonOrigine(), nbVertices-1);
+			AjouterMatch(match, chemins.get(i).getPointLivraisonOrigine(), nbVertices);
 			if (sizeMatch != match.size()){
 				nbVertices++;
 			}
 			sizeMatch = match.size();
-			AjouterOuRemplacerMatch(match, chemins.get(i).getPointLivraisonDestination(), nbVertices-1);
+			AjouterMatch(match, chemins.get(i).getPointLivraisonDestination(), nbVertices);
 			if (sizeMatch != match.size()){
 				nbVertices++;
 			}
 		}
+		System.out.println("nbVertices : " + nbVertices); // DEBUG
 		
 		// Remplir matrice des couts
 		cost = new int[nbVertices][nbVertices];
 		for(int i=0; i<nbVertices; i++){
 			Arrays.fill(cost[i], maxArcCost+1);
 		}
-		for(int i = 0; i<chemins.size(); i++){
+		for(int i=0; i<chemins.size(); i++){
 			Integer positionXdansMatch = retournerPairDepuisMatch(match, chemins.get(i).getPointLivraisonOrigine()).getSecond();
 			Integer positionYdansMatch = retournerPairDepuisMatch(match, chemins.get(i).getPointLivraisonDestination()).getSecond();
+			
+			// DEBUG : Afficher les chemins dans chemin
+			System.out.println(positionXdansMatch+"->"+positionYdansMatch + "   " + chemins.get(i).getTemps() + " s");
+			
 			cost[positionXdansMatch][positionYdansMatch] = (int) chemins.get(i).getTemps();
 		}
 		
+		//DEBUG : AFFICHER COUT
+		for(int i=0; i<nbVertices; i++){
+			System.out.println( i + " : " + cost[i][0] + " " +  cost[i][1] + " " +  cost[i][2] +
+					" " +  cost[i][3] + " " +  cost[i][4] + " " +  cost[i][5] + " " +  cost[i][6]
+							+ " " +  cost[i][7] + " " +  cost[i][8] + " " +  cost[i][9] + " " +
+					cost[i][10] + " " + cost[i][11]);
+		}
+		
+		
 		// Remplir le vecteur succ
-		//ArrayList<ArrayList<Integer>>
 		PointLivraison[] PointLivraisonOrdonnes = new PointLivraison[nbVertices];
 		for(int i=0; i<nbVertices; i++){
 			PointLivraisonOrdonnes[match.get(i).getSecond()] = match.get(i).getFirst();
 		}
+		
+		//DEBUG : AFFICHER getNbSucc
 		for(int i=0; i<nbVertices; i++){
-			//for(){
-				
-			//}
+			System.out.println("getNbSucc : " + i+  "  " + getNbSucc(i));
 		}
 		
 					
@@ -319,12 +332,11 @@ public class AppGraphe implements Graph {
 	 * @param position
 	 * @return l'objet match modifié
 	 */
-	public Vector<Pair<PointLivraison, Integer>> AjouterOuRemplacerMatch(Vector<Pair<PointLivraison, Integer>> match, PointLivraison pointLivraison, Integer position) {
+	public Vector<Pair<PointLivraison, Integer>> AjouterMatch(Vector<Pair<PointLivraison, Integer>> match, PointLivraison pointLivraison, Integer position) {
 		boolean trouve = false;
 		for(int i=0; i<match.size(); i++){
 			if (match.get(i).getFirst().getIdPointLivraison() == pointLivraison.getIdPointLivraison()){
 				trouve = true;
-				match.get(i).setSecond(position);
 				break;
 			}
 		}
@@ -378,8 +390,6 @@ public class AppGraphe implements Graph {
 	 * @return la paire en prenant le noeud comme argument.
 	 */
 	public Pair<PointLivraison, Integer> retournerPairDepuisMatch(Vector<Pair<PointLivraison, Integer>> match, PointLivraison pointLivraison){
-		System.out.println("RetournerPaire depuis match : ");
-		pointLivraison.afficher();
 		Pair<PointLivraison, Integer> pair = null;
 		for(int i=0; i<match.size(); i++){
 			if (match.get(i).getFirst().getIdPointLivraison() == pointLivraison.getIdPointLivraison()){
