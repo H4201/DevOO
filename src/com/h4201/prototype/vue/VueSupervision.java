@@ -16,6 +16,7 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.AbstractButton;
+import javax.swing.JTable;
 
 import com.h4201.prototype.controleur.Controleur;
 import com.h4201.prototype.utilitaire.Constante;
@@ -36,6 +37,7 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 	private JButton boutonAjouter;
 	private JButton boutonSupprimer;
 	private JButton boutonModeNormal;
+	private JTable tableau;
 	
 	private static volatile VueSupervision instance = null;
 	
@@ -178,14 +180,22 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 				//lecture du contenu d'un fichier XML avec DOM
 				File xml = new File(jFileChooserXML.getSelectedFile().getAbsolutePath());
 				Controleur.getInstance().chargerDemandeLivraison(xml);
+				if(VueTournee.getInstance().initialiserTout()==true)
+				{
+					VuePlan.getInstance().repaint();
+				}
+				/*
 				VueTournee.getInstance().initialiserTout();
 				VueTournee.getInstance().initialiserPointLivraisons();
-				fenetre.getContentPane().add(VueTournee.getInstance());
-				VueTournee.getInstance().setLayout(null);
-				VueTournee.getInstance().setBounds(Constante.POSVUEX, Constante.POSVUEY, Constante.LARGEUR, Constante.HAUTEUR);
+				VuePlan.getInstance().repaint();
+				*/
 				boutonCalcT.setEnabled(true);
 				boutonAjouter.setEnabled(true);
 				boutonSupprimer.setEnabled(true);
+				//tableau = new JTable(donnees, entetes);
+				 
+		        //fenetre.getContentPane().add(tableau.getTableHeader(), BorderLayout.NORTH);
+		        //fenetre.getContentPane().add(tableau, BorderLayout.CENTER);
 			}
 		}
 		else if (evt.getActionCommand().equals("Generer la feuille de route")){
