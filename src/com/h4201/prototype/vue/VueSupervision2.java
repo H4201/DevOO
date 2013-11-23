@@ -194,8 +194,11 @@ public class VueSupervision2 extends MouseAdapter implements ActionListener
 		}	
 		else if (evt.getActionCommand().equals("Calculer la tournee")){
 			Controleur.getInstance().calculTournee();
-			//VueTournee.getInstance().initialiserTout();
-			//VueTournee.getInstance().initialiserTournee();
+			VueChemin2.getInstance().initialiserTout();
+			VueChemin2.getInstance().initialiserTournee();
+			fenetre.getContentPane().add(VueChemin2.getInstance());
+			VueChemin2.getInstance().setLayout(null);
+			VueChemin2.getInstance().setBounds(Constante.POSVUEX, Constante.POSVUEY, Constante.LARGEUR, Constante.HAUTEUR);
 			boutonFeuilleDeRoute.setEnabled(true);
 			boutonCalcT.setEnabled(false);
 			//reste?
