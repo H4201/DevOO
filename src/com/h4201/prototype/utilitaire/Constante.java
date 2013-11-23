@@ -10,7 +10,7 @@ import java.awt.Color;
 public abstract class Constante
 {	
 	/*
-	 * Exception
+	 * Exceptions
 	 */
 	public static final String EXCEPTION_XML = "Le XML ne correspond pas a ce qui est attendu";
 	public static final String EXCEPTION_FICHIER = "Le fichier n'existe pas ou est illisible";
@@ -18,14 +18,14 @@ public abstract class Constante
 	
 	
 	/*
-	 * Conversion
+	 * Conversions
 	 */
 	public static final double CONVERSION_METRES_EN_PIXELS = 0.1;
 	public static final double CONVERSION_PIXELS_EN_METRES = 10;
 	
 	
 	/*
-	 * constante pour le plan
+	 * constantes pour le plan
 	 */
 	public static final int HAUTEUR = 450;
 	public static final int LARGEUR = 600;
@@ -45,7 +45,7 @@ public abstract class Constante
 	public static final Color tabCouleur[] = {Color.RED, Color.YELLOW, Color.BLUE,Color.GREEN,Color.MAGENTA,Color.PINK, Color.ORANGE, Color.LIGHT_GRAY,Color.DARK_GRAY };
 	
 	/*
-	 * constante pour la fenetre de supervision
+	 * constantes pour la fenetre de supervision
 	 */
 	public static final int LARGEURSUPERV = 1000;
 	public static final int HAUTEURSUPERV = 700;

@@ -162,11 +162,16 @@ public class VueSupervision2 extends MouseAdapter implements ActionListener
 				//lecture du contenu d'un fichier XML avec DOM
 				File xml = new File(jFileChooserXML.getSelectedFile().getAbsolutePath());
 				Controleur.getInstance().chargerDemandeLivraison(xml);
+				if(VueTournee.getInstance().initialiserTout()==true)
+				{
+					VuePlan.getInstance().repaint();
+				}
+				/*
 				VueTournee.getInstance().initialiserTout();
 				VueTournee.getInstance().initialiserPointLivraisons();
-				fenetre.getContentPane().add(VueTournee.getInstance());
-				VueTournee.getInstance().setLayout(null);
-				VueTournee.getInstance().setBounds(Constante.POSVUEX, Constante.POSVUEY, Constante.LARGEUR, Constante.HAUTEUR);
+				VuePlan.getInstance().repaint();
+				*/
+				System.out.println("les points de livraisons");
 				boutonCalcT.setEnabled(true);
 				boutonAjouter.setEnabled(true);
 				boutonSupprimer.setEnabled(true);
@@ -194,8 +199,8 @@ public class VueSupervision2 extends MouseAdapter implements ActionListener
 		}	
 		else if (evt.getActionCommand().equals("Calculer la tournee")){
 			Controleur.getInstance().calculTournee();
-			//VueTournee.getInstance().initialiserTout();
-			//VueTournee.getInstance().initialiserTournee();
+			
+			System.out.println("les chemins");
 			boutonFeuilleDeRoute.setEnabled(true);
 			boutonCalcT.setEnabled(false);
 			//reste?

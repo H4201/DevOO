@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import com.h4201.prototype.exception.ExceptionNonInstancie;
 import com.h4201.prototype.modele.Noeud;
 import com.h4201.prototype.modele.Plan;
+import com.h4201.prototype.modele.PointLivraison;
 import com.h4201.prototype.modele.Troncon;
 import com.h4201.prototype.utilitaire.Constante;
 
@@ -18,7 +19,49 @@ public class VuePlan extends JPanel
 	private static volatile VuePlan instance = null;
 	private Vector<VueNoeud> lesVueNoeuds = new Vector<VueNoeud>();
 	private Vector<VueTroncon> lesVueTroncons = new Vector<VueTroncon>();
+	
+	public Vector<VueNoeud> getLesVueNoeuds()
+	{
+		return lesVueNoeuds;
+	}
 
+	public Vector<VueTroncon> getLesVueTroncons()
+	{
+		return lesVueTroncons;
+	}
+	
+	public Noeud getLeNoeud(double x, double y, Vector<VueNoeud> lesVueNoeuds)
+	{
+		Noeud noeud = null;
+		for(VueNoeud laVueNoeud : lesVueNoeuds )
+		{
+			if(x == laVueNoeud.getNoeud().getX() && y == laVueNoeud.getNoeud().getY())
+			{
+				noeud = laVueNoeud.getNoeud();
+			}
+		}
+		
+		return noeud;
+	}
+	
+	public PointLivraison getLePointLivraison(double x, double y, Vector<VuePointDeLivraison> lesVuePointDeLivraisons)
+	{
+		PointLivraison pointLivraison = null;
+		for(VuePointDeLivraison laVuePointDeLivraison : lesVuePointDeLivraisons )
+		{
+			double coordX = laVuePointDeLivraison.getPointLivraison().getNoeud().getX();
+			double coordY = laVuePointDeLivraison.getPointLivraison().getNoeud().getY();
+			if(x == coordX && y == coordY)
+			{
+				pointLivraison = laVuePointDeLivraison.getPointLivraison();
+			}
+		}
+		
+		return pointLivraison;
+	}
+	
+	
+	
 	private VuePlan()
 	{
 		super();
@@ -56,6 +99,13 @@ public class VuePlan extends JPanel
 			{
 				lesVueTroncons.add(new VueTroncon(leTroncon));
 			}
+			/*
+			if(VueTournee.getInstance().initialiserTout())
+			{
+				VueTournee.getInstance().initialiserPointLivraisons();
+			}
+			*/
+			
 
 		} catch (ExceptionNonInstancie e)
 		{
@@ -73,7 +123,7 @@ public class VuePlan extends JPanel
 		super.paintComponent(g);
 		this.setBackground(Constante.ARRIEREPLAN);
 
-		for(VueNoeud vueNoeud : lesVueNoeuds )
+		for(VueNoeud vueNoeud : lesVueNoeuds)
 		{
 			vueNoeud.dessinerNoeud(g, getWidth());
 		}
@@ -82,11 +132,21 @@ public class VuePlan extends JPanel
 		{
 			vueTroncon.dessinerTroncon(g,getWidth());
 		}
-	}
-
-	public Noeud clicPlan(double x, double y)
-	{
-		return null;
+		/*
+		if(VueTournee.getInstance().initialiserPointLivraisons() == true)
+		{
+			VueTournee.getInstance().dessinerLespointLivraisons(g, getWidth());
+		}
+		/*
+		if(VueTournee.getInstance().initialiserTournee() == true)
+		{
+			VueTournee.getInstance().dessinerTournee(g, getWidth());
+		}
+		else
+		{
+			return;
+		}
+		*/
 	}
 
 }

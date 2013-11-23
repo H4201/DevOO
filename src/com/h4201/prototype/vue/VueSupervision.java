@@ -16,10 +16,10 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.AbstractButton;
+import javax.swing.JTable;
 
 import com.h4201.prototype.controleur.Controleur;
 import com.h4201.prototype.utilitaire.Constante;
-
 import com.sun.file.ExampleFileFilter;
 
 public class VueSupervision extends MouseAdapter implements ActionListener
@@ -37,6 +37,7 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 	private JButton boutonAjouter;
 	private JButton boutonSupprimer;
 	private JButton boutonModeNormal;
+	private JTable tableau;
 	
 	private static volatile VueSupervision instance = null;
 	
@@ -51,7 +52,7 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 		return VueSupervision.instance;
 	}
 	
-	public VueSupervision(int x, int y){
+	private VueSupervision(int x, int y){
 		
 		//creation de la fenetre
 		fenetre = new JFrame("Supervision");
@@ -179,14 +180,22 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 				//lecture du contenu d'un fichier XML avec DOM
 				File xml = new File(jFileChooserXML.getSelectedFile().getAbsolutePath());
 				Controleur.getInstance().chargerDemandeLivraison(xml);
+				if(VueTournee.getInstance().initialiserTout()==true)
+				{
+					VuePlan.getInstance().repaint();
+				}
+				/*
 				VueTournee.getInstance().initialiserTout();
 				VueTournee.getInstance().initialiserPointLivraisons();
-				fenetre.getContentPane().add(VueTournee.getInstance());
-				VueTournee.getInstance().setLayout(null);
-				VueTournee.getInstance().setBounds(Constante.POSVUEX, Constante.POSVUEY, Constante.LARGEUR, Constante.HAUTEUR);
+				VuePlan.getInstance().repaint();
+				*/
 				boutonCalcT.setEnabled(true);
 				boutonAjouter.setEnabled(true);
 				boutonSupprimer.setEnabled(true);
+				//tableau = new JTable(donnees, entetes);
+				 
+		        //fenetre.getContentPane().add(tableau.getTableHeader(), BorderLayout.NORTH);
+		        //fenetre.getContentPane().add(tableau, BorderLayout.CENTER);
 			}
 		}
 		else if (evt.getActionCommand().equals("Generer la feuille de route")){
@@ -237,35 +246,44 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 	//Methode appelee quand la souris est cliquee dans la fenetre
 	@Override
 	public void mouseClicked(MouseEvent evt){
-		//si le clic a eu lieu dans le plan (POSVUEX<=x<=POSVUEX+LARGEUR et POSVUEY<=y<=POSVUEY+HAUTEUR)
 		double posX;
 		double posY;
+		boolean clicNoeud = false;
+		//si le clic a eu lieu dans le plan (POSVUEX<=x<=POSVUEX+LARGEUR et POSVUEY<=y<=POSVUEY+HAUTEUR)
 		if(Constante.POSVUEX<=evt.getX() && evt.getX()<=Constante.POSVUEX+Constante.LARGEUR && Constante.POSVUEY<=evt.getY() && evt.getY()<=Constante.POSVUEY+Constante.HAUTEUR){
 			posX=evt.getX()-Constante.POSVUEX;
 			posY=evt.getY()-Constante.POSVUEY;
 			posX=posX*Constante.CONVERSION_PIXELS_EN_METRES;
 			posY=posY*Constante.CONVERSION_PIXELS_EN_METRES;
-			if(Controleur.getInstance().getMode()==1){
-				//si clique sur un noeud (conversion?)
+			/*Vector <VueNoeud> lesVuesNoeuds = VuePlan.getInstance().getLesVuesNoeuds();
+			for(VueNoeud vueNoeud : lesVueNoeuds ) //passer en while
+			{
+				if(vueNoeud.estClique(posX, posY)){
+					clicNoeud=true;
+				}
+			}*/
+			if(clicNoeud){
+				if(Controleur.getInstance().getMode()==1){
 					//ouvre pop up avec tranches horaires
 					//apres validation -> ajouter le point de livraison, repaindre le plan
 					boutonCalcT.setEnabled(true);
 					boutonFeuilleDeRoute.setEnabled(false);
 					boutonAnnuler.setEnabled(true);
 					boutonRetablir.setEnabled(false);
-			}
-			else if(Controleur.getInstance().getMode()==2){
-				//si clique sur un noeud colore (point de livraison) (conversion?)
-					//ouvre pop up avec tranches horaires
-					//repaindre le plan      ------> cas de plusieurs livraisons?
-					boutonCalcT.setEnabled(true);
-					boutonFeuilleDeRoute.setEnabled(false);
-					boutonAnnuler.setEnabled(true);
-					boutonRetablir.setEnabled(false);
-			}
-			else if(Controleur.getInstance().getMode()==0){
-				//si clique sur un noeud colore (point de livraison) (conversion?)
-					//affiche les donnees
+				}
+				else if(Controleur.getInstance().getMode()==2){
+					//si clique sur un noeud colore (point de livraison)
+						//ouvre pop up avec tranches horaires
+						//repaindre le plan      ------> cas de plusieurs livraisons?
+						boutonCalcT.setEnabled(true);
+						boutonFeuilleDeRoute.setEnabled(false);
+						boutonAnnuler.setEnabled(true);
+						boutonRetablir.setEnabled(false);
+				}
+				else if(Controleur.getInstance().getMode()==0){
+					//si clique sur un noeud colore (point de livraison)
+						//affiche les donnees
+				}
 			}
 		}		
 	}

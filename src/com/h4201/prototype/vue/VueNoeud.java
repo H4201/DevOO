@@ -20,7 +20,20 @@ public class VueNoeud
 	{
 		return noeud;
 	}
-
+	
+	/*
+	public Noeud getNoeud(double x, double y)
+	{
+		if(x == noeud.getX() &&  y == noeud.getY())
+		{
+			return noeud;
+		}
+		else
+		{
+			return null;
+		}	
+	}
+*/
 	public Boolean estClique(double x, double y)
 	{
 		boolean flag = false;
