@@ -1,5 +1,6 @@
 package com.h4201.prototype.test;
 
+
 import com.h4201.prototype.vue.VueSupervision;
 
 public class TestInterface {
@@ -15,7 +16,10 @@ public class TestInterface {
 		
 		try
 		{
+
 			VueSupervision intSuperv = new VueSupervision(100, 100);
+
+			VueSupervision.getInstance();
 		}
 		catch(Exception e)
 		{

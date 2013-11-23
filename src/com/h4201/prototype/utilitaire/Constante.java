@@ -10,7 +10,7 @@ import java.awt.Color;
 public abstract class Constante
 {	
 	/*
-	 * Exception
+	 * Exceptions
 	 */
 	public static final String EXCEPTION_XML = "Le XML ne correspond pas a ce qui est attendu";
 	public static final String EXCEPTION_FICHIER = "Le fichier n'existe pas ou est illisible";
@@ -18,13 +18,14 @@ public abstract class Constante
 	
 	
 	/*
-	 * Conversion
+	 * Conversions
 	 */
 	public static final double CONVERSION_METRES_EN_PIXELS = 0.1;
+	public static final double CONVERSION_PIXELS_EN_METRES = 10;
 	
 	
 	/*
-	 * constante pour le plan
+	 * constantes pour le plan
 	 */
 	public static final int HAUTEUR = 450;
 	public static final int LARGEUR = 600;
@@ -36,15 +37,29 @@ public abstract class Constante
 	public static final Color COULEURTRONCON = Color.BLACK;
 	public static final Color COULEURENTREPOT = Color.CYAN;
 	public static final Color ARRIEREPLAN = Color.WHITE;
+	
+	
+	/*
+	 * tableau couleurs des tranches horaires
+	 */
+	public static final Color tabCouleur[] = {Color.RED, Color.YELLOW, Color.BLUE,Color.GREEN,Color.MAGENTA,Color.PINK, Color.ORANGE, Color.LIGHT_GRAY,Color.DARK_GRAY };
+	
+	/*
+	 * constantes pour la fenetre de supervision
+	 */
+	public static final int LARGEURSUPERV = 1000;
+	public static final int HAUTEURSUPERV = 700;
 	public static final int HBOUTON = 30;
 	public static final int LBOUTON = 200;
 	public static final int LIGNEBOUTON1 = 0;
 	public static final int LIGNEBOUTON2 = 50;
 	public static final int LIGNEBOUTON3 = 650;
 	
+	
 	/*
-	 * tableau couleurs des tranches horaires
+	 * Controleur
 	 */
-	public static final Color tabCouleur[] = {Color.RED, Color.YELLOW, Color.BLUE,Color.GREEN,Color.MAGENTA,Color.PINK, Color.ORANGE, Color.LIGHT_GRAY,Color.DARK_GRAY };
-
+	public static final int MODE_NORMAL = 0;
+	public static final int MODE_AJOUTER = 1;
+	public static final int MODE_SUPPRIMER = 2;
 }

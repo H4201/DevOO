@@ -7,7 +7,7 @@ package com.h4201.prototype.modele;
  */
 public class PointLivraison
 {
-  private static int dernierIdPointLivraison;
+  private static int dernierIdPointLivraison = 0;
   private int idPointLivraison;
   private Chemin cheminEntrant;
   private Chemin cheminSortant;

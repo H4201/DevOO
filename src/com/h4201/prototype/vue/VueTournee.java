@@ -6,16 +6,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Vector;
 
-import javax.swing.JPanel;
-
 import com.h4201.prototype.modele.Chemin;
 import com.h4201.prototype.modele.PointLivraison;
 import com.h4201.prototype.modele.Tournee;
 import com.h4201.prototype.modele.TrancheHoraire;
 import com.h4201.prototype.utilitaire.Constante;
 
-@SuppressWarnings("serial")
-public class VueTournee extends JPanel
+public class VueTournee 
 {
 	private static volatile VueTournee instance = null;
 	private Vector<VueChemin> lesVueChemins = new Vector<VueChemin>();
@@ -45,6 +42,26 @@ public class VueTournee extends JPanel
 		return VueTournee.instance;
 	}
 	
+	public boolean initialiserTout()
+	{
+		// On recupere la tournee
+		boolean flag = false;
+		Tournee tournee = Tournee.getInstance();
+
+		lesTrancheHoraires = tournee.getTranchesHoraire().toArray(new TrancheHoraire[tournee.getTranchesHoraire().size()]);
+		Color CouleurTrancheHoraire[] = Constante.tabCouleur;
+
+		for(int i=0; i<CouleurTrancheHoraire.length && i<lesTrancheHoraires.length; i++)
+		{
+			CouleursTranchesHoraires.put(lesTrancheHoraires[i], CouleurTrancheHoraire[i]);				
+		}
+		if(CouleursTranchesHoraires.size()!=0)
+		{
+			flag = true;
+		}
+		return flag;
+	}
+	/*
 	public Tournee initialiserTout()
 	{
 		// On recupere la tournee
@@ -59,50 +76,70 @@ public class VueTournee extends JPanel
 		}
 		return tournee;
 	}
+	*/
 	
-	public void initialiserPointLivraisons()
+	
+	public boolean initialiserPointLivraisons()
 	{
 		/*
 		 * On charge l'entrepot et les points de livraisons de la tournee
 		 */
-		Tournee tournee = initialiserTout();
-		vueEntrepot = new VueEntrepot(tournee.getEntrepot());
+		boolean flag = false;
+		boolean rep = initialiserTout();
+		vueEntrepot = new VueEntrepot(Tournee.getInstance().getEntrepot());
 		for(TrancheHoraire trancheHoraire : CouleursTranchesHoraires.keySet())
 		{
 			for(PointLivraison pointLivraison : trancheHoraire.getPointsLivraisons())
 			{
 				lesVuePointLivraisons.add(new VuePointDeLivraison(pointLivraison,CouleursTranchesHoraires.get(trancheHoraire)));
 			}
-		}		
+		}
+		if(lesVuePointLivraisons.size()!=0)
+		{
+			flag = true;
+		}
+		return flag;		
 	}
-
-	public void initialiserTournee()
+/*
+	public boolean initialiserTournee()
 	{
 		/*
 		 * on charge les chemins de la tournee
 		 */
-		
+	/*
+		boolean flag = false;
 		Tournee tournee = initialiserTout();
 		for(Chemin chemin : tournee.getChemins())
 		{
 			TrancheHoraire th = chemin.getPointLivraisonDestination().getTrancheHoraire();
 			lesVueChemins.add(new VueChemin(chemin,CouleursTranchesHoraires.get(th)));
 		}
+		if(lesVueChemins.size()!=0)
+		{
+			flag = true;
+		}
+		return flag;
 	}
-		
-		
+*/
 	
-	@Override
-	public void paintComponent(Graphics g)
+	public void dessinerLespointLivraisons(Graphics g,  int facteurConversion)
 	{
-		super.paintComponent(g);
-		VuePlan.getInstance().repaint();
-		this.setBackground(Constante.ARRIEREPLAN);
-		vueEntrepot.dessinerEntrepot(g, getWidth(), Constante.COULEURENTREPOT);
+		
+		vueEntrepot.dessinerEntrepot(g, facteurConversion, Constante.COULEURENTREPOT);
 		for(VuePointDeLivraison vuePointLivraison : lesVuePointLivraisons)
 		{
-			vuePointLivraison.dessinerPointLivraison(g, getWidth(), vuePointLivraison.getCouleur());			
+			vuePointLivraison.dessinerPointLivraison(g, facteurConversion, vuePointLivraison.getCouleur());			
 		}
+		
+	}
+	
+	public void dessinerTournee(Graphics g,  int facteurConversion)
+	{
+		for(VueChemin vueChemin : lesVueChemins)
+		{
+			vueChemin.dessinerChemin(g, facteurConversion, vueChemin.getCouleur());
+		}
+		
 		
 	}
 

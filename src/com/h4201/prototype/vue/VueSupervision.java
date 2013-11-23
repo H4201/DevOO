@@ -18,10 +18,7 @@ import javax.swing.JFrame;
 import javax.swing.AbstractButton;
 
 import com.h4201.prototype.controleur.Controleur;
-import com.h4201.prototype.modele.Noeud;
 import com.h4201.prototype.utilitaire.Constante;
-
-//import com.h4201.prototype.modele.Plan;
 import com.sun.file.ExampleFileFilter;
 
 public class VueSupervision extends MouseAdapter implements ActionListener
@@ -39,6 +36,19 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 	private JButton boutonAjouter;
 	private JButton boutonSupprimer;
 	private JButton boutonModeNormal;
+	
+	private static volatile VueSupervision instance = null;
+	
+	public final static VueSupervision getInstance(){
+		if(VueSupervision.instance ==  null){
+			synchronized(VueSupervision.class){
+				if(VueSupervision.instance == null){
+					VueSupervision.instance = new VueSupervision(Constante.LARGEURSUPERV, Constante.HAUTEURSUPERV);
+				}
+			}
+		}
+		return VueSupervision.instance;
+	}
 	
 	public VueSupervision(int x, int y){
 		
@@ -156,7 +166,6 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 				fenetre.getContentPane().add(VuePlan.getInstance());
 				VuePlan.getInstance().setLayout(null);
 				VuePlan.getInstance().setBounds(Constante.POSVUEX, Constante.POSVUEY, Constante.LARGEUR, Constante.HAUTEUR);
-				VuePlan.getInstance().repaint();
 				boutonChargerDemande.setEnabled(true);
 			}
 		}
@@ -169,6 +178,11 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 				//lecture du contenu d'un fichier XML avec DOM
 				File xml = new File(jFileChooserXML.getSelectedFile().getAbsolutePath());
 				Controleur.getInstance().chargerDemandeLivraison(xml);
+				VueTournee.getInstance().initialiserTout();
+				VueTournee.getInstance().initialiserPointLivraisons();
+				fenetre.getContentPane().add(VueTournee.getInstance());
+				VueTournee.getInstance().setLayout(null);
+				VueTournee.getInstance().setBounds(Constante.POSVUEX, Constante.POSVUEY, Constante.LARGEUR, Constante.HAUTEUR);
 				boutonCalcT.setEnabled(true);
 				boutonAjouter.setEnabled(true);
 				boutonSupprimer.setEnabled(true);
@@ -192,6 +206,7 @@ public class VueSupervision extends MouseAdapter implements ActionListener
  			if(videRetablir){
  				boutonRetablir.setEnabled(false);
  			}
+ 			boutonCalcT.setEnabled(true);
  			//reste?
 		}	
 		else if (evt.getActionCommand().equals("Calculer la tournee")){
@@ -202,12 +217,15 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 		}
 		else if (evt.getActionCommand().equals("Mode ajouter")){
 			//passer le mode ajouter et decolorer les troncons
+			Controleur.getInstance().notifierClicAjouter();
 		}
 		else if (evt.getActionCommand().equals("Mode supprimer")){
 			//passer le mode supprimer et decolorer les troncons
+			Controleur.getInstance().notifierClicSupprimer();
 		}
 		else if (evt.getActionCommand().equals("Mode normal")){
 			//changer un truc pour que quand on clique ca fasse l'affichage
+			Controleur.getInstance().notifierClicNormal();
 		}
 	    //else // ne rien faire
 			
@@ -218,26 +236,45 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 	//Methode appelee quand la souris est cliquee dans la fenetre
 	@Override
 	public void mouseClicked(MouseEvent evt){
-		System.out.println("Souris cliquee en x="+evt.getX()+" y="+evt.getY());
-		//si en mode ajout
-			//si clique sur un noeud
-				//ouvre pop up avec tranches horaires
-				//apres validation -> degriser calcT, griser genere feuille de route, griser redo, degriser undo, ajouter le point de livraison, repaindre le plan
-		//si en mode suppression
-			//si clique sur un noeud colore (point de livraison)
-				//degriser calcT, griser generer feuille de route, griser redo, degriser undo, supprimer le point de livraison, repaindre le plan      ------> cas de plusieurs livraisons?
-		//si en mode normal
-			//si clique sur un noeud colore (point de livraison)
-				//affiche les donnees
-		
-		
-		
-		
-		
-		//dans plan? -> (POSVUEX<=x<=POSVUEX+LARGEUR) et (POSVUEY<=y<=POSVUEY+HAUTEUR).
-		//coord des noeuds par rapport a fenetre supervision a convertir car doit etre par rapport au plan (cf aussi passage metres -> pixels)
-		
+		double posX;
+		double posY;
+		boolean clicNoeud = false;
+		//si le clic a eu lieu dans le plan (POSVUEX<=x<=POSVUEX+LARGEUR et POSVUEY<=y<=POSVUEY+HAUTEUR)
+		if(Constante.POSVUEX<=evt.getX() && evt.getX()<=Constante.POSVUEX+Constante.LARGEUR && Constante.POSVUEY<=evt.getY() && evt.getY()<=Constante.POSVUEY+Constante.HAUTEUR){
+			posX=evt.getX()-Constante.POSVUEX;
+			posY=evt.getY()-Constante.POSVUEY;
+			posX=posX*Constante.CONVERSION_PIXELS_EN_METRES;
+			posY=posY*Constante.CONVERSION_PIXELS_EN_METRES;
+			/*Vector <VueNoeud> lesVuesNoeuds = VuePlan.getInstance().getLesVuesNoeuds();
+			for(VueNoeud vueNoeud : lesVueNoeuds ) //passer en while
+			{
+				if(vueNoeud.estClique(posX, posY)){
+					clicNoeud=true;
+				}
+			}*/
+			if(clicNoeud){
+				if(Controleur.getInstance().getMode()==1){
+					//ouvre pop up avec tranches horaires
+					//apres validation -> ajouter le point de livraison, repaindre le plan
+					boutonCalcT.setEnabled(true);
+					boutonFeuilleDeRoute.setEnabled(false);
+					boutonAnnuler.setEnabled(true);
+					boutonRetablir.setEnabled(false);
+				}
+				else if(Controleur.getInstance().getMode()==2){
+					//si clique sur un noeud colore (point de livraison)
+						//ouvre pop up avec tranches horaires
+						//repaindre le plan      ------> cas de plusieurs livraisons?
+						boutonCalcT.setEnabled(true);
+						boutonFeuilleDeRoute.setEnabled(false);
+						boutonAnnuler.setEnabled(true);
+						boutonRetablir.setEnabled(false);
+				}
+				else if(Controleur.getInstance().getMode()==0){
+					//si clique sur un noeud colore (point de livraison)
+						//affiche les donnees
+				}
+			}
+		}		
 	}
-	
-
 }

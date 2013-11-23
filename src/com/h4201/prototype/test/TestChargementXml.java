@@ -29,8 +29,10 @@ public class TestChargementXml
 		{
 			e.printStackTrace();
 		}
-		
-		System.out.println("Les tests sont termines");
+		finally
+		{
+			System.out.println("Les tests sont termines");
+		}
 	}
 	
 	public void testChargerPlan() throws Exception

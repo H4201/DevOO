@@ -17,6 +17,8 @@ public class Chemin
     private PointLivraison pointLivraisonOrigine;
     private PointLivraison pointLivraisonDestination;
     private Vector<Troncon> troncons;
+    private static int dernierIdChemin = 0;
+    private int idChemin = 0;
 
     /**
      * Constructeur d'un chemin.
@@ -34,6 +36,7 @@ public class Chemin
     	this.pointLivraisonOrigine = pointLivraisonOrigine;
     	this.pointLivraisonDestination = pointLivraisonDestination;
     	this.troncons = troncons;
+    	this.idChemin = Chemin.dernierIdChemin++;
     }
 
 	public double getLongueur() {
@@ -54,6 +57,10 @@ public class Chemin
 
 	public Vector<Troncon> getTroncons() {
 		return troncons;
+	}
+	
+	public int getIdChemin() {
+		return idChemin;
 	}
 	
 	public void afficher()
