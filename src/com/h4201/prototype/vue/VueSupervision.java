@@ -38,6 +38,19 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 	private JButton boutonSupprimer;
 	private JButton boutonModeNormal;
 	
+	private static volatile VueSupervision instance = null;
+	
+	public final static VueSupervision getInstance(){
+		if(VueSupervision.instance ==  null){
+			synchronized(VueSupervision.class){
+				if(VueSupervision.instance == null){
+					VueSupervision.instance = new VueSupervision(Constante.LARGEURSUPERV, Constante.HAUTEURSUPERV);
+				}
+			}
+		}
+		return VueSupervision.instance;
+	}
+	
 	public VueSupervision(int x, int y){
 		
 		//creation de la fenetre

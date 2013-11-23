@@ -1,6 +1,6 @@
 package com.h4201.prototype.test;
 
-import com.h4201.prototype.utilitaire.Constante;
+
 import com.h4201.prototype.vue.VueSupervision;
 
 public class TestInterface {
@@ -16,7 +16,7 @@ public class TestInterface {
 		
 		try
 		{
-			VueSupervision intSuperv = new VueSupervision(Constante.LARGEURSUPERV, Constante.HAUTEURSUPERV);
+			VueSupervision.getInstance();
 		}
 		catch(Exception e)
 		{
