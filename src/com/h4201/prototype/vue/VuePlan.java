@@ -1,7 +1,6 @@
 package com.h4201.prototype.vue;
 
 import java.awt.Graphics;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Vector;
 
@@ -10,7 +9,7 @@ import javax.swing.JPanel;
 import com.h4201.prototype.exception.ExceptionNonInstancie;
 import com.h4201.prototype.modele.Noeud;
 import com.h4201.prototype.modele.Plan;
-import com.h4201.prototype.modele.TrancheHoraire;
+import com.h4201.prototype.modele.PointLivraison;
 import com.h4201.prototype.modele.Troncon;
 import com.h4201.prototype.utilitaire.Constante;
 
@@ -44,6 +43,24 @@ public class VuePlan extends JPanel
 		
 		return noeud;
 	}
+	
+	public PointLivraison getLePointLivraison(double x, double y, Vector<VuePointDeLivraison> lesVuePointDeLivraisons)
+	{
+		PointLivraison pointLivraison = null;
+		for(VuePointDeLivraison laVuePointDeLivraison : lesVuePointDeLivraisons )
+		{
+			double coordX = laVuePointDeLivraison.getPointLivraison().getNoeud().getX();
+			double coordY = laVuePointDeLivraison.getPointLivraison().getNoeud().getY();
+			if(x == coordX && y == coordY)
+			{
+				pointLivraison = laVuePointDeLivraison.getPointLivraison();
+			}
+		}
+		
+		return pointLivraison;
+	}
+	
+	
 	
 	private VuePlan()
 	{
