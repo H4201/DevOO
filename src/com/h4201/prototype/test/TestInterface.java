@@ -16,9 +16,6 @@ public class TestInterface {
 		
 		try
 		{
-
-			//VueSupervision intSuperv = new VueSupervision(100, 100);
-
 			VueSupervision.getInstance();
 		}
 		catch(Exception e)
