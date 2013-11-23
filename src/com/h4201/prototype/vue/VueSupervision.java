@@ -13,15 +13,21 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 
+
+
+
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.AbstractButton;
+import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
 import com.h4201.prototype.controleur.Controleur;
+import com.h4201.prototype.exception.ExceptionNonInstancie;
 import com.h4201.prototype.modele.Noeud;
+import com.h4201.prototype.modele.Plan;
 import com.h4201.prototype.modele.PointLivraison;
 import com.h4201.prototype.modele.Tournee;
 import com.h4201.prototype.utilitaire.Constante;
@@ -44,6 +50,7 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 	private JButton boutonModeNormal;
 	private TableRecap tableRecap;
 	private JTable tableau;
+	private JLabel text;
 	
 	private static volatile VueSupervision instance = null;
 	
@@ -80,6 +87,12 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 		ArrayList<AbstractButton> boutons = new ArrayList<AbstractButton>();
 		
 		fenetre.getContentPane().setLayout(null);
+		
+		text = new JLabel();
+		text.setLayout(null);
+		text.setBounds(450, 625, 100, 100);
+		text.setVisible(false);
+		fenetre.getContentPane().add(text);
 		
 		boutonChargerPlan = new JButton("Charger plan");
 		boutonChargerPlan.setLayout(null);
@@ -163,6 +176,7 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 		boolean videAnnuler;
 		if (evt.getActionCommand().equals("Charger plan")){
 			int returnVal = jFileChooserXML.showOpenDialog(null);
+			text.setVisible(false);
 			if (returnVal == JFileChooser.APPROVE_OPTION) {
 				// debug
 				System.out.println("nom de fichier " + jFileChooserXML.getSelectedFile().getAbsolutePath());
@@ -179,6 +193,7 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 		}
 		else if (evt.getActionCommand().equals("Charger demandes")){
 			int returnVal = jFileChooserXML.showOpenDialog(null);
+			text.setVisible(false);
 			if (returnVal == JFileChooser.APPROVE_OPTION) {
 				// debug
 				System.out.println("nom de fichier " + jFileChooserXML.getSelectedFile().getAbsolutePath());
@@ -191,21 +206,26 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 				boutonAjouter.setEnabled(true);
 				boutonSupprimer.setEnabled(true);
 				
+				
+				
+				//Tableau non affiche, trouver erreur
 				tableRecap = new TableRecap(Tournee.getInstance().getTranchesHoraire());
-			
 				Object[][] objets = new Object[1][tableRecap.getLongueur()];
 				String[] entetes = {"Livraisons par plages H."};
-				
 				for(int compte=0; compte<tableRecap.getLongueur(); compte=compte+1){
 					objets[compte][0]=tableRecap.getLesLivraisons().get(compte);
 				}
-				
 				tableau = new JTable(objets,entetes);
 				//tableau.setLayout(null);
 				//tableau.setBounds(0, 60, 100, 300);
-		        
 				fenetre.getContentPane().add(new JScrollPane(tableau));
 				fenetre.repaint();
+				
+				
+				
+				
+				
+				
 			}
 		}
 		else if (evt.getActionCommand().equals("Generer la feuille de route")){
@@ -218,7 +238,7 @@ public class VueSupervision extends MouseAdapter implements ActionListener
  				boutonAnnuler.setEnabled(false);
  			}
  			boutonCalcT.setEnabled(true);
- 			//reste?
+ 			text.setVisible(false);
  		}
 		else if (evt.getActionCommand().equals("Retablir")){
 			boutonAnnuler.setEnabled(true);
@@ -227,29 +247,26 @@ public class VueSupervision extends MouseAdapter implements ActionListener
  				boutonRetablir.setEnabled(false);
  			}
  			boutonCalcT.setEnabled(true);
- 			//reste?
+ 			text.setVisible(false);
 		}	
 		else if (evt.getActionCommand().equals("Calculer la tournee")){
 			Controleur.getInstance().calculTournee();
 			VuePlan.getInstance().repaint();
 			boutonFeuilleDeRoute.setEnabled(true);
 			boutonCalcT.setEnabled(false);
-			//reste?
+			text.setVisible(false);
 		}
 		else if (evt.getActionCommand().equals("Mode ajouter")){
-			//passer le mode ajouter et decolorer les troncons
 			Controleur.getInstance().notifierClicAjouter();
+			text.setVisible(false);
 		}
 		else if (evt.getActionCommand().equals("Mode supprimer")){
-			//passer le mode supprimer et decolorer les troncons
 			Controleur.getInstance().notifierClicSupprimer();
+			text.setVisible(false);
 		}
 		else if (evt.getActionCommand().equals("Mode normal")){
-			//changer un truc pour que quand on clique ca fasse l'affichage
 			Controleur.getInstance().notifierClicNormal();
 		}
-	    //else // ne rien faire
-			
 		fenetre.repaint();
 	}
 	
@@ -262,14 +279,20 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 		Noeud noeudClique;
 		PointLivraison noeudEstLiv;
 		//si le clic a eu lieu dans le plan (POSVUEX<=x<=POSVUEX+LARGEUR et POSVUEY<=y<=POSVUEY+HAUTEUR)
-		if(Constante.POSVUEX<=evt.getX() && evt.getX()<=Constante.POSVUEX+Constante.LARGEUR && Constante.POSVUEY<=evt.getY() && evt.getY()<=Constante.POSVUEY+Constante.HAUTEUR){
+		if(Constante.POSVUEX<=evt.getX() && evt.getX()<=Constante.POSVUEX+Constante.LARGEUR && Constante.POSVUEY+22<=evt.getY() && evt.getY()<=Constante.POSVUEY+Constante.HAUTEUR+22){
 			posX=evt.getX()-Constante.POSVUEX;
-			posY=evt.getY()-Constante.POSVUEY;
-			posX=posX*Constante.CONVERSION_PIXELS_EN_METRES;
-			posY=posY*Constante.CONVERSION_PIXELS_EN_METRES;
+			posY=evt.getY()-Constante.POSVUEY-22;
+			
+			posX=posX*Constante.CONVERSION_PIXELS_EN_METRES*Constante.LARGEUR;
+			posY=posY*Constante.CONVERSION_PIXELS_EN_METRES*Constante.HAUTEUR;
 			noeudClique = VuePlan.getInstance().getLeNoeud(posX, posY);
+			System.out.println("il y a eu un clic");
+			System.out.println("evt : " + evt.getX() + ", " + evt.getY());
+			System.out.println("pos : " + posX + ", " + posY);
+
 			if(noeudClique != null){
-				if(Controleur.getInstance().getMode()==1){
+				System.out.println("clic sur noeud");
+				if(Controleur.getInstance().getMode()==1){ //AJOUT
 					//ouvre pop up avec tranches horaires
 					//apres validation -> ajouter le point de livraison, repaindre le plan
 					boutonCalcT.setEnabled(true);
@@ -277,7 +300,7 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 					boutonAnnuler.setEnabled(true);
 					boutonRetablir.setEnabled(false);
 				}
-				else if(Controleur.getInstance().getMode()==2){
+				else if(Controleur.getInstance().getMode()==2){//SUPPRESSION
 					noeudEstLiv = VuePlan.getInstance().getLePointLivraison(posX, posY, VueTournee.getInstance().getLesVuePointLivraisons());
 					if(noeudEstLiv!=null){
 						//ouvre pop up avec tranches horaires
@@ -291,7 +314,9 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 				else if(Controleur.getInstance().getMode()==0){
 					noeudEstLiv = VuePlan.getInstance().getLePointLivraison(posX, posY, VueTournee.getInstance().getLesVuePointLivraisons());
 					if(noeudEstLiv!=null){
-						//affiche les donnees
+						System.out.println("clic pour voir");
+						text.setText(noeudEstLiv.getTrancheHoraire().toString()+ "\n" + noeudEstLiv.getClient());
+						text.setVisible(true);
 					}
 				}
 			}
