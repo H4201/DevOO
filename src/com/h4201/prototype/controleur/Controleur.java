@@ -10,14 +10,16 @@ import com.h4201.prototype.exception.ExceptionTranchesHorairesNonOrdonees;
 import com.h4201.prototype.modele.*;
 import com.h4201.prototype.vue.VuePlan;
 import com.h4201.prototype.modele.AppGraphe;
+import com.h4201.prototype.utilitaire.Constante;
+
 
 public final class Controleur
 {
 	private static volatile Controleur instance = null;
 	private Stack<Commande> undos = new Stack<Commande>();
 	private Stack<Commande> redos = new Stack<Commande>();
-	private int mode = 0; // dans la modification interactive : 0=mode normal ; 1=en ajout ; 2=en suppression
-	
+	private int mode = Constante.MODE_NORMAL; // mode de la modification interactive par le superviseur
+
     private Controleur() 
     {
         super();
@@ -56,17 +58,17 @@ public final class Controleur
 
     public void notifierClicNormal()
     {
-    	mode=0;
+    	passerEnModeNormal();
     }
     
     public void notifierClicAjouter()
     {
-    	mode=1;
+    	passerEnModeAjout();
     }
     
     public void notifierClicSupprimer()
     {
-    	mode=2;
+    	passerEnModeSuppression();
     }
     
     /**
@@ -80,7 +82,7 @@ public final class Controleur
     	{
 			appG.genererTournee();
 	    	// VueTournee.afficher
-	    	mode = 0;
+	    	passerEnModeNormal();
 		} 
     	catch (ExceptionTranchesHorairesNonOrdonees e) 
     	{
@@ -99,7 +101,7 @@ public final class Controleur
      */
     public void ajoutPointLivraison(Noeud noeud, TrancheHoraire trancheHoraire)
     {
-    	mode=1;
+    	passerEnModeAjout();
     	
     	CmdAjouterPtLivraison commandeAjout = new CmdAjouterPtLivraison(noeud, trancheHoraire);
     	commandeAjout.do_();
@@ -116,7 +118,7 @@ public final class Controleur
      */
     public void supprimerPointLivraison(PointLivraison pointLivraison)
     {
-    	mode=2;
+    	passerEnModeSuppression();
     	
     	CmdSupprimerPtLivraison commandeSuppr = new CmdSupprimerPtLivraison(pointLivraison);
     	commandeSuppr.do_();
@@ -129,10 +131,8 @@ public final class Controleur
 
     /**
      * Annuler la derniere Commande effectuee dans l'interface interactive du superviseur.
-     * @return true si il n'y a plus d'annulation possible (avant ou) après l'execution de cette methode, false sinon.
-     * Permet d'informer la vue qu'il faux griser/muter le bouton 'annuler' dans l'interface si plus d'annulation possible.
      */
-    public boolean annuler()
+    public void annuler()
     {    	
     	if(!undos.isEmpty())
     	{
@@ -141,25 +141,13 @@ public final class Controleur
     		redos.push(cmd);
     	} // else il n'y a rien a annuler.
     	
-    	//MAJ du mode : celui de la commande precedente celle que l'on vient d'annuler
-    	if(!undos.isEmpty())
-    		mode = undos.get(undos.size()-1).getMode();
-    	else // cas particulier ou l'on est revenu a l'etat inital ou aucune commande n'a encore ete faite.
-    		mode = 0;
-    	
-    	// determiner le grisage eventuel du bouton 'annuler'
-    	if(undos.isEmpty())
-    		return true;
-    	
-    	return false;
+    	majModeApresAnnulation();
     }
     
     /**
      * Retablir la derniere Commande annulee dans l'interface interactive du superviseur.
-     * @return true si il n'y a plus de retablissement possible (avant ou) après l'execution de cette methode, false sinon.
-     * Permet d'informer la vue qu'il faux griser/muter le bouton 'retablir' dans l'interface si plus de retablissement possible.
      */    
-    public boolean retablir()
+    public void retablir()
     {
     	if(!redos.isEmpty())
     	{
@@ -167,18 +155,9 @@ public final class Controleur
     		cmd.redo();
     		undos.push(cmd);
 
-        	//MAJ du mode : celui de la commande retablie
-    		mode = cmd.getMode();
-    		
-    	} // else il n'y a rien a retablir et le mode reste le meme.
-    	
-    	// determiner le grisage eventuel du bouton 'retablir'
-    	if(redos.isEmpty())
-    	{
-    		return true;
-    	}
-    	
-    	return false;
+    		majModeApresRetablissement();    		
+    	} 
+    	// else il n'y a rien a retablir et le mode reste le meme.
     }
 
     /**
@@ -191,7 +170,7 @@ public final class Controleur
     	{
 	    	CreationPlan.depuisXML(fichierXML);
 	    	VuePlan.getInstance();
-	    	mode = 0;
+        	passerEnModeNormal();
     	}
     	catch(Exception e)
     	{
@@ -209,12 +188,63 @@ public final class Controleur
     	{
         	CreationDemandeLivraison.depuisXML(fichierXML);
         	// appeller la vue
-	    	mode = 0;
+        	passerEnModeNormal();
     	}
     	catch(Exception e)
     	{
     		// construire VueException v(f.getMessage());
     	}
     }
-   
+    
+    private void passerEnModeNormal()
+    {
+    	mode = Constante.MODE_NORMAL;
+    }
+    
+    private void passerEnModeAjout()
+    {
+    	mode = Constante.MODE_AJOUT;
+    }
+    
+    private void passerEnModeSuppression()
+    {
+    	mode = Constante.MODE_SUPPRESSION;
+    }
+    
+    /**
+     * MAJ du mode : celui de la commande precedente celle que l'on vient d'annuler.
+     */
+    private void majModeApresAnnulation()
+    {
+    	if(!undos.isEmpty())
+    		mode = undos.get(undos.size()-1).getMode();
+    	else // cas particulier ou l'on est revenu a l'etat inital ou aucune commande n'a encore ete faite.
+    		passerEnModeNormal();
+    }
+    
+    /**
+     * MAJ du mode : celui de la commande retablie
+     */
+    private void majModeApresRetablissement()
+    {
+    	mode = undos.get(undos.size()-1).getMode();
+    }
+    
+    /**
+     * @return true si il est possible d'annuler, false sinon.
+     * Permet d'informer la vue qu'il faux griser/muter le bouton 'annuler' dans l'interface si plus d'annulation possible.
+     */
+    public boolean annulationPossible()
+    {
+    	return !undos.isEmpty();
+    }
+    
+    /**
+     * @return true si il est possible de rétablir, false sinon.
+     * Permet d'informer la vue qu'il faux griser/muter le bouton 'retablir' dans l'interface si plus de retablissement possible.
+     */
+    public boolean retablissementPossible()
+    {
+    	return !redos.isEmpty();
+    }
 }

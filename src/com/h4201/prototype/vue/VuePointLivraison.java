@@ -7,12 +7,12 @@ import com.h4201.prototype.modele.PointLivraison;
 import com.h4201.prototype.utilitaire.Constante;
 
 
-public class VuePointDeLivraison
+public class VuePointLivraison
 {
 	private PointLivraison pointLivraison;
 	private Color couleur;
 
-	public VuePointDeLivraison(PointLivraison pointLivraison, Color couleur)
+	public VuePointLivraison(PointLivraison pointLivraison, Color couleur)
 	{
 		this.pointLivraison = pointLivraison;
 		this.couleur = couleur;
