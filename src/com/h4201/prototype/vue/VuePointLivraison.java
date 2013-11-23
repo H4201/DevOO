@@ -45,7 +45,7 @@ public class VuePointLivraison
 		int y = (int) pointLivraison.getNoeud().getY() * facteurConversionHaut / Constante.HAUTEURSUPERV;
 		int rayon = (int) (Constante.RAYONNOEUD * facteurConversionLarg / Constante.LARGEURSUPERV);	
 		g.setColor(couleur);
-		g.fillOval((int) x - rayon ,(int) y - rayon , 2*rayon , 2*rayon);
+		g.fillOval((int)( x - rayon) ,(int) (y - rayon) , 2 * rayon , 2 * rayon);
 	    g.setColor(cTemp);
 
 	}

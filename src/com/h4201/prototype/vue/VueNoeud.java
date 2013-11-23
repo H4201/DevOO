@@ -40,7 +40,7 @@ public class VueNoeud
 		int y = (int) noeud.getY() * facteurConversionHaut / Constante.HAUTEURSUPERV;
 		int rayon = (int) (Constante.RAYONNOEUD * facteurConversionLarg / Constante.LARGEURSUPERV);
 		g.setColor(Constante.COULEURNOEUD);
-		g.fillOval((int)( x - rayon) ,(int)( y - rayon) , 2*rayon , 2*rayon);
+		g.fillOval((int)( x - rayon) ,(int)( y - rayon) , 2 * rayon , 2 * rayon);
         g.setColor(cTemp);
 	}
 

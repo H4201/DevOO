@@ -31,9 +31,9 @@ public abstract class Constante
 	public static final int LARGEUR = 600;
 	public static final int POSVUEX = 350;
 	public static final int POSVUEY = 100;
-	public static final int RAYONNOEUD = 5;
-	public static final int RAYONENTREPOT = 10;
-	public static final Color COULEURNOEUD = Color.GRAY;
+	public static final int RAYONNOEUD = 7;
+	public static final int RAYONENTREPOT = 12;
+	public static final Color COULEURNOEUD = Color.DARK_GRAY;
 	public static final Color COULEURTRONCON = Color.BLACK;
 	public static final Color COULEURENTREPOT = Color.CYAN;
 	public static final Color ARRIEREPLAN = Color.WHITE;
@@ -47,8 +47,8 @@ public abstract class Constante
 	/*
 	 * constantes pour la fenetre de supervision
 	 */
-	public static final int LARGEURSUPERV = 1000;
-	public static final int HAUTEURSUPERV = 700;
+	public static final int LARGEURSUPERV = 1200;
+	public static final int HAUTEURSUPERV = 800;
 	public static final int HBOUTON = 30;
 	public static final int LBOUTON = 200;
 	public static final int LIGNEBOUTON1 = 0;

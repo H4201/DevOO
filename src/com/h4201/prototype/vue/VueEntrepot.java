@@ -37,7 +37,7 @@ public class VueEntrepot
 		int y = (int) entrepot.getNoeud().getY() * facteurConversionHaut / Constante.HAUTEURSUPERV;
 		int rayon = (int) (Constante.RAYONENTREPOT * facteurConversionLarg / Constante.LARGEURSUPERV);	
 		g.setColor(Constante.COULEURENTREPOT);
-		g.fillOval((int) x - rayon ,(int) y - rayon , 2*rayon , 2*rayon);
+		g.fillOval((int) (x - rayon) ,(int) (y - rayon) , 2 * rayon , 2 * rayon);
 	    g.setColor(cTemp);
 
 	}
