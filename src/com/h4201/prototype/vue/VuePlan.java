@@ -1,6 +1,7 @@
 package com.h4201.prototype.vue;
 
 import java.awt.Graphics;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Vector;
 
@@ -9,6 +10,7 @@ import javax.swing.JPanel;
 import com.h4201.prototype.exception.ExceptionNonInstancie;
 import com.h4201.prototype.modele.Noeud;
 import com.h4201.prototype.modele.Plan;
+import com.h4201.prototype.modele.TrancheHoraire;
 import com.h4201.prototype.modele.Troncon;
 import com.h4201.prototype.utilitaire.Constante;
 
@@ -17,6 +19,7 @@ public class VuePlan extends JPanel
 {
 	private static volatile VuePlan instance = null;
 	private Vector<VueNoeud> lesVueNoeuds = new Vector<VueNoeud>();
+	private Vector<VueTroncon> lesVueTroncons = new Vector<VueTroncon>();
 	
 	public Vector<VueNoeud> getLesVueNoeuds()
 	{
@@ -27,9 +30,21 @@ public class VuePlan extends JPanel
 	{
 		return lesVueTroncons;
 	}
-
-	private Vector<VueTroncon> lesVueTroncons = new Vector<VueTroncon>();
-
+	
+	public Noeud getLeNoeud(double x, double y, Vector<VueNoeud> lesVueNoeuds)
+	{
+		Noeud noeud = null;
+		for(VueNoeud laVueNoeud : lesVueNoeuds )
+		{
+			if(x == laVueNoeud.getNoeud().getX() && y == laVueNoeud.getNoeud().getY())
+			{
+				noeud = laVueNoeud.getNoeud();
+			}
+		}
+		
+		return noeud;
+	}
+	
 	private VuePlan()
 	{
 		super();
