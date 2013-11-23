@@ -25,6 +25,7 @@ public class TestLogic
 			Tournee tournee = testChargerDemandeLivraison();
 			testDijkstra(tournee.getTranchesHoraire().get(0).getPointsLivraisons().get(1),
 						 tournee.getTranchesHoraire().get(0).getPointsLivraisons().get(2));
+			testTSP();
 		}
 		catch(Exception e)
 		{
@@ -69,4 +70,12 @@ public class TestLogic
 		
 		chemin.afficher();
 	}
+	
+	public void testTSP() throws Exception{
+		File demandeLivraisonXML = new File("test/livraison20x20-2.xml");
+		Tournee tournee = CreationDemandeLivraison.depuisXML(demandeLivraisonXML);
+		AppGraphe appGraphe = AppGraphe.getInstance();
+		appGraphe.genererTournee();
+	}
+
 }
