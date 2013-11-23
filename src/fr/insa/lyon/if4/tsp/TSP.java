@@ -44,8 +44,11 @@ public class TSP {
 		// Create variables
 		// xNext[i] = vertex visited after i
 		IntVar[] xNext = new IntVar[n];
-		for (int i = 0; i < n; i++)
+		for (int i = 0; i < n; i++){
+			System.out.println("i : " + i);
 			xNext[i] = VariableFactory.enumerated("Next " + i, graph.getSucc(i), solver);
+		}
+			
 		// xCost[i] = cost of arc (i,xNext[i])
 		IntVar[] xCost = VariableFactory.boundedArray("Cost ", n, minCost, maxCost, solver);
 		// xTotalCost = total cost of the solution
