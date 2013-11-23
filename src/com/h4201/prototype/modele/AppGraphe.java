@@ -1,36 +1,43 @@
 package com.h4201.prototype.modele;
 
+import java.util.ArrayList;
 import java.util.Vector;
 
 import com.h4201.prototype.utilitaire.Pair;
 import com.h4201.prototype.exception.ExceptionNonInstancie;
 import com.h4201.prototype.exception.ExceptionTranchesHorairesNonOrdonees;
 
-public class AppGraphe
-{
+import fr.insa.lyon.if4.tsp.Graph;
+import fr.insa.lyon.if4.tsp.TSP;
+
+public class AppGraphe implements Graph {
+
 	private static volatile AppGraphe instance = null;
-	private Plan plan;
-	private Tournee tournee;
 	
-	public AppGraphe()
+	private int nbVertices;
+	private int maxArcCost;
+	private int minArcCost;
+	private int[][] cost; 
+	private ArrayList<ArrayList<Integer>> succ; 
+	
+	private AppGraphe()
 	{
+		nbVertices = 0;
+		maxArcCost = 0;
+		minArcCost = Integer.MAX_VALUE;
 	}
 	
-	protected final static AppGraphe setInstance() throws ExceptionNonInstancie
-	{
-		synchronized(Tournee.class)
-		{
-			AppGraphe.instance = new AppGraphe();
+	public final static AppGraphe getInstance() {
+		if (AppGraphe.instance == null){
+			synchronized(AppGraphe.class){
+				if (AppGraphe.instance == null){
+					AppGraphe.instance = new AppGraphe();
+				}
+			}
 		}
-		
-		return getInstance();
+		return AppGraphe.instance;
 	}
-	  
-	public final static AppGraphe getInstance()
-	{
-	    return AppGraphe.instance;
-	}
-	
+
 	/**
 	 * Génère et crée la tournée optimisée de la journée. Il faut au préalable que le modèle soit entièrement généré
 	 * (tranchesHoraires etc.). Ne vérifie pas si les tranches horaires sont respectées 
@@ -91,7 +98,14 @@ public class AppGraphe
 			} else {
 				throw new ExceptionTranchesHorairesNonOrdonees();
 			}
-		}	
+		}
+		
+		// Remplir la matrice des coûts
+		
+		
+			
+		// Passer le graphe à la classe TSP
+		TSP tsp = new TSP(this);
 	}
 	  
 	/**
@@ -104,11 +118,23 @@ public class AppGraphe
 	public Chemin creerChemin(PointLivraison pointLivraisonDepart, PointLivraison pointLivraisonArrivee){ 
 		//Calcule le plus court chemin entre pointLivraisonDepart et pointLivraisonArivee dans G
 		Vector<Troncon> troncons = calculerPlusCourtChemin(pointLivraisonDepart, pointLivraisonArrivee);
-		double longueur = 0;
-		double temps = 0;
+		int longueur = 0;
+		int temps = 0;
+		
+		for (int i=0; i<troncons.size(); i++){
+			longueur += troncons.get(i).getLongueur();
+			temps += troncons.get(i).getLongueur()/troncons.get(i).getVitesse();
+		}
 		
 		// Créer le chemin
 		Chemin chemin = new Chemin(pointLivraisonDepart, pointLivraisonArrivee, troncons, longueur, temps);
+		
+		if(temps > maxArcCost){
+			maxArcCost = temps;
+		}
+		if(temps < minArcCost){
+			minArcCost = temps;
+		}
 		
 		return chemin;
 	}
@@ -152,7 +178,6 @@ public class AppGraphe
 					if (pairNoeudActuel.getSecond()+tempsTroncon < tempsNoeud){
 						tempsNoeud = pairNoeudActuel.getSecond()+tempsTroncon;
 						
-						
 						Vector<Troncon> meilleursTroncons = (Vector<Troncon>) retournerPairDepuisPlusCourtChemin(plusCourtChemins, pairNoeudActuel.getFirst()).getSecond().clone();
 						
 						if (meilleursTroncons.size() > 0 && tronconsSortants.get(i).getNoeudOrigine() == meilleursTroncons.lastElement().getNoeudOrigine()) {
@@ -161,13 +186,13 @@ public class AppGraphe
 						
 						meilleursTroncons.add(tronconsSortants.get(i));
 						
-						System.out.println("Meilleurs troncons ");
-						if (meilleursTroncons.size() >1){
-							meilleursTroncons.get(meilleursTroncons.size()-2).afficher(); /////////////////////////////////////
-						}
-						if (meilleursTroncons.size() >0){
-							meilleursTroncons.get(meilleursTroncons.size()-1).afficher(); /////////////////////////////////////
-						}
+						//System.out.println("Meilleurs troncons ");
+						//if (meilleursTroncons.size() >1){
+						//	meilleursTroncons.get(meilleursTroncons.size()-2).afficher(); /////////////////////////////////////
+						//}
+						//if (meilleursTroncons.size() >0){
+						//	meilleursTroncons.get(meilleursTroncons.size()-1).afficher(); /////////////////////////////////////
+						//}
 						AjouterOuRemplacerPlusCourtChemin(plusCourtChemins, tronconsSortants.get(i).getNoeudDestination(), meilleursTroncons);
 					}
 
@@ -288,6 +313,40 @@ public class AppGraphe
 		
 		return pair;
 	}
+	
+	public int getMaxArcCost() {
+		return maxArcCost;
+	}
+
+	public int getMinArcCost() {
+		return minArcCost;
+	}
+
+	public int getNbVertices() {
+		return nbVertices;
+	}
+
+	public int[][] getCost(){
+		return cost;
+	}
+
+	public int[] getSucc(int i) throws ArrayIndexOutOfBoundsException{
+		if ((i<0) || (i>=nbVertices))
+			throw new ArrayIndexOutOfBoundsException();
+		int[] tab = new int[succ.get(i).size()];
+		for(int j=0;j<tab.length;j++){
+			tab[j] = succ.get(i).get(j);
+		}
+		return tab;
+	}
+
+
+	public int getNbSucc(int i) throws ArrayIndexOutOfBoundsException {
+		if ((i<0) || (i>=nbVertices))
+			throw new ArrayIndexOutOfBoundsException();
+		return succ.get(i).size();
+	}
+	
 }
 
 
