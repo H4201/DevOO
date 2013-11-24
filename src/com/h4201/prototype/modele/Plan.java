@@ -3,6 +3,7 @@ package com.h4201.prototype.modele;
 import java.util.HashMap;
 import java.util.Vector;
 
+import com.h4201.prototype.exception.ExceptionNoeudInconnu;
 import com.h4201.prototype.exception.ExceptionNonInstancie;
 
 /**
@@ -48,8 +49,14 @@ public final class Plan
   }
   
   public final Noeud getNoeudDepuisIdNoeud(Integer idNoeud)
+  		throws ExceptionNoeudInconnu
   {
-	  return noeuds.get(idNoeud);
+	  Noeud noeud = noeuds.get(idNoeud);
+	  
+	  if(noeud == null)
+		  throw new ExceptionNoeudInconnu(idNoeud.intValue());
+	  
+	  return noeud;
   }
 
   public final Vector<Troncon> getTroncons()
