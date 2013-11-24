@@ -39,7 +39,8 @@ public class Lanceur
 		}
 		else if(argv[0].equals("controleur"))
 		{
-			new TestControleur();
+			TestControleur testControleur = new TestControleur();
+			testControleur.executerTests();
 		}
 		else if(argv[0].equals("tournee"))
 		{
