@@ -187,10 +187,10 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 				//lecture du contenu d'un fichier XML avec DOM
 				File xml = new File(jFileChooserXML.getSelectedFile().getAbsolutePath());
 				Controleur.getInstance().chargerPlan(xml);
-				VuePlan.getInstance().initialiserVuePlan();
-				fenetre.getContentPane().add(VuePlan.getInstance());
-				VuePlan.getInstance().setLayout(null);
-				VuePlan.getInstance().setBounds(Constante.POSVUEX, Constante.POSVUEY, Constante.LARGEUR, Constante.HAUTEUR);
+				VuePanel.getInstance().initialiserVuePlan();
+				fenetre.getContentPane().add(VuePanel.getInstance());
+				VuePanel.getInstance().setLayout(null);
+				VuePanel.getInstance().setBounds(Constante.POSVUEX, Constante.POSVUEY, Constante.LARGEUR, Constante.HAUTEUR);
 				boutonChargerDemande.setEnabled(true);
 			}
 		}
@@ -204,7 +204,7 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 				//lecture du contenu d'un fichier XML avec DOM
 				File xml = new File(jFileChooserXML.getSelectedFile().getAbsolutePath());
 				Controleur.getInstance().chargerDemandeLivraison(xml);
-				VuePlan.getInstance().repaint();
+				VuePanel.getInstance().repaint();
 				boutonCalcT.setEnabled(true);
 				boutonAjouter.setEnabled(true);
 				boutonSupprimer.setEnabled(true);
@@ -264,7 +264,7 @@ public class VueSupervision extends MouseAdapter implements ActionListener
  			boutonSupprimer.setEnabled(true);
  			boutonModeNormal.setEnabled(false);
  			text.setVisible(false);
- 			VuePlan.getInstance().repaint();
+ 			VuePanel.getInstance().repaint();
  		}
 		else if (evt.getActionCommand().equals("Retablir")){
 			boutonAnnuler.setEnabled(true);
@@ -278,11 +278,11 @@ public class VueSupervision extends MouseAdapter implements ActionListener
  			boutonSupprimer.setEnabled(true);
  			boutonModeNormal.setEnabled(false);
  			text.setVisible(false);
- 			VuePlan.getInstance().repaint();
+ 			VuePanel.getInstance().repaint();
 		}	
 		else if (evt.getActionCommand().equals("Calculer la tournee")){
 			Controleur.getInstance().calculTournee();
-			VuePlan.getInstance().repaint();
+			VuePanel.getInstance().repaint();
 			boutonFeuilleDeRoute.setEnabled(true);
 			boutonCalcT.setEnabled(false);
 			boutonAjouter.setEnabled(true);
@@ -295,7 +295,7 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 			boutonAjouter.setEnabled(false);
 			boutonSupprimer.setEnabled(true);
 			text.setVisible(false);
-			VuePlan.getInstance().repaint();
+			VuePanel.getInstance().repaint();
 		}
 		else if (evt.getActionCommand().equals("Mode supprimer")){
 			Controleur.getInstance().notifierClicSupprimer();
@@ -303,7 +303,7 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 			boutonAjouter.setEnabled(true);
 			boutonSupprimer.setEnabled(false);
 			text.setVisible(false);
-			VuePlan.getInstance().repaint();
+			VuePanel.getInstance().repaint();
 		}
 		else if (evt.getActionCommand().equals("Mode normal")){
 			Controleur.getInstance().notifierClicNormal();
@@ -344,10 +344,10 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 					boutonFeuilleDeRoute.setEnabled(false);
 					boutonAnnuler.setEnabled(true);
 					boutonRetablir.setEnabled(false);
-					VuePlan.getInstance().repaint();
+					VuePanel.getInstance().repaint();
 				}
 				else if(Controleur.getInstance().getMode()==2){//SUPPRESSION
-					noeudEstLiv = VuePlan.getInstance().getLePointLivraison(posX, posY, VueTournee.getInstance().getLesVuePointLivraisons());
+					noeudEstLiv = VuePanel.getInstance().getLePointLivraison(posX, posY);
 					if(noeudEstLiv!=null){
 						//ouvre pop up avec tranches horaires
 						//repaindre le plan      ------> cas de plusieurs livraisons?
@@ -355,11 +355,11 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 						boutonFeuilleDeRoute.setEnabled(false);
 						boutonAnnuler.setEnabled(true);
 						boutonRetablir.setEnabled(false);
-						VuePlan.getInstance().repaint();
+						VuePanel.getInstance().repaint();
 					}
 				}
 				else if(Controleur.getInstance().getMode()==0){
-					noeudEstLiv = VuePlan.getInstance().getLePointLivraison(posX, posY, VueTournee.getInstance().getLesVuePointLivraisons());
+					noeudEstLiv = VuePanel.getInstance().getLePointLivraison(posX, posY);
 					if(noeudEstLiv!=null){
 						System.out.println("clic pour voir");
 						text.setText(noeudEstLiv.getTrancheHoraire().toString()+ "\n" + noeudEstLiv.getClient());

@@ -4,7 +4,7 @@ import java.io.File;
 import java.util.Stack;
 
 import com.h4201.prototype.modele.*;
-import com.h4201.prototype.vue.VuePlan;
+import com.h4201.prototype.vue.VuePanel;
 import com.h4201.prototype.vue.VueSupervision;
 import com.h4201.prototype.modele.AppGraphe;
 import com.h4201.prototype.utilitaire.Constante;
@@ -137,7 +137,7 @@ public final class Controleur
     	try
     	{
 	    	CreationPlan.depuisXML(fichierXML);
-	    	VuePlan.getInstance().paintComponent(null); /// new Graphics() ???
+	    	VuePanel.getInstance().paintComponent(null); /// new Graphics() ???
         	passerEnModeNormal();
     	}
     	catch(Exception e)
@@ -173,7 +173,7 @@ public final class Controleur
     }    
 
     /**
-     * Calcul de la tournee (dans le Modèle),
+     * Calcul de la tournee (dans le Modï¿½le),
 	 * et affichage des chemins composants sur le Plan interactif (dans la Vue).
 	 * @return vrai si le calcul de la tournee a ete correctement effectue, faux si il y a eu une erreur.
      */
@@ -247,7 +247,7 @@ public final class Controleur
     }
     
     /**
-     * @return true si il est possible de rétablir, false sinon.
+     * @return true si il est possible de rï¿½tablir, false sinon.
      * Permet d'informer la vue qu'il faux griser/muter le bouton 'retablir' dans l'interface si plus de retablissement possible.
      */
     public boolean retablissementPossible()
