@@ -39,8 +39,7 @@ public class Lanceur
 		}
 		else if(argv[0].equals("controleur")) // Lancement des tests de l'affichage de l'interface
 		{
-			TestControleur testControleur = new TestControleur();
-			testControleur.executerTests();
+			new TestControleur();
 		}
 	}
 }
