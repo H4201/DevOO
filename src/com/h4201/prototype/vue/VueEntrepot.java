@@ -19,16 +19,19 @@ public class VueEntrepot
 	{
 		return entrepot;
 	}
-
-	public boolean estClique(double x, double y)
+/*
+	public Boolean estClique(double x1, double y1, double x2, double y2)
 	{
 		boolean flag = false;
-		if(x == entrepot.getNoeud().getX() && y == entrepot.getNoeud().getY())
+		int rayonClicPixels = (int) Constante.RAYONCLIC * Constante.LARGEUR / Constante.LARGEURSUPERV;
+		double distance = Math.sqrt(Math.pow(x1 - y1, 2) + Math.pow(x2 - y2, 2));
+		if(distance <= (double) rayonClicPixels)
 		{
 			flag = true;
 		}
-		return flag;		
+		return flag;
 	}
+	*/
 
 	public void dessinerEntrepot(Graphics g, int facteurConversionLarg, int facteurConversionHaut, Color couleur)
 	{
