@@ -16,11 +16,13 @@ import java.util.Iterator;
 
 
 
+
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.AbstractButton;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
@@ -51,7 +53,8 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 	private TableRecap tableRecap;
 	private JTable tableau;
 	private JLabel text;
-	private JScrollPane pane;
+	private JScrollPane paneT;
+	private JPanel paneL; 
 	
 	private static volatile VueSupervision instance = null;
 	
@@ -91,7 +94,7 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 		
 		text = new JLabel();
 		text.setLayout(null);
-		text.setBounds(450, 625, 100, 100);
+		text.setBounds(600, 550, 100, 100);
 		text.setVisible(false);
 		fenetre.getContentPane().add(text);
 		
@@ -221,14 +224,15 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 				//tableau.setLayout(null);
 				//tableau.setBounds(10, 100, 300, 500);
 				//fenetre.getContentPane().add(new JScrollPane(tableau));
-				pane = new JScrollPane(tableau);
-				pane.setLayout(null);
-				pane.setBounds(10, 100, 300, 500);
+				paneT = new JScrollPane();
+				paneT.add(tableau);
+				paneT.setLayout(null);
+				paneT.setBounds(10, 100, 300, 500);
 
-				pane.setVisible(true);
+				paneT.setVisible(true);
 				tableau.setVisible(true);
 				
-				fenetre.getContentPane().add(pane);
+				fenetre.getContentPane().add(paneT);
 				
 				/*System.out.println("showing : " + tableau.isShowing());
 				System.out.println("visible : " + tableau.isVisible());
