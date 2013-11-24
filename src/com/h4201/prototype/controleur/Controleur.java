@@ -137,7 +137,7 @@ public final class Controleur
     	try
     	{
 	    	CreationPlan.depuisXML(fichierXML);
-	    	VuePlan.getInstance().paintComponent(null); /// new Graphics() ???
+	    	// VuePlan.getInstance().paintComponent(null); /// new Graphics() ???
         	passerEnModeNormal();
     	}
     	catch(Exception e)
