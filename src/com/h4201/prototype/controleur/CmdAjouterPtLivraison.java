@@ -6,6 +6,7 @@ import com.h4201.prototype.modele.Noeud;
 import com.h4201.prototype.modele.PointLivraison;
 import com.h4201.prototype.modele.Tournee;
 import com.h4201.prototype.modele.TrancheHoraire;
+import com.h4201.prototype.utilitaire.Constante;
 
 public class CmdAjouterPtLivraison extends Commande 
 {	
@@ -22,53 +23,24 @@ public class CmdAjouterPtLivraison extends Commande
 	
 	public void do_()
 	{
-		Tournee t = Tournee.getInstance();
-    	Vector<TrancheHoraire> tranches = t.getTranchesHoraire();
-    	
-    	for(int i=0 ; i<tranches.size() ; i++)
-    		if(tranches.get(i).getHeureDebut() == trancheHoraire.getHeureDebut())
-    			tranches.get(i).getPointsLivraisons().add(ptLivraison);
-    	// postcondition : on a necessairement ajoute ptLivraison a 1 et 1 seulle trancheHoraire
+		Tournee.getInstance().ajouterPointLivraison(ptLivraison);
 	}
 	
 	public void undo()
 	{
-		Tournee t = Tournee.getInstance();
-		Vector<TrancheHoraire> tranches = t.getTranchesHoraire();
-    	
-    	for(int i=0 ; i<tranches.size() ; i++)
-    	{ 
-    		if(tranches.get(i).getHeureDebut() == ptLivraison.getTrancheHoraire().getHeureDebut())
-    		{
-    			Vector<PointLivraison> ptsLivraison = tranches.get(i).getPointsLivraisons();
-    			for(int j=0 ; j<ptsLivraison.size() ; j++)
-    			{
-    				if(ptsLivraison.get(j).getIdPointLivraison() == ptLivraison.getIdPointLivraison())
-    				{
-    					ptsLivraison.remove(j);
-    				}
-    			}    	
-    			// postcondition : on a necessairement supprimé ptLivraison 1 et 1 seule fois.
-    		}
-    	}
+		Tournee.getInstance().supprimerPointLivraison(ptLivraison);
 	}
 	
 	public void redo()
 	{
-		Tournee t = Tournee.getInstance();
-    	Vector<TrancheHoraire> tranches = t.getTranchesHoraire();
-    	
-    	for(int i=0 ; i<tranches.size() ; i++)
-    		if(tranches.get(i).getHeureDebut() == trancheHoraire.getHeureDebut())
-    			tranches.get(i).getPointsLivraisons().add(ptLivraison);
-    	// postcondition : on a necessairement ajoute ptLivraison a 1 et 1 seule trancheHoraire
+		do_();
 	}
 	
 	/**
-	 * connaitre le mode (enAjout=1) de la commande
+	 * connaitre le mode (MODE_AJOUT) de la commande
 	 */
 	public int getMode()
 	{
-		return 1;
+		return Constante.MODE_AJOUT;
 	}
 }
