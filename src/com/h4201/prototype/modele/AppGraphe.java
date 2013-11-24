@@ -6,7 +6,7 @@ import java.util.Vector;
 
 import com.h4201.prototype.utilitaire.Pair;
 import com.h4201.prototype.exception.ExceptionNonInstancie;
-import com.h4201.prototype.exception.ExceptionTranchesHorairesNonOrdonees;
+import com.h4201.prototype.exception.ExceptionTrancheHoraire;
 
 import fr.insa.lyon.if4.tsp.Graph;
 import fr.insa.lyon.if4.tsp.TSP;
@@ -46,12 +46,12 @@ public class AppGraphe implements Graph {
 	 * @param entrepot
 	 * @param tranchesHoraire
 	 * @return La tournï¿½e crï¿½ï¿½e.
-	 * @throws ExceptionTranchesHorairesNonOrdonees Si les tranches horaires ne sont pas dans l'ordre, et sans
+	 * @throws ExceptionTrancheHoraire Si les tranches horaires ne sont pas dans l'ordre, et sans
 	 * chevauchement, la tournï¿½e n'est pas calculï¿½e.
 	 * @throws ExceptionNonInstancie Si le plan n'est pas correctement instanciï¿½
 	 */
 	public void genererTournee()
-		  throws ExceptionTranchesHorairesNonOrdonees, ExceptionNonInstancie{
+		  throws ExceptionTrancheHoraire, ExceptionNonInstancie{
 		Tournee tournee = Tournee.getInstance();
 		Vector<Chemin> chemins = new Vector<Chemin>();
 		Vector<TrancheHoraire> tranchesHoraire = tournee.getTranchesHoraire();
@@ -94,7 +94,7 @@ public class AppGraphe implements Graph {
 					}
 				}
 			} else {
-				throw new ExceptionTranchesHorairesNonOrdonees();
+				throw new ExceptionTrancheHoraire();
 			}
 		}
 		
@@ -159,7 +159,7 @@ public class AppGraphe implements Graph {
 		System.out.println("Solution state : " + solutionState);
 		
 		if (solutionState.equals(SolutionState.OPTIMAL_SOLUTION_FOUND)){
-			// Retrouver les chemins optimaux à partir des pointsLivraison
+			// Retrouver les chemins optimaux ï¿½ partir des pointsLivraison
 			Vector<PointLivraison> pointsLivraisonOptimum = new Vector<PointLivraison>();
 			int[] next = tsp.getNext();
 			for (int i=0; i<next.length; i++) {
@@ -167,7 +167,7 @@ public class AppGraphe implements Graph {
 				pointsLivraisonOptimum.add(retournerPointLivraisonDepuisPositionMatchMatch(match, next[i]));
 			}
 			
-			// Ajouter les chemins optimaux à la tournée
+			// Ajouter les chemins optimaux ï¿½ la tournï¿½e
 			for (int i=0; i<pointsLivraisonOptimum.size(); i++){
 				for (int j=0; j<chemins.size(); j++)
 				{
@@ -425,7 +425,7 @@ public class AppGraphe implements Graph {
 	}
 	
 	/**
-	 * Retourne le point de livraison en prenant le pointdelivraison comme argument pour match à partir de la position.
+	 * Retourne le point de livraison en prenant le pointdelivraison comme argument pour match ï¿½ partir de la position.
 	 * @param plusCourtChemins
 	 * @param noeud
 	 * @return le point de livraison.
