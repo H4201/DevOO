@@ -49,18 +49,9 @@ public final class Controleur
         return Controleur.instance;
     }
     
-    /**
-     * Methode appellee par la vue pour connaitre le mode actuel parmi {MODE_NORMAL, MODE_AJOUT, MODE_SUPPRESSION}.
-     * @return Retourne le mode.
-     */
-    public int getMode()
-    {
-    	return mode;
-    }
     
     
-    
-    /* Notifications de la vue */
+    /* Notifications et clics depuis la Vue */
 
     /**
      * Methode appellee par la vue pour nous notifier d'un clic sur le bouton 'Normal'.
@@ -87,31 +78,6 @@ public final class Controleur
     public void notifierClicSupprimer()
     {
     	passerEnModeSuppression();
-    }
-    
-    
-    
-    /**
-     * Calcul de la tournee (dans le Modèle) et affichage sur le Plan interactif (dans la Vue).
-     */
-    public void calculTournee()
-    {    	
-    	AppGraphe appG = AppGraphe.getInstance();
-    	
-    	try 
-    	{
-			appG.genererTournee();
-	    	/// VueTournee.afficher
-	    	passerEnModeNormal();
-		} 
-    	catch (ExceptionTranchesHorairesNonOrdonees e) 
-    	{
-			e.printStackTrace();
-		} 
-    	catch (ExceptionNonInstancie e) 
-		{
-			e.printStackTrace();
-		}
     }
     
     /**
@@ -146,15 +112,85 @@ public final class Controleur
      * * @param pointLivraison
      */
     public void supprimerPointLivraison(PointLivraison pointLivraison)
-    {   	
-    	CmdSupprimerPtLivraison commandeSuppr = new CmdSupprimerPtLivraison(pointLivraison);
-    	commandeSuppr.do_();
-    	
-    	/* MAJ de la pile d'annulation */
-    	redos.clear(); // popAll()
-    	undos.push(commandeSuppr);
-    	// comportement attendu sur la vue : 'retablir' est grise && 'annuler' est degrise
+    {   
+    	if(mode != Constante.MODE_SUPPRESSION)
+    	{
+    		/// Exception	
+    	}
+    	else
+	    {
+	    	CmdSupprimerPtLivraison commandeSuppr = new CmdSupprimerPtLivraison(pointLivraison);
+	    	commandeSuppr.do_();
+	    	
+	    	/* MAJ de la pile d'annulation */
+	    	redos.clear(); // popAll()
+	    	undos.push(commandeSuppr);
+	    	// comportement attendu sur la vue : 'retablir' est grise && 'annuler' est degrise
+	    }
     }
+        
+    /**
+     * Charger un Plan a partir d'un fichier XML.
+     * @param fichierXML
+     */
+    public void chargerPlan(File fichierXML)
+    {
+    	try
+    	{
+	    	CreationPlan.depuisXML(fichierXML);
+	    	VuePlan.getInstance();
+        	passerEnModeNormal();
+    	}
+    	catch(Exception e)
+    	{
+    		/// construire VueException v(e.getMessage());
+    	}
+    }
+    
+    /**
+     * Charger une demande de Livraison a partir d'un fichier XML.
+     * @param fichierXML
+     */
+    public void chargerDemandeLivraison(File fichierXML)
+    {
+    	try
+    	{
+        	CreationDemandeLivraison.depuisXML(fichierXML);
+        	/// appeller la vue
+        	passerEnModeNormal();
+    	}
+    	catch(Exception e)
+    	{
+    		/// construire VueException v(e.getMessage());
+    	}
+    }    
+
+    /**
+     * Calcul de la tournee (dans le Modèle) et affichage sur le Plan interactif (dans la Vue).
+     */
+    public void calculTournee()
+    {    	
+    	AppGraphe appG = AppGraphe.getInstance();
+    	
+    	try 
+    	{
+			appG.genererTournee();
+	    	/// VueTournee.afficher
+	    	passerEnModeNormal();
+		} 
+    	catch (ExceptionTranchesHorairesNonOrdonees e) 
+    	{
+			e.printStackTrace();
+		} 
+    	catch (ExceptionNonInstancie e) 
+		{
+			e.printStackTrace();
+		}
+    }
+    
+    
+    
+    /* Echanges avec le pattern Command */
 
     /**
      * Annuler la derniere Commande effectuee dans l'interface interactive du superviseur.
@@ -192,44 +228,37 @@ public final class Controleur
     	} 
     	// else il n'y a rien a retablir, le mode reste le meme et l'on a pas besoin de supprimer tous les chemins
     }
+    
+    /**
+     * @return true si il est possible d'annuler, false sinon.
+     * Permet d'informer la vue qu'il faux griser/muter le bouton 'annuler' dans l'interface si plus d'annulation possible.
+     */
+    public boolean annulationPossible()
+    {
+    	return !undos.isEmpty();
+    }
+    
+    /**
+     * @return true si il est possible de rétablir, false sinon.
+     * Permet d'informer la vue qu'il faux griser/muter le bouton 'retablir' dans l'interface si plus de retablissement possible.
+     */
+    public boolean retablissementPossible()
+    {
+    	return !redos.isEmpty();
+    }
+    
+    
+    
+    /* Mode */
 
     /**
-     * Charger un Plan a partir d'un fichier XML.
-     * @param fichierXML
+     * Methode appellee par la vue pour connaitre le mode actuel parmi {MODE_NORMAL, MODE_AJOUT, MODE_SUPPRESSION}.
+     * @return Retourne le mode.
      */
-    public void chargerPlan(File fichierXML)
+    public int getMode()
     {
-    	try
-    	{
-	    	CreationPlan.depuisXML(fichierXML);
-	    	VuePlan.getInstance();
-        	passerEnModeNormal();
-    	}
-    	catch(Exception e)
-    	{
-    		/// construire VueException v(f.getMessage());
-    	}
-    }
-    
-    /**
-     * Charger une demande de Livraison a partir d'un fichier XML.
-     * @param fichierXML
-     */
-    public void chargerDemandeLivraison(File fichierXML)
-    {
-    	try
-    	{
-        	CreationDemandeLivraison.depuisXML(fichierXML);
-        	/// appeller la vue
-        	passerEnModeNormal();
-    	}
-    	catch(Exception e)
-    	{
-    		/// construire VueException v(f.getMessage());
-    	}
-    }
-    
-    
+    	return mode;
+    }    
     
     private void passerEnModeNormal()
     {
@@ -270,23 +299,5 @@ public final class Controleur
     {
     	mode = undos.get(undos.size()-1).getMode();
         Tournee.getInstance().supprimerTousLesChemins(); // Suppression des chemins de la tournee, ils serons recalcules 
-    }
-    
-    /**
-     * @return true si il est possible d'annuler, false sinon.
-     * Permet d'informer la vue qu'il faux griser/muter le bouton 'annuler' dans l'interface si plus d'annulation possible.
-     */
-    public boolean annulationPossible()
-    {
-    	return !undos.isEmpty();
-    }
-    
-    /**
-     * @return true si il est possible de rétablir, false sinon.
-     * Permet d'informer la vue qu'il faux griser/muter le bouton 'retablir' dans l'interface si plus de retablissement possible.
-     */
-    public boolean retablissementPossible()
-    {
-    	return !redos.isEmpty();
     }
 }
