@@ -31,7 +31,9 @@ public class VuePointLivraison
 	public boolean estClique(double x, double y)
 	{
 		boolean flag = false;
-		if(x == pointLivraison.getNoeud().getX() && y == pointLivraison.getNoeud().getY())
+		int rayonClicPixels = (int) Constante.RAYONCLIC * Constante.LARGEUR / Constante.LARGEURSUPERV;
+		double distance = Math.sqrt(Math.pow(x - pointLivraison.getNoeud().getX(), 2) + Math.pow(y - pointLivraison.getNoeud().getY(),2));
+		if(distance <= (double) rayonClicPixels)
 		{
 			flag = true;
 		}

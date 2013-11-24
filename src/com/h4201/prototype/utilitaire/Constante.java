@@ -37,7 +37,7 @@ public abstract class Constante
 	public static final Color COULEURTRONCON = Color.BLACK;
 	public static final Color COULEURENTREPOT = Color.CYAN;
 	public static final Color ARRIEREPLAN = Color.WHITE;
-	
+	public static final int RAYONCLIC = 3;
 	
 	/*
 	 * tableau couleurs des tranches horaires

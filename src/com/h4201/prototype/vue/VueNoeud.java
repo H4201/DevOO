@@ -24,7 +24,9 @@ public class VueNoeud
 	public Boolean estClique(double x, double y)
 	{
 		boolean flag = false;
-		if(x == noeud.getX() &&  y == noeud.getY())
+		int rayonClicPixels = (int) Constante.RAYONCLIC * Constante.LARGEUR / Constante.LARGEURSUPERV;
+		double distance = Math.sqrt(Math.pow(x-noeud.getX(),2) + Math.pow(y-noeud.getY(),2));
+		if(distance <= (double) rayonClicPixels)
 		{
 			flag = true;
 		}
