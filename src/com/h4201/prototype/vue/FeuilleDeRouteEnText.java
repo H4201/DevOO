@@ -36,8 +36,8 @@ public class FeuilleDeRouteEnText {
 		// on manipule les lignes plutôt que des caractuères
 		PrintWriter pw = new PrintWriter(fw);
 
-
-		while (tournee.getChemins().iterator().hasNext()) {
+		for(int indexChemin=0;indexChemin<tournee.getChemins().size();indexChemin++)
+		{
 			
 			/*ArrayList<Chemin> lesChemin = new ArrayList<Chemin>();
 			lesChemin.addAll(tournee.getChemins());*/

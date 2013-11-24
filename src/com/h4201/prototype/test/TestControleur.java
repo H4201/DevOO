@@ -18,24 +18,34 @@ public class TestControleur
 {
 	public TestControleur()
 	{
-		
-	}
-	
-	public void executerTests()
-	{
 		System.out.println("Les tests du controleur commencent !");
 		
+		this.executerTests("test/plan20x20.xml", "test/livraison20x20-1.xml");
+		
+		this.executerTests("test/plan20x20.xml", "test/livraison20x20-2.xml");
+		
+		this.executerTests("test/plan10x10.xml", "test/livraison10x10-1.xml");
+
+		this.executerTests("test/plan10x10.xml", "test/livraison10x10-2.xml");
+		
+		this.executerTests("test/plan10x10.xml", "test/livraison10x10-3.xml");
+		
+		System.out.println("Les tests du controleur sont termines.");
+	}
+	
+	private void executerTests(String fichierPlan, String fichierLivraison)
+	{
 		try
 		{
 			Controleur controleur = Controleur.getInstance();
 			
 			// Ouvrir la fenetre
-//			VueSupervision.getInstance();
+			VueSupervision.getInstance();
 			
 			// Chargement des donnees
-			controleur.chargerPlan(new File("test/plan20x20.xml"));
+			controleur.chargerPlan(new File(fichierPlan));
 			
-			controleur.chargerDemandeLivraison(new File("test/livraison20x20-2.xml"));
+			controleur.chargerDemandeLivraison(new File(fichierLivraison));
 			
 			// Notification du mode
 			assertEquals(controleur.getMode(), Constante.MODE_NORMAL);
@@ -101,10 +111,6 @@ public class TestControleur
 		catch(Exception e)
 		{
 			e.printStackTrace();
-		}
-		finally
-		{
-			System.out.println("Les tests du controleur sont termines.");
 		}
 	}
 }
