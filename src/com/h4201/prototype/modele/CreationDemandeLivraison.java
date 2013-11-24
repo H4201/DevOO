@@ -65,6 +65,7 @@ public abstract class CreationDemandeLivraison
 	    	TrancheHoraire trancheHoraire;
 	    	NodeList livraisons;
 	    	Element livraison;
+	    	Noeud noeudDuPtLivraison;
 	    	PointLivraison pointLivraison;
 	    	Vector<TrancheHoraire> tranchesHoraire = new Vector<TrancheHoraire>();
 	    	for (int i = 0; i < eltPlages.getLength(); i++)
@@ -100,15 +101,20 @@ public abstract class CreationDemandeLivraison
 			    	{
 			    		livraison = (Element) livraisons.item(j);
 	
-			    		pointLivraison = new PointLivraison(
-				    		livraison.getAttribute("client"),
-				    		Plan.getInstance().getNoeudDepuisIdNoeud(
-				    				Integer.valueOf(livraison.getAttribute("adresse"))
-							),
-							trancheHoraire
-			    		);
+			    		noeudDuPtLivraison = Plan.getInstance().getNoeudDepuisIdNoeud(
+			    				Integer.valueOf(livraison.getAttribute("adresse"))
+						);
 			    		
-			    		trancheHoraire.ajouterPointLivraison(pointLivraison);
+			    		if(noeudDuPtLivraison != null)
+			    		{
+				    		pointLivraison = new PointLivraison(
+					    		livraison.getAttribute("client"),
+					    		noeudDuPtLivraison,
+								trancheHoraire
+				    		);
+				    		
+				    		trancheHoraire.ajouterPointLivraison(pointLivraison);
+			    		}
 			    	}
 			    	tranchesHoraire.add(trancheHoraire);
 	    		}
