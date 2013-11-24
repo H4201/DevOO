@@ -14,6 +14,10 @@ public abstract class Date
 		GregorianCalendar gcalendar = new GregorianCalendar();
 		gcalendar.setTimeZone(tz);
 		
+		gcalendar.set(Calendar.YEAR, 0);
+		gcalendar.set(Calendar.MONTH, 0);
+		gcalendar.set(Calendar.DAY_OF_MONTH, 0);
+		
 		gcalendar.set(Calendar.HOUR_OF_DAY, Integer.valueOf(eltsHeure[0]).intValue());
 		gcalendar.set(Calendar.MINUTE, Integer.valueOf(eltsHeure[1]).intValue());
 		gcalendar.set(Calendar.SECOND, Integer.valueOf(eltsHeure[2]).intValue());

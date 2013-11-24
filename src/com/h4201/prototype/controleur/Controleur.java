@@ -6,7 +6,7 @@ import java.util.Vector;
 import java.util.HashMap;
 
 import com.h4201.prototype.exception.ExceptionNonInstancie;
-import com.h4201.prototype.exception.ExceptionTranchesHorairesNonOrdonees;
+import com.h4201.prototype.exception.ExceptionTrancheHoraire;
 import com.h4201.prototype.modele.*;
 import com.h4201.prototype.vue.VuePlan;
 import com.h4201.prototype.modele.AppGraphe;
@@ -92,7 +92,7 @@ public final class Controleur
     
     
     /**
-     * Calcul de la tournee (dans le Modèle) et affichage sur le Plan interactif (dans la Vue).
+     * Calcul de la tournee (dans le Modï¿½le) et affichage sur le Plan interactif (dans la Vue).
      */
     public void calculTournee()
     {    	
@@ -104,7 +104,7 @@ public final class Controleur
 	    	/// VueTournee.afficher
 	    	passerEnModeNormal();
 		} 
-    	catch (ExceptionTranchesHorairesNonOrdonees e) 
+    	catch (ExceptionTrancheHoraire e) 
     	{
 			e.printStackTrace();
 		} 
@@ -282,7 +282,7 @@ public final class Controleur
     }
     
     /**
-     * @return true si il est possible de rétablir, false sinon.
+     * @return true si il est possible de rï¿½tablir, false sinon.
      * Permet d'informer la vue qu'il faux griser/muter le bouton 'retablir' dans l'interface si plus de retablissement possible.
      */
     public boolean retablissementPossible()
