@@ -98,11 +98,7 @@ public abstract class CreationPlan
 	    			noeudOrigine = noeuds.get(idNoeudOrigine);
 	    			noeudDestination = noeuds.get(idNoeudDestination);
 	    			
-	    			if(noeudOrigine == null)
-	    			{
-	    				throw new ExceptionNoeudInconnu(idNoeudOrigine);
-	    			}
-	    			else if(noeudDestination == null)
+	    			if(noeudDestination == null)
 	    			{
 	    				throw new ExceptionNoeudInconnu(idNoeudDestination);
 	    			}
