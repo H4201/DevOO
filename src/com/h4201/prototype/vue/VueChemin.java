@@ -40,9 +40,7 @@ public class VueChemin
 				g.setColor(couleur);
 				g.drawLine(x1, y1, x2, y2);
 				g.setColor(cTemp);
-			}
-				
-		
+			}		
 	}
 
 
