@@ -17,7 +17,7 @@ public class Lanceur
 		{
 			// TODO Lancement de l'application
 		}
-		else if(argv[0].equals("testChargementXml"))
+		else if(argv[0].equals("chargementXml"))
 		{
 			TestChargementXml testChargementXml = new TestChargementXml();
 			testChargementXml.executerTests();
