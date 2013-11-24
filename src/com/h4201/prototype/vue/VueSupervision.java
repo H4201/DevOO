@@ -239,7 +239,11 @@ public class VueSupervision extends MouseAdapter implements ActionListener
  				boutonAnnuler.setEnabled(false);
  			}
  			boutonCalcT.setEnabled(true);
+ 			boutonAjouter.setEnabled(true);
+ 			boutonSupprimer.setEnabled(true);
+ 			boutonModeNormal.setEnabled(false);
  			text.setVisible(false);
+ 			VuePlan.getInstance().repaint();
  		}
 		else if (evt.getActionCommand().equals("Retablir")){
 			boutonAnnuler.setEnabled(true);
@@ -249,25 +253,42 @@ public class VueSupervision extends MouseAdapter implements ActionListener
  				boutonRetablir.setEnabled(false);
  			}
  			boutonCalcT.setEnabled(true);
+ 			boutonAjouter.setEnabled(true);
+ 			boutonSupprimer.setEnabled(true);
+ 			boutonModeNormal.setEnabled(false);
  			text.setVisible(false);
+ 			VuePlan.getInstance().repaint();
 		}	
 		else if (evt.getActionCommand().equals("Calculer la tournee")){
 			Controleur.getInstance().calculTournee();
 			VuePlan.getInstance().repaint();
 			boutonFeuilleDeRoute.setEnabled(true);
 			boutonCalcT.setEnabled(false);
+			boutonAjouter.setEnabled(true);
+			boutonSupprimer.setEnabled(true);
 			text.setVisible(false);
 		}
 		else if (evt.getActionCommand().equals("Mode ajouter")){
 			Controleur.getInstance().notifierClicAjouter();
+			boutonModeNormal.setEnabled(true);
+			boutonAjouter.setEnabled(false);
+			boutonSupprimer.setEnabled(true);
 			text.setVisible(false);
+			VuePlan.getInstance().repaint();
 		}
 		else if (evt.getActionCommand().equals("Mode supprimer")){
 			Controleur.getInstance().notifierClicSupprimer();
+			boutonModeNormal.setEnabled(true);
+			boutonAjouter.setEnabled(true);
+			boutonSupprimer.setEnabled(false);
 			text.setVisible(false);
+			VuePlan.getInstance().repaint();
 		}
 		else if (evt.getActionCommand().equals("Mode normal")){
 			Controleur.getInstance().notifierClicNormal();
+			boutonModeNormal.setEnabled(false);
+			boutonAjouter.setEnabled(true);
+			boutonSupprimer.setEnabled(true);
 		}
 		fenetre.repaint();
 	}
@@ -281,26 +302,28 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 		Noeud noeudClique;
 		PointLivraison noeudEstLiv;
 		//si le clic a eu lieu dans le plan (POSVUEX<=x<=POSVUEX+LARGEUR et POSVUEY<=y<=POSVUEY+HAUTEUR)
-		if(Constante.POSVUEX<=evt.getX() && evt.getX()<=Constante.POSVUEX+Constante.LARGEUR && Constante.POSVUEY+22<=evt.getY() && evt.getY()<=Constante.POSVUEY+Constante.HAUTEUR+22){
+		if(Constante.POSVUEX<=evt.getX() && evt.getX()<=Constante.POSVUEX+Constante.LARGEUR && Constante.POSVUEY+23<=evt.getY() && evt.getY()<=Constante.POSVUEY+Constante.HAUTEUR+23){
 			posX=evt.getX()-Constante.POSVUEX;
-			posY=evt.getY()-Constante.POSVUEY-22;
+			posY=evt.getY()-Constante.POSVUEY-23;
 			
-			posX=posX*Constante.LARGEUR/600;
-			posY=posY*Constante.HAUTEUR/600;
+			posX=(int)posX*Constante.LARGEURSUPERV/Constante.LARGEUR;
+			posY=(int)posY*Constante.HAUTEURSUPERV/Constante.HAUTEUR;
 			noeudClique = VuePlan.getInstance().getLeNoeud(posX, posY);
 			System.out.println("il y a eu un clic");
 			System.out.println("evt : " + evt.getX() + ", " + evt.getY());
 			System.out.println("pos : " + posX + ", " + posY);
 
+
 			if(noeudClique != null){
 				System.out.println("clic sur noeud");
 				if(Controleur.getInstance().getMode()==1){ //AJOUT
 					//ouvre pop up avec tranches horaires
-					//apres validation -> ajouter le point de livraison, repaindre le plan
+					//apres validation -> ajouter le point de livraison, repeindre le plan
 					boutonCalcT.setEnabled(true);
 					boutonFeuilleDeRoute.setEnabled(false);
 					boutonAnnuler.setEnabled(true);
 					boutonRetablir.setEnabled(false);
+					VuePlan.getInstance().repaint();
 				}
 				else if(Controleur.getInstance().getMode()==2){//SUPPRESSION
 					noeudEstLiv = VuePlan.getInstance().getLePointLivraison(posX, posY, VueTournee.getInstance().getLesVuePointLivraisons());
@@ -311,6 +334,7 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 						boutonFeuilleDeRoute.setEnabled(false);
 						boutonAnnuler.setEnabled(true);
 						boutonRetablir.setEnabled(false);
+						VuePlan.getInstance().repaint();
 					}
 				}
 				else if(Controleur.getInstance().getMode()==0){
