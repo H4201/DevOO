@@ -53,8 +53,8 @@ public class AppGraphe implements Graph {
 	public void genererTournee()
 		  throws ExceptionTranchesHorairesNonOrdonees, ExceptionNonInstancie{
 		Tournee tournee = Tournee.getInstance();
+		Vector<Chemin> chemins = new Vector<Chemin>();
 		Vector<TrancheHoraire> tranchesHoraire = tournee.getTranchesHoraire();
-		Chemin chemin = null;
 		
 		// Parcourir les tranches horaires de maniï¿½re ordonnï¿½e
 		for (int i=0; i<tranchesHoraire.size(); i++){
@@ -70,8 +70,7 @@ public class AppGraphe implements Graph {
 					// Crï¿½er un chemin vers tous les autres points de livraison de la mï¿½me tranche
 					for (int k=0; k<pointsLivraison.size(); k++){
 						if (pointsLivraison.get(j) != pointsLivraison.get(k)) {
-							chemin = creerChemin(pointsLivraison.get(j), pointsLivraison.get(k));
-							tournee.ajouterChemin(chemin);
+							chemins.add(creerChemin(pointsLivraison.get(j), pointsLivraison.get(k)));
 						}
 					}
 					
@@ -79,22 +78,19 @@ public class AppGraphe implements Graph {
 					if (i < tranchesHoraire.size()-1){
 						Vector<PointLivraison> pointsLivraisonTrancheSuivante = tranchesHoraire.get(i+1).getPointsLivraisons();
 						for (int k=0; k<pointsLivraisonTrancheSuivante.size(); k++){
-							chemin = creerChemin(pointsLivraison.get(j), pointsLivraisonTrancheSuivante.get(k));
-							tournee.ajouterChemin(chemin);
+							chemins.add(creerChemin(pointsLivraison.get(j), pointsLivraisonTrancheSuivante.get(k)));
 						}
 					}
 	
 					
 					// Pour la premiï¿½re tranche, crï¿½er un chemin depuis l'entrepï¿½t 
 					if (i==0) {
-						chemin = creerChemin(tournee.getEntrepot(), pointsLivraison.get(j));
-						tournee.ajouterChemin(chemin);
+						chemins.add(creerChemin(tournee.getEntrepot(), pointsLivraison.get(j)));
 					}
 					
 					// Pour la derniï¿½re tranche, crï¿½er un chemin vers l'entrepï¿½t 
 					if (i==tranchesHoraire.size()-1) {
-						chemin = creerChemin(pointsLivraison.get(j), tournee.getEntrepot());
-						tournee.ajouterChemin(chemin);
+						chemins.add(creerChemin(pointsLivraison.get(j), tournee.getEntrepot()));
 					}
 				}
 			} else {
@@ -103,7 +99,6 @@ public class AppGraphe implements Graph {
 		}
 		
 		// Calculer nbVertices
-		Vector<Chemin> chemins = tournee.getChemins();
 		Vector<Pair<PointLivraison, Integer>> match = new Vector<Pair<PointLivraison, Integer>>(); // Permet de faire le lien entre les chemins et leur place dans le tableau de coï¿½ts
 		for(int i = 0; i<chemins.size(); i++){
 			int sizeMatch = match.size();
@@ -129,18 +124,18 @@ public class AppGraphe implements Graph {
 			Integer positionYdansMatch = retournerPairDepuisMatch(match, chemins.get(i).getPointLivraisonDestination()).getSecond();
 			
 			// DEBUG : Afficher les chemins dans chemin
-			System.out.println(positionXdansMatch+"->"+positionYdansMatch + "   " + chemins.get(i).getTemps() + " s");
+			//System.out.println(positionXdansMatch+"->"+positionYdansMatch + "   " + chemins.get(i).getTemps() + " s");
 			
 			cost[positionXdansMatch][positionYdansMatch] = (int) chemins.get(i).getTemps();
 		}
 		
 		//DEBUG : AFFICHER COUT
-		for(int i=0; i<nbVertices; i++){
-			System.out.println( i + " : " + cost[i][0] + " " +  cost[i][1] + " " +  cost[i][2] +
-					" " +  cost[i][3] + " " +  cost[i][4] + " " +  cost[i][5] + " " +  cost[i][6]
-							+ " " +  cost[i][7] + " " +  cost[i][8] + " " +  cost[i][9] + " " +
-					cost[i][10] + " " + cost[i][11]);
-		}
+		//for(int i=0; i<nbVertices; i++){
+			//System.out.println( i + " : " + cost[i][0] + " " +  cost[i][1] + " " +  cost[i][2] +
+			//		" " +  cost[i][3] + " " +  cost[i][4] + " " +  cost[i][5] + " " +  cost[i][6]
+			//				+ " " +  cost[i][7] + " " +  cost[i][8] + " " +  cost[i][9] + " " +
+			//		cost[i][10] + " " + cost[i][11]);
+		//}
 		
 		
 		// Remplir le vecteur succ
@@ -150,15 +145,43 @@ public class AppGraphe implements Graph {
 		}
 		
 		//DEBUG : AFFICHER getNbSucc
-		for(int i=0; i<nbVertices; i++){
-			System.out.println("getNbSucc : " + i+  "  " + getNbSucc(i));
-		}
+		//for(int i=0; i<nbVertices; i++){
+			//System.out.println("getNbSucc : " + i+  "  " + getNbSucc(i));
+			//int[] succd = getSucc(i);
+			//for(int j=0; j<succd.length; j++)
+			//System.out.println("Succ   : " + succd[j]);
+		//}
 		
 					
 		// Passer le graphe ï¿½ la classe TSP
 		TSP tsp = new TSP(this);
 		SolutionState solutionState = tsp.solve(10000, 1000000);
 		System.out.println("Solution state : " + solutionState);
+		
+		if (solutionState.equals(SolutionState.OPTIMAL_SOLUTION_FOUND)){
+			// Retrouver les chemins optimaux à partir des pointsLivraison
+			Vector<PointLivraison> pointsLivraisonOptimum = new Vector<PointLivraison>();
+			int[] next = tsp.getNext();
+			for (int i=0; i<next.length; i++) {
+				System.out.println("trajet   : " + next[i]);
+				pointsLivraisonOptimum.add(retournerPointLivraisonDepuisPositionMatchMatch(match, next[i]));
+			}
+			
+			// Ajouter les chemins optimaux à la tournée
+			for (int i=0; i<pointsLivraisonOptimum.size(); i++){
+				for (int j=0; j<chemins.size(); j++)
+				{
+					int iPlus1 = i+1;
+					if (i+1 == pointsLivraisonOptimum.size()){iPlus1 = 0;}
+					if (chemins.get(j).getPointLivraisonOrigine() == pointsLivraisonOptimum.get(i)
+						 && chemins.get(j).getPointLivraisonDestination() == pointsLivraisonOptimum.get(iPlus1) ){
+						tournee.ajouterChemin(chemins.get(j));
+						chemins.get(j).getPointLivraisonOrigine().afficher();
+					}
+				}
+			}
+		}
+
 	}
 	  
 	/**
@@ -387,7 +410,7 @@ public class AppGraphe implements Graph {
 	 * Retourne la paire en prenant le pointdelivraison comme argument pour match.
 	 * @param plusCourtChemins
 	 * @param noeud
-	 * @return la paire en prenant le noeud comme argument.
+	 * @return la paire.
 	 */
 	public Pair<PointLivraison, Integer> retournerPairDepuisMatch(Vector<Pair<PointLivraison, Integer>> match, PointLivraison pointLivraison){
 		Pair<PointLivraison, Integer> pair = null;
@@ -399,6 +422,24 @@ public class AppGraphe implements Graph {
 		}
 		
 		return pair;
+	}
+	
+	/**
+	 * Retourne le point de livraison en prenant le pointdelivraison comme argument pour match à partir de la position.
+	 * @param plusCourtChemins
+	 * @param noeud
+	 * @return le point de livraison.
+	 */
+	public PointLivraison retournerPointLivraisonDepuisPositionMatchMatch(Vector<Pair<PointLivraison, Integer>> match, int position){
+		PointLivraison pointLivraison = null;
+		for(int i=0; i<match.size(); i++){
+			if (match.get(i).getSecond() == position){
+				pointLivraison = match.get(i).getFirst();
+				break;
+			}
+		}
+		
+		return pointLivraison;
 	}
 	
 	public int getMaxArcCost() {
@@ -424,7 +465,7 @@ public class AppGraphe implements Graph {
 		int nb = getNbSucc(i);
 		int counter = 0;
 		int[] succTab = new int[nb];
-		for(int j=0; j<nb; j++){
+		for(int j=0; j<nbVertices; j++){
 			if (cost[i][j] <= maxArcCost){
 				succTab[counter] = j;
 				counter++;
@@ -440,7 +481,7 @@ public class AppGraphe implements Graph {
 			throw new ArrayIndexOutOfBoundsException();
 		
 		int nb = 0;
-		for(int j=0; j<nbVertices; j++){
+		for(int j=0; j<nbVertices; j++){ 
 			if (cost[i][j] <= maxArcCost){
 				nb++;
 			}
