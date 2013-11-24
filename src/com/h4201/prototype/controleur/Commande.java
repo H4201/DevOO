@@ -5,5 +5,5 @@ public abstract class Commande
 	public abstract void do_();	
 	public abstract void undo();
 	public abstract void redo();
-	public abstract int getMode(); // connaitre le mode (enAjout=1 ou enSuppression=2) de la commande.
+	public abstract int getMode(); // connaitre le mode (MODE_AJOUT ou MODE_SUPPRESSION) de la commande.
 }

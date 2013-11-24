@@ -97,4 +97,34 @@ public class Tournee
 		public String toString() {
 			return "Tournee [entrepot=" + entrepot + "]";
 		}
+		
+		public void ajouterPointLivraison(PointLivraison ptLivraison)
+		{
+			TrancheHoraire t = ptLivraison.getTrancheHoraire();
+			
+	    	for(int i=0 ; i<tranchesHoraire.size() ; i++)
+	    		if(tranchesHoraire.get(i).getHeureDebut() == t.getHeureDebut())
+	    			tranchesHoraire.get(i).getPointsLivraisons().add(ptLivraison);
+	    	// postcondition : on a necessairement ajoute ptLivraison a 1 et 1 seule trancheHoraire
+		}
+
+		public void supprimerPointLivraison(PointLivraison ptLivraison)
+		{
+	    	for(int i=0 ; i<tranchesHoraire.size() ; i++)
+	    	{
+	    		if(tranchesHoraire.get(i).getHeureDebut() == ptLivraison.getTrancheHoraire().getHeureDebut())
+	    		{
+	    			Vector<PointLivraison> ptsLivraison = tranchesHoraire.get(i).getPointsLivraisons();
+	    			for(int j=0 ; j<ptsLivraison.size() ; j++)
+	    			{
+	    				if(ptsLivraison.get(j).getIdPointLivraison() == ptLivraison.getIdPointLivraison())
+	    				{
+	    					ptsLivraison.remove(j);
+	    				}
+	    			}    	
+	    			// postcondition : on a necessairement suprimmé ptLivraison 1 et 1 seule fois.
+	    		}
+	    	}
+		}
+		
 }
