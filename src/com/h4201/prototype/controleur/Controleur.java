@@ -142,7 +142,7 @@ public final class Controleur
     	}
     	catch(Exception e)
     	{
-    		VueSupervision.getInstance().ErreurChargement((e.getMessage()));
+    		VueSupervision.getInstance().fenetreErreur((e.getMessage()));
     		return false;
     	}
     	
@@ -165,7 +165,7 @@ public final class Controleur
     	}
     	catch(Exception e)
     	{
-    		VueSupervision.getInstance().ErreurChargement((e.getMessage()));
+    		VueSupervision.getInstance().fenetreErreur((e.getMessage()));
     		return false;
     	}
     	
@@ -175,8 +175,9 @@ public final class Controleur
     /**
      * Calcul de la tournee (dans le Modèle),
 	 * et affichage des chemins composants sur le Plan interactif (dans la Vue).
+	 * @return vrai si le calcul de la tournee a ete correctement effectue, faux si il y a eu une erreur.
      */
-    public void calculTournee()
+    public boolean calculTournee()
     {    	
     	AppGraphe appG = AppGraphe.getInstance();
     	
@@ -188,8 +189,11 @@ public final class Controleur
 		}
     	catch (Exception e) 
 		{
-			e.printStackTrace();
+    		VueSupervision.getInstance().fenetreErreur((e.getMessage()));
+    		return false;
 		}
+    	
+    	return true;
     }
     
     

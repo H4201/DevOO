@@ -36,12 +36,14 @@ public class VuePlan extends JPanel
 		Noeud noeud = null;
 		for(VueNoeud laVueNoeud : lesVueNoeuds )
 		{
-			if(laVueNoeud.estClique(x, y, laVueNoeud.getNoeud().getX(), laVueNoeud.getNoeud().getY())==true)
-			{
+			System.out.println("lavueNoeud : "+ "coordX: "+ laVueNoeud.getNoeud().getX()+ " coordY: "+ laVueNoeud.getNoeud().getY());
+			
+			if(laVueNoeud.estClique(x, y, laVueNoeud.getNoeud().getX(), laVueNoeud.getNoeud().getY()))
+			{			
 				noeud = laVueNoeud.getNoeud();
+				System.out.println("noeud correspondant : "+ "coordX: "+ noeud.getX()+ " coordY: "+ noeud.getY());
 			}
 		}
-		
 		return noeud;
 	}
 	
