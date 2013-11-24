@@ -30,7 +30,7 @@ public class TestControleur
 			Controleur controleur = Controleur.getInstance();
 			
 			// Ouvrir la fenetre
-//			VueSupervision.getInstance();
+			VueSupervision.getInstance();
 			
 			// Chargement des donnees
 			controleur.chargerPlan(new File("test/plan20x20.xml"));
@@ -66,23 +66,30 @@ public class TestControleur
 						.getPointsLivraisons().get(0).getIdPointLivraison());
 			
 			// Annuler
-			assertTrue(controleur.annuler());
+			controleur.annuler();
+			assertTrue(controleur.annulationPossible());
 			assertEquals(tailleTrancheHoraireTmp,
 					Tournee.getInstance().getTranchesHoraire().get(0)
 						.getPointsLivraisons().size());
 			
-			assertTrue(!controleur.annuler());
+			controleur.annuler();
+			assertTrue(controleur.annulationPossible());
 			assertEquals(nbNoeuds, trancheHoraireTmp.getPointsLivraisons().size());
 			
+			assertTrue(!controleur.annulationPossible());
 			
 			// Retablir
-			assertTrue(controleur.retablir());
+			controleur.retablir();
+			assertTrue(controleur.retablissementPossible());
 			assertEquals(nbNoeuds+1, trancheHoraireTmp.getPointsLivraisons().size());
 			
-			assertTrue(!controleur.retablir());
+			controleur.retablir();
+			assertTrue(controleur.retablissementPossible());
 			assertTrue(tailleTrancheHoraireTmp != Tournee.getInstance()
 					.getTranchesHoraire().get(0)
 					.getPointsLivraisons().size());
+			
+			assertTrue(controleur.retablissementPossible());
 			
 		}
 		catch(Exception e)
