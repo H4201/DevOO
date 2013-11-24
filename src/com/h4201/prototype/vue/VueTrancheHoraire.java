@@ -2,8 +2,12 @@ package com.h4201.prototype.vue;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
-import java.util.ArrayList;
-import java.util.Vector;
+
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -20,6 +24,7 @@ public class VueTrancheHoraire extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	private JComboBox<TrancheHoraire> comboBox;
 	/**
 	 * Launch the application.
 	 */
@@ -46,18 +51,29 @@ public class VueTrancheHoraire extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
+		contentPane.add(comboBox, BorderLayout.CENTER);
 		
 		
 		Tournee tournee = Tournee.getInstance();
 		
-		JComboBox<TrancheHoraire> comboBox = new JComboBox<TrancheHoraire>();
+		comboBox = new JComboBox<TrancheHoraire>();
 		for(int i=0; i<tournee.getTranchesHoraire().size();i++){
 			
 				comboBox.addItem(tournee.getTranchesHoraire().get(i));	
 		}
 		
+		 comboBox.addItemListener(new ItemState());
+		 comboBox.addActionListener(new ItemAction());
 		
-		contentPane.add(comboBox, BorderLayout.CENTER);
 	}
-
+	 class ItemState implements ItemListener{
+		    public void itemStateChanged(ItemEvent e) {
+		    e.getItem();
+		    }               
+		  }
+	 class ItemAction implements ActionListener{
+		    public void actionPerformed(ActionEvent e) {
+		 comboBox.getSelectedItem();
+		    }               
+		  }
 }

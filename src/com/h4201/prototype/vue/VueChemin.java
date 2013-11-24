@@ -30,6 +30,7 @@ public class VueChemin
 	{
 			Color cTemp = g.getColor();
 			Vector<Troncon> lesTronconsDuChemin = chemin.getTroncons();
+			
 			for(Troncon leTroncon : lesTronconsDuChemin)
 			{
 				int x1 = (int)  leTroncon.getNoeudOrigine().getX() * facteurConversionLarg / Constante.LARGEURSUPERV;

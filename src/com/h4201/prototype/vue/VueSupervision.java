@@ -17,19 +17,18 @@ import java.util.Iterator;
 
 
 
+
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.AbstractButton;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
 import com.h4201.prototype.controleur.Controleur;
-import com.h4201.prototype.exception.ExceptionNonInstancie;
 import com.h4201.prototype.modele.Noeud;
-import com.h4201.prototype.modele.Plan;
 import com.h4201.prototype.modele.PointLivraison;
 import com.h4201.prototype.modele.Tournee;
 import com.h4201.prototype.utilitaire.Constante;
@@ -54,7 +53,7 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 	private JTable tableau;
 	private JLabel text;
 	private JScrollPane paneT;
-	private JPanel paneL; 
+
 	
 	private static volatile VueSupervision instance = null;
 	
@@ -183,7 +182,7 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 			text.setVisible(false);
 			if (returnVal == JFileChooser.APPROVE_OPTION) {
 				// debug
-				System.out.println("nom de fichier " + jFileChooserXML.getSelectedFile().getAbsolutePath());
+				//System.out.println("nom de fichier " + jFileChooserXML.getSelectedFile().getAbsolutePath());
 				
 				//lecture du contenu d'un fichier XML avec DOM
 				File xml = new File(jFileChooserXML.getSelectedFile().getAbsolutePath());
@@ -369,5 +368,10 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 				}
 			}
 		}		
+	}
+	
+	public void ErreurChargement(String messageErreur){
+		//JOptionPane popupErreur = new JOptionPane();
+		JOptionPane.showMessageDialog(fenetre, messageErreur, "Erreur", JOptionPane.ERROR_MESSAGE);
 	}
 }
