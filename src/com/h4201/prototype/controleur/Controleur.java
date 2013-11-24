@@ -91,7 +91,7 @@ public final class Controleur
     {
     	if(mode != Constante.MODE_AJOUT)
     	{
-    		/// Exception
+    		System.out.println("WARNING a l'appel d' ajoutPointLivraison() : l'ajout n'a pas eu lieu car effectue hors du cadre d'un mode 'MODE_AJOUT'");
     	}
     	else
     	{
@@ -115,7 +115,7 @@ public final class Controleur
     {   
     	if(mode != Constante.MODE_SUPPRESSION)
     	{
-    		/// Exception	
+    		System.out.println("WARNING a l'appel de supprimerPointLivraison() : la suppression n'a pas eu lieu car effectue hors du cadre d'un mode 'MODE_SUPPRESSION'");
     	}
     	else
 	    {
@@ -130,7 +130,8 @@ public final class Controleur
     }
         
     /**
-     * Charger un Plan a partir d'un fichier XML.
+     * Charger un Plan a partir d'un fichier XML,
+     * et affichage dans la vue.
      * @param fichierXML
      */
     public void chargerPlan(File fichierXML)
@@ -148,7 +149,8 @@ public final class Controleur
     }
     
     /**
-     * Charger une demande de Livraison a partir d'un fichier XML.
+     * Charger une demande de Livraison a partir d'un fichier XML,
+     * et affichage dans la vue.
      * @param fichierXML
      */
     public void chargerDemandeLivraison(File fichierXML)
@@ -166,7 +168,8 @@ public final class Controleur
     }    
 
     /**
-     * Calcul de la tournee (dans le Modèle) et affichage sur le Plan interactif (dans la Vue).
+     * Calcul de la tournee (dans le Modèle),
+	 * et affichage des chemins composants sur le Plan interactif (dans la Vue).
      */
     public void calculTournee()
     {    	
