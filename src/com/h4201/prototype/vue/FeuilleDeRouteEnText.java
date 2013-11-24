@@ -3,23 +3,25 @@ package com.h4201.prototype.vue;
 
 import java.io.FileWriter;
 import java.io.PrintWriter;
-
 import java.util.Vector;
 
 import com.h4201.prototype.modele.Tournee;
 import com.h4201.prototype.modele.PointLivraison;
-
 import com.h4201.prototype.modele.Troncon;
 
 public class FeuilleDeRouteEnText {
 	
-
-	protected String nomfichier;
+  private static volatile FeuilleDeRouteEnText instance=null;
+	protected  String nomfichier;
    private FileWriter fw;
 
 	public FeuilleDeRouteEnText(String nomfichier) {
 		this.nomfichier = nomfichier;
 		realisation(Tournee.getInstance());
+	}
+	public final static FeuilleDeRouteEnText getInstance()
+	{
+		return FeuilleDeRouteEnText.instance;
 	}
 /**
  * 
