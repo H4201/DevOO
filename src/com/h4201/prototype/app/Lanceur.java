@@ -6,7 +6,7 @@ import com.h4201.prototype.test.TestControleur;
 import com.h4201.prototype.test.TestFeuilleDeRoute;
 import com.h4201.prototype.test.TestInterface;
 import com.h4201.prototype.test.TestLogic;
-import com.h4201.prototype.vue.FeuilleDeRouteEnText;
+import com.h4201.prototype.test.TestTournee;
 
 
 public class Lanceur
@@ -37,9 +37,13 @@ public class Lanceur
 			TestLogic testLogic = new TestLogic();
 			testLogic.executerTests();
 		}
-		else if(argv[0].equals("controleur")) // Lancement des tests de l'affichage de l'interface
+		else if(argv[0].equals("controleur"))
 		{
 			new TestControleur();
+		}
+		else if(argv[0].equals("tournee"))
+		{
+			new TestTournee();
 		}
 	}
 }
