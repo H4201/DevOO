@@ -336,7 +336,7 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 
 
 			if(noeudClique != null){
-				System.out.println("clic sur noeud");
+				System.out.println("clic sur noeud : " + noeudClique.getIdNoeud());
 				if(Controleur.getInstance().getMode()==1){ //AJOUT
 					//ouvre pop up avec tranches horaires
 					//apres validation -> ajouter le point de livraison, repeindre le plan
@@ -367,10 +367,13 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 					}
 				}
 			}
+			else{
+				System.out.println("null");
+			}
 		}		
 	}
 	
-	public void ErreurChargement(String messageErreur){
+	public void fenetreErreur(String messageErreur){
 		//JOptionPane popupErreur = new JOptionPane();
 		JOptionPane.showMessageDialog(fenetre, messageErreur, "Erreur", JOptionPane.ERROR_MESSAGE);
 	}
