@@ -34,12 +34,14 @@ public class TestTournee
 			
 			Vector<Chemin> chemins = Tournee.getInstance().getChemins();
 			
-			System.out.println("Nombre de chemins : " + chemins.size());
+			System.out.println("\nNombre de chemins : " + chemins.size());
 			
 			for(Chemin chemin : chemins)
 			{
+				System.out.println(chemin.getPointLivraisonOrigine().toString());
+				System.out.println(chemin.getPointLivraisonDestination().toString());
 				assertTrue(chemin.getTroncons().size() > 0);
-				System.out.println(chemin.getTroncons().size());
+				System.out.println("Nombre de troncons : " + chemin.getTroncons().size());
 			}
 		}
 		catch(Exception e)
