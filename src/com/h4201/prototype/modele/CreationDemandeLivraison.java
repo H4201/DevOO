@@ -59,7 +59,7 @@ public abstract class CreationDemandeLivraison
 	    	
 	    	NodeList eltPlages = eltPlagesHoraires.getElementsByTagName("Plage");
 	    	Element eltPlage;
-	    	Calendar heureFinTranchePrecedente = Date.getCalendarDepuisHeureAn("00:00:00");
+	    	Calendar heureFinTranchePrecedente = Date.getCalendarDepuisHeureAn("0:0:0");
 	    	Calendar heureDebutTrancheHoraire;
 	    	Calendar heureFinTrancheHoraire;
 	    	TrancheHoraire trancheHoraire;
@@ -80,10 +80,10 @@ public abstract class CreationDemandeLivraison
 	    			throw new ExceptionTrancheHoraire("Heure de debut de la tranche " +
 	    					"horaire posterieure a l'heure de fin");
 	    		}
-	    		else if(heureFinTranchePrecedente.before(heureDebutTrancheHoraire)
+	    		else if(heureFinTranchePrecedente.after(heureDebutTrancheHoraire)
 	    				&& !heureFinTranchePrecedente.equals(heureDebutTrancheHoraire))
 	    		{
-	    			throw new ExceptionTrancheHoraire("Les tranches horaires se"
+	    			throw new ExceptionTrancheHoraire("Des tranches horaires se"
 	    					+ " chevauchent ou ne sont pas ordonnees");
 	    		}
 	    		else
