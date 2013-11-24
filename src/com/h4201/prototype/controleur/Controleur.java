@@ -142,7 +142,7 @@ public final class Controleur
     	}
     	catch(Exception e)
     	{
-    		VueSupervision.getInstance().ErreurChargement((e.getMessage()));
+    		VueSupervision.getInstance().fenetreErreur((e.getMessage()));
     		return false;
     	}
     	
@@ -165,7 +165,7 @@ public final class Controleur
     	}
     	catch(Exception e)
     	{
-    		VueSupervision.getInstance().ErreurChargement((e.getMessage()));
+    		VueSupervision.getInstance().fenetreErreur((e.getMessage()));
     		return false;
     	}
     	
@@ -189,7 +189,7 @@ public final class Controleur
 		}
     	catch (Exception e) 
 		{
-    		VueSupervision.getInstance().ErreurChargement((e.getMessage()));
+    		VueSupervision.getInstance().fenetreErreur((e.getMessage()));
     		return false;
 		}
     	
