@@ -34,7 +34,7 @@ public class Tournee
 		  this.chemins = new Vector<Chemin>();
 	  }
 	  
-	  protected final static Tournee setInstance(Entrepot entrepot, 
+	  protected static Tournee setInstance(Entrepot entrepot, 
 			  Vector<TrancheHoraire> tranchesHoraire) throws ExceptionNonInstancie
 	  {
 		synchronized(Tournee.class)
@@ -48,6 +48,11 @@ public class Tournee
 	  public final static Tournee getInstance()
 	  {
 	      return Tournee.instance;
+	  }
+	  
+	  protected static void reinitialiserTournee()
+	  {
+		  Tournee.instance = null;
 	  }
 
 	  protected void ajouterChemin(Chemin chemin)

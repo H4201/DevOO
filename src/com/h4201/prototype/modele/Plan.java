@@ -23,9 +23,10 @@ public final class Plan
   {
 	  this.troncons = troncons;
 	  this.noeuds = noeuds;
+	  Tournee.reinitialiserTournee();
   }
   
-  protected final static Plan setInstance(Vector<Troncon> troncons, 
+  protected static Plan setInstance(Vector<Troncon> troncons, 
 		  HashMap<Integer, Noeud> noeuds) throws ExceptionNonInstancie
   {
 	synchronized(Plan.class)
