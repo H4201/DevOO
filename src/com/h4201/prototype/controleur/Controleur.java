@@ -2,8 +2,6 @@ package com.h4201.prototype.controleur;
 
 import java.io.File;
 import java.util.Stack;
-import java.util.Vector;
-import java.util.HashMap;
 
 import com.h4201.prototype.exception.ExceptionNonInstancie;
 import com.h4201.prototype.exception.ExceptionTrancheHoraire;
