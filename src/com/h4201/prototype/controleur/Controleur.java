@@ -1,5 +1,6 @@
 package com.h4201.prototype.controleur;
 
+import java.awt.Graphics;
 import java.io.File;
 import java.util.Stack;
 import java.util.Vector;
@@ -139,7 +140,7 @@ public final class Controleur
     	try
     	{
 	    	CreationPlan.depuisXML(fichierXML);
-	    	VuePlan.getInstance();
+	    	VuePlan.getInstance().paintComponent(null); /// new Graphics() ???
         	passerEnModeNormal();
     	}
     	catch(Exception e)
