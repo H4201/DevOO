@@ -13,23 +13,24 @@ import com.h4201.prototype.modele.Troncon;
 
 public class FeuilleDeRouteEnText {
 	
-	private Tournee tournee;
-	protected String nomfichier;
 
+	protected String nomfichier;
+   private FileWriter fw;
 
 	public FeuilleDeRouteEnText(String nomfichier) {
 		this.nomfichier = nomfichier;
-		realisation();
+		realisation(Tournee.getInstance());
 	}
 
-	public void realisation(){
+	public FileWriter realisation( Tournee tournee){
+		 	
 		try{
 			
-		FileWriter fw = new FileWriter(nomfichier);
+		 fw = new FileWriter(nomfichier);
 		// on manipule les lignes plutôt que des caractuères
 		PrintWriter pw = new PrintWriter(fw);
 
-		tournee = Tournee.getInstance();
+
 		while (tournee.getChemins().iterator().hasNext()) {
 
 			ArrayList<Chemin> lesChemin = new ArrayList<Chemin>();
@@ -61,7 +62,9 @@ public class FeuilleDeRouteEnText {
 		
 		catch (Exception e){
 			e.printStackTrace();}
+		return fw;
 
 	}
+	 
 	
 }
