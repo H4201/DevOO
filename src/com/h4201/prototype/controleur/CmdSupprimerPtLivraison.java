@@ -1,10 +1,8 @@
 package com.h4201.prototype.controleur;
 
-import java.util.Vector;
 
 import com.h4201.prototype.modele.PointLivraison;
 import com.h4201.prototype.modele.Tournee;
-import com.h4201.prototype.modele.TrancheHoraire;
 import com.h4201.prototype.utilitaire.Constante;
 
 public class CmdSupprimerPtLivraison extends Commande 
