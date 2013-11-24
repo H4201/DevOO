@@ -30,7 +30,7 @@ public class TestControleur
 			Controleur controleur = Controleur.getInstance();
 			
 			// Ouvrir la fenetre
-			VueSupervision.getInstance();
+//			VueSupervision.getInstance();
 			
 			// Chargement des donnees
 			controleur.chargerPlan(new File("test/plan20x20.xml"));
@@ -47,49 +47,55 @@ public class TestControleur
 			assertEquals(controleur.getMode(), Constante.MODE_NORMAL);
 			
 			// Calcul de la tournee
-//			controleur.calculTournee();
-//			assertTrue(!Tournee.getInstance().getChemins().isEmpty());
+			controleur.notifierClicNormal();
+			controleur.calculTournee();
+			assertTrue(!Tournee.getInstance().getChemins().isEmpty());
 			
 			// Ajout d'un point de livraison
 			Noeud noeudTmp = Plan.getInstance().getNoeudDepuisIdNoeud(Integer.valueOf(0));
 			TrancheHoraire trancheHoraireTmp = Tournee.getInstance().getTranchesHoraire().get(0);
 			int nbNoeuds = trancheHoraireTmp.getPointsLivraisons().size();
+			controleur.notifierClicAjouter();
 			controleur.ajoutPointLivraison(noeudTmp, trancheHoraireTmp);
 			assertEquals(nbNoeuds+1, trancheHoraireTmp.getPointsLivraisons().size());
 			
 			// Suppression d'un point de livraison
 			int tailleTrancheHoraireTmp = Tournee.getInstance().getTranchesHoraire().get(0).getPointsLivraisons().size();
 			PointLivraison pointLivraisonTmp = Tournee.getInstance().getTranchesHoraire().get(0).getPointsLivraisons().get(0);
+			controleur.notifierClicSupprimer();
 			controleur.supprimerPointLivraison(pointLivraisonTmp);
 			assertTrue(pointLivraisonTmp.getIdPointLivraison() !=
 					Tournee.getInstance().getTranchesHoraire().get(0)
 						.getPointsLivraisons().get(0).getIdPointLivraison());
 			
+			// Retour au mode normal
+			controleur.notifierClicNormal();
+			
 			// Annuler
-			controleur.annuler();
 			assertTrue(controleur.annulationPossible());
+			controleur.annuler();
 			assertEquals(tailleTrancheHoraireTmp,
 					Tournee.getInstance().getTranchesHoraire().get(0)
 						.getPointsLivraisons().size());
 			
-			controleur.annuler();
 			assertTrue(controleur.annulationPossible());
+			controleur.annuler();
 			assertEquals(nbNoeuds, trancheHoraireTmp.getPointsLivraisons().size());
 			
 			assertTrue(!controleur.annulationPossible());
 			
 			// Retablir
-			controleur.retablir();
 			assertTrue(controleur.retablissementPossible());
+			controleur.retablir();
 			assertEquals(nbNoeuds+1, trancheHoraireTmp.getPointsLivraisons().size());
-			
-			controleur.retablir();
+
 			assertTrue(controleur.retablissementPossible());
+			controleur.retablir();
 			assertTrue(tailleTrancheHoraireTmp != Tournee.getInstance()
 					.getTranchesHoraire().get(0)
 					.getPointsLivraisons().size());
 			
-			assertTrue(controleur.retablissementPossible());
+			assertTrue(!controleur.retablissementPossible());
 			
 		}
 		catch(Exception e)
