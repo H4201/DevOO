@@ -15,6 +15,9 @@ public abstract class Constante
 	public static final String EXCEPTION_XML = "Le XML ne correspond pas a ce qui est attendu";
 	public static final String EXCEPTION_FICHIER = "Le fichier n'existe pas ou est illisible";
 	public static final String EXCEPTION_NON_INSTANCIE = "L'objet n'a pas ete instancie";
+	public static final String EXCEPTION_COORDONNEES = "Les coordonnees du noeud sont incorrectes";
+	public static final String EXCEPTION_NOEUD_INCONNU = "Le noeud n'existe pas";
+	public static final String EXCEPTION_TRANCHE_HORAIRE = "La tranche horaire est invalide";
 	
 	
 	/*
@@ -37,7 +40,7 @@ public abstract class Constante
 	public static final Color COULEURTRONCON = Color.BLACK;
 	public static final Color COULEURENTREPOT = Color.CYAN;
 	public static final Color ARRIEREPLAN = Color.WHITE;
-	
+	public static final int RAYONCLIC = 20;
 	
 	/*
 	 * tableau couleurs des tranches horaires

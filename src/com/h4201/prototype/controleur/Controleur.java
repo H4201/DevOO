@@ -1,13 +1,8 @@
 package com.h4201.prototype.controleur;
 
-import java.awt.Graphics;
 import java.io.File;
 import java.util.Stack;
-import java.util.Vector;
-import java.util.HashMap;
 
-import com.h4201.prototype.exception.ExceptionNonInstancie;
-import com.h4201.prototype.exception.ExceptionTranchesHorairesNonOrdonees;
 import com.h4201.prototype.modele.*;
 import com.h4201.prototype.vue.VuePlan;
 import com.h4201.prototype.modele.AppGraphe;
@@ -181,12 +176,8 @@ public final class Controleur
 			appG.genererTournee();
 	    	/// VueTournee.afficher
 	    	passerEnModeNormal();
-		} 
-    	catch (ExceptionTranchesHorairesNonOrdonees e) 
-    	{
-			e.printStackTrace();
-		} 
-    	catch (ExceptionNonInstancie e) 
+		}
+    	catch (Exception e) 
 		{
 			e.printStackTrace();
 		}

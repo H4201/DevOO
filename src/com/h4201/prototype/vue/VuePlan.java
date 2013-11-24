@@ -36,7 +36,7 @@ public class VuePlan extends JPanel
 		Noeud noeud = null;
 		for(VueNoeud laVueNoeud : lesVueNoeuds )
 		{
-			if(x == laVueNoeud.getNoeud().getX() && y == laVueNoeud.getNoeud().getY())
+			if(laVueNoeud.estClique(x, y, laVueNoeud.getNoeud().getX(), laVueNoeud.getNoeud().getY())==true)
 			{
 				noeud = laVueNoeud.getNoeud();
 			}
@@ -52,7 +52,7 @@ public class VuePlan extends JPanel
 		{
 			double coordX = laVuePointDeLivraison.getPointLivraison().getNoeud().getX();
 			double coordY = laVuePointDeLivraison.getPointLivraison().getNoeud().getY();
-			if(x == coordX && y == coordY)
+			if(laVuePointDeLivraison.estClique(x, y, coordX,coordY) == true)
 			{
 				pointLivraison = laVuePointDeLivraison.getPointLivraison();
 			}

@@ -2,8 +2,10 @@ package com.h4201.prototype.vue;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.Vector;
 
 import com.h4201.prototype.modele.Chemin;
+import com.h4201.prototype.modele.Troncon;
 import com.h4201.prototype.utilitaire.Constante;
 
 
@@ -27,14 +29,19 @@ public class VueChemin
 	public void dessinerChemin(Graphics g, int facteurConversionLarg, int facteurConversionHaut, Color couleur)
 	{
 			Color cTemp = g.getColor();
-			int x1 = (int)  chemin.getPointLivraisonOrigine().getNoeud().getX() * facteurConversionLarg / Constante.LARGEURSUPERV;
-			int y1 = (int)  chemin.getPointLivraisonOrigine().getNoeud().getY() * facteurConversionHaut / Constante.HAUTEURSUPERV;
-			int x2 = (int)  chemin.getPointLivraisonDestination().getNoeud().getX() * facteurConversionLarg / Constante.LARGEURSUPERV;
-			int y2 = (int)  chemin.getPointLivraisonDestination().getNoeud().getY() * facteurConversionHaut/ Constante.HAUTEURSUPERV;
+			Vector<Troncon> lesTronconsDuChemin = chemin.getTroncons();
 			
-			g.setColor(couleur);
-			g.drawLine(x1, y1, x2, y2);
-			g.setColor(cTemp);	
+			for(Troncon leTroncon : lesTronconsDuChemin)
+			{
+				int x1 = (int)  leTroncon.getNoeudOrigine().getX() * facteurConversionLarg / Constante.LARGEURSUPERV;
+				int y1 = (int)  leTroncon.getNoeudOrigine().getY() * facteurConversionHaut / Constante.HAUTEURSUPERV;
+				int x2 = (int)  leTroncon.getNoeudDestination().getX() * facteurConversionLarg / Constante.LARGEURSUPERV;
+				int y2 = (int)  leTroncon.getNoeudDestination().getY() * facteurConversionHaut/ Constante.HAUTEURSUPERV;		
+				g.setColor(couleur);
+				g.drawLine(x1, y1, x2, y2);
+				g.setColor(cTemp);
+			}
+				
 		
 	}
 
