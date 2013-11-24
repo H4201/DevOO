@@ -59,6 +59,7 @@ public class FeuilleDeRouteEnText {
 							.getPointLivraisonOrigine().getIdPointLivraison());
 				}
 				pw.println("Adress : " + "\n");
+				
 				for (indexPointLivraison = 0; indexPointLivraison < lesPointLivraisons
 						.size(); indexPointLivraison++) {
 				pw.println(lesPointLivraisons.get(indexPointLivraison).getNoeud().getIdNoeud()+"\n");}
