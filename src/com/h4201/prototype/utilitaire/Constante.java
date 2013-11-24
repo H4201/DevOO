@@ -15,6 +15,8 @@ public abstract class Constante
 	public static final String EXCEPTION_XML = "Le XML ne correspond pas a ce qui est attendu";
 	public static final String EXCEPTION_FICHIER = "Le fichier n'existe pas ou est illisible";
 	public static final String EXCEPTION_NON_INSTANCIE = "L'objet n'a pas ete instancie";
+	public static final String EXCEPTION_COORDONNEES = "Les coordonnees du noeud sont incorrectes";
+	public static final String EXCEPTION_NOEUD_INCONNU = "Le noeud n'existe pas";
 	
 	
 	/*
