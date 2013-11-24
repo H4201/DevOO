@@ -1,7 +1,7 @@
 package com.h4201.prototype.vue;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
+
 
 
 import java.awt.event.ActionEvent;
@@ -25,21 +25,8 @@ public class VueTrancheHoraire extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JComboBox<TrancheHoraire> comboBox;
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VueTrancheHoraire frame = new VueTrancheHoraire();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+
+
 
 	/**
 	 * Create the frame.
