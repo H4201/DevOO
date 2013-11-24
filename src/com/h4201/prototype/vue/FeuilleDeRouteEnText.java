@@ -1,6 +1,5 @@
 package com.h4201.prototype.vue;
 
-
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.Vector;
@@ -10,68 +9,92 @@ import com.h4201.prototype.modele.PointLivraison;
 import com.h4201.prototype.modele.Troncon;
 
 public class FeuilleDeRouteEnText {
-	
-  private static volatile FeuilleDeRouteEnText instance=null;
-	protected  String nomfichier;
-   private FileWriter fw;
+
+	private static volatile FeuilleDeRouteEnText instance = null;
+	protected String nomfichier;
+	private FileWriter fw;
 
 	public FeuilleDeRouteEnText(String nomfichier) {
 		this.nomfichier = nomfichier;
 		realisation(Tournee.getInstance());
 	}
-	public final static FeuilleDeRouteEnText getInstance()
-	{
+
+	public final static FeuilleDeRouteEnText getInstance() {
 		return FeuilleDeRouteEnText.instance;
 	}
-/**
- * 
- * @param tournee
- * @return
- */
-	public FileWriter realisation( Tournee tournee){
-		 	
-		try{
-			
-		 fw = new FileWriter(nomfichier);
-		// on manipule les lignes plutôt que des caractuères
-		PrintWriter pw = new PrintWriter(fw);
 
-		for(int indexChemin=0;indexChemin<tournee.getChemins().size();indexChemin++)
-		{
+	/**
+	 * 
+	 * @param tournee
+	 * @return
+	 */
+	public FileWriter realisation(Tournee tournee) {
+
+		try {
+
+			fw = new FileWriter(nomfichier);
+			// on manipule les lignes plutôt que des caractuères
+			PrintWriter pw = new PrintWriter(fw);
+
+			for (int indexChemin = 0; indexChemin < tournee.getChemins().size(); indexChemin++) {
+
+				/*
+				 * ArrayList<Chemin> lesChemin = new ArrayList<Chemin>();
+				 * lesChemin.addAll(tournee.getChemins());
+				 */
+				Vector<PointLivraison> lesPointLivraisons = new Vector<PointLivraison>();
+				Vector<Troncon> itineraire = new Vector<Troncon>();
+				int indexPointLivraison;
+				int indexItineraire;
+				// for(int i=0;i<tournee.getChemins().size();i++){
+				pw.println("Client : " + "\n");
+				for (indexPointLivraison = 0; indexPointLivraison < lesPointLivraisons
+						.size(); indexPointLivraison++) {
+					lesPointLivraisons.add(indexPointLivraison, tournee
+							.getChemins().get(indexPointLivraison)
+							.getPointLivraisonOrigine());
+					pw.println(lesPointLivraisons.get(indexPointLivraison).getClient()+ "\n");
 			
-			/*ArrayList<Chemin> lesChemin = new ArrayList<Chemin>();
-			lesChemin.addAll(tournee.getChemins());*/
-			Vector<PointLivraison> lesPointLivraisons = new Vector<PointLivraison>();
-			Vector<Troncon> itineraire = new Vector<Troncon>();
-			int indexPointLivraisonOrigine;
-			int indexItineraire;
-			for(int i=0;i<tournee.getChemins().size();i++){
-		
-				for (indexPointLivraisonOrigine=0;indexPointLivraisonOrigine<lesPointLivraisons.size();indexPointLivraisonOrigine++){
-					lesPointLivraisons.add(indexPointLivraisonOrigine, tournee.getChemins().get(i).getPointLivraisonOrigine());
-					pw.println("Client : " + lesPointLivraisons.get(indexPointLivraisonOrigine).getClient()+"\n");
-					pw.println("Adresse : " + lesPointLivraisons.get(indexPointLivraisonOrigine).getNoeud().getIdNoeud()+"\n");
-					pw.println("Heure d'arrivée : " + lesPointLivraisons.get(indexPointLivraisonOrigine).getTrancheHoraire().getHeureDebut()+"\n");
-					pw.println("Heure de départ : " + lesPointLivraisons.get(indexPointLivraisonOrigine).getTrancheHoraire().getHeureFin()+"\n");
+					System.out.println(tournee.getChemins().get(indexChemin)
+							.getPointLivraisonOrigine().getIdPointLivraison());
+				}
+				pw.println("Adress : " + "\n");
+				for (indexPointLivraison = 0; indexPointLivraison < lesPointLivraisons
+						.size(); indexPointLivraison++) {
+				pw.println(lesPointLivraisons.get(indexPointLivraison).getNoeud().getIdNoeud()+"\n");}
 				
-				}
-								for(indexItineraire=0;indexItineraire<tournee.getChemins().size();indexItineraire++){
-					itineraire.addAll(indexItineraire, tournee.getChemins().get(i).getTroncons());
-					pw.println("Suivre l'itinéraire : " + tournee.getChemins().get(i).getTroncons()+"\n");
-				}
-								pw.println("\n");
-			}
-			
-			
+				pw.println("Heure d'arrivée : " + "\n");
+				for (indexPointLivraison = 0; indexPointLivraison < lesPointLivraisons
+						.size(); indexPointLivraison++) {
+				pw.println(lesPointLivraisons.get(indexPointLivraison).getTrancheHoraire().getHeureDebut()+"\n");}
 
-		}	pw.close();
+				pw.println("Heure de départ : " + "\n");
+				for (indexPointLivraison = 0; indexPointLivraison < lesPointLivraisons
+						.size(); indexPointLivraison++) {
+				pw.println(lesPointLivraisons.get(indexPointLivraison).getTrancheHoraire().getHeureFin()+"\n");}
+				
+				pw.println("Suivre l'itinéraire : " + "\n");
+				for (indexItineraire = 0; indexItineraire < tournee
+						.getChemins().size(); indexItineraire++) {
+					itineraire.addAll(indexItineraire, tournee.getChemins()
+							.get(indexChemin).getTroncons());
+
+					pw.println(tournee.getChemins().get(indexChemin)
+							.getTroncons().get(indexItineraire).getNomRue()
+							+ "\n");
+				}
+				pw.println("\n");
+				// }
+
 			}
-		
-		catch (Exception e){
-			e.printStackTrace();}
+			pw.close();
+		}
+
+		catch (Exception e) {
+			e.printStackTrace();
+		}
 		return fw;
 
 	}
-	 
-	
+
 }
