@@ -17,6 +17,7 @@ public abstract class Constante
 	public static final String EXCEPTION_NON_INSTANCIE = "L'objet n'a pas ete instancie";
 	public static final String EXCEPTION_COORDONNEES = "Les coordonnees du noeud sont incorrectes";
 	public static final String EXCEPTION_NOEUD_INCONNU = "Le noeud n'existe pas";
+	public static final String EXCEPTION_TRANCHE_HORAIRE = "La tranche horaire est invalide";
 	
 	
 	/*
