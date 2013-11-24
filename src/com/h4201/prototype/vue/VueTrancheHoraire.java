@@ -1,7 +1,7 @@
 package com.h4201.prototype.vue;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
+
 
 
 import java.awt.event.ActionEvent;
@@ -14,32 +14,18 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JComboBox;
 
+import com.h4201.prototype.controleur.Controleur;
 import com.h4201.prototype.modele.Tournee;
 import com.h4201.prototype.modele.TrancheHoraire;
+import com.h4201.prototype.utilitaire.Constante;
 
 public class VueTrancheHoraire extends JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JComboBox<TrancheHoraire> comboBox;
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VueTrancheHoraire frame = new VueTrancheHoraire();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+
+
 
 	/**
 	 * Create the frame.
@@ -58,8 +44,13 @@ public class VueTrancheHoraire extends JFrame {
 		
 		comboBox = new JComboBox<TrancheHoraire>();
 		for(int i=0; i<tournee.getTranchesHoraire().size();i++){
-			
+			// à l'ajout d'un point de livraison, on élimine la tranche horaire qui existe déjà.
+			if (Controleur.getInstance().getMode()==1){	
+			if(tournee.getChemins().get(i).getPointLivraisonOrigine().getTrancheHoraire()!=tournee.getTranchesHoraire().get(i)){
 				comboBox.addItem(tournee.getTranchesHoraire().get(i));	
+			}}
+		
+				
 		}
 		
 		 comboBox.addItemListener(new ItemState());
