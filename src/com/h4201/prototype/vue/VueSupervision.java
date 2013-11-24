@@ -51,6 +51,7 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 	private TableRecap tableRecap;
 	private JTable tableau;
 	private JLabel text;
+	private JScrollPane pane;
 	
 	private static volatile VueSupervision instance = null;
 	
@@ -210,15 +211,32 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 				
 				//Tableau non affiche, trouver erreur
 				tableRecap = new TableRecap(Tournee.getInstance().getTranchesHoraire());
-				Object[][] objets = new Object[1][tableRecap.getLongueur()];
+				Object[][] objets = new Object[tableRecap.getLongueur()][1];
 				String[] entetes = {"Livraisons par plages H."};
 				for(int compte=0; compte<tableRecap.getLongueur(); compte=compte+1){
 					objets[compte][0]=tableRecap.getLesLivraisons().get(compte);
+					//System.out.println(objets[compte][0]);  //OK
 				}
 				tableau = new JTable(objets,entetes);
 				//tableau.setLayout(null);
-				//tableau.setBounds(0, 60, 100, 300);
-				fenetre.getContentPane().add(new JScrollPane(tableau));
+				//tableau.setBounds(10, 100, 300, 500);
+				//fenetre.getContentPane().add(new JScrollPane(tableau));
+				pane = new JScrollPane(tableau);
+				pane.setLayout(null);
+				pane.setBounds(10, 100, 300, 500);
+
+				pane.setVisible(true);
+				tableau.setVisible(true);
+				
+				fenetre.getContentPane().add(pane);
+				
+				/*System.out.println("showing : " + tableau.isShowing());
+				System.out.println("visible : " + tableau.isVisible());
+				System.out.println("enabled : " + tableau.isEnabled());
+				System.out.println("posX : " + tableau.getBounds().getX());
+				System.out.println("posY : " + tableau.getBounds().getY());
+				System.out.println("nb colonnes : " + tableau.getColumnCount());*/
+				
 				fenetre.repaint();
 				
 				
