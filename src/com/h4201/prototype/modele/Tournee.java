@@ -59,6 +59,11 @@ public class Tournee
 	  {
 		  this.chemins.addElement(chemin);
 	  }
+	  
+	  public void supprimerTousLesChemins()
+	  {
+		  this.chemins = new Vector<Chemin>();
+	  }
 		
 		public Entrepot getEntrepot() {
 			return entrepot;
