@@ -12,7 +12,11 @@ import com.h4201.prototype.vue.VuePlan;
 import com.h4201.prototype.modele.AppGraphe;
 import com.h4201.prototype.utilitaire.Constante;
 
-
+/**
+ * 
+ * @author Steevens
+ *
+ */
 public final class Controleur
 {
 	private static volatile Controleur instance = null;
@@ -46,33 +50,49 @@ public final class Controleur
     }
     
     /**
-     * Methode appellee par la vue pour connaitre le mode actuel (normal, enAjout ou enSuppression)
-     * @return
+     * Methode appellee par la vue pour connaitre le mode actuel parmi {MODE_NORMAL, MODE_AJOUT, MODE_SUPPRESSION}.
+     * @return Retourne le mode.
      */
     public int getMode()
     {
     	return mode;
     }
     
-    // Notifications de la vue
+    
+    
+    /* Notifications de la vue */
 
+    /**
+     * Methode appellee par la vue pour nous notifier d'un clic sur le bouton 'Normal'.
+     * Nous passons alors en mode Normal.
+     */
     public void notifierClicNormal()
     {
     	passerEnModeNormal();
     }
-    
+ 
+    /**
+     * Methode appellee par la vue pour nous notifier d'un clic sur le bouton 'Ajouter'.
+     * Nous passons alors en mode Ajout.
+     */
     public void notifierClicAjouter()
     {
     	passerEnModeAjout();
     }
     
+    /**
+     * Methode appellee par la vue pour nous notifier d'un clic sur le bouton 'Supprimer'.
+     * Nous passons alors en mode Suppression.
+     */
     public void notifierClicSupprimer()
     {
     	passerEnModeSuppression();
     }
     
+    
+    
     /**
-     * Calcul de la tournee et affichage sur le Plan interactif.
+     * Calcul de la tournee (dans le Modèle) et affichage sur le Plan interactif (dans la Vue).
      */
     public void calculTournee()
     {    	
@@ -81,7 +101,7 @@ public final class Controleur
     	try 
     	{
 			appG.genererTournee();
-	    	// VueTournee.afficher
+	    	/// VueTournee.afficher
 	    	passerEnModeNormal();
 		} 
     	catch (ExceptionTranchesHorairesNonOrdonees e) 
@@ -96,41 +116,51 @@ public final class Controleur
     
     /**
      * Ajouter un Point de Livraison a la Tournee.
+     * 1. Deleguer l'ajout a do_() dans le pattern Command.
+     * 2. Mise a jour de la pile d'annulation.
      * @param noeud
      * @param trancheHoraire
      */
     public void ajoutPointLivraison(Noeud noeud, TrancheHoraire trancheHoraire)
     {
-    	passerEnModeAjout();
-    	
-    	CmdAjouterPtLivraison commandeAjout = new CmdAjouterPtLivraison(noeud, trancheHoraire);
-    	commandeAjout.do_();
-    	
-    	//MAJ des redos/undos
-    	redos.clear(); // popAll()
-    	undos.push(commandeAjout);
-    	// sur la vue : griser 'retablir' && degriser 'annuler'
+    	if(mode != Constante.MODE_AJOUT)
+    	{
+    		/// Exception
+    	}
+    	else
+    	{
+	    	CmdAjouterPtLivraison commandeAjout = new CmdAjouterPtLivraison(noeud, trancheHoraire);
+	    	commandeAjout.do_();
+	    	
+	    	/* MAJ de la pile d'annulation */
+	    	redos.clear(); // popAll()
+	    	undos.push(commandeAjout);
+	    	// comportement attendu sur la vue : 'retablir' est grise && 'annuler' est degrise
+    	}
     }
     
     /**
      * Supprimer un Point de Livraison de la Tournee.
-     * @param pointLivraison
+     * 1. Deleguer la suppression a do_() dans le pattern Command.
+     * 2. Mise a jour de la pile d'annulation.     
+     * * @param pointLivraison
      */
     public void supprimerPointLivraison(PointLivraison pointLivraison)
-    {
-    	passerEnModeSuppression();
-    	
+    {   	
     	CmdSupprimerPtLivraison commandeSuppr = new CmdSupprimerPtLivraison(pointLivraison);
     	commandeSuppr.do_();
     	
-    	//MAJ des redos/undos
+    	/* MAJ de la pile d'annulation */
     	redos.clear(); // popAll()
     	undos.push(commandeSuppr);
-    	// sur la vue : griser 'retablir' && degriser 'annuler'
+    	// comportement attendu sur la vue : 'retablir' est grise && 'annuler' est degrise
     }
 
     /**
      * Annuler la derniere Commande effectuee dans l'interface interactive du superviseur.
+	 * 1. Deleguer l'annulation a undo() dans le pattern Command.
+     * 2. Mise a jour de la pile de retablissement.
+     * 3. Mise a jour du mode 	
      */
     public void annuler()
     {    	
@@ -146,7 +176,10 @@ public final class Controleur
     
     /**
      * Retablir la derniere Commande annulee dans l'interface interactive du superviseur.
-     */    
+	 * 1. Deleguer le retablissement a redo() dans le pattern Command.
+     * 2. Mise a jour de la pile d'annulation.
+     * 3. Mise a jour du mode 	   
+     */
     public void retablir()
     {
     	if(!redos.isEmpty())
@@ -157,7 +190,7 @@ public final class Controleur
 
     		majModeApresRetablissement();    		
     	} 
-    	// else il n'y a rien a retablir et le mode reste le meme.
+    	// else il n'y a rien a retablir, le mode reste le meme et l'on a pas besoin de supprimer tous les chemins
     }
 
     /**
@@ -174,7 +207,7 @@ public final class Controleur
     	}
     	catch(Exception e)
     	{
-    		// construire VueException v(f.getMessage());
+    		/// construire VueException v(f.getMessage());
     	}
     }
     
@@ -187,14 +220,16 @@ public final class Controleur
     	try
     	{
         	CreationDemandeLivraison.depuisXML(fichierXML);
-        	// appeller la vue
+        	/// appeller la vue
         	passerEnModeNormal();
     	}
     	catch(Exception e)
     	{
-    		// construire VueException v(f.getMessage());
+    		/// construire VueException v(f.getMessage());
     	}
     }
+    
+    
     
     private void passerEnModeNormal()
     {
@@ -202,13 +237,15 @@ public final class Controleur
     }
     
     private void passerEnModeAjout()
-    {
+    {    	
     	mode = Constante.MODE_AJOUT;
+    	Tournee.getInstance().supprimerTousLesChemins(); // Suppression des chemins de la tournee, ils serons recalcules    	
     }
     
     private void passerEnModeSuppression()
     {
     	mode = Constante.MODE_SUPPRESSION;
+    	Tournee.getInstance().supprimerTousLesChemins(); // Suppression des chemins de la tournee, ils serons recalcules    	
     }
     
     /**
@@ -217,17 +254,22 @@ public final class Controleur
     private void majModeApresAnnulation()
     {
     	if(!undos.isEmpty())
+    	{
     		mode = undos.get(undos.size()-1).getMode();
+            Tournee.getInstance().supprimerTousLesChemins(); // Suppression des chemins de la tournee, ils serons recalcules 
+    	}
     	else // cas particulier ou l'on est revenu a l'etat inital ou aucune commande n'a encore ete faite.
     		passerEnModeNormal();
     }
     
     /**
+     * Precondition : un retablissement a ete la derniere action effectuee => !undos.isEmpty().
      * MAJ du mode : celui de la commande retablie
      */
     private void majModeApresRetablissement()
     {
     	mode = undos.get(undos.size()-1).getMode();
+        Tournee.getInstance().supprimerTousLesChemins(); // Suppression des chemins de la tournee, ils serons recalcules 
     }
     
     /**
