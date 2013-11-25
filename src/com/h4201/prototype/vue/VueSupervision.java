@@ -53,7 +53,8 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 	private JButton boutonModeNormal;
 	private TableRecap tableRecap;
 	private JTable tableau;
-	private JLabel text;
+	private JLabel textTH;
+	private JLabel textPL;
 	private JScrollPane paneT;
 
 	
@@ -93,11 +94,17 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 		
 		fenetre.getContentPane().setLayout(null);
 		
-		text = new JLabel();
-		text.setLayout(null);
-		text.setBounds(600, 550, 100, 100);
-		text.setVisible(false);
-		fenetre.getContentPane().add(text);
+		textTH = new JLabel();
+		textTH.setLayout(null);
+		textTH.setBounds(50, 550, 800, 300);
+		textTH.setVisible(false);
+		fenetre.getContentPane().add(textTH);
+		
+		textPL = new JLabel();
+		textPL.setLayout(null);
+		textPL.setBounds(50, 570, 900, 300);
+		textPL.setVisible(false);
+		fenetre.getContentPane().add(textPL);
 		
 		boutonChargerPlan = new JButton("Charger plan");
 		boutonChargerPlan.setLayout(null);
@@ -181,7 +188,8 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 		boolean videAnnuler;
 		if (evt.getActionCommand().equals("Charger plan")){
 			int returnVal = jFileChooserXML.showOpenDialog(null);
-			text.setVisible(false);
+			textTH.setVisible(false);
+			textPL.setVisible(false);
 			if (returnVal == JFileChooser.APPROVE_OPTION) {
 				// debug
 				//System.out.println("nom de fichier " + jFileChooserXML.getSelectedFile().getAbsolutePath());
@@ -198,7 +206,8 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 		}
 		else if (evt.getActionCommand().equals("Charger demandes")){
 			int returnVal = jFileChooserXML.showOpenDialog(null);
-			text.setVisible(false);
+			textTH.setVisible(false);
+			textPL.setVisible(false);
 			if (returnVal == JFileChooser.APPROVE_OPTION) {
 				// debug
 				System.out.println("nom de fichier " + jFileChooserXML.getSelectedFile().getAbsolutePath());
@@ -271,7 +280,8 @@ public class VueSupervision extends MouseAdapter implements ActionListener
  			boutonAjouter.setEnabled(true);
  			boutonSupprimer.setEnabled(true);
  			boutonModeNormal.setEnabled(false);
- 			text.setVisible(false);
+ 			textPL.setVisible(false);
+ 			textTH.setVisible(false);
  			VuePanel.getInstance().repaint();
  		}
 		else if (evt.getActionCommand().equals("Retablir")){
@@ -285,7 +295,8 @@ public class VueSupervision extends MouseAdapter implements ActionListener
  			boutonAjouter.setEnabled(true);
  			boutonSupprimer.setEnabled(true);
  			boutonModeNormal.setEnabled(false);
- 			text.setVisible(false);
+ 			textPL.setVisible(false);
+ 			textTH.setVisible(false);
  			VuePanel.getInstance().repaint();
 		}	
 		else if (evt.getActionCommand().equals("Calculer la tournee")){
@@ -295,14 +306,16 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 			boutonCalcT.setEnabled(false);
 			boutonAjouter.setEnabled(true);
 			boutonSupprimer.setEnabled(true);
-			text.setVisible(false);
+			textPL.setVisible(false);
+			textTH.setVisible(false);
 		}
 		else if (evt.getActionCommand().equals("Mode ajouter")){
 			Controleur.getInstance().notifierClicAjouter();
 			boutonModeNormal.setEnabled(true);
 			boutonAjouter.setEnabled(false);
 			boutonSupprimer.setEnabled(true);
-			text.setVisible(false);
+			textPL.setVisible(false);
+			textTH.setVisible(false);
 			VuePanel.getInstance().repaint();
 		}
 		else if (evt.getActionCommand().equals("Mode supprimer")){
@@ -310,7 +323,8 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 			boutonModeNormal.setEnabled(true);
 			boutonAjouter.setEnabled(true);
 			boutonSupprimer.setEnabled(false);
-			text.setVisible(false);
+			textPL.setVisible(false);
+			textTH.setVisible(false);
 			VuePanel.getInstance().repaint();
 		}
 		else if (evt.getActionCommand().equals("Mode normal")){
@@ -362,7 +376,7 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 					if(noeudEstLiv!=null){
 						//ouvre pop up avec tranches horaires
 						//repaindre le plan      ------> cas de plusieurs livraisons?
-						Controleur.getInstance().supprimerPointLivraison(noeudEstLiv);
+						//Controleur.getInstance().supprimerPointLivraison(noeudEstLiv);
 						boutonCalcT.setEnabled(true);
 						boutonFeuilleDeRoute.setEnabled(false);
 						boutonAnnuler.setEnabled(true);
@@ -374,8 +388,10 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 					noeudEstLiv = VuePanel.getInstance().getLePointLivraison(posX, posY);
 					if(noeudEstLiv!=null){
 						System.out.println("clic pour voir");
-						text.setText(noeudEstLiv.getTrancheHoraire().toString()+ "\n" + noeudEstLiv.getClient());
-						text.setVisible(true);
+						textTH.setText(noeudEstLiv.getTrancheHoraire().toString());
+						textTH.setVisible(true);
+						textPL.setText(noeudEstLiv.toString());
+						textPL.setVisible(true);
 					}
 				}
 			}
