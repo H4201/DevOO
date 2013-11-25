@@ -18,6 +18,7 @@ import java.util.Iterator;
 
 
 
+
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -31,6 +32,7 @@ import com.h4201.prototype.controleur.Controleur;
 import com.h4201.prototype.modele.Noeud;
 import com.h4201.prototype.modele.PointLivraison;
 import com.h4201.prototype.modele.Tournee;
+import com.h4201.prototype.modele.TrancheHoraire;
 import com.h4201.prototype.utilitaire.Constante;
 import com.sun.file.ExampleFileFilter;
 
@@ -327,6 +329,7 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 		double posX;
 		double posY;
 		Noeud noeudClique;
+		TrancheHoraire trancheHoraire;
 		PointLivraison noeudEstLiv;
 		//si le clic a eu lieu dans le plan (POSVUEX<=x<=POSVUEX+LARGEUR et POSVUEY<=y<=POSVUEY+HAUTEUR)
 		if(Constante.POSVUEX<=evt.getX() && evt.getX()<=Constante.POSVUEX+Constante.LARGEUR && Constante.POSVUEY+23<=evt.getY() && evt.getY()<=Constante.POSVUEY+Constante.HAUTEUR+23){
@@ -347,7 +350,7 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 					VueTrancheHoraire.getInstance();
 					//ouvre pop up avec tranches horaires
 					//apres validation -> ajouter le point de livraison, repeindre le plan
-					Controleur.getInstance().ajoutPointLivraison(noeudClique, trancheHoraire);
+					//Controleur.getInstance().ajoutPointLivraison(noeudClique, trancheHoraire);
 					boutonCalcT.setEnabled(true);
 					boutonFeuilleDeRoute.setEnabled(false);
 					boutonAnnuler.setEnabled(true);
