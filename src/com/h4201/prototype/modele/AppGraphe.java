@@ -1,6 +1,7 @@
 package com.h4201.prototype.modele;
 
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Vector;
 
 import com.h4201.prototype.utilitaire.Pair;
@@ -162,11 +163,12 @@ public class AppGraphe implements Graph {
 			//	pointsLivraisonOptimum.add(retournerPointLivraisonDepuisPositionMatchMatch(match, next[i]));
 			//}
 			PointLivraison entrepot = tournee.getEntrepot();
-			PointLivraison pointLivraisonActuel = tournee.getEntrepot();
-			pointsLivraisonOptimum.add(pointLivraisonActuel);
+			PointLivraison pointLivraisonActuel = entrepot;
+			pointsLivraisonOptimum.add(entrepot);
 			do{
 				int positionMatch = retournerPairDepuisMatch(match, pointLivraisonActuel).getSecond();
 				pointLivraisonActuel = retournerPointLivraisonDepuisPositionMatchMatch(match, next[positionMatch]);
+				
 				pointsLivraisonOptimum.add(pointLivraisonActuel);
 			}while(entrepot.getIdPointLivraison() != pointLivraisonActuel.getIdPointLivraison());
 			
@@ -176,6 +178,7 @@ public class AppGraphe implements Graph {
 				System.out.println("chemins : " + chemins.get(j).getPointLivraisonOrigine().getIdPointLivraison() + "->" + chemins.get(j).getPointLivraisonDestination().getIdPointLivraison());
 			}
 			
+			Calendar heure = (Calendar) tournee.getTranchesHoraire().firstElement().getHeureDebut().clone();
 			// Ajouter les chemins optimaux à la tournée
 			for (int i=0; i<pointsLivraisonOptimum.size(); i++){
 				for (int j=0; j<chemins.size(); j++)
@@ -186,6 +189,18 @@ public class AppGraphe implements Graph {
 						 && chemins.get(j).getPointLivraisonDestination() == pointsLivraisonOptimum.get(iPlus1) ){
 						tournee.ajouterChemin(chemins.get(j));
 						System.out.println("Trajet Final : " + chemins.get(j).getPointLivraisonOrigine().getIdPointLivraison() + "->" + chemins.get(j).getPointLivraisonDestination().getIdPointLivraison());
+					
+						//Indiquer si la tranche horaire est respectée pour ce pointLivraison
+						heure.add(Calendar.SECOND, (int) chemins.get(j).getTemps());
+						if (chemins.get(j).getPointLivraisonDestination() != entrepot &&
+							(heure.after(chemins.get(j).getPointLivraisonDestination().getTrancheHoraire().getHeureFin())) ) {
+							chemins.get(j).getPointLivraisonDestination().neRespectePlusTrancheHoraireDemandee();
+						}
+						// Cas d'attente
+						if (chemins.get(j).getPointLivraisonDestination() != entrepot &&
+								heure.before(chemins.get(j).getPointLivraisonDestination().getTrancheHoraire().getHeureDebut())){
+							heure = (Calendar) chemins.get(j).getPointLivraisonDestination().getTrancheHoraire().getHeureDebut().clone();
+						}
 					}
 				}
 			}
