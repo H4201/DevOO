@@ -110,7 +110,7 @@ public abstract class CreationDemandeLivraison
 				    		pointLivraison = new PointLivraison(
 					    		livraison.getAttribute("client"),
 					    		noeudDuPtLivraison,
-								trancheHoraire
+					    		trancheHoraire
 				    		);
 				    		
 				    		trancheHoraire.ajouterPointLivraison(pointLivraison);

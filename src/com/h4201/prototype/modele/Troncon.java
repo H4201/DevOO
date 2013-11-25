@@ -52,10 +52,18 @@ public class Troncon
     	return nomRue;
     }
     
+    /**
+     * 
+     * @return Longueur en metres
+     */
 	public double getLongueur() {
 		return longueur;
 	}
 	
+	/**
+	 * 
+	 * @return vitesse en m/s
+	 */
 	public double getVitesse() {
 		return vitesse;
 	}

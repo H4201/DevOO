@@ -3,7 +3,6 @@ package com.h4201.prototype.test;
 import java.io.File;
 import java.util.Vector;
 
-import com.h4201.prototype.controleur.Controleur;
 import com.h4201.prototype.modele.AppGraphe;
 import com.h4201.prototype.modele.Chemin;
 import com.h4201.prototype.modele.CreationDemandeLivraison;

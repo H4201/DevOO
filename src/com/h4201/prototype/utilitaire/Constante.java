@@ -21,6 +21,13 @@ public abstract class Constante
 	
 	
 	/*
+	 * Types d'objet
+	 */
+	public static final int TYPE_ENTREPOT = 0;
+	public static final int TYPE_POINT_LIVRAISON = 1;
+	
+	
+	/*
 	 * Conversions
 	 */
 	public static final double CONVERSION_METRES_EN_PIXELS = 0.1;
