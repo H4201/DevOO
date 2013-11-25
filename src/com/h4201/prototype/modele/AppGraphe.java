@@ -219,7 +219,7 @@ public class AppGraphe implements Graph {
 	 * @param pointLivraisonArivee
 	 * @return La liste des Troneons constituant le plus court chemin entre les 2 points.
 	 */
-	private Vector<Troncon> calculerPlusCourtChemin(PointLivraison pointLivraisonDepart, PointLivraison pointLivraisonArivee){
+	public Vector<Troncon> calculerPlusCourtChemin(PointLivraison pointLivraisonDepart, PointLivraison pointLivraisonArivee){
 		 
 		Vector<Troncon> tronconsSortants = new Vector<Troncon>();
 		Vector<Pair<Noeud, Integer>> noeudsAccessibles = new Vector<Pair<Noeud, Integer>>();
