@@ -240,6 +240,12 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 				System.out.println("posY : " + tableau.getBounds().getY());
 				System.out.println("nb colonnes : " + tableau.getColumnCount());*/
 				
+				
+				
+				
+				
+				
+				
 				fenetre.repaint();
 				
 				
@@ -250,7 +256,7 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 			}
 		}
 		else if (evt.getActionCommand().equals("Generer la feuille de route")){
-			//fonction xinlu pour enregistrer dans un fichier
+			FeuilleDeRouteEnText.getInstance().realisation(Tournee.getInstance());
 		}
  		else if (evt.getActionCommand().equals("Annuler")){
  			boutonRetablir.setEnabled(true);
@@ -338,8 +344,10 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 			if(noeudClique != null){
 				System.out.println("clic sur noeud : " + noeudClique.getIdNoeud());
 				if(Controleur.getInstance().getMode()==1){ //AJOUT
+					VueTrancheHoraire.getInstance();
 					//ouvre pop up avec tranches horaires
 					//apres validation -> ajouter le point de livraison, repeindre le plan
+					Controleur.getInstance().ajoutPointLivraison(noeudClique, trancheHoraire);
 					boutonCalcT.setEnabled(true);
 					boutonFeuilleDeRoute.setEnabled(false);
 					boutonAnnuler.setEnabled(true);
@@ -351,6 +359,7 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 					if(noeudEstLiv!=null){
 						//ouvre pop up avec tranches horaires
 						//repaindre le plan      ------> cas de plusieurs livraisons?
+						Controleur.getInstance().supprimerPointLivraison(noeudEstLiv);
 						boutonCalcT.setEnabled(true);
 						boutonFeuilleDeRoute.setEnabled(false);
 						boutonAnnuler.setEnabled(true);
@@ -374,7 +383,6 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 	}
 	
 	public void fenetreErreur(String messageErreur){
-		//JOptionPane popupErreur = new JOptionPane();
 		JOptionPane.showMessageDialog(fenetre, messageErreur, "Erreur", JOptionPane.ERROR_MESSAGE);
 	}
 }

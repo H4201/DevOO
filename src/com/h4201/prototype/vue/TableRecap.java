@@ -9,7 +9,7 @@ import java.util.Vector;
 import com.h4201.prototype.modele.PointLivraison;
 import com.h4201.prototype.modele.TrancheHoraire;
 
-public class TableRecap /*extends AbstractTableModel */{
+public class TableRecap {
 	
 	Vector <String> lesLivraisons;
 
