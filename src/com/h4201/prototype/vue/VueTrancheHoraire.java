@@ -9,12 +9,14 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JComboBox;
 
 import com.h4201.prototype.controleur.Controleur;
+import com.h4201.prototype.modele.Noeud;
 import com.h4201.prototype.modele.Tournee;
 import com.h4201.prototype.modele.TrancheHoraire;
 
@@ -24,9 +26,10 @@ public class VueTrancheHoraire extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JComboBox<TrancheHoraire> comboBox;
+ private JButton bouton = new JButton("OK");
 
 	private static volatile VueTrancheHoraire instance = null;
-
+	private static Noeud noeud;
 	/**
 	 * Create the frame.
 	 */
@@ -38,15 +41,16 @@ public class VueTrancheHoraire extends JFrame {
 			{
 				if (VueTrancheHoraire.instance == null)
 				{
-					VueTrancheHoraire.instance = new VueTrancheHoraire();
+					
+					VueTrancheHoraire.instance = new VueTrancheHoraire( noeud);
 				}
 			}
 		}
 
 		return VueTrancheHoraire.instance;
 	}
-	public TrancheHoraire VueTrancheHoraire() {
-		TrancheHoraire trancheHoraire; 
+	public VueTrancheHoraire(Noeud noeudclique) { 
+		noeudclique=noeud;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -54,7 +58,7 @@ public class VueTrancheHoraire extends JFrame {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		contentPane.add(comboBox, BorderLayout.CENTER);
-		
+		 bouton.addActionListener(new BoutonListener()); 
 		
 		Tournee tournee = Tournee.getInstance();
 		
@@ -62,14 +66,13 @@ public class VueTrancheHoraire extends JFrame {
 		for(int i=0; i<tournee.getTranchesHoraire().size();i++){
 			// a l'ajout d'un point de livraison, on elimine la tranche horaire qui existe deja.
 			if (Controleur.getInstance().getMode()==1){	
-			if(tournee.getChemins().get(i).getPointLivraisonOrigine().getTrancheHoraire()!=tournee.getTranchesHoraire().get(i)){
-				comboBox.addItem(tournee.getTranchesHoraire().get(i));	
-			}}
-			// pour supprimer un point de livraison, on affiche que les tranches horaires des point de livraison sur le noeud clique
-			else if(Controleur.getInstance().getMode()==2){
-				for(int i1=0;i1<tournee.getTranchesHoraire().size();i1++){
-				comboBox.addItem(tournee.getChemins().get(i1).getPointLivraisonOrigine().getTrancheHoraire());}
+							comboBox.addItem(tournee.getTranchesHoraire().get(i));	
 			}
+			// pour supprimer un point de livraison, on affiche que les tranches horaires des point de livraison sur le noeud clique
+			/*else if(Controleur.getInstance().getMode()==2){
+				for(int i1=0;i1<noeud..size();i1++){
+				comboBox.addItem(tournee.getChemins().get(i1).getPointLivraisonOrigine().getTrancheHoraire());}
+			}*/
 				
 		}
 		
@@ -84,8 +87,16 @@ public class VueTrancheHoraire extends JFrame {
 		  }
 	 class ItemAction implements ActionListener{
 		    public void actionPerformed(ActionEvent e) {
-		 comboBox.getSelectedItem();
+		 comboBox.getSelectedItem().toString();
 		    }               
 		  }
+	 //Classe écoutant notre bouton
+	   public class BoutonListener implements ActionListener{
+	      public void actionPerformed(ActionEvent arg0) {
+	      Controleur.getInstance().ajoutPointLivraison(noeud, comboBox.getItemAt(comboBox.getSelectedIndex()));
+	       bouton.setEnabled(true);
+	    
+	     }
+	   }
 	
 }
