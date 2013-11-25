@@ -41,13 +41,26 @@ public class VuePointLivraison
 	
 	public void dessinerPointLivraison(Graphics g, int facteurConversionLarg, int facteurConversionHaut, Color couleur)
 	{
-		Color cTemp = g.getColor();
-		int x = (int) pointLivraison.getNoeud().getX() * facteurConversionLarg / Constante.LARGEURSUPERV;
-		int y = (int) pointLivraison.getNoeud().getY() * facteurConversionHaut / Constante.HAUTEURSUPERV;
-		int rayon = (int) (Constante.RAYONNOEUD * facteurConversionLarg / Constante.LARGEURSUPERV);	
-		g.setColor(couleur);
-		g.fillOval((int)( x - rayon) ,(int) (y - rayon) , 2 * rayon , 2 * rayon);
-	    g.setColor(cTemp);
+		if(pointLivraison.getRespecteTrancheHoraireDemandee() == true)
+		{
+			Color cTemp = g.getColor();
+			int x = (int) pointLivraison.getNoeud().getX() * facteurConversionLarg / Constante.LARGEURSUPERV;
+			int y = (int) pointLivraison.getNoeud().getY() * facteurConversionHaut / Constante.HAUTEURSUPERV;
+			int rayon = (int) (Constante.RAYONNOEUD * facteurConversionLarg / Constante.LARGEURSUPERV);	
+			g.setColor(couleur);
+			g.fillOval((int)( x - rayon) ,(int) (y - rayon) , 2 * rayon , 2 * rayon);
+		    g.setColor(cTemp);
+		}
+		else
+		{
+			Color cTemp = g.getColor();
+			int x = (int) pointLivraison.getNoeud().getX() * facteurConversionLarg / Constante.LARGEURSUPERV;
+			int y = (int) pointLivraison.getNoeud().getY() * facteurConversionHaut / Constante.HAUTEURSUPERV;
+			int rayon = (int) (Constante.RAYONNOEUD * facteurConversionLarg / Constante.LARGEURSUPERV);	
+			g.setColor(Constante.COULEURPOINTLIVNONRESPECTE);
+			g.fillOval((int)( x - rayon) ,(int) (y - rayon) , 2 * rayon , 2 * rayon);
+		    g.setColor(cTemp);
+		}
 
 	}
 

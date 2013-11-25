@@ -41,7 +41,7 @@ public abstract class Constante
 	public static final Color COULEURENTREPOT = Color.CYAN;
 	public static final Color ARRIEREPLAN = Color.WHITE;
 	public static final int RAYONCLIC = 10;
-	
+	public static final Color COULEURPOINTLIVNONRESPECTE = new Color(136, 6, 206); // violet
 	/*
 	 * tableau couleurs des tranches horaires
 	 */
