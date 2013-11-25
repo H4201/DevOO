@@ -1,5 +1,7 @@
 package com.h4201.prototype.modele;
 
+import java.util.Calendar;
+
 import com.h4201.prototype.utilitaire.Constante;
 
 /**
@@ -17,7 +19,7 @@ public class PointLivraison
   private Noeud noeud;
   private TrancheHoraire trancheHoraire;
   private boolean respecteTrancheHoraireDemandee;
-  private int type = Constante.TYPE_POINT_LIVRAISON;
+  private Calendar heureArriveeEstimee;
 
   /**
    * Constructeur du point de livraison.
@@ -33,11 +35,16 @@ public class PointLivraison
 	  this.trancheHoraire = trancheHoraire;
 	  this.respecteTrancheHoraireDemandee = true;
   }
-
-  	public int getType()
-	{
-		return type;
-	}
+  
+  protected void setHeureArriveeEstimee(Calendar heureArriveeEstimee)
+  {
+	  this.heureArriveeEstimee = heureArriveeEstimee;
+  }
+  
+  public Calendar getHeureArriveeEstimee()
+  {
+	  return heureArriveeEstimee;
+  }
 
   	protected void ajouterCheminEntrant(Chemin chemin)
   	{
@@ -49,7 +56,16 @@ public class PointLivraison
   		cheminSortant = chemin;
   	}
   
-  	public boolean getRecpecteTrancheHoraireDemandee()
+  	/**
+  	 * Permet d'indiquer que la livraison ne respecte 
+  	 * pas la tranche horaire demandee par le client.
+  	 */
+    public void neRespectePlusTrancheHoraireDemandee()
+    {
+    	respecteTrancheHoraireDemandee = false;
+    }
+  
+  	public boolean getRespecteTrancheHoraireDemandee()
   	{
   		return respecteTrancheHoraireDemandee;
   	}

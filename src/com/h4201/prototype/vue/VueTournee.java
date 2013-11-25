@@ -114,9 +114,11 @@ public class VueTournee
 		for(Chemin chemin : Tournee.getInstance().getChemins())
 		{
 			TrancheHoraire th = chemin.getPointLivraisonDestination().getTrancheHoraire();
+
 			if(th == null)
 				th = chemin.getPointLivraisonOrigine().getTrancheHoraire();
-			lesVueChemins.add(new VueChemin(chemin,couleursTranchesHoraires.get(th)));
+			
+			lesVueChemins.add(new VueChemin(chemin, couleursTranchesHoraires.get(th)));
 		}
 		
 		if(lesVueChemins.size()!=0)

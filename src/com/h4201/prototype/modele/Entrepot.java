@@ -1,5 +1,7 @@
 package com.h4201.prototype.modele;
 
+import java.util.Calendar;
+
 import com.h4201.prototype.utilitaire.Constante;
 
 /**
@@ -11,17 +13,19 @@ import com.h4201.prototype.utilitaire.Constante;
  */
 public class Entrepot extends PointLivraison
 {
-	private int type = Constante.TYPE_POINT_LIVRAISON;
+	private Calendar heureDepartEstimee;
 	
 	public Entrepot(Noeud noeud)
 	{
 		super(null, noeud, null);
 	}
 	
-	@Override
-	public int getType()
-	{
-		return type;
+	public Calendar getHeureDepartEstimee() {
+		return heureDepartEstimee;
+	}
+
+	public void setHeureDepartEstimee(Calendar heureDepartEstimee) {
+		this.heureDepartEstimee = heureDepartEstimee;
 	}
 
 	@Override

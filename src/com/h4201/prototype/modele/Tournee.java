@@ -59,6 +59,11 @@ public class Tournee
 	  protected void ajouterChemin(Chemin chemin)
 	  {
 		  this.chemins.addElement(chemin);
+		  
+		  for(Troncon troncon : chemin.getTroncons())
+		  {
+			  troncon.unCheminSupplementairePasseParCeTroncon();
+		  }
 	  }
 	  
 	  public void supprimerTousLesChemins()
