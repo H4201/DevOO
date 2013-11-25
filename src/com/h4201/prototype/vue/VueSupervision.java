@@ -202,6 +202,14 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 				VuePanel.getInstance().setLayout(null);
 				VuePanel.getInstance().setBounds(Constante.POSVUEX, Constante.POSVUEY, Constante.LARGEUR, Constante.HAUTEUR);
 				boutonChargerDemande.setEnabled(true);
+				
+				//pour cas ou on est pas au premier chargement, il faut passer les boutons en grises.
+				boutonAnnuler.setEnabled(false);
+				boutonRetablir.setEnabled(false);
+				boutonCalcT.setEnabled(false);
+				boutonAjouter.setEnabled(false);
+				boutonSupprimer.setEnabled(false);
+				boutonFeuilleDeRoute.setEnabled(false);
 			}
 		}
 		else if (evt.getActionCommand().equals("Charger demandes")){
@@ -249,7 +257,8 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 				System.out.println("enabled : " + tableau.isEnabled());
 				System.out.println("posX : " + tableau.getBounds().getX());
 				System.out.println("posY : " + tableau.getBounds().getY());
-				System.out.println("nb colonnes : " + tableau.getColumnCount());*/
+				System.out.println("nb colonnes : " + tableau.getColumnCount());
+				System.out.println("nb lignes : " + tableau.getRowCount());*/
 				
 				
 				
@@ -363,8 +372,7 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 				if(Controleur.getInstance().getMode()==1){ //AJOUT
 					VueTrancheHoraire.getInstance();
 					//ouvre pop up avec tranches horaires
-					//apres validation -> ajouter le point de livraison, repeindre le plan
-					//Controleur.getInstance().ajoutPointLivraison(noeudClique, trancheHoraire);
+					//Controleur.getInstance().ajoutPointLivraison(noeudClique, trancheHoraire); -> fait par la fenetre?
 					boutonCalcT.setEnabled(true);
 					boutonFeuilleDeRoute.setEnabled(false);
 					boutonAnnuler.setEnabled(true);
@@ -374,9 +382,8 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 				else if(Controleur.getInstance().getMode()==2){//SUPPRESSION
 					noeudEstLiv = VuePanel.getInstance().getLePointLivraison(posX, posY);
 					if(noeudEstLiv!=null){
-						//ouvre pop up avec tranches horaires
-						//repaindre le plan      ------> cas de plusieurs livraisons?
-						//Controleur.getInstance().supprimerPointLivraison(noeudEstLiv);
+						//ouvre pop up avec les points de livraison
+						//Controleur.getInstance().supprimerPointLivraison(noeudEstLiv); -> fait par la fenetre?
 						boutonCalcT.setEnabled(true);
 						boutonFeuilleDeRoute.setEnabled(false);
 						boutonAnnuler.setEnabled(true);
@@ -387,7 +394,6 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 				else if(Controleur.getInstance().getMode()==0){
 					noeudEstLiv = VuePanel.getInstance().getLePointLivraison(posX, posY);
 					if(noeudEstLiv!=null){
-						System.out.println("clic pour voir");
 						textTH.setText(noeudEstLiv.getTrancheHoraire().toString());
 						textTH.setVisible(true);
 						textPL.setText(noeudEstLiv.toString());
