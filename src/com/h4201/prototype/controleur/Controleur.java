@@ -179,11 +179,9 @@ public final class Controleur
      */
     public boolean calculTournee()
     {    	
-    	AppGraphe appG = AppGraphe.getInstance();
-    	
     	try 
     	{
-			appG.genererTournee();
+    		CreationTournee.genererTournee();
 	    	/// VueTournee.afficher
 	    	passerEnModeNormal();
 		}
