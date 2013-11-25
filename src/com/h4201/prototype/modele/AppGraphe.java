@@ -49,18 +49,16 @@ public class AppGraphe implements Graph {
 	 * @throws ExceptionNonInstancie Si le plan n'est pas correctement instancie
 	 */
 	public void genererTournee()
-<<<<<<< HEAD
-		  throws ExceptionNonInstancie, ExceptionTranchesHorairesNonOrdonees{
-=======
-		  throws ExceptionTrancheHoraire, ExceptionNonInstancie{
->>>>>>> 86cc240f67082049250f634de78755fc34f0d2d9
+		  throws ExceptionNonInstancie{
+		nbVertices = 0;
+		maxArcCost = 0;
+		minArcCost = Integer.MAX_VALUE;
 		Tournee tournee = Tournee.getInstance();
 		Vector<Chemin> chemins = new Vector<Chemin>();
 		Vector<TrancheHoraire> tranchesHoraire = tournee.getTranchesHoraire();
 		
 		// Parcourir les tranches horaires de maniere ordonnee
 		for (int i=0; i<tranchesHoraire.size(); i++){
-<<<<<<< HEAD
 			// Parcourir les points de livraison de cette tranche
 			Vector<PointLivraison> pointsLivraison = tranchesHoraire.get(i).getPointsLivraisons();
 			for (int j=0; j<pointsLivraison.size(); j++){
@@ -80,7 +78,6 @@ public class AppGraphe implements Graph {
 					}
 				}
 
-				
 				// Pour la premiï¿½re tranche, crï¿½er un chemin depuis l'entrepï¿½t 
 				if (i==0) {
 					chemins.add(creerChemin(tournee.getEntrepot(), pointsLivraison.get(j)));
@@ -90,45 +87,6 @@ public class AppGraphe implements Graph {
 				if (i==tranchesHoraire.size()-1) {
 					chemins.add(creerChemin(pointsLivraison.get(j), tournee.getEntrepot()));
 				}
-=======
-			
-			// Verifier que les tranches horaires du jour sont bien ordonees
-			if (i>0 && (tranchesHoraire.get(i-1).getHeureFin().before(tranchesHoraire.get(i).getHeureDebut()) || tranchesHoraire.get(i-1).getHeureFin().equals(tranchesHoraire.get(i).getHeureDebut()))
-				|| i<tranchesHoraire.size() && (tranchesHoraire.get(i+1).getHeureDebut().after(tranchesHoraire.get(i).getHeureFin()) || tranchesHoraire.get(i+1).getHeureDebut().equals(tranchesHoraire.get(i).getHeureFin())) ){
-				
-				// Parcourir les points de livraison de cette tranche
-				Vector<PointLivraison> pointsLivraison = tranchesHoraire.get(i).getPointsLivraisons();
-				for (int j=0; j<pointsLivraison.size(); j++){
-					
-					// Creer un chemin vers tous les autres points de livraison de la meme tranche
-					for (int k=0; k<pointsLivraison.size(); k++){
-						if (pointsLivraison.get(j) != pointsLivraison.get(k)) {
-							chemins.add(creerChemin(pointsLivraison.get(j), pointsLivraison.get(k)));
-						}
-					}
-					
-					// Creer un chemin vers tous les points de livraison de la tranche suivante (sauf derniere)
-					if (i < tranchesHoraire.size()-1){
-						Vector<PointLivraison> pointsLivraisonTrancheSuivante = tranchesHoraire.get(i+1).getPointsLivraisons();
-						for (int k=0; k<pointsLivraisonTrancheSuivante.size(); k++){
-							chemins.add(creerChemin(pointsLivraison.get(j), pointsLivraisonTrancheSuivante.get(k)));
-						}
-					}
-	
-					
-					// Pour la premiere tranche, creer un chemin depuis l'entrepet 
-					if (i==0) {
-						chemins.add(creerChemin(tournee.getEntrepot(), pointsLivraison.get(j)));
-					}
-					
-					// Pour la derniere tranche, creer un chemin vers l'entrepet 
-					if (i==tranchesHoraire.size()-1) {
-						chemins.add(creerChemin(pointsLivraison.get(j), tournee.getEntrepot()));
-					}
-				}
-			} else {
-				throw new ExceptionTrancheHoraire();
->>>>>>> 86cc240f67082049250f634de78755fc34f0d2d9
 			}
 		}
 		
@@ -165,15 +123,15 @@ public class AppGraphe implements Graph {
 		}
 		
 		//DEBUG : AFFICHER COUT
-		for(int i=0; i<nbVertices; i++){
-			System.out.println( i + " : " + cost[i][0] + " " +  cost[i][1] + " " +  cost[i][2] +
-					" " +  cost[i][3] + " " +  cost[i][4] + " " +  cost[i][5] + " " +  cost[i][6]
-							+ " " +  cost[i][7] + " " +  cost[i][8] + " " +  cost[i][9] + " " +
-					cost[i][10] + " " + cost[i][11]);
-		}
+		//for(int i=0; i<nbVertices; i++){
+		//	System.out.println( i + " : " + cost[i][0] + " " +  cost[i][1] + " " +  cost[i][2] +
+		//			" " +  cost[i][3] + " " +  cost[i][4] + " " +  cost[i][5] + " " +  cost[i][6]
+		//					+ " " +  cost[i][7] + " " +  cost[i][8] + " " +  cost[i][9] + " " +
+		//			cost[i][10] + " " + cost[i][11]);
+		//}
 		
 		
-		// Remplir le vecteur succ
+		// Remplir le vecteur PointLivraisonOrdonnes
 		PointLivraison[] PointLivraisonOrdonnes = new PointLivraison[nbVertices];
 		for(int i=0; i<nbVertices; i++){
 			PointLivraisonOrdonnes[match.get(i).getSecond()] = match.get(i).getFirst();
@@ -194,12 +152,8 @@ public class AppGraphe implements Graph {
 		System.out.println("Solution state : " + solutionState);
 		
 		if (solutionState.equals(SolutionState.OPTIMAL_SOLUTION_FOUND)){
-<<<<<<< HEAD
 			// Retrouver les chemins optimaux à partir des pointsLivraison
-=======
-			// Retrouver les chemins optimaux a partir des pointsLivraison
-			Vector<PointLivraison> pointsLivraisonOptimum = new Vector<PointLivraison>();
->>>>>>> 86cc240f67082049250f634de78755fc34f0d2d9
+
 			int[] next = tsp.getNext();
 			Vector<PointLivraison> pointsLivraisonOptimum = new Vector<PointLivraison>();
 			//for (int i=0; i<next.length; i++) {
@@ -222,24 +176,21 @@ public class AppGraphe implements Graph {
 				System.out.println("chemins : " + chemins.get(j).getPointLivraisonOrigine().getIdPointLivraison() + "->" + chemins.get(j).getPointLivraisonDestination().getIdPointLivraison());
 			}
 			
-<<<<<<< HEAD
 			// Ajouter les chemins optimaux à la tournée
-			for (int i=0; i<pointsLivraisonOptimum.size()-1; i++){
-=======
-			// Ajouter les chemins optimaux a la tournee
 			for (int i=0; i<pointsLivraisonOptimum.size(); i++){
->>>>>>> 86cc240f67082049250f634de78755fc34f0d2d9
 				for (int j=0; j<chemins.size(); j++)
 				{
-					//int iPlus1 = i+1;
-					//if (i+1 == pointsLivraisonOptimum.size()){iPlus1 = 0;}
+					int iPlus1 = i+1;
+					if (i+1 == pointsLivraisonOptimum.size()){iPlus1 = 0;}
 					if (chemins.get(j).getPointLivraisonOrigine() == pointsLivraisonOptimum.get(i)
-						 && chemins.get(j).getPointLivraisonDestination() == pointsLivraisonOptimum.get(i+1) ){
+						 && chemins.get(j).getPointLivraisonDestination() == pointsLivraisonOptimum.get(iPlus1) ){
 						tournee.ajouterChemin(chemins.get(j));
 						System.out.println("Trajet Final : " + chemins.get(j).getPointLivraisonOrigine().getIdPointLivraison() + "->" + chemins.get(j).getPointLivraisonDestination().getIdPointLivraison());
 					}
 				}
 			}
+			
+			tournee.afficher();
 		}
 
 	}

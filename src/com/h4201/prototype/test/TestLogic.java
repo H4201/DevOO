@@ -37,7 +37,7 @@ public class TestLogic
 	
 	public void testChargerPlan() throws Exception
 	{
-		File planXML = new File("test/plan20x20.xml");
+		File planXML = new File("test/plan10x10.xml");
 		Plan plan = CreationPlan.depuisXML(planXML);
 		
 		assertTrue(!plan.getNoeuds().isEmpty());
@@ -46,10 +46,10 @@ public class TestLogic
 	
 	public Tournee testChargerDemandeLivraison() throws Exception
 	{
-		File demandeLivraisonXML = new File("test/livraison20x20-2.xml");
+		File demandeLivraisonXML = new File("test/livraison10x10-2.xml");
 		Tournee tournee = CreationDemandeLivraison.depuisXML(demandeLivraisonXML);
 		
-		File demandeLivraisonXML2 = new File("test/livraison20x20-1.xml");
+		File demandeLivraisonXML2 = new File("test/livraison10x10-1.xml");
 		Tournee tournee2 = CreationDemandeLivraison.depuisXML(demandeLivraisonXML2);
 		
 		
@@ -72,15 +72,22 @@ public class TestLogic
 	}
 	
 	public void testTSP() throws Exception{
-<<<<<<< HEAD
-		File demandeLivraisonXML = new File("test/livraison20x20-2.xml");
-		Tournee tournee = CreationDemandeLivraison.depuisXML(demandeLivraisonXML);
-=======
-		File demandeLivraisonXML = new File("test/livraison20x20-1.xml");
-		CreationDemandeLivraison.depuisXML(demandeLivraisonXML);
->>>>>>> 86cc240f67082049250f634de78755fc34f0d2d9
 		AppGraphe appGraphe = AppGraphe.getInstance();
+		
+		File demandeLivraisonXML = new File("test/livraison10x10-1.xml");
+		CreationDemandeLivraison.depuisXML(demandeLivraisonXML);
 		appGraphe.genererTournee();
+		
+		File demandeLivraisonXML2 = new File("test/livraison10x10-2.xml");
+		CreationDemandeLivraison.depuisXML(demandeLivraisonXML2);
+		appGraphe.genererTournee();
+		
+		File demandeLivraisonXML3 = new File("test/livraison10x10-3.xml");
+		CreationDemandeLivraison.depuisXML(demandeLivraisonXML3);
+		appGraphe.genererTournee();
+
+		
+		
 	}
 
 }
