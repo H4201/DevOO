@@ -22,6 +22,14 @@ public class VueTournee
 	private Map<TrancheHoraire, Color> couleursTranchesHoraires;	
 	
 	
+	public Vector<VueChemin> getLesVueChemins() {
+		return lesVueChemins;
+	}
+
+	public TrancheHoraire[] getLesTrancheHoraires() {
+		return lesTrancheHoraires;
+	}
+
 	public VueEntrepot getVueEntrepot()
 	{
 		return vueEntrepot;
@@ -30,6 +38,11 @@ public class VueTournee
 	public Vector<VuePointLivraison> getLesVuePointLivraisons()
 	{
 		return lesVuePointLivraisons;
+	}
+	
+	public Map<TrancheHoraire, Color> getCouleursTranchesHoraires()
+	{
+		return couleursTranchesHoraires;
 	}
 	
 	private VueTournee()
