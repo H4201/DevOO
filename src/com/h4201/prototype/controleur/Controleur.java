@@ -137,12 +137,12 @@ public final class Controleur
     	try
     	{
 	    	CreationPlan.depuisXML(fichierXML);
-	    	VuePanel.getInstance().paintComponent(null); /// new Graphics() ???
+	    	VuePanel.getInstance().repaint();
         	passerEnModeNormal();
     	}
     	catch(Exception e)
     	{
-    		VueSupervision.getInstance().fenetreErreur((e.getMessage()));
+    		VueSupervision.getInstance().fenetreErreur(e.toString() + e.getMessage());
     		return false;
     	}
     	
@@ -160,7 +160,7 @@ public final class Controleur
     	try
     	{
         	CreationDemandeLivraison.depuisXML(fichierXML);
-        	/// appeller la vue
+	    	VuePanel.getInstance().repaint();
         	passerEnModeNormal();
     	}
     	catch(Exception e)
@@ -173,7 +173,7 @@ public final class Controleur
     }    
 
     /**
-     * Calcul de la tournee (dans le Mod�le),
+     * Calcul de la tournee (dans le Modele),
 	 * et affichage des chemins composants sur le Plan interactif (dans la Vue).
 	 * @return vrai si le calcul de la tournee a ete correctement effectue, faux si il y a eu une erreur.
      */
@@ -184,7 +184,7 @@ public final class Controleur
     	try 
     	{
 			appG.genererTournee();
-	    	/// VueTournee.afficher
+	    	VuePanel.getInstance().repaint();
 	    	passerEnModeNormal();
 		}
     	catch (Exception e) 
@@ -247,7 +247,7 @@ public final class Controleur
     }
     
     /**
-     * @return true si il est possible de r�tablir, false sinon.
+     * @return true si il est possible de retablir, false sinon.
      * Permet d'informer la vue qu'il faux griser/muter le bouton 'retablir' dans l'interface si plus de retablissement possible.
      */
     public boolean retablissementPossible()
@@ -276,13 +276,15 @@ public final class Controleur
     private void passerEnModeAjout()
     {    	
     	mode = Constante.MODE_AJOUT;
-    	Tournee.getInstance().supprimerTousLesChemins(); // Suppression des chemins de la tournee, ils serons recalcules    	
+    	Tournee.getInstance().supprimerTousLesChemins(); // Suppression des chemins de la tournee, ils serons recalcules 
+    	VuePanel.getInstance().repaint();
     }
     
     private void passerEnModeSuppression()
     {
     	mode = Constante.MODE_SUPPRESSION;
-    	Tournee.getInstance().supprimerTousLesChemins(); // Suppression des chemins de la tournee, ils serons recalcules    	
+    	Tournee.getInstance().supprimerTousLesChemins(); // Suppression des chemins de la tournee, ils serons recalcules
+    	VuePanel.getInstance().repaint();
     }
     
     /**
@@ -294,6 +296,7 @@ public final class Controleur
     	{
     		mode = undos.get(undos.size()-1).getMode();
             Tournee.getInstance().supprimerTousLesChemins(); // Suppression des chemins de la tournee, ils serons recalcules 
+	    	VuePanel.getInstance().repaint();
     	}
     	else // cas particulier ou l'on est revenu a l'etat inital ou aucune commande n'a encore ete faite.
     		passerEnModeNormal();
@@ -307,5 +310,6 @@ public final class Controleur
     {
     	mode = undos.get(undos.size()-1).getMode();
         Tournee.getInstance().supprimerTousLesChemins(); // Suppression des chemins de la tournee, ils serons recalcules 
+    	VuePanel.getInstance().repaint();
     }
 }
