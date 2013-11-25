@@ -179,9 +179,11 @@ public final class Controleur
      */
     public boolean calculTournee()
     {    	
+    	AppGraphe appG = AppGraphe.getInstance();
+    	
     	try 
     	{
-			AppGraphe.getInstance().genererTournee();
+			appG.genererTournee();
 	    	VuePanel.getInstance().repaint();
 	    	passerEnModeNormal();
 		}
