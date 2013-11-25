@@ -34,7 +34,7 @@ import com.h4201.prototype.modele.Tournee;
 import com.h4201.prototype.utilitaire.Constante;
 import com.sun.file.ExampleFileFilter;
 
-public class VueSupervision extends MouseAdapter implements ActionListener
+public class VueSupervision2 extends MouseAdapter implements ActionListener
 {
 	//la fenetre
 	private JFrame fenetre;
@@ -55,20 +55,20 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 	private JScrollPane paneT;
 
 	
-	private static volatile VueSupervision instance = null;
+	private static volatile VueSupervision2 instance = null;
 	
-	public final static VueSupervision getInstance(){
-		if(VueSupervision.instance ==  null){
-			synchronized(VueSupervision.class){
-				if(VueSupervision.instance == null){
-					VueSupervision.instance = new VueSupervision(Constante.LARGEURSUPERV, Constante.HAUTEURSUPERV);
+	public final static VueSupervision2 getInstance(){
+		if(VueSupervision2.instance ==  null){
+			synchronized(VueSupervision2.class){
+				if(VueSupervision2.instance == null){
+					VueSupervision2.instance = new VueSupervision2(Constante.LARGEURSUPERV, Constante.HAUTEURSUPERV);
 				}
 			}
 		}
-		return VueSupervision.instance;
+		return VueSupervision2.instance;
 	}
 	
-	private VueSupervision(int x, int y){
+	private VueSupervision2(int x, int y){
 		
 		//creation de la fenetre
 		fenetre = new JFrame("Supervision");
@@ -324,19 +324,30 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 		PointLivraison noeudEstLiv;
 		//si le clic a eu lieu dans le plan (POSVUEX<=x<=POSVUEX+LARGEUR et POSVUEY<=y<=POSVUEY+HAUTEUR)
 		if(Constante.POSVUEX<=evt.getX() && evt.getX()<=Constante.POSVUEX+Constante.LARGEUR && Constante.POSVUEY+23<=evt.getY() && evt.getY()<=Constante.POSVUEY+Constante.HAUTEUR+23){
-			posX=evt.getX()-Constante.POSVUEX;
-			posY=evt.getY()-Constante.POSVUEY-23;
+			posX=evt.getX() - Constante.POSVUEX;
+			posY=evt.getY() - Constante.POSVUEY-23;
+			System.out.println("test");
 			
-			posX=(int)posX*Constante.LARGEURSUPERV/Constante.LARGEUR;
-			posY=(int)posY*Constante.HAUTEURSUPERV/Constante.HAUTEUR;
-			noeudClique = VuePlan.getInstance().getLeNoeud(posX, posY);
-			System.out.println("il y a eu un clic");
-			System.out.println("evt : " + evt.getX() + ", " + evt.getY());
-			System.out.println("pos : " + posX + ", " + posY);
-
+			System.out.println("posXEnPixel: "+ posX + " posYEnPixel: "+ posY);
+			
+			
+			int posXEnMetre = (int) posX * Constante.LARGEURSUPERV / Constante.LARGEUR;
+			int posYEnMetre = (int) posY * Constante.HAUTEURSUPERV / Constante.HAUTEUR;
+			
+			System.out.println("posXEnMetre: "+ posXEnMetre + " posYEnMetre: "+ posYEnMetre);
+			
+			noeudClique = VuePanel.getInstance().getLeNoeud(posXEnMetre, posYEnMetre);
+			if(noeudClique != null)
+			{
+				System.out.println("xcliqu�: "+ noeudClique.getX()+ " ycliqu�: "+ noeudClique.getY());
+			}
+			else
+			{
+				System.out.println("le noeud est null");
+			}
 
 			if(noeudClique != null){
-				System.out.println("clic sur noeud : " + noeudClique.getIdNoeud());
+				System.out.println("clic sur noeud");
 				if(Controleur.getInstance().getMode()==1){ //AJOUT
 					//ouvre pop up avec tranches horaires
 					//apres validation -> ajouter le point de livraison, repeindre le plan
@@ -367,13 +378,10 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 					}
 				}
 			}
-			else{
-				System.out.println("null");
-			}
 		}		
 	}
 	
-	public void fenetreErreur(String messageErreur){
+	public void ErreurChargement(String messageErreur){
 		//JOptionPane popupErreur = new JOptionPane();
 		JOptionPane.showMessageDialog(fenetre, messageErreur, "Erreur", JOptionPane.ERROR_MESSAGE);
 	}

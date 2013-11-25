@@ -72,8 +72,13 @@ public class TestLogic
 	}
 	
 	public void testTSP() throws Exception{
+<<<<<<< HEAD
 		File demandeLivraisonXML = new File("test/livraison20x20-2.xml");
 		Tournee tournee = CreationDemandeLivraison.depuisXML(demandeLivraisonXML);
+=======
+		File demandeLivraisonXML = new File("test/livraison20x20-1.xml");
+		CreationDemandeLivraison.depuisXML(demandeLivraisonXML);
+>>>>>>> 86cc240f67082049250f634de78755fc34f0d2d9
 		AppGraphe appGraphe = AppGraphe.getInstance();
 		appGraphe.genererTournee();
 	}

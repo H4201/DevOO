@@ -6,7 +6,9 @@ import java.util.Vector;
 
 import org.w3c.dom.*;
 
+import com.h4201.prototype.exception.ExceptionCoordonnees;
 import com.h4201.prototype.exception.ExceptionFichier;
+import com.h4201.prototype.exception.ExceptionNoeudInconnu;
 import com.h4201.prototype.exception.ExceptionNonInstancie;
 import com.h4201.prototype.exception.ExceptionXML;
 import com.h4201.prototype.utilitaire.Fichier;
@@ -31,7 +33,8 @@ public abstract class CreationPlan
 	 * @throws ExceptionNonInstancie
 	 */
 	public static Plan depuisXML(File planXML) 
-			throws ExceptionXML, ExceptionFichier, ExceptionNonInstancie
+			throws ExceptionXML, ExceptionFichier, ExceptionNonInstancie,
+			ExceptionCoordonnees, ExceptionNoeudInconnu
 	{
 		Plan plan = null;
 	
@@ -45,15 +48,30 @@ public abstract class CreationPlan
 	    	// Parcours des noeuds
 	    	Noeud noeud;
 	    	Element elementNoeud;
+	    	int idNoeud;
+	    	double x;
+	    	double y;
 	    	NodeList listeNoeud = racine.getElementsByTagName("Noeud");
 	    	for (int i = 0; i < listeNoeud.getLength(); i++)
 	    	{
 	    		elementNoeud = (Element) listeNoeud.item(i);
-	            noeud = new Noeud(Integer.valueOf(elementNoeud.getAttribute("id")),
-            			Double.valueOf(elementNoeud.getAttribute("x")),
-            			Double.valueOf(elementNoeud.getAttribute("y")));
 	            
-	            noeuds.put(Integer.valueOf(noeud.getIdNoeud()), noeud);
+	    		idNoeud = Integer.valueOf(elementNoeud.getAttribute("id"));
+	    		x = Double.valueOf(elementNoeud.getAttribute("x"));
+	    		y = Double.valueOf(elementNoeud.getAttribute("y"));
+	    		
+	    		if(x < 0 || y < 0)
+	    		{
+	    			throw new ExceptionCoordonnees(idNoeud);
+	    		}
+	    		else
+	    		{
+		    		noeud = new Noeud(idNoeud,
+	            			x,
+	            			y);
+		            
+		            noeuds.put(Integer.valueOf(noeud.getIdNoeud()), noeud);
+	    		}
 	    	}
 	    	
 	    	// Parcours des troncons
@@ -80,17 +98,24 @@ public abstract class CreationPlan
 	    			noeudOrigine = noeuds.get(idNoeudOrigine);
 	    			noeudDestination = noeuds.get(idNoeudDestination);
 	    			
-	    			troncon = new Troncon(
-	    					noeudOrigine, 
-	    					noeudDestination, 
-	    					elementTronconSortant.getAttribute("nomRue"), 
-	    					Double.valueOf(elementTronconSortant.getAttribute("longueur").replace(",", ".")),
-	    					Double.valueOf(elementTronconSortant.getAttribute("vitesse").replace(",", ".")));
-	    			
-	    			troncons.addElement(troncon);
-	    			
-	    			noeudOrigine.ajouterTronconSortant(troncon);
-	    			noeudDestination.ajouterTronconEntrant(troncon);
+	    			if(noeudDestination == null)
+	    			{
+	    				throw new ExceptionNoeudInconnu(idNoeudDestination);
+	    			}
+	    			else
+	    			{
+		    			troncon = new Troncon(
+		    					noeudOrigine, 
+		    					noeudDestination, 
+		    					elementTronconSortant.getAttribute("nomRue"), 
+		    					Double.valueOf(elementTronconSortant.getAttribute("longueur").replace(",", ".")),
+		    					Double.valueOf(elementTronconSortant.getAttribute("vitesse").replace(",", ".")));
+		    			
+		    			troncons.addElement(troncon);
+		    			
+		    			noeudOrigine.ajouterTronconSortant(troncon);
+		    			noeudDestination.ajouterTronconEntrant(troncon);
+	    			}
 		    	}
 	    	}
 	    	

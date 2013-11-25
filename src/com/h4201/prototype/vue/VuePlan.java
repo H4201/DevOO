@@ -14,12 +14,11 @@ import com.h4201.prototype.modele.Tournee;
 import com.h4201.prototype.modele.Troncon;
 import com.h4201.prototype.utilitaire.Constante;
 
-@SuppressWarnings("serial")
-public class VuePlan extends JPanel
+public class VuePlan
 {
 	private static volatile VuePlan instance = null;
-	private Vector<VueNoeud> lesVueNoeuds = new Vector<VueNoeud>();
-	private Vector<VueTroncon> lesVueTroncons = new Vector<VueTroncon>();
+	private Vector<VueNoeud> lesVueNoeuds;
+	private Vector<VueTroncon> lesVueTroncons;
 	
 	public Vector<VueNoeud> getLesVueNoeuds()
 	{
@@ -36,23 +35,25 @@ public class VuePlan extends JPanel
 		Noeud noeud = null;
 		for(VueNoeud laVueNoeud : lesVueNoeuds )
 		{
-			if(x == laVueNoeud.getNoeud().getX() && y == laVueNoeud.getNoeud().getY())
-			{
+			System.out.println("lavueNoeud : "+ "coordX: "+ laVueNoeud.getNoeud().getX()+ " coordY: "+ laVueNoeud.getNoeud().getY());
+			
+			if(laVueNoeud.estClique(x, y, laVueNoeud.getNoeud().getX(), laVueNoeud.getNoeud().getY()))
+			{			
 				noeud = laVueNoeud.getNoeud();
+				System.out.println("noeud correspondant : "+ "coordX: "+ noeud.getX()+ " coordY: "+ noeud.getY());
 			}
 		}
-		
 		return noeud;
 	}
 	
-	public PointLivraison getLePointLivraison(double x, double y, Vector<VuePointLivraison> lesVuePointDeLivraisons)
+	public PointLivraison getLePointLivraison(double x, double y)
 	{
 		PointLivraison pointLivraison = null;
-		for(VuePointLivraison laVuePointDeLivraison : lesVuePointDeLivraisons )
+		for(VuePointLivraison laVuePointDeLivraison : VueTournee.getInstance().getLesVuePointLivraisons())
 		{
 			double coordX = laVuePointDeLivraison.getPointLivraison().getNoeud().getX();
 			double coordY = laVuePointDeLivraison.getPointLivraison().getNoeud().getY();
-			if(x == coordX && y == coordY)
+			if(laVuePointDeLivraison.estClique(x, y, coordX,coordY) == true)
 			{
 				pointLivraison = laVuePointDeLivraison.getPointLivraison();
 			}
@@ -89,11 +90,14 @@ public class VuePlan extends JPanel
 			Plan plan = Plan.getInstance();
 			Map<Integer, Noeud> structureNoeuds = plan.getNoeuds();
 			Vector<Troncon> StructureTroncons= plan.getTroncons();
+			
+			lesVueNoeuds = new Vector<VueNoeud>();
 			for(Integer idNoeud : structureNoeuds.keySet())
 			{
 				lesVueNoeuds.add(new VueNoeud(structureNoeuds.get(idNoeud)));
 			}
 
+			lesVueTroncons = new Vector<VueTroncon>();
 			for(Troncon leTroncon : StructureTroncons)
 			{
 				lesVueTroncons.add(new VueTroncon(leTroncon));
@@ -116,42 +120,6 @@ public class VuePlan extends JPanel
 		{
 			vueTroncon.dessinerTroncon(g,facteurConversionLarg, facteurConversionHaut );
 		}
-	}
-	/**
-	 * Chargement du plan.
-	 * On dessine le cadre du plan, puis tous les noeuds et tronçons.
-	 */
-	@Override
-	public void paintComponent(Graphics g)
-	{
-		super.paintComponent(g);
-		this.setBackground(Constante.ARRIEREPLAN);
-		
-		if((Tournee.getInstance() == null))
-		{
-			dessinerNoeudsTroncons(g, getWidth(), getHeight());
-		}
-		
-		if((Tournee.getInstance() != null) && (VueTournee.getInstance().initialiserTout()==true))
-		{
-			dessinerNoeudsTroncons(g, getWidth(), getHeight());
-			if(VueTournee.getInstance().initialiserPointLivraisons() == true)
-			{
-				VueTournee.getInstance().dessinerLespointLivraisons(g, getWidth(), getHeight());
-			}			
-		}
-		
-		if((Tournee.getInstance() != null) && (VueTournee.getInstance().initialiserTout()==true) && (VueTournee.getInstance().initialiserPointLivraisons() == true))
-		{
-			dessinerNoeudsTroncons(g, getWidth(), getHeight());
-			
-			VueTournee.getInstance().dessinerLespointLivraisons(g, getWidth(), getHeight());
-			
-			if(VueTournee.getInstance().initialiserTournee()==true)
-			{
-				VueTournee.getInstance().dessinerTournee(g, getWidth(), getHeight());
-			}		
-		}		
 	}
 
 }
