@@ -1,5 +1,6 @@
 package com.h4201.prototype.modele;
 
+import java.util.Calendar;
 import java.util.Vector;
 
 import com.h4201.prototype.exception.ExceptionNonInstancie;
@@ -58,6 +59,11 @@ public class Tournee
 	  protected void ajouterChemin(Chemin chemin)
 	  {
 		  this.chemins.addElement(chemin);
+		  
+		  for(Troncon troncon : chemin.getTroncons())
+		  {
+			  troncon.unCheminSupplementairePasseParCeTroncon();
+		  }
 	  }
 	  
 	  public void supprimerTousLesChemins()
@@ -122,7 +128,7 @@ public class Tournee
 	    					ptsLivraison.remove(j);
 	    				}
 	    			}    	
-	    			// postcondition : on a necessairement suprimmé ptLivraison 1 et 1 seule fois.
+	    			// postcondition : on a necessairement suprimmï¿½ ptLivraison 1 et 1 seule fois.
 	    		}
 	    	}
 		}

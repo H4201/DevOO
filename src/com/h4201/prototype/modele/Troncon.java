@@ -19,6 +19,7 @@ public class Troncon
 
   private Noeud noeudOrigine;
   private Noeud noeudDestination;
+  private int nbCheminPassantParCeTroncon;
 
   /**
    * Constructeur d'un troncon.
@@ -36,7 +37,22 @@ public class Troncon
 	  this.nomRue = nomRue;
 	  this.longueur = longueur;
 	  this.vitesse = vitesse;
+	  this.nbCheminPassantParCeTroncon = 0;
 	  idTroncon = Troncon.dernierIdTroncon++;
+  }
+  
+  /**
+   * Permet d'indiquer que le troncon est utilise par un nouveau chemin
+   * @return le nombre de chemins passant par ce troncon
+   */
+  public int unCheminSupplementairePasseParCeTroncon()
+  {
+	  return (this.nbCheminPassantParCeTroncon += 1);
+  }
+  
+  public int getNbCheminPassantParCeTroncon()
+  {
+	  return this.nbCheminPassantParCeTroncon;
   }
   
   /**
@@ -52,10 +68,18 @@ public class Troncon
     	return nomRue;
     }
     
+    /**
+     * 
+     * @return Longueur en metres
+     */
 	public double getLongueur() {
 		return longueur;
 	}
 	
+	/**
+	 * 
+	 * @return vitesse en m/s
+	 */
 	public double getVitesse() {
 		return vitesse;
 	}

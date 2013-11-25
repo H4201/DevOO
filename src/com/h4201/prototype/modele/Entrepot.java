@@ -1,5 +1,9 @@
 package com.h4201.prototype.modele;
 
+import java.util.Calendar;
+
+import com.h4201.prototype.utilitaire.Constante;
+
 /**
  * L'entrepot est le point de depart et d'arrivee de la tournee.
  * Entrepot herite de PointLivraison car c'est un cas particulier de PointLivraison.
@@ -9,13 +13,23 @@ package com.h4201.prototype.modele;
  */
 public class Entrepot extends PointLivraison
 {
-  public Entrepot(Noeud noeud)
-  {
-	  super(null, noeud, null);
-  }
+	private Calendar heureDepartEstimee;
+	
+	public Entrepot(Noeud noeud)
+	{
+		super(null, noeud, null);
+	}
+	
+	public Calendar getHeureDepartEstimee() {
+		return heureDepartEstimee;
+	}
 
-@Override
-public String toString() {
-	return "Entrepot [pointLivraison=" + super.toString() + "]";
-}
+	public void setHeureDepartEstimee(Calendar heureDepartEstimee) {
+		this.heureDepartEstimee = heureDepartEstimee;
+	}
+
+	@Override
+	public String toString() {
+		return "Entrepot [pointLivraison=" + super.toString() + "]";
+	}
 }

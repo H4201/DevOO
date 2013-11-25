@@ -1,5 +1,9 @@
 package com.h4201.prototype.modele;
 
+import java.util.Calendar;
+
+import com.h4201.prototype.utilitaire.Constante;
+
 /**
  * PointLivraison est un noeud du plan faisant partie d'une tournee et donc livre.
  * @author Paul
@@ -15,6 +19,7 @@ public class PointLivraison
   private Noeud noeud;
   private TrancheHoraire trancheHoraire;
   private boolean respecteTrancheHoraireDemandee;
+  private Calendar heureArriveeEstimee;
 
   /**
    * Constructeur du point de livraison.
@@ -27,8 +32,18 @@ public class PointLivraison
 	  this.idPointLivraison = PointLivraison.dernierIdPointLivraison++;
 	  this.client = client;
 	  this.noeud = noeud;
-	  this.trancheHoraire = trancheHoraire; 
+	  this.trancheHoraire = trancheHoraire;
 	  this.respecteTrancheHoraireDemandee = true;
+  }
+  
+  protected void setHeureArriveeEstimee(Calendar heureArriveeEstimee)
+  {
+	  this.heureArriveeEstimee = heureArriveeEstimee;
+  }
+  
+  public Calendar getHeureArriveeEstimee()
+  {
+	  return heureArriveeEstimee;
   }
 
   	protected void ajouterCheminEntrant(Chemin chemin)
@@ -50,7 +65,7 @@ public class PointLivraison
     	respecteTrancheHoraireDemandee = false;
     }
   
-  	public boolean getRecpecteTrancheHoraireDemandee()
+  	public boolean getRespecteTrancheHoraireDemandee()
   	{
   		return respecteTrancheHoraireDemandee;
   	}

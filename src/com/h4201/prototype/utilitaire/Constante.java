@@ -41,7 +41,7 @@ public abstract class Constante
 	public static final Color COULEURENTREPOT = Color.CYAN;
 	public static final Color ARRIEREPLAN = Color.WHITE;
 	public static final int RAYONCLIC = 10;
-	
+	public static final Color COULEURPOINTLIVNONRESPECTE = new Color(136, 6, 206); // violet
 	/*
 	 * tableau couleurs des tranches horaires
 	 */
@@ -65,4 +65,10 @@ public abstract class Constante
 	public static final int MODE_NORMAL = 0;
 	public static final int MODE_AJOUT = 1;
 	public static final int MODE_SUPPRESSION = 2;
+	
+	
+	/*
+	 * Tournee
+	 */
+	public static final int DUREE_LIVRAISON_ESTIMEE = 600; // en secondes
 }

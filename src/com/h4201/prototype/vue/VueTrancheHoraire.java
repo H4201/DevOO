@@ -45,7 +45,8 @@ public class VueTrancheHoraire extends JFrame {
 
 		return VueTrancheHoraire.instance;
 	}
-	public VueTrancheHoraire() {
+	public TrancheHoraire VueTrancheHoraire() {
+		TrancheHoraire trancheHoraire; 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -59,12 +60,12 @@ public class VueTrancheHoraire extends JFrame {
 		
 		comboBox = new JComboBox<TrancheHoraire>();
 		for(int i=0; i<tournee.getTranchesHoraire().size();i++){
-			// à l'ajout d'un point de livraison, on élimine la tranche horaire qui existe déjà.
+			// a l'ajout d'un point de livraison, on elimine la tranche horaire qui existe deja.
 			if (Controleur.getInstance().getMode()==1){	
 			if(tournee.getChemins().get(i).getPointLivraisonOrigine().getTrancheHoraire()!=tournee.getTranchesHoraire().get(i)){
 				comboBox.addItem(tournee.getTranchesHoraire().get(i));	
 			}}
-			// pour supprimer un point de livraison, on affiche que les tranches horaires des point de livraison sur le noeud cliqué
+			// pour supprimer un point de livraison, on affiche que les tranches horaires des point de livraison sur le noeud clique
 			else if(Controleur.getInstance().getMode()==2){
 				for(int i1=0;i1<tournee.getTranchesHoraire().size();i1++){
 				comboBox.addItem(tournee.getChemins().get(i1).getPointLivraisonOrigine().getTrancheHoraire());}
@@ -86,4 +87,5 @@ public class VueTrancheHoraire extends JFrame {
 		 comboBox.getSelectedItem();
 		    }               
 		  }
+	
 }
