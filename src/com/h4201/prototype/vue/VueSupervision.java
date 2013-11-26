@@ -370,7 +370,7 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 				else if(Controleur.getInstance().getMode()==Constante.MODE_SUPPRESSION){//SUPPRESSION
 					noeudEstLiv = VuePanel.getInstance().getLePointLivraison(posX, posY);
 					if(noeudEstLiv!=null){
-						//ouvre pop up avec les points de livraison
+						VueTrancheHoraire.getInstance().ouvert2(noeudClique);
 						//Controleur.getInstance().supprimerPointLivraison(noeudEstLiv); -> fait par la fenetre?
 						boutonCalcT.setEnabled(true);
 						boutonFeuilleDeRoute.setEnabled(false);
