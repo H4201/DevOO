@@ -95,14 +95,16 @@ public final class Controleur
     	else
     	{
 	    	CmdAjouterPtLivraison commandeAjout = new CmdAjouterPtLivraison(noeud, trancheHoraire);
-	    	commandeAjout.do_();
+	    	PointLivraison nouveauPointLivraison = (PointLivraison) commandeAjout.do_();
 	    	
 	    	/* MAJ de la pile d'annulation */
 	    	redos.clear(); // popAll()
 	    	undos.push(commandeAjout);
 	    	// comportement attendu sur la vue : 'retablir' est grise && 'annuler' est degrise
-	    	Graphics g = VuePanel.getInstance().getGraphics();
+//	    	Graphics g = VuePanel.getInstance().getGraphics();
 //	    	VuePlan.getInstance().dessinerNouveauPointLivraison(g, noeud, Constante.LARGEUR, Constante.HAUTEUR, trancheHoraire);
+	    	VuePanel.getInstance().ajouterNouveauPointLivraison(nouveauPointLivraison);
+	    	VuePanel.getInstance().repaint();
     	}
     }
     
@@ -121,14 +123,15 @@ public final class Controleur
     	else
 	    {
 	    	CmdSupprimerPtLivraison commandeSuppr = new CmdSupprimerPtLivraison(pointLivraison);
-	    	commandeSuppr.do_();
+	    	PointLivraison pointLivraisonSupprime = (PointLivraison) commandeSuppr.do_();
 	    	
 	    	/* MAJ de la pile d'annulation */
 	    	redos.clear(); // popAll()
 	    	undos.push(commandeSuppr);
 	    	// comportement attendu sur la vue : 'retablir' est grise && 'annuler' est degrise
-	    	Graphics g = VuePanel.getInstance().getGraphics();
-//	    	VuePlan.getInstance().griserPointLivraisonSupprimer(g, pointLivraison, Constante.LARGEUR, Constante.HAUTEUR);
+	    	
+	    	VuePanel.getInstance().supprimerPointLivraison(pointLivraisonSupprime);
+	    	VuePanel.getInstance().repaint();
 	    }
     }
         
