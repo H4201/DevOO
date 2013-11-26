@@ -20,19 +20,23 @@ public class CmdAjouterPtLivraison extends Commande
 		this.ptLivraison = new PointLivraison("CLIENT", noeud, trancheHoraire); 
 	}
 	
-	public void do_()
+	public Object do_()
 	{
 		Tournee.getInstance().ajouterPointLivraison(ptLivraison);
+		
+		return ptLivraison;
 	}
 	
-	public void undo()
+	public Object undo()
 	{
 		Tournee.getInstance().supprimerPointLivraison(ptLivraison);
+		
+		return ptLivraison;
 	}
 	
-	public void redo()
+	public Object redo()
 	{
-		do_();
+		return do_();
 	}
 	
 	/**

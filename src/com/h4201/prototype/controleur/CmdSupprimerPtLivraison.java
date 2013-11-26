@@ -14,19 +14,23 @@ public class CmdSupprimerPtLivraison extends Commande
 		this.pointLivraison = pointLivraison;
 	}
 
-	public void do_()
+	public Object do_()
 	{
 		Tournee.getInstance().supprimerPointLivraison(pointLivraison);
+		
+		return pointLivraison;
 	}
 	
-	public void undo()
+	public Object undo()
 	{
 		Tournee.getInstance().ajouterPointLivraison(pointLivraison);
+		
+		return pointLivraison;
 	}
 	
-	public void redo()
+	public Object redo()
 	{
-		do_();
+		return do_();
 	}
 	
 	/**
