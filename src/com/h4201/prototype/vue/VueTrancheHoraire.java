@@ -26,6 +26,7 @@ public class VueTrancheHoraire extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JComboBox<TrancheHoraire> comboBox=new JComboBox<TrancheHoraire>();
+	private Tournee tournee;
 
  private JButton bouton = new JButton("OK");
 
@@ -68,25 +69,31 @@ public class VueTrancheHoraire extends JFrame {
 	contentPane.add(centre,BorderLayout.CENTER);
 		 bouton.addActionListener(new BoutonListener()); 
 		
-		Tournee tournee = Tournee.getInstance();
+		VueNoeud noeudClique = new VueNoeud(noeudclique) ;
 		
-		for(int i=0; i<tournee.getTranchesHoraire().size();i++){
+		
 			// a l'ajout d'un point de livraison, on elimine la tranche horaire qui existe deja.
 			if (Controleur.getInstance().getMode()==1){	
-							comboBox.addItem(tournee.getTranchesHoraire().get(i));	
+				for(int indexTrancheHoraire=0;indexTrancheHoraire<tournee.getTranchesHoraire().size();indexTrancheHoraire++){
+							comboBox.addItem(tournee.getTranchesHoraire().get(indexTrancheHoraire));
+							comboBox.setVisible(true);
+							}
 			}
 			// pour supprimer un point de livraison, on affiche que les tranches horaires des point de livraison sur le noeud clique
-			/*else if(Controleur.getInstance().getMode()==2){
-				for(int i1=0;i1<noeud..size();i1++){
-				comboBox.addItem(tournee.getChemins().get(i1).getPointLivraisonOrigine().getTrancheHoraire());}
-			}*/
+			else if(Controleur.getInstance().getMode()==2){
+				VueTournee tourneeCourant = VueTournee.getInstance();
+				for(int indexPointLivraison=0;indexPointLivraison<tourneeCourant.getLesVuePointLivraisons().size();indexPointLivraison++){
+				comboBox.addItem(tourneeCourant.getLesVuePointLivraisons().get(indexPointLivraison).getPointLivraison().getTrancheHoraire());
+				comboBox.setVisible(true);
+				}
+			}
 				
-		}
+		
 		
 		 comboBox.addItemListener(new ItemState());
 		 comboBox.addActionListener(new ItemAction());
 		
-		 return null;
+		 
 	}
 	 class ItemState implements ItemListener{
 		    public void itemStateChanged(ItemEvent e) {
