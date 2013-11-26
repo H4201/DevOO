@@ -242,7 +242,14 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 					objets[compte][0]=tableRecap.getLesLivraisons().get(compte);
 					//System.out.println(objets[compte][0]);  //OK
 				}
-				tableau = new JTable(objets,entetes);
+				tableau = new JTable(objets,entetes) {
+					private static final long serialVersionUID = -1070527324413234766L;
+
+					@Override
+					public boolean isCellEditable(int row, int col) {
+						return false;
+					}
+				};
 				//tableau.setLayout(null);
 				//tableau.setBounds(10, 100, 300, 500);
 				//fenetre.getContentPane().add(new JScrollPane(tableau));
