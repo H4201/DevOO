@@ -350,7 +350,7 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 			{
 				System.out.println("clic sur noeud : " + noeudClique.getIdNoeud());
 				if(Controleur.getInstance().getMode()==Constante.MODE_AJOUT){ //AJOUT
-					VueTrancheHoraire.getInstance();
+					VueTrancheHoraire2.getInstance().ouvert(noeudClique);
 					//ouvre pop up avec tranches horaires
 					//Controleur.getInstance().ajoutPointLivraison(noeudClique, trancheHoraire); -> fait par la fenetre?
 					boutonCalcT.setEnabled(true);
