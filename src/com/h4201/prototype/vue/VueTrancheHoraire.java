@@ -25,7 +25,8 @@ public class VueTrancheHoraire extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JComboBox<TrancheHoraire> comboBox;
+	private JComboBox<TrancheHoraire> comboBox=new JComboBox<TrancheHoraire>();
+
  private JButton bouton = new JButton("OK");
 
 	private static volatile VueTrancheHoraire instance = null;
@@ -57,12 +58,18 @@ public class VueTrancheHoraire extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
-		contentPane.add(comboBox, BorderLayout.CENTER);
+		setVisible(true);
+		//contentPane.add(comboBox, BorderLayout.CENTER);
+		contentPane.add(bouton,BorderLayout.SOUTH);
+		
+		JPanel centre = new JPanel();
+		centre.add(comboBox, BorderLayout.CENTER);
+
+	contentPane.add(centre,BorderLayout.CENTER);
 		 bouton.addActionListener(new BoutonListener()); 
 		
 		Tournee tournee = Tournee.getInstance();
 		
-		comboBox = new JComboBox<TrancheHoraire>();
 		for(int i=0; i<tournee.getTranchesHoraire().size();i++){
 			// a l'ajout d'un point de livraison, on elimine la tranche horaire qui existe deja.
 			if (Controleur.getInstance().getMode()==1){	
