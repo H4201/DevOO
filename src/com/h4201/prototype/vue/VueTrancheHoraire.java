@@ -26,12 +26,13 @@ public class VueTrancheHoraire extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JComboBox<TrancheHoraire> comboBox=new JComboBox<TrancheHoraire>();
-	private Tournee tournee;
+	private static Noeud noeud;
+
 
  private JButton bouton = new JButton("OK");
 
 	private static volatile VueTrancheHoraire instance = null;
-	private static Noeud noeud;
+
 	/**
 	 * Create the frame.
 	 */
@@ -52,7 +53,7 @@ public class VueTrancheHoraire extends JFrame {
 		return VueTrancheHoraire.instance;
 	}
 	public VueTrancheHoraire(Noeud noeudclique) { 
-		noeudclique=noeud;
+	
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -68,21 +69,22 @@ public class VueTrancheHoraire extends JFrame {
 
 	contentPane.add(centre,BorderLayout.CENTER);
 		 bouton.addActionListener(new BoutonListener()); 
+		 VueTournee tourneeCourant = VueTournee.getInstance();
+	
 		
-
-		
-		
-			// a l'ajout d'un point de livraison, on elimine la tranche horaire qui existe deja.
+			// a l'ajout d'un point de livraison, on affiche.
 			if (Controleur.getInstance().getMode()==1){	
-				for(int indexTrancheHoraire=0;indexTrancheHoraire<tournee.getTranchesHoraire().size();indexTrancheHoraire++){
-							comboBox.addItem(tournee.getTranchesHoraire().get(indexTrancheHoraire));
+			
+				for(int index=0;index<tourneeCourant.getLesTrancheHoraires().length;index++){
+							comboBox.addItem(tourneeCourant.getLesVuePointLivraisons().get(index).getPointLivraison().getTrancheHoraire());
 							comboBox.setVisible(true);
 							}
 			}
 			// pour supprimer un point de livraison, on affiche que les tranches horaires des point de livraison sur le noeud clique
 			else if(Controleur.getInstance().getMode()==2){
 			
-				VueTournee tourneeCourant = VueTournee.getInstance();
+				
+			
 				for(int indexPointLivraison=0;indexPointLivraison<tourneeCourant.getLesVuePointLivraisons().size();indexPointLivraison++){
 				comboBox.addItem(tourneeCourant.getLesVuePointLivraisons().get(indexPointLivraison).getPointLivraison().getTrancheHoraire());
 				comboBox.setVisible(true);
@@ -109,6 +111,7 @@ public class VueTrancheHoraire extends JFrame {
 	 //Classe écoutant notre bouton
 	   public class BoutonListener implements ActionListener{
 	      public void actionPerformed(ActionEvent arg0) {
+	    
 	      Controleur.getInstance().ajoutPointLivraison(noeud, comboBox.getItemAt(comboBox.getSelectedIndex()));
 	       bouton.setEnabled(true);
 	    
