@@ -8,7 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.awt.event.MouseEvent;
+
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -19,7 +19,7 @@ import javax.swing.JComboBox;
 import com.h4201.prototype.controleur.Controleur;
 import com.h4201.prototype.modele.Noeud;
 import com.h4201.prototype.modele.PointLivraison;
-import com.h4201.prototype.modele.Tournee;
+
 import com.h4201.prototype.modele.TrancheHoraire;
 
 
