@@ -151,7 +151,7 @@ public final class Controleur
     	}
     	catch(Exception e)
     	{
-    		VueSupervision.getInstance().fenetreErreur(e.toString() + e.getMessage());
+    		VueSupervision.getInstance().fenetreErreur(e.getMessage());
     		return false;
     	}
     	
