@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Map;
 import java.util.Vector;
 
 import javax.swing.JTable;
@@ -20,14 +21,17 @@ import com.h4201.prototype.utilitaire.Date;
 
 public class TableRecap {
 	
-	private Vector <String> lesLivraisons;
+	private Vector<String> lesLivraisons;
+	private Vector<Object> listeObjets;
 	private JTable tableau;
 
 	public TableRecap()
 	{
-		Vector <TrancheHoraire> tranchesHoraires = Tournee.getInstance().getTranchesHoraire();
+		listeObjets = new Vector<Object>();
+		Vector<TrancheHoraire> tranchesHoraires = Tournee.getInstance().getTranchesHoraire();
 		
 		lesLivraisons = new Vector<String>();
+		
 		String listeLivraisonPourTH;
 		for(TrancheHoraire trancheHoraire : tranchesHoraires )
 		{
@@ -38,6 +42,7 @@ public class TableRecap {
 					+ Date.getHeureFrSimplifieeDepuisCalendar(trancheHoraire.getHeureFin());
 			
 			lesLivraisons.add(listeLivraisonPourTH);
+			listeObjets.add((Object)trancheHoraire);
 			
 			Vector<PointLivraison> livraisons = trancheHoraire.getPointsLivraisons();
 			
@@ -66,6 +71,7 @@ public class TableRecap {
 		    				pointLivraison.getHeureArriveeEstimee());
 		    	
 		    	lesLivraisons.add(listeLivraisonPourTH);
+		    	listeObjets.add((Object)listeLivraisonPourTH);
 		    }
 		}
 		
@@ -76,6 +82,8 @@ public class TableRecap {
 			objets[compte][0]=this.getLesLivraisons().get(compte);
 		}
 		
+
+        final Map<TrancheHoraire, Color> couleursTranchesHoraires = VuePanel.getInstance().getCouleursTranchesHoraires();
 		tableau = new JTable(objets, entetes) {
 			private static final long serialVersionUID = -1070527324413234766L;
 
@@ -84,8 +92,24 @@ public class TableRecap {
 		    {
 		        Component c = super.prepareRenderer(renderer, row, column);
 
-		        c.setBackground(Color.RED);
-
+		        if(couleursTranchesHoraires != null)
+		        {
+			        Object obj = listeObjets.get(row);
+			        if(obj instanceof TrancheHoraire)
+			        {
+				        System.out.println(couleursTranchesHoraires);
+				        c.setBackground(couleursTranchesHoraires.get((TrancheHoraire)obj));
+			        }
+			        else
+			        {
+			        	c.setBackground(null);
+			        }
+		        }
+		        else
+		        {
+		        	c.setBackground(null);
+		        }
+		        
 		        return c;
 		    }
 			

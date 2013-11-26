@@ -43,7 +43,7 @@ public class VueTournee
 	
 	public Map<TrancheHoraire, Color> getCouleursTranchesHoraires()
 	{
-		return couleursTranchesHoraires;
+		return this.couleursTranchesHoraires;
 	}
 	
 	private VueTournee()

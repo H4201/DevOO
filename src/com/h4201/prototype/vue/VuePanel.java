@@ -1,12 +1,15 @@
 package com.h4201.prototype.vue;
 
+import java.awt.Color;
 import java.awt.Graphics;
+import java.util.Map;
 
 import javax.swing.JPanel;
 
 import com.h4201.prototype.modele.Noeud;
 import com.h4201.prototype.modele.PointLivraison;
 import com.h4201.prototype.modele.Tournee;
+import com.h4201.prototype.modele.TrancheHoraire;
 import com.h4201.prototype.utilitaire.Constante;
 
 @SuppressWarnings("serial")
@@ -38,6 +41,11 @@ public class VuePanel extends JPanel
 	public void initialiserVuePlan()
 	{
 		VuePlan.getInstance().initialiserVuePlan(); 
+	}
+	
+	public Map<TrancheHoraire, Color> getCouleursTranchesHoraires()
+	{
+		return VueTournee.getInstance().getCouleursTranchesHoraires();
 	}
 	
 	public Noeud getLeNoeud(double x, double y)
