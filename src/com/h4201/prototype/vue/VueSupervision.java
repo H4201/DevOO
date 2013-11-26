@@ -80,6 +80,12 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 		fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//centrer la fenetre par rapport a l'ecran de l'ordi
 		fenetre.setLocationRelativeTo(null);
+
+		// Scroll
+//		JScrollPane pane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, 
+//				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+//		fenetre.setContentPane(pane);
+		
 		
 		// Creation d'une liste contenant tous les boutons		
 		ArrayList<AbstractButton> boutons = new ArrayList<AbstractButton>();
