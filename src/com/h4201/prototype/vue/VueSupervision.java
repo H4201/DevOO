@@ -190,11 +190,9 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 				File xml = new File(jFileChooserXML.getSelectedFile().getAbsolutePath());
 				Controleur.getInstance().chargerPlan(xml);
 				VuePanel.getInstance().initialiserVuePlan();
-				JScrollPane scrollerPanel = new JScrollPane(VuePanel.getInstance());  
-				fenetre.getContentPane().add(scrollerPanel);
+				fenetre.getContentPane().add(VuePanel.getInstance());
 				VuePanel.getInstance().setLayout(null);
 				VuePanel.getInstance().setBounds(Constante.POSVUEX, Constante.POSVUEY, Constante.LARGEUR, Constante.HAUTEUR);
-				scrollerPanel.setBounds(Constante.POSVUEX, Constante.POSVUEY, Constante.LARGEUR, Constante.HAUTEUR);
 				boutonChargerDemande.setEnabled(true);
 				
 				//pour cas ou on est pas au premier chargement, il faut passer les boutons en grises.
@@ -392,9 +390,7 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 			else{
 				System.out.println("null");
 			}
-		}	
-		
-		fenetre.repaint();
+		}
 	}
 	
 	public void fenetreErreur(String messageErreur){
