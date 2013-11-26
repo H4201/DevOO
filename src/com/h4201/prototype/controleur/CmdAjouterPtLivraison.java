@@ -6,6 +6,7 @@ import com.h4201.prototype.modele.PointLivraison;
 import com.h4201.prototype.modele.Tournee;
 import com.h4201.prototype.modele.TrancheHoraire;
 import com.h4201.prototype.utilitaire.Constante;
+import com.h4201.prototype.vue.VuePanel;
 
 public class CmdAjouterPtLivraison extends Commande 
 {	
@@ -20,23 +21,25 @@ public class CmdAjouterPtLivraison extends Commande
 		this.ptLivraison = new PointLivraison("CLIENT", noeud, trancheHoraire); 
 	}
 	
-	public Object do_()
+	public void do_()
 	{
 		Tournee.getInstance().ajouterPointLivraison(ptLivraison);
-		
-		return ptLivraison;
+
+    	VuePanel.getInstance().ajouterNouveauPointLivraison(ptLivraison);
+    	VuePanel.getInstance().repaint();
 	}
 	
-	public Object undo()
+	public void undo()
 	{
 		Tournee.getInstance().supprimerPointLivraison(ptLivraison);
 		
-		return ptLivraison;
+		VuePanel.getInstance().supprimerPointLivraison(ptLivraison);
+    	VuePanel.getInstance().repaint();
 	}
 	
-	public Object redo()
+	public void redo()
 	{
-		return do_();
+		do_();
 	}
 	
 	/**

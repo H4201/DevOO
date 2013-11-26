@@ -4,6 +4,7 @@ package com.h4201.prototype.controleur;
 import com.h4201.prototype.modele.PointLivraison;
 import com.h4201.prototype.modele.Tournee;
 import com.h4201.prototype.utilitaire.Constante;
+import com.h4201.prototype.vue.VuePanel;
 
 public class CmdSupprimerPtLivraison extends Commande 
 {
@@ -14,23 +15,25 @@ public class CmdSupprimerPtLivraison extends Commande
 		this.pointLivraison = pointLivraison;
 	}
 
-	public Object do_()
+	public void do_()
 	{
 		Tournee.getInstance().supprimerPointLivraison(pointLivraison);
-		
-		return pointLivraison;
+    	
+    	VuePanel.getInstance().supprimerPointLivraison(pointLivraison);
+    	VuePanel.getInstance().repaint();
 	}
 	
-	public Object undo()
+	public void undo()
 	{
 		Tournee.getInstance().ajouterPointLivraison(pointLivraison);
-		
-		return pointLivraison;
+
+    	VuePanel.getInstance().ajouterNouveauPointLivraison(pointLivraison);
+    	VuePanel.getInstance().repaint();
 	}
 	
-	public Object redo()
+	public void redo()
 	{
-		return do_();
+		do_();
 	}
 	
 	/**
