@@ -1,8 +1,13 @@
 package com.h4201.prototype.vue;
 
+import java.awt.Color;
+import java.awt.Component;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Vector;
 
 import javax.swing.JTable;
+import javax.swing.table.TableCellRenderer;
 
 
 //import javax.swing.table.AbstractTableModel;
@@ -34,7 +39,25 @@ public class TableRecap {
 			
 			lesLivraisons.add(listeLivraisonPourTH);
 			
-		    for(PointLivraison pointLivraison : trancheHoraire.getPointsLivraisons())
+			Vector<PointLivraison> livraisons = trancheHoraire.getPointsLivraisons();
+			
+			// Tri
+			if(livraisons.get(0).getHeureArriveeEstimee() != null)
+			{
+				Collections.sort(livraisons, new Comparator<PointLivraison>() {
+			        @Override public int compare(PointLivraison p1, PointLivraison p2) {
+			            if(p1.getHeureArriveeEstimee().equals(p2.getHeureArriveeEstimee()))
+			            	return 0;
+			            else if(p1.getHeureArriveeEstimee().before(p2.getHeureArriveeEstimee()))
+			            	return -1;
+			            else
+			            	return 1;
+			        }
+			    });
+			}
+			
+			// Affichage
+		    for(PointLivraison pointLivraison : livraisons)
 		    {
 		    	listeLivraisonPourTH = "\t\tL" + pointLivraison.getIdPointLivraison();
 		    			
@@ -56,6 +79,16 @@ public class TableRecap {
 		tableau = new JTable(objets, entetes) {
 			private static final long serialVersionUID = -1070527324413234766L;
 
+			@Override
+			public Component prepareRenderer(TableCellRenderer renderer, int row, int column)
+		    {
+		        Component c = super.prepareRenderer(renderer, row, column);
+
+		        c.setBackground(Color.RED);
+
+		        return c;
+		    }
+			
 			@Override
 			public boolean isCellEditable(int row, int col) {
 				return false;

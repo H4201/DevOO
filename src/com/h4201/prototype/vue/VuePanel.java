@@ -1,6 +1,5 @@
 package com.h4201.prototype.vue;
 
-import java.awt.Color;
 import java.awt.Graphics;
 
 import javax.swing.JPanel;

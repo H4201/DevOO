@@ -124,7 +124,7 @@ public abstract class CreationPlan
 	    }
 	    else
 	    {
-	    	throw new ExceptionXML(CreationPlan.class.getName());
+	    	throw new ExceptionXML();
 	    }
 
 	    return plan;
