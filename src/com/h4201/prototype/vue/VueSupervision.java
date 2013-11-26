@@ -318,9 +318,6 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 
 		paneT.setVisible(true);
 		tableau.setVisible(true);
-		
-//		tableau.repaint();
-//		paneT.repaint();
 
 		fenetre.getContentPane().add(paneT);
 	}
