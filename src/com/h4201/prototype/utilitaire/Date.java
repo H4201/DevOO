@@ -29,4 +29,9 @@ public abstract class Date
 	{
 		return cal.get(Calendar.HOUR_OF_DAY) + "h" + cal.get(Calendar.MINUTE) + "m" + cal.get(Calendar.SECOND) + "s";
 	}
+	
+	public static String getHeureFrSimplifieeDepuisCalendar(Calendar cal)
+	{
+		return cal.get(Calendar.HOUR_OF_DAY) + "h" + cal.get(Calendar.MINUTE);
+	}
 }

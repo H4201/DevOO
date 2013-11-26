@@ -1,5 +1,6 @@
 package com.h4201.prototype.vue;
 
+import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -34,6 +35,7 @@ import com.h4201.prototype.modele.PointLivraison;
 import com.h4201.prototype.modele.Tournee;
 import com.h4201.prototype.modele.TrancheHoraire;
 import com.h4201.prototype.utilitaire.Constante;
+import com.h4201.prototype.utilitaire.Date;
 import com.sun.file.ExampleFileFilter;
 
 public class VueSupervision extends MouseAdapter implements ActionListener
@@ -198,9 +200,11 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 				File xml = new File(jFileChooserXML.getSelectedFile().getAbsolutePath());
 				Controleur.getInstance().chargerPlan(xml);
 				VuePanel.getInstance().initialiserVuePlan();
-				fenetre.getContentPane().add(VuePanel.getInstance());
+				JScrollPane scrollerPanel = new JScrollPane(VuePanel.getInstance());  
+				fenetre.getContentPane().add(scrollerPanel);
 				VuePanel.getInstance().setLayout(null);
 				VuePanel.getInstance().setBounds(Constante.POSVUEX, Constante.POSVUEY, Constante.LARGEUR, Constante.HAUTEUR);
+				scrollerPanel.setBounds(Constante.POSVUEX, Constante.POSVUEY, Constante.LARGEUR, Constante.HAUTEUR);
 				boutonChargerDemande.setEnabled(true);
 				
 				//pour cas ou on est pas au premier chargement, il faut passer les boutons en grises.
@@ -233,8 +237,8 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 				//Tableau non affiche, trouver erreur
 				tableRecap = new TableRecap(Tournee.getInstance().getTranchesHoraire());
 				Object[][] objets = new Object[tableRecap.getLongueur()][1];
-				String[] entetes = {"Livraisons par plages H."};
-				for(int compte=0; compte<tableRecap.getLongueur(); compte=compte+1){
+				String[] entetes = {"Livraisons par plage horaire"};
+				for(int compte=0; compte<tableRecap.getLongueur(); compte++){
 					objets[compte][0]=tableRecap.getLesLivraisons().get(compte);
 					//System.out.println(objets[compte][0]);  //OK
 				}
@@ -242,9 +246,8 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 				//tableau.setLayout(null);
 				//tableau.setBounds(10, 100, 300, 500);
 				//fenetre.getContentPane().add(new JScrollPane(tableau));
-				paneT = new JScrollPane();
-				paneT.add(tableau);
-				paneT.setLayout(null);
+				paneT = new JScrollPane(tableau);
+//				paneT.setLayout(null); // NE PAS METTRE !
 				paneT.setBounds(10, 100, 300, 500);
 
 				paneT.setVisible(true);
@@ -259,20 +262,8 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 				System.out.println("posY : " + tableau.getBounds().getY());
 				System.out.println("nb colonnes : " + tableau.getColumnCount());
 				System.out.println("nb lignes : " + tableau.getRowCount());*/
-				
-				
-				
-				
-				
-				
-				
+												
 				fenetre.repaint();
-				
-				
-				
-				
-				
-				
 			}
 		}
 		else if (evt.getActionCommand().equals("Generer la feuille de route")){
@@ -369,7 +360,7 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 
 			if(noeudClique != null){
 				System.out.println("clic sur noeud : " + noeudClique.getIdNoeud());
-				if(Controleur.getInstance().getMode()==1){ //AJOUT
+				if(Controleur.getInstance().getMode()==Constante.MODE_AJOUT){ //AJOUT
 					VueTrancheHoraire.getInstance();
 					//ouvre pop up avec tranches horaires
 					//Controleur.getInstance().ajoutPointLivraison(noeudClique, trancheHoraire); -> fait par la fenetre?
@@ -379,7 +370,7 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 					boutonRetablir.setEnabled(false);
 					VuePanel.getInstance().repaint();
 				}
-				else if(Controleur.getInstance().getMode()==2){//SUPPRESSION
+				else if(Controleur.getInstance().getMode()==Constante.MODE_SUPPRESSION){//SUPPRESSION
 					noeudEstLiv = VuePanel.getInstance().getLePointLivraison(posX, posY);
 					if(noeudEstLiv!=null){
 						//ouvre pop up avec les points de livraison
@@ -391,10 +382,12 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 						VuePanel.getInstance().repaint();
 					}
 				}
-				else if(Controleur.getInstance().getMode()==0){
+				else if(Controleur.getInstance().getMode()==Constante.MODE_NORMAL){
 					noeudEstLiv = VuePanel.getInstance().getLePointLivraison(posX, posY);
 					if(noeudEstLiv!=null){
-						textTH.setText(noeudEstLiv.getTrancheHoraire().toString());
+						textTH.setText("Livraison L" + noeudEstLiv.getIdPointLivraison()
+							+ "\nHeure arrivee estimee : " + 
+							Date.getHeureFrSimplifieeDepuisCalendar(noeudEstLiv.getHeureArriveeEstimee()));
 						textTH.setVisible(true);
 						textPL.setText(noeudEstLiv.toString());
 						textPL.setVisible(true);
