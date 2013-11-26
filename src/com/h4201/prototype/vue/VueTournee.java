@@ -161,34 +161,22 @@ public class VueTournee
 		}		
 	}
 	
-	public void dessinerNouveauPointLivraison(Graphics g, PointLivraison pointLivraison, int facteurConversionLarg, int facteurConversionHaut)
+	public void ajouterNouveauPointLivraison(PointLivraison pointLivraison)
 	{
-			Color cTemp = g.getColor();	
-			int x = (int) pointLivraison.getNoeud().getX() * facteurConversionLarg / Constante.LARGEURSUPERV;
-			int y = (int) pointLivraison.getNoeud().getY() * facteurConversionHaut / Constante.HAUTEURSUPERV;
-			int rayon = (int) (Constante.RAYONNOEUD * facteurConversionLarg / Constante.LARGEURSUPERV);
-			
-			g.setColor(VueTournee.getInstance().getCouleursTranchesHoraires().get(pointLivraison.getTrancheHoraire()));
-			g.fillOval((int)( x - rayon) ,(int)( y - rayon) , 2 * rayon , 2 * rayon);
-	        g.setColor(cTemp);
+		Color couleur = VueTournee.getInstance().getCouleursTranchesHoraires().get(pointLivraison.getTrancheHoraire());
+		lesVuePointLivraisons.add(new VuePointLivraison(pointLivraison, couleur));
 	}
 	
-	 /**
-	  * supprime un point de livraison en un changeant sa couleur par celle du noeud par defaut.
-	  * @param g
-	  * @param pointLivraison
-	  * @param facteurConversionLarg
-	  * @param facteurConversionHaut
-	  */
-	public void griserPointLivraisonSupprimer(Graphics g, PointLivraison pointLivraison,  int facteurConversionLarg, int facteurConversionHaut)
-	{
-		Color cTemp = g.getColor();
-		int x = (int) pointLivraison.getNoeud().getX() * facteurConversionLarg / Constante.LARGEURSUPERV;
-		int y = (int) pointLivraison.getNoeud().getY() * facteurConversionHaut / Constante.HAUTEURSUPERV;
-		int rayon = (int) (Constante.RAYONNOEUD * facteurConversionLarg / Constante.LARGEURSUPERV);	
-		g.setColor(Constante.COULEURNOEUD);
-		g.fillOval((int)( x - rayon) ,(int) (y - rayon) , 2 * rayon , 2 * rayon);
-	    g.setColor(cTemp);
+	 
+	public void supprimerPointLivraison (PointLivraison pointLivraison)
+	{		
+		for (VuePointLivraison vuePointLivraison : lesVuePointLivraisons)
+		{
+			if(vuePointLivraison.getPointLivraison().equals(pointLivraison))
+			{
+				lesVuePointLivraisons.remove(vuePointLivraison);
+			}
+		}
 	}
 	
 	public  Vector<PointLivraison> lesPointLivraisonsClique(double x, double y)
