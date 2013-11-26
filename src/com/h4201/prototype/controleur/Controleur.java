@@ -101,8 +101,7 @@ public final class Controleur
 	    	redos.clear(); // popAll()
 	    	undos.push(commandeAjout);
 	    	// comportement attendu sur la vue : 'retablir' est grise && 'annuler' est degrise
-//	    	Graphics g = VuePanel.getInstance().getGraphics();
-//	    	VuePlan.getInstance().dessinerNouveauPointLivraison(g, noeud, Constante.LARGEUR, Constante.HAUTEUR, trancheHoraire);
+	    	
 	    	VuePanel.getInstance().ajouterNouveauPointLivraison(nouveauPointLivraison);
 	    	VuePanel.getInstance().repaint();
     	}

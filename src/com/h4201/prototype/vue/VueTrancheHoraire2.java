@@ -26,13 +26,15 @@ import com.h4201.prototype.modele.Noeud;
 import com.h4201.prototype.modele.Tournee;
 import com.h4201.prototype.modele.TrancheHoraire;
 import com.h4201.prototype.utilitaire.Constante;
+import com.h4201.prototype.utilitaire.Date;
 
 
 public class VueTrancheHoraire2 extends MouseAdapter {
 
 	private static final long serialVersionUID = 1L;
 	//private JPanel contentPane;
-	private JComboBox<TrancheHoraire> comboBox;
+	private JComboBox<String> comboBox;
+	private ArrayList<TrancheHoraire> listeDesTranchesHoraire;
 	private JLabel label;
 	//la fenetre
 	private JFrame fenetre;
@@ -64,7 +66,8 @@ public class VueTrancheHoraire2 extends MouseAdapter {
 		
 	}
 	
-	public void ouvert(Noeud noeudClique){
+	public void ouvert(Noeud noeudClique)
+	{
 		noeud=noeudClique;
 		//TrancheHoraire trancheHoraire; 
 		
@@ -86,10 +89,18 @@ public class VueTrancheHoraire2 extends MouseAdapter {
 		
 		boutonOK.addActionListener(new BoutonListener());
 		
+		TrancheHoraire trancheHoraire;
+		String trancheHoraireTexte;
 		Tournee tournee = Tournee.getInstance();
-		comboBox = new JComboBox<TrancheHoraire>();
-		for(int i=0; i<tournee.getTranchesHoraire().size();i++){
-			comboBox.addItem(tournee.getTranchesHoraire().get(i));
+		comboBox = new JComboBox<String>();
+		for(int i=0; i<tournee.getTranchesHoraire().size();i++)
+		{
+			trancheHoraire = tournee.getTranchesHoraire().get(i);
+			listeDesTranchesHoraire.add(trancheHoraire);
+			
+			trancheHoraireTexte = Date.getHeureFrSimplifieeDepuisCalendar(trancheHoraire.getHeureDebut())
+			 + " - " + Date.getHeureFrSimplifieeDepuisCalendar(trancheHoraire.getHeureFin());
+			comboBox.addItem(trancheHoraireTexte);
 		}
 		label = new JLabel("TranchesHoraires");
 		JPanel top = new JPanel();
@@ -103,8 +114,6 @@ public class VueTrancheHoraire2 extends MouseAdapter {
 	    top.setLayout(null);
 	    top.setBounds(0, 0, 200, 200);
 	    fenetre.getContentPane().add(top, "North");		
-	    
-				
 		
 		 comboBox.addItemListener(new ItemState());
 		 comboBox.addActionListener(new ItemAction());
@@ -117,24 +126,22 @@ public class VueTrancheHoraire2 extends MouseAdapter {
 	 class ItemState implements ItemListener{
 		 public void itemStateChanged(ItemEvent e) {
 			 //e.getItem();
-			 System.out.println("evenement declenche sur : " + e.getItem());
+//			 System.out.println("evenement declenche sur : " + e.getItem());
 		  }               
 	}
 
 	 class ItemAction implements ActionListener{
 		 public void actionPerformed(ActionEvent e) {
 			 //comboBox.getSelectedItem();
-			 System.out.println("ActionListener : action sur " + comboBox.getSelectedItem());
-			 trancheHoraire = comboBox.getItemAt(comboBox.getSelectedIndex());
+//			 System.out.println("ActionListener : action sur " + comboBox.getSelectedItem());
+			 trancheHoraire = listeDesTranchesHoraire.get(comboBox.getSelectedIndex());
 		 }               
 	 }
 	 public class BoutonListener implements ActionListener{
 		 public void actionPerformed(ActionEvent e) {
-			 System.out.println(trancheHoraire.toString());
 			 Controleur.getInstance().ajoutPointLivraison(noeud, trancheHoraire);
 			 fenetre.dispose();
 			 //lancer controleur avec le noeud(comment passer l'arg?) et la tranche horaire(ok) puis fermer la fenetre
-
 		 }
 	}
 	

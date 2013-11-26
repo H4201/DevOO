@@ -377,10 +377,17 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 				}
 				else if(Controleur.getInstance().getMode()==Constante.MODE_NORMAL){
 					noeudEstLiv = VuePanel.getInstance().getLePointLivraison(posX, posY);
-					if(noeudEstLiv!=null){
-						textTH.setText("Livraison L" + noeudEstLiv.getIdPointLivraison()
-							+ "\nHeure arrivee estimee : " + 
-							Date.getHeureFrSimplifieeDepuisCalendar(noeudEstLiv.getHeureArriveeEstimee()));
+					if(noeudEstLiv!=null)
+					{
+						String infos = "Livraison L" + noeudEstLiv.getIdPointLivraison();
+						if(noeudEstLiv.getHeureArriveeEstimee() != null)
+						{
+							infos += "\nHeure arrivee estimee : " + 
+									Date.getHeureFrSimplifieeDepuisCalendar(
+									noeudEstLiv.getHeureArriveeEstimee());
+						}
+						
+						textTH.setText(infos);
 						textTH.setVisible(true);
 						textPL.setText(noeudEstLiv.toString());
 						textPL.setVisible(true);
