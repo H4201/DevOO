@@ -81,6 +81,7 @@ public class VueTrancheHoraire extends JFrame {
 			}
 			// pour supprimer un point de livraison, on affiche que les tranches horaires des point de livraison sur le noeud clique
 			else if(Controleur.getInstance().getMode()==2){
+			
 				VueTournee tourneeCourant = VueTournee.getInstance();
 				for(int indexPointLivraison=0;indexPointLivraison<tourneeCourant.getLesVuePointLivraisons().size();indexPointLivraison++){
 				comboBox.addItem(tourneeCourant.getLesVuePointLivraisons().get(indexPointLivraison).getPointLivraison().getTrancheHoraire());
