@@ -99,6 +99,21 @@ public class PointLivraison
 		this.trancheHoraire = trancheHoraire;
 	}
 	
+	@Override
+	public boolean equals(Object obj)
+	{
+		if(obj == this)
+			return true;
+		
+		if(obj instanceof PointLivraison)
+		{
+			if(this.getIdPointLivraison() == ((PointLivraison) obj).getIdPointLivraison())
+				return true;
+		}
+		
+		return false;
+	}
+	
 	public void afficher()
 	{
 		System.out.println(this.toString());

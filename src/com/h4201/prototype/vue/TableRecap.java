@@ -15,23 +15,22 @@ public class TableRecap {
 
 	public TableRecap(Vector <TrancheHoraire> tranchesHoraires) {
 		lesLivraisons = new Vector<String>();
-		Vector <PointLivraison> listeLivraisons = new Vector<PointLivraison>();
 		String listeLivraisonPourTH;
 		for(TrancheHoraire trancheHoraire : tranchesHoraires )
 		{
 			listeLivraisonPourTH = trancheHoraire.toString() + "\n";
-
-		    listeLivraisons=trancheHoraire.getPointsLivraisons();
-		    
-		    for(PointLivraison pointLivraison : listeLivraisons){
-		    	listeLivraisonPourTH = listeLivraisonPourTH + pointLivraison.toString() + "\n";
+			lesLivraisons.add(listeLivraisonPourTH);
+			
+		    for(PointLivraison pointLivraison : trancheHoraire.getPointsLivraisons())
+		    {
+		    	listeLivraisonPourTH = "\t" + pointLivraison.toString() + "\n";
+		    	lesLivraisons.add(listeLivraisonPourTH);
 		    }
-		    lesLivraisons.add(listeLivraisonPourTH);
 		}
 	}
 	
 	
-	public Vector <String> getLesLivraisons(){
+	public Vector<String> getLesLivraisons(){
 		return lesLivraisons;
 	}
 	

@@ -102,7 +102,7 @@ public final class Controleur
 	    	undos.push(commandeAjout);
 	    	// comportement attendu sur la vue : 'retablir' est grise && 'annuler' est degrise
 	    	Graphics g = VuePanel.getInstance().getGraphics();
-	    	VuePlan.getInstance().dessinerNouveauPointLivraison(g, noeud, Constante.LARGEUR, Constante.HAUTEUR, trancheHoraire);
+//	    	VuePlan.getInstance().dessinerNouveauPointLivraison(g, noeud, Constante.LARGEUR, Constante.HAUTEUR, trancheHoraire);
     	}
     }
     
@@ -128,7 +128,7 @@ public final class Controleur
 	    	undos.push(commandeSuppr);
 	    	// comportement attendu sur la vue : 'retablir' est grise && 'annuler' est degrise
 	    	Graphics g = VuePanel.getInstance().getGraphics();
-	    	VuePlan.getInstance().griserPointLivraisonSupprimer(g, pointLivraison, Constante.LARGEUR, Constante.HAUTEUR);
+//	    	VuePlan.getInstance().griserPointLivraisonSupprimer(g, pointLivraison, Constante.LARGEUR, Constante.HAUTEUR);
 	    }
     }
         
