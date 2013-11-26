@@ -12,6 +12,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Vector;
 
 import javax.swing.AbstractButton;
 import javax.swing.JButton;
@@ -141,9 +142,10 @@ public class VueTrancheHoraire extends MouseAdapter {
 		
 		VueTournee tournee = VueTournee.getInstance();
 		comboBox2 = new JComboBox<PointLivraison>();
-		for(int i=0; i<tournee.getLesVuePointLivraisons().size();i++){
-			
-			comboBox2.addItem(tournee.lesPointLivraisonsClique(noeudClique.getX(), noeudClique.getY()).get(i));
+		System.out.println(tournee.toString());
+		Vector <PointLivraison> listePointLiv=tournee.lesPointLivraisonsClique(noeudClique.getX(), noeudClique.getY());
+		for(int i=0; i<listePointLiv.size();i++){
+			comboBox2.addItem(listePointLiv.get(i));
 		}
 		label = new JLabel("PointLivraison");
 		JPanel top = new JPanel();
