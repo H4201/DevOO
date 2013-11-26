@@ -237,7 +237,7 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 				//Tableau non affiche, trouver erreur
 				tableRecap = new TableRecap(Tournee.getInstance().getTranchesHoraire());
 				Object[][] objets = new Object[tableRecap.getLongueur()][1];
-				String[] entetes = {"Livraisons par plage horaire"};
+				String[] entetes = {"Livraisons par tranche horaire"};
 				for(int compte=0; compte<tableRecap.getLongueur(); compte++){
 					objets[compte][0]=tableRecap.getLesLivraisons().get(compte);
 					//System.out.println(objets[compte][0]);  //OK
