@@ -30,22 +30,24 @@ public abstract class Constante
 	/*
 	 * constantes pour le plan
 	 */
-	public static final int HAUTEUR = 450;
-	public static final int LARGEUR = 600;
+	public static final int HAUTEUR = 500;
+	public static final int LARGEUR = 800;
 	public static final int POSVUEX = 350;
 	public static final int POSVUEY = 100;
 	public static final int RAYONNOEUD = 7;
 	public static final int RAYONENTREPOT = 12;
-	public static final Color COULEURNOEUD = Color.DARK_GRAY;
-	public static final Color COULEURTRONCON = Color.BLACK;
+	public static final Color COULEURNOEUD = Color.LIGHT_GRAY;
+	public static final Color COULEURTRONCON = Color.LIGHT_GRAY;
 	public static final Color COULEURENTREPOT = Color.CYAN;
 	public static final Color ARRIEREPLAN = Color.WHITE;
 	public static final int RAYONCLIC = 10;
+	public static final double DECALAGE_CHEMIN = 0.5;
 	public static final Color COULEURPOINTLIVNONRESPECTE = new Color(136, 6, 206); // violet
+
 	/*
 	 * tableau couleurs des tranches horaires
 	 */
-	public static final Color tabCouleur[] = {Color.RED, Color.YELLOW, Color.BLUE,Color.GREEN,Color.MAGENTA,Color.PINK, Color.ORANGE, Color.LIGHT_GRAY,Color.DARK_GRAY };
+	public static final Color tabCouleur[] = { Color.RED, Color.GREEN, Color.BLUE,Color.MAGENTA,Color.PINK, Color.ORANGE };
 	
 	/*
 	 * constantes pour la fenetre de supervision
@@ -71,4 +73,10 @@ public abstract class Constante
 	 * Tournee
 	 */
 	public static final int DUREE_LIVRAISON_ESTIMEE = 600; // en secondes
+	
+	
+	/*
+	 * Feuille de route
+	 */
+	public static final String FICHIER_NOM_FEUILLE_DE_ROUTE = "feuille_de_route.txt";
 }

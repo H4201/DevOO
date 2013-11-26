@@ -125,6 +125,7 @@ public class VueTournee
 		boolean ret  = initialiserTout();
 		
 		lesVueChemins = new Vector<VueChemin>();
+		int numeroChemin = 0;
 		for(Chemin chemin : Tournee.getInstance().getChemins())
 		{
 			TrancheHoraire th = chemin.getPointLivraisonDestination().getTrancheHoraire();
@@ -132,7 +133,7 @@ public class VueTournee
 			if(th == null)
 				th = chemin.getPointLivraisonOrigine().getTrancheHoraire();
 			
-			lesVueChemins.add(new VueChemin(chemin, couleursTranchesHoraires.get(th)));
+			lesVueChemins.add(new VueChemin(numeroChemin++, chemin, couleursTranchesHoraires.get(th)));
 		}
 		
 		if(lesVueChemins.size()!=0)
