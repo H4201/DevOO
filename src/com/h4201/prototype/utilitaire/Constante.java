@@ -42,7 +42,7 @@ public abstract class Constante
 	public static final Color ARRIEREPLAN = Color.WHITE;
 	public static final int RAYONCLIC = 10;
 	public static final double DECALAGE_CHEMIN = 0.5;
-	public static final Color COULEURPOINTLIVNONRESPECTE = new Color(136, 6, 206); // violet
+	public static final Color COULEURPOINTLIVNONRESPECTE = Color.BLACK;
 
 	/*
 	 * tableau couleurs des tranches horaires
