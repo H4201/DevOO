@@ -1,6 +1,5 @@
 package com.h4201.prototype.vue;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.util.Map;
 import java.util.Vector;
@@ -9,9 +8,7 @@ import com.h4201.prototype.exception.ExceptionNonInstancie;
 import com.h4201.prototype.modele.Noeud;
 import com.h4201.prototype.modele.Plan;
 import com.h4201.prototype.modele.PointLivraison;
-import com.h4201.prototype.modele.TrancheHoraire;
 import com.h4201.prototype.modele.Troncon;
-import com.h4201.prototype.utilitaire.Constante;
 
 public class VuePlan
 {
@@ -126,45 +123,4 @@ public class VuePlan
 			vueTroncon.dessinerTroncon(g,facteurConversionLarg, facteurConversionHaut );
 		}
 	}
-	
-	public void dessinerNouveauPointLivraison(Graphics g, Noeud noeud, int facteurConversionLarg, int facteurConversionHaut, TrancheHoraire trancheHoraire)
-	{
-		if(VueTournee.getInstance().getCouleursTranchesHoraires().containsKey(trancheHoraire))
-		{
-			Color cTemp = g.getColor();	
-			int x = (int) noeud.getX() * facteurConversionLarg / Constante.LARGEURSUPERV;
-			int y = (int) noeud.getY() * facteurConversionHaut / Constante.HAUTEURSUPERV;
-			int rayon = (int) (Constante.RAYONNOEUD * facteurConversionLarg / Constante.LARGEURSUPERV);
-			
-			g.setColor(VueTournee.getInstance().getCouleursTranchesHoraires().get(trancheHoraire));
-			g.fillOval((int)( x - rayon) ,(int)( y - rayon) , 2 * rayon , 2 * rayon);
-	        g.setColor(cTemp);
-		}
-		else
-		{
-			System.out.println("la tranche horaires donnée n'est pas existante");
-			// afficher une popup d'erreur sur la fenêtre
-		}
-		
-	}
-	
-	 /**
-	  * supprime un point de livraison en un changeant sa couleur par celle du noeud par defaut.
-	  * @param g
-	  * @param pointLivraison
-	  * @param facteurConversionLarg
-	  * @param facteurConversionHaut
-	  */
-	public void griserPointLivraisonSupprimer(Graphics g, PointLivraison pointLivraison,  int facteurConversionLarg, int facteurConversionHaut)
-	{
-		Color cTemp = g.getColor();
-		int x = (int) pointLivraison.getNoeud().getX() * facteurConversionLarg / Constante.LARGEURSUPERV;
-		int y = (int) pointLivraison.getNoeud().getY() * facteurConversionHaut / Constante.HAUTEURSUPERV;
-		int rayon = (int) (Constante.RAYONNOEUD * facteurConversionLarg / Constante.LARGEURSUPERV);	
-		g.setColor(Constante.COULEURNOEUD);
-		g.fillOval((int)( x - rayon) ,(int) (y - rayon) , 2 * rayon , 2 * rayon);
-	    g.setColor(cTemp);
-	}
-
-
 }

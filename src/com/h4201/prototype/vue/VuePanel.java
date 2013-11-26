@@ -84,6 +84,20 @@ public class VuePanel extends JPanel
 			{
 				VueTournee.getInstance().dessinerTournee(g, getWidth(), getHeight());
 			}		
-		}		
+		}
+		
+		/*
+		if()
+		{
+			VueTournee.getInstance().dessinerNouveauPointLivraison(g, pointLivraison, getWidth(), getHeight());
+		}
+		*/
+		
+		/*
+		if()
+		{
+			VueTournee.getInstance().griserPointLivraisonSupprimer(g, pointLivraison, getWidth(), getHeight());
+		}
+		*/
 	}
 }

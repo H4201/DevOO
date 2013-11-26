@@ -19,7 +19,8 @@ public class VueTournee
 	private VueEntrepot vueEntrepot;
 	private Vector<VuePointLivraison> lesVuePointLivraisons;
 	private TrancheHoraire lesTrancheHoraires[];
-	private Map<TrancheHoraire, Color> couleursTranchesHoraires;	
+	private Map<TrancheHoraire, Color> couleursTranchesHoraires;
+	private Vector<PointLivraison> lesPointLivraisonsClique;
 	
 	
 	public Vector<VueChemin> getLesVueChemins() {
@@ -143,8 +144,7 @@ public class VueTournee
 	}
 	
 	public void dessinerLespointLivraisons(Graphics g,  int facteurConversionLarg, int facteurConversionHaut)
-	{
-		
+	{		
 		vueEntrepot.dessinerEntrepot(g, facteurConversionLarg, facteurConversionHaut, Constante.COULEURENTREPOT);
 		for(VuePointLivraison vuePointLivraison : lesVuePointLivraisons)
 		{
@@ -159,5 +159,48 @@ public class VueTournee
 			vueChemin.dessinerChemin(g, facteurConversionLarg, facteurConversionHaut, vueChemin.getCouleur());
 		}		
 	}
-
+	
+	public void dessinerNouveauPointLivraison(Graphics g, PointLivraison pointLivraison, int facteurConversionLarg, int facteurConversionHaut)
+	{
+			Color cTemp = g.getColor();	
+			int x = (int) pointLivraison.getNoeud().getX() * facteurConversionLarg / Constante.LARGEURSUPERV;
+			int y = (int) pointLivraison.getNoeud().getY() * facteurConversionHaut / Constante.HAUTEURSUPERV;
+			int rayon = (int) (Constante.RAYONNOEUD * facteurConversionLarg / Constante.LARGEURSUPERV);
+			
+			g.setColor(VueTournee.getInstance().getCouleursTranchesHoraires().get(pointLivraison.getTrancheHoraire()));
+			g.fillOval((int)( x - rayon) ,(int)( y - rayon) , 2 * rayon , 2 * rayon);
+	        g.setColor(cTemp);
+	}
+	
+	 /**
+	  * supprime un point de livraison en un changeant sa couleur par celle du noeud par defaut.
+	  * @param g
+	  * @param pointLivraison
+	  * @param facteurConversionLarg
+	  * @param facteurConversionHaut
+	  */
+	public void griserPointLivraisonSupprimer(Graphics g, PointLivraison pointLivraison,  int facteurConversionLarg, int facteurConversionHaut)
+	{
+		Color cTemp = g.getColor();
+		int x = (int) pointLivraison.getNoeud().getX() * facteurConversionLarg / Constante.LARGEURSUPERV;
+		int y = (int) pointLivraison.getNoeud().getY() * facteurConversionHaut / Constante.HAUTEURSUPERV;
+		int rayon = (int) (Constante.RAYONNOEUD * facteurConversionLarg / Constante.LARGEURSUPERV);	
+		g.setColor(Constante.COULEURNOEUD);
+		g.fillOval((int)( x - rayon) ,(int) (y - rayon) , 2 * rayon , 2 * rayon);
+	    g.setColor(cTemp);
+	}
+	
+	public  Vector<PointLivraison> lesPointLivraisonsClique(double x, double y)
+	{
+		for(VuePointLivraison vuePointLivraison : lesVuePointLivraisons)
+		{
+			double x1 = vuePointLivraison.getPointLivraison().getNoeud().getX();
+			double y1 = vuePointLivraison.getPointLivraison().getNoeud().getY();
+			if(vuePointLivraison.estClique(x, y, x1,y1))
+			{
+				lesPointLivraisonsClique.add(vuePointLivraison.getPointLivraison());
+			}		
+		}
+		return lesPointLivraisonsClique;		
+	}
 }
