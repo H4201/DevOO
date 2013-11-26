@@ -68,15 +68,19 @@ public class VueTrancheHoraire extends JFrame {
 		contentPane.add(bouton,BorderLayout.SOUTH);
 		
 		JPanel centre = new JPanel();
+		centre.add(comboBoxTrancheHoraire, BorderLayout.CENTER);
+		contentPane.add(centre,BorderLayout.CENTER);
 		
+		centre.add(comboBoxPointLivraison, BorderLayout.CENTER);
+
+	
 		// bouton.addActionListener(new BoutonListener()); 
 		 VueTournee tournee = VueTournee.getInstance();
 			
 			// a l'ajout d'un point de livraison, on affiche les tranches horaires qui extistent dans la tournee.
 			if (Controleur.getInstance().getMode()==1){	
-				centre.add(comboBoxTrancheHoraire, BorderLayout.CENTER);
-
-				contentPane.add(centre,BorderLayout.CENTER);
+				
+		
 				for(int index=0;index<tournee.getLesTrancheHoraires().length;index++){
 					comboBoxTrancheHoraire.addItem(tournee.getLesVuePointLivraisons().get(index).getPointLivraison().getTrancheHoraire());
 					comboBoxTrancheHoraire.setVisible(true);
@@ -87,9 +91,7 @@ public class VueTrancheHoraire extends JFrame {
 			}
 			// pour supprimer un point de livraison, on affiche les point de livraison sur le noeud clique
 			else if(Controleur.getInstance().getMode()==2){
-				centre.add(comboBoxPointLivraison, BorderLayout.CENTER);
-
-				contentPane.add(centre,BorderLayout.CENTER);
+				
 				for(int indexPointLivraison=0;indexPointLivraison<tournee.getLesVuePointLivraisons().size();indexPointLivraison++){
 					comboBoxPointLivraison.addItem(tournee.getLesVuePointLivraisons().get(indexPointLivraison).getPointLivraison());
 					comboBoxPointLivraison.setVisible(true);
