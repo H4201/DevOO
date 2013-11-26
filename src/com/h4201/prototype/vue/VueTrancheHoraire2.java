@@ -61,6 +61,11 @@ public class VueTrancheHoraire2 extends MouseAdapter {
 		return VueTrancheHoraire2.instance;
 	}
 	private VueTrancheHoraire2() {
+		
+	}
+	
+	public void ouvert(Noeud noeudClique){
+		noeud=noeudClique;
 		//TrancheHoraire trancheHoraire; 
 		
 		//creation de la fenetre
@@ -107,10 +112,6 @@ public class VueTrancheHoraire2 extends MouseAdapter {
 		 fenetre.repaint();
 			
 		 fenetre.setVisible(true);
-	}
-	
-	public void ouvert(Noeud noeudClique){
-		noeud=noeudClique;
 	}
 	
 	 class ItemState implements ItemListener{
