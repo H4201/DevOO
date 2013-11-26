@@ -38,7 +38,7 @@ public class PointLivraison
   
   protected void setHeureArriveeEstimee(Calendar heureArriveeEstimee)
   {
-	  this.heureArriveeEstimee = heureArriveeEstimee;
+	  this.heureArriveeEstimee = (Calendar) heureArriveeEstimee.clone();
   }
   
   public Calendar getHeureArriveeEstimee()
@@ -56,18 +56,13 @@ public class PointLivraison
   		cheminSortant = chemin;
   	}
   
-  	/**
-  	 * Permet d'indiquer que la livraison ne respecte 
-  	 * pas la tranche horaire demandee par le client.
-  	 */
-    public void neRespectePlusTrancheHoraireDemandee()
-    {
-    	respecteTrancheHoraireDemandee = false;
-    }
-  
   	public boolean getRespecteTrancheHoraireDemandee()
   	{
-  		return respecteTrancheHoraireDemandee;
+  		if(getHeureArriveeEstimee() == null)
+  			return false;
+  		else
+  			return (getHeureArriveeEstimee().after(trancheHoraire.getHeureDebut()) 
+  				&& getHeureArriveeEstimee().before(trancheHoraire.getHeureFin()));
   	}
 	
 	public int getIdPointLivraison() {

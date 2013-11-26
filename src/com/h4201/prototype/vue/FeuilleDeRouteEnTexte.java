@@ -48,8 +48,6 @@ public final class FeuilleDeRouteEnTexte {
 		{
 			fw = new FileWriter(Constante.FICHIER_NOM_FEUILLE_DE_ROUTE, false);
 			PrintWriter pw = new PrintWriter(fw, false);
-//			pw.println("Entrepot : " + tournee.getEntrepot().getNoeud().getIdNoeud());
-//			pw.println("\n");
 			Chemin cheminCourant;
             for(int i=0;i<tournee.getChemins().size();i++)
             {
