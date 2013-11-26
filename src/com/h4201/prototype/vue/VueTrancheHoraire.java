@@ -69,7 +69,7 @@ public class VueTrancheHoraire extends JFrame {
 	contentPane.add(centre,BorderLayout.CENTER);
 		 bouton.addActionListener(new BoutonListener()); 
 		
-		VueNoeud noeudClique = new VueNoeud(noeudclique) ;
+
 		
 		
 			// a l'ajout d'un point de livraison, on elimine la tranche horaire qui existe deja.
