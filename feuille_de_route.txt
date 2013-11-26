@@ -1,0 +1,167 @@
+Depart de l'entrepot E354
+Adresse : X = 697.0 , Y = 577.0
+
+Suivre l'itineraire : 
+	Prendre v17
+	Tourner a h11
+	Tourner a v16
+	C'est au X = 661.0 , Y = 278.0
+
+------------------------------------------------------------
+Livraison numero 1
+Identifiant de la livraison L16 du client 626
+Adresse : X = 661.0 , Y = 278.0
+
+Suivre l'itineraire : 
+	Prendre v16
+	Tourner a h5
+	Tourner a v15
+	Tourner a h4
+	C'est au X = 425.0 , Y = 205.0
+
+------------------------------------------------------------
+Livraison numero 2
+Identifiant de la livraison L14 du client 631
+Adresse : X = 425.0 , Y = 205.0
+
+Suivre l'itineraire : 
+	Prendre v10
+	Tourner a h5
+	Tourner a v6
+	Tourner a h4
+	C'est au X = 215.0 , Y = 193.0
+
+------------------------------------------------------------
+Livraison numero 3
+Identifiant de la livraison L15 du client 645
+Adresse : X = 215.0 , Y = 193.0
+
+Suivre l'itineraire : 
+	Prendre v5
+	Tourner a h3
+	Tourner a v3
+	Tourner a h2
+	C'est au X = 128.0 , Y = 108.0
+
+------------------------------------------------------------
+Livraison numero 4
+Identifiant de la livraison L19 du client 309
+Adresse : X = 128.0 , Y = 108.0
+
+Suivre l'itineraire : 
+	Prendre h2
+	Tourner a v0
+	C'est au X = 43.0 , Y = 461.0
+
+------------------------------------------------------------
+Livraison numero 5
+Identifiant de la livraison L21 du client 396
+Adresse : X = 43.0 , Y = 461.0
+
+Suivre l'itineraire : 
+	Prendre h11
+	Tourner a v1
+	C'est au X = 72.0 , Y = 584.0
+
+------------------------------------------------------------
+Livraison numero 6
+Identifiant de la livraison L20 du client 771
+Adresse : X = 72.0 , Y = 584.0
+
+Suivre l'itineraire : 
+	Prendre h14
+	Tourner a v4
+	Tourner a h15
+	Tourner a v10
+	Tourner a h16
+	C'est au X = 445.0 , Y = 656.0
+
+------------------------------------------------------------
+Livraison numero 7
+Identifiant de la livraison L17 du client 234
+Adresse : X = 445.0 , Y = 656.0
+
+Suivre l'itineraire : 
+	Prendre h16
+	Tourner a v12
+	C'est au X = 501.0 , Y = 692.0
+
+------------------------------------------------------------
+Livraison numero 8
+Identifiant de la livraison L18 du client 386
+Adresse : X = 501.0 , Y = 692.0
+
+Suivre l'itineraire : 
+	Prendre v12
+	Tourner a h16
+	Tourner a v10
+	Tourner a h15
+	Tourner a v4
+	Tourner a h16
+	Tourner a v2
+	C'est au X = 116.0 , Y = 685.0
+
+------------------------------------------------------------
+Livraison numero 9
+Identifiant de la livraison L22 du client 821
+Adresse : X = 116.0 , Y = 685.0
+
+Suivre l'itineraire : 
+	Prendre v2
+	Tourner a h16
+	Tourner a v4
+	Tourner a h15
+	Tourner a v7
+	Tourner a h12
+	Tourner a v8
+	Tourner a h11
+	Tourner a v9
+	C'est au X = 377.0 , Y = 383.0
+
+------------------------------------------------------------
+Livraison numero 10
+Identifiant de la livraison L24 du client 588
+Adresse : X = 377.0 , Y = 383.0
+
+Suivre l'itineraire : 
+	Prendre v9
+	Tourner a h5
+	Tourner a v8
+	Tourner a h2
+	Tourner a v9
+	Tourner a h1
+	C'est au X = 351.0 , Y = 72.0
+
+------------------------------------------------------------
+Livraison numero 11
+Identifiant de la livraison L23 du client 379
+Adresse : X = 351.0 , Y = 72.0
+
+Suivre l'itineraire : 
+	Prendre h1
+	Tourner a v9
+	Tourner a h2
+	Tourner a v11
+	Tourner a h4
+	Tourner a v12
+	Tourner a h6
+	Tourner a v14
+	Tourner a h9
+	Tourner a v17
+	Tourner a h10
+	C'est au X = 768.0 , Y = 420.0
+
+------------------------------------------------------------
+Livraison numero 12
+Identifiant de la livraison L25 du client 729
+Adresse : X = 768.0 , Y = 420.0
+
+Suivre l'itineraire : 
+	Prendre v19
+	Tourner a h12
+	Tourner a v17
+	C'est au X = 697.0 , Y = 577.0
+
+------------------------------------------------------------
+
+De retour a l'entrepot

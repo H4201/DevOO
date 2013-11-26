@@ -3,7 +3,7 @@ package com.h4201.prototype.test;
 import java.io.File;
 
 import com.h4201.prototype.controleur.Controleur;
-import com.h4201.prototype.vue.FeuilleDeRouteEnText;
+import com.h4201.prototype.vue.FeuilleDeRouteEnTexte;
 
 
 public class TestFeuilleDeRoute
@@ -24,7 +24,7 @@ public class TestFeuilleDeRoute
 			controleur.chargerDemandeLivraison(new File("test/livraison20x20-2.xml"));
 			controleur.notifierClicNormal();
 			controleur.calculTournee();
-			new FeuilleDeRouteEnText("feuille_de_route.txt");
+			FeuilleDeRouteEnTexte.getInstance();
 		}
 		catch(Exception e)
 		{

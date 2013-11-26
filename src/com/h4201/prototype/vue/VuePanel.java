@@ -84,6 +84,7 @@ public class VuePanel extends JPanel
 			{
 				VueTournee.getInstance().dessinerTournee(g, getWidth(), getHeight());
 			}		
-		}		
+		}
+		
 	}
 }

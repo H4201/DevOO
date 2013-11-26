@@ -86,6 +86,7 @@ public class VueTrancheHoraire extends JFrame {
 		 comboBox.addItemListener(new ItemState());
 		 comboBox.addActionListener(new ItemAction());
 		
+		 return null;
 	}
 	 class ItemState implements ItemListener{
 		    public void itemStateChanged(ItemEvent e) {

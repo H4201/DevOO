@@ -19,7 +19,8 @@ public class VueTournee
 	private VueEntrepot vueEntrepot;
 	private Vector<VuePointLivraison> lesVuePointLivraisons;
 	private TrancheHoraire lesTrancheHoraires[];
-	private Map<TrancheHoraire, Color> couleursTranchesHoraires;	
+	private Map<TrancheHoraire, Color> couleursTranchesHoraires;
+	private Vector<PointLivraison> lesPointLivraisonsClique;
 	
 	
 	public Vector<VueChemin> getLesVueChemins() {
@@ -124,6 +125,7 @@ public class VueTournee
 		boolean ret  = initialiserTout();
 		
 		lesVueChemins = new Vector<VueChemin>();
+		int numeroChemin = 0;
 		for(Chemin chemin : Tournee.getInstance().getChemins())
 		{
 			TrancheHoraire th = chemin.getPointLivraisonDestination().getTrancheHoraire();
@@ -131,7 +133,7 @@ public class VueTournee
 			if(th == null)
 				th = chemin.getPointLivraisonOrigine().getTrancheHoraire();
 			
-			lesVueChemins.add(new VueChemin(chemin, couleursTranchesHoraires.get(th)));
+			lesVueChemins.add(new VueChemin(numeroChemin++, chemin, couleursTranchesHoraires.get(th)));
 		}
 		
 		if(lesVueChemins.size()!=0)
@@ -143,8 +145,7 @@ public class VueTournee
 	}
 	
 	public void dessinerLespointLivraisons(Graphics g,  int facteurConversionLarg, int facteurConversionHaut)
-	{
-		
+	{		
 		vueEntrepot.dessinerEntrepot(g, facteurConversionLarg, facteurConversionHaut, Constante.COULEURENTREPOT);
 		for(VuePointLivraison vuePointLivraison : lesVuePointLivraisons)
 		{
@@ -159,5 +160,36 @@ public class VueTournee
 			vueChemin.dessinerChemin(g, facteurConversionLarg, facteurConversionHaut, vueChemin.getCouleur());
 		}		
 	}
-
+	
+	public void ajouterNouveauPointLivraison(PointLivraison pointLivraison)
+	{
+		Color couleur = VueTournee.getInstance().getCouleursTranchesHoraires().get(pointLivraison.getTrancheHoraire());
+		lesVuePointLivraisons.add(new VuePointLivraison(pointLivraison, couleur));
+	}
+	
+	 
+	public void supprimerPointLivraison (PointLivraison pointLivraison)
+	{		
+		for (VuePointLivraison vuePointLivraison : lesVuePointLivraisons)
+		{
+			if(vuePointLivraison.getPointLivraison().equals(pointLivraison))
+			{
+				lesVuePointLivraisons.remove(vuePointLivraison);
+			}
+		}
+	}
+	
+	public  Vector<PointLivraison> lesPointLivraisonsClique(double x, double y)
+	{
+		for(VuePointLivraison vuePointLivraison : lesVuePointLivraisons)
+		{
+			double x1 = vuePointLivraison.getPointLivraison().getNoeud().getX();
+			double y1 = vuePointLivraison.getPointLivraison().getNoeud().getY();
+			if(vuePointLivraison.estClique(x, y, x1,y1))
+			{
+				lesPointLivraisonsClique.add(vuePointLivraison.getPointLivraison());
+			}		
+		}
+		return lesPointLivraisonsClique;		
+	}
 }
