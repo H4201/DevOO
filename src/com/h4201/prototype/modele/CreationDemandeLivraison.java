@@ -124,7 +124,7 @@ public abstract class CreationDemandeLivraison
 	    }
 	    else
 	    {
-	    	throw new ExceptionXML(CreationDemandeLivraison.class.getName());
+	    	throw new ExceptionXML();
 	    }
 
 	    return tournee;
