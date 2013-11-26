@@ -73,4 +73,10 @@ public abstract class Constante
 	 * Tournee
 	 */
 	public static final int DUREE_LIVRAISON_ESTIMEE = 600; // en secondes
+	
+	
+	/*
+	 * Feuille de route
+	 */
+	public static final String FICHIER_NOM_FEUILLE_DE_ROUTE = "feuille_de_route.txt";
 }

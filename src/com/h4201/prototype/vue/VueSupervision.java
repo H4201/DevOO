@@ -276,7 +276,7 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 			}
 		}
 		else if (evt.getActionCommand().equals("Generer la feuille de route")){
-			FeuilleDeRouteEnText.getInstance().realisation(Tournee.getInstance());
+			FeuilleDeRouteEnTexte.getInstance().realisation();
 		}
  		else if (evt.getActionCommand().equals("Annuler")){
  			boutonRetablir.setEnabled(true);
