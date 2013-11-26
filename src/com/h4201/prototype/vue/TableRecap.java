@@ -1,5 +1,7 @@
 package com.h4201.prototype.vue;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Vector;
 
 import javax.swing.JTable;
@@ -34,7 +36,25 @@ public class TableRecap {
 			
 			lesLivraisons.add(listeLivraisonPourTH);
 			
-		    for(PointLivraison pointLivraison : trancheHoraire.getPointsLivraisons())
+			Vector<PointLivraison> livraisons = trancheHoraire.getPointsLivraisons();
+			
+			// Tri
+			if(livraisons.get(0).getHeureArriveeEstimee() != null)
+			{
+				Collections.sort(livraisons, new Comparator<PointLivraison>() {
+			        @Override public int compare(PointLivraison p1, PointLivraison p2) {
+			            if(p1.getHeureArriveeEstimee().equals(p2.getHeureArriveeEstimee()))
+			            	return 0;
+			            else if(p1.getHeureArriveeEstimee().before(p2.getHeureArriveeEstimee()))
+			            	return -1;
+			            else
+			            	return 1;
+			        }
+			    });
+			}
+			
+			// Affichage
+		    for(PointLivraison pointLivraison : livraisons)
 		    {
 		    	listeLivraisonPourTH = "\t\tL" + pointLivraison.getIdPointLivraison();
 		    			
