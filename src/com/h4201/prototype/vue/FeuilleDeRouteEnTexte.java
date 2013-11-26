@@ -66,9 +66,13 @@ public final class FeuilleDeRouteEnTexte {
             	pw.println("Adresse : "+ "X = "+ cheminCourant.getPointLivraisonOrigine().getNoeud().getX()+" , Y = "
             			+ cheminCourant.getPointLivraisonOrigine().getNoeud().getY());
             	
-            	pw.println("Heure d'arrivee estimee : " + Date.getHeureFrDepuisCalendar(cheminCourant.getPointLivraisonOrigine().getTrancheHoraire().getHeureDebut()));
+            	if(cheminCourant.getPointLivraisonOrigine().getTrancheHoraire() != null)
+            	{
+            		pw.println("Heure d'arrivee estimee : " + Date.getHeureFrDepuisCalendar(
+            				cheminCourant.getPointLivraisonOrigine().getTrancheHoraire().getHeureDebut()));
+            	}
             	
-            	pw.println("\n\nItineraire jusqu'a la prochaine livraison : ");
+            	pw.println("\nItineraire jusqu'a la prochaine livraison : ");
             	pw.println("Longueur de l'itineraire : " + cheminCourant.getLongueur());
             	pw.println("Temps estime : " + cheminCourant.getTemps());
             	
