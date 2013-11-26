@@ -106,7 +106,7 @@ public class AppGraphe implements Graph {
 				nbVertices++;
 			}
 		}
-		System.out.println("nbVertices : " + nbVertices); // DEBUG
+//		System.out.println("nbVertices : " + nbVertices); // DEBUG
 
 		// Remplir matrice des couts
 		cost = new int[nbVertices][nbVertices];
@@ -118,8 +118,8 @@ public class AppGraphe implements Graph {
 			Integer positionYdansMatch = retournerPairDepuisMatch(match, chemins.get(i).getPointLivraisonDestination()).getSecond();
 
 			// DEBUG : Afficher les chemins dans chemin
-			System.out.println(positionXdansMatch+"->"+positionYdansMatch + " " + chemins.get(i).getTemps() + " s");
-			System.out.println(retournerPointLivraisonDepuisPositionMatchMatch(match, positionXdansMatch).getIdPointLivraison()+"->"+retournerPointLivraisonDepuisPositionMatchMatch(match, positionYdansMatch).getIdPointLivraison() + " " + chemins.get(i).getTemps() + " s");
+//			System.out.println(positionXdansMatch+"->"+positionYdansMatch + " " + chemins.get(i).getTemps() + " s");
+//			System.out.println(retournerPointLivraisonDepuisPositionMatchMatch(match, positionXdansMatch).getIdPointLivraison()+"->"+retournerPointLivraisonDepuisPositionMatchMatch(match, positionYdansMatch).getIdPointLivraison() + " " + chemins.get(i).getTemps() + " s");
 
 			cost[positionXdansMatch][positionYdansMatch] = (int) chemins.get(i).getTemps();
 		}
@@ -140,18 +140,18 @@ public class AppGraphe implements Graph {
 		}
 
 		//DEBUG : AFFICHER getNbSucc
-		for(int i=0; i<nbVertices; i++){
-			System.out.println("getNbSucc : " + i+ " " + getNbSucc(i));
-			int[] succd = getSucc(i);
-			for(int j=0; j<succd.length; j++)
-				System.out.println("Succ : " + succd[j]);
-		}
+//		for(int i=0; i<nbVertices; i++){
+//			System.out.println("getNbSucc : " + i+ " " + getNbSucc(i));
+//			int[] succd = getSucc(i);
+//			for(int j=0; j<succd.length; j++)
+//				System.out.println("Succ : " + succd[j]);
+//		}
 
 
 		// Passer le graphe a la classe TSP
 		TSP tsp = new TSP(this);
 		SolutionState solutionState = tsp.solve(10000, 1000000);
-		System.out.println("Solution state : " + solutionState);
+//		System.out.println("Solution state : " + solutionState);
 
 		if (solutionState.equals(SolutionState.OPTIMAL_SOLUTION_FOUND)){
 			// Retrouver les chemins optimaux � partir des pointsLivraison
@@ -174,10 +174,10 @@ public class AppGraphe implements Graph {
 			}while(entrepot.getIdPointLivraison() != pointLivraisonActuel.getIdPointLivraison());
 
 
-			for (int j=0; j<chemins.size(); j++)
-			{
-				System.out.println("chemins : " + chemins.get(j).getPointLivraisonOrigine().getIdPointLivraison() + "->" + chemins.get(j).getPointLivraisonDestination().getIdPointLivraison());
-			}
+//			for (int j=0; j<chemins.size(); j++)
+//			{
+//				System.out.println("chemins : " + chemins.get(j).getPointLivraisonOrigine().getIdPointLivraison() + "->" + chemins.get(j).getPointLivraisonDestination().getIdPointLivraison());
+//			}
 
 			Calendar heure = (Calendar) tournee.getTranchesHoraire().firstElement().getHeureDebut().clone();
 			// Ajouter les chemins optimaux � la tourn�e
