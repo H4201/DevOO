@@ -8,17 +8,7 @@ import java.awt.event.MouseEvent;
 import java.io.File;
 import java.util.ArrayList;
 
-
-
-
 import java.util.Iterator;
-
-
-
-
-
-
-
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -231,46 +221,12 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 				boutonCalcT.setEnabled(true);
 				boutonAjouter.setEnabled(true);
 				boutonSupprimer.setEnabled(true);
-				
-				
-				
-				//Tableau non affiche, trouver erreur
-				tableRecap = new TableRecap(Tournee.getInstance().getTranchesHoraire());
-				Object[][] objets = new Object[tableRecap.getLongueur()][1];
-				String[] entetes = {"Livraisons par tranche horaire"};
-				for(int compte=0; compte<tableRecap.getLongueur(); compte++){
-					objets[compte][0]=tableRecap.getLesLivraisons().get(compte);
-					//System.out.println(objets[compte][0]);  //OK
-				}
-				tableau = new JTable(objets,entetes) {
-					private static final long serialVersionUID = -1070527324413234766L;
 
-					@Override
-					public boolean isCellEditable(int row, int col) {
-						return false;
-					}
-				};
-				//tableau.setLayout(null);
-				//tableau.setBounds(10, 100, 300, 500);
-				//fenetre.getContentPane().add(new JScrollPane(tableau));
-				paneT = new JScrollPane(tableau);
-//				paneT.setLayout(null); // NE PAS METTRE !
-				paneT.setBounds(10, 100, 300, 500);
-
-				paneT.setVisible(true);
-				tableau.setVisible(true);
 				
-				fenetre.getContentPane().add(paneT);
+				//Tableau des horaires				
+				majTableDesTranchesHoraire();
 				
-				/*System.out.println("showing : " + tableau.isShowing());
-				System.out.println("visible : " + tableau.isVisible());
-				System.out.println("enabled : " + tableau.isEnabled());
-				System.out.println("posX : " + tableau.getBounds().getX());
-				System.out.println("posY : " + tableau.getBounds().getY());
-				System.out.println("nb colonnes : " + tableau.getColumnCount());
-				System.out.println("nb lignes : " + tableau.getRowCount());*/
-												
-				fenetre.repaint();
+//				fenetre.getContentPane().add(paneT);
 			}
 		}
 		else if (evt.getActionCommand().equals("Generer la feuille de route")){
@@ -290,6 +246,8 @@ public class VueSupervision extends MouseAdapter implements ActionListener
  			textPL.setVisible(false);
  			textTH.setVisible(false);
  			VuePanel.getInstance().repaint();
+ 			
+ 			majTableDesTranchesHoraire();
  		}
 		else if (evt.getActionCommand().equals("Retablir")){
 			boutonAnnuler.setEnabled(true);
@@ -305,6 +263,8 @@ public class VueSupervision extends MouseAdapter implements ActionListener
  			textPL.setVisible(false);
  			textTH.setVisible(false);
  			VuePanel.getInstance().repaint();
+ 			
+ 			majTableDesTranchesHoraire();
 		}	
 		else if (evt.getActionCommand().equals("Calculer la tournee")){
 			Controleur.getInstance().calculTournee();
@@ -315,6 +275,8 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 			boutonSupprimer.setEnabled(true);
 			textPL.setVisible(false);
 			textTH.setVisible(false);
+			
+			majTableDesTranchesHoraire();
 		}
 		else if (evt.getActionCommand().equals("Mode ajouter")){
 			Controleur.getInstance().notifierClicAjouter();
@@ -340,7 +302,27 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 			boutonAjouter.setEnabled(true);
 			boutonSupprimer.setEnabled(true);
 		}
+		
 		fenetre.repaint();
+	}
+	
+	public void majTableDesTranchesHoraire()
+	{
+		if(paneT != null) fenetre.getContentPane().remove(paneT);
+		
+		tableRecap = new TableRecap();
+		
+		tableau = tableRecap.getTableau();
+		paneT = new JScrollPane(tableau);
+		paneT.setBounds(10, 100, 300, 500);
+
+		paneT.setVisible(true);
+		tableau.setVisible(true);
+		
+//		tableau.repaint();
+//		paneT.repaint();
+
+		fenetre.getContentPane().add(paneT);
 	}
 	
 	
@@ -353,7 +335,11 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 		TrancheHoraire trancheHoraire;
 		PointLivraison noeudEstLiv;
 		//si le clic a eu lieu dans le plan (POSVUEX<=x<=POSVUEX+LARGEUR et POSVUEY<=y<=POSVUEY+HAUTEUR)
-		if(Constante.POSVUEX<=evt.getX() && evt.getX()<=Constante.POSVUEX+Constante.LARGEUR && Constante.POSVUEY+23<=evt.getY() && evt.getY()<=Constante.POSVUEY+Constante.HAUTEUR+23){
+		if(Constante.POSVUEX<=evt.getX() 
+				&& evt.getX()<=Constante.POSVUEX+Constante.LARGEUR 
+				&& Constante.POSVUEY+23<=evt.getY() 
+				&& evt.getY()<=Constante.POSVUEY+Constante.HAUTEUR+23)
+		{
 			posX=evt.getX()-Constante.POSVUEX;
 			posY=evt.getY()-Constante.POSVUEY-23;
 			
@@ -365,7 +351,8 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 			System.out.println("pos : " + posX + ", " + posY);
 
 
-			if(noeudClique != null){
+			if(noeudClique != null)
+			{
 				System.out.println("clic sur noeud : " + noeudClique.getIdNoeud());
 				if(Controleur.getInstance().getMode()==Constante.MODE_AJOUT){ //AJOUT
 					VueTrancheHoraire.getInstance();
@@ -376,6 +363,8 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 					boutonAnnuler.setEnabled(true);
 					boutonRetablir.setEnabled(false);
 					VuePanel.getInstance().repaint();
+					
+					majTableDesTranchesHoraire();
 				}
 				else if(Controleur.getInstance().getMode()==Constante.MODE_SUPPRESSION){//SUPPRESSION
 					noeudEstLiv = VuePanel.getInstance().getLePointLivraison(posX, posY);
@@ -387,6 +376,8 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 						boutonAnnuler.setEnabled(true);
 						boutonRetablir.setEnabled(false);
 						VuePanel.getInstance().repaint();
+						
+						majTableDesTranchesHoraire();
 					}
 				}
 				else if(Controleur.getInstance().getMode()==Constante.MODE_NORMAL){
@@ -404,7 +395,9 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 			else{
 				System.out.println("null");
 			}
-		}		
+		}	
+		
+		fenetre.repaint();
 	}
 	
 	public void fenetreErreur(String messageErreur){
