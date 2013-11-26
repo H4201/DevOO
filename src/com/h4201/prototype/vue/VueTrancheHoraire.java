@@ -18,6 +18,7 @@ import javax.swing.JComboBox;
 
 import com.h4201.prototype.controleur.Controleur;
 import com.h4201.prototype.modele.Noeud;
+import com.h4201.prototype.modele.PointLivraison;
 import com.h4201.prototype.modele.Tournee;
 import com.h4201.prototype.modele.TrancheHoraire;
 
@@ -26,7 +27,8 @@ public class VueTrancheHoraire extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JComboBox<TrancheHoraire> comboBox=new JComboBox<TrancheHoraire>();
+	private JComboBox<TrancheHoraire> comboBoxTrancheHoraire=new JComboBox<TrancheHoraire>();
+	private JComboBox<PointLivraison> comboBoxPointLivraison=new JComboBox<PointLivraison>();
 	private static Noeud noeud;
 
 
@@ -66,32 +68,40 @@ public class VueTrancheHoraire extends JFrame {
 		contentPane.add(bouton,BorderLayout.SOUTH);
 		
 		JPanel centre = new JPanel();
-		centre.add(comboBox, BorderLayout.CENTER);
-
-	contentPane.add(centre,BorderLayout.CENTER);
-		 bouton.addActionListener(new BoutonListener()); 
+		
+		// bouton.addActionListener(new BoutonListener()); 
 		 VueTournee tournee = VueTournee.getInstance();
 			
 			// a l'ajout d'un point de livraison, on affiche les tranches horaires qui extistent dans la tournee.
 			if (Controleur.getInstance().getMode()==1){	
-			
+				centre.add(comboBoxTrancheHoraire, BorderLayout.CENTER);
+
+				contentPane.add(centre,BorderLayout.CENTER);
 				for(int index=0;index<tournee.getLesTrancheHoraires().length;index++){
-							comboBox.addItem(tournee.getLesVuePointLivraisons().get(index).getPointLivraison().getTrancheHoraire());
-							comboBox.setVisible(true);
+					comboBoxTrancheHoraire.addItem(tournee.getLesVuePointLivraisons().get(index).getPointLivraison().getTrancheHoraire());
+					comboBoxTrancheHoraire.setVisible(true);
+					comboBoxTrancheHoraire.addItemListener(new ItemState());
+					comboBoxTrancheHoraire.addActionListener(new ItemAction());
+					 bouton.addActionListener(new BoutonListener()); 
 							}
 			}
-			// pour supprimer un point de livraison, on affiche que les tranches horaires des point de livraison sur le noeud clique
+			// pour supprimer un point de livraison, on affiche les point de livraison sur le noeud clique
 			else if(Controleur.getInstance().getMode()==2){
+				centre.add(comboBoxPointLivraison, BorderLayout.CENTER);
+
+				contentPane.add(centre,BorderLayout.CENTER);
 				for(int indexPointLivraison=0;indexPointLivraison<tournee.getLesVuePointLivraisons().size();indexPointLivraison++){
-				comboBox.addItem(tournee.getLesVuePointLivraisons().get(indexPointLivraison).getPointLivraison().getTrancheHoraire());
-				comboBox.setVisible(true);
+					comboBoxPointLivraison.addItem(tournee.getLesVuePointLivraisons().get(indexPointLivraison).getPointLivraison());
+					comboBoxPointLivraison.setVisible(true);
+					comboBoxPointLivraison.addItemListener(new ItemState());
+					comboBoxPointLivraison.addActionListener(new ItemAction2());
+					 bouton.addActionListener(new BoutonListener2()); 
 				}
 			}
 				
 		
 		
-		 comboBox.addItemListener(new ItemState());
-		 comboBox.addActionListener(new ItemAction());
+		
 		
 		 
 	}
@@ -102,17 +112,32 @@ public class VueTrancheHoraire extends JFrame {
 		  }
 	 class ItemAction implements ActionListener{
 		    public void actionPerformed(ActionEvent e) {
-		 comboBox.getSelectedItem().toString();
+		    	comboBoxTrancheHoraire.getSelectedItem().toString();
+	
 		    }               
 		  }
+	 class ItemAction2 implements ActionListener{
+		    public void actionPerformed(ActionEvent e) {
+		 
+		    	comboBoxPointLivraison.getSelectedItem().toString();
+		    }               
+		  }
+	 
 	 //Classe écoutant notre bouton
 	   public class BoutonListener implements ActionListener{
 	      public void actionPerformed(ActionEvent arg0) {
 	    
-	      Controleur.getInstance().ajoutPointLivraison(noeud, comboBox.getItemAt(comboBox.getSelectedIndex()));
+	      Controleur.getInstance().ajoutPointLivraison(noeud, comboBoxTrancheHoraire.getItemAt(comboBoxTrancheHoraire.getSelectedIndex()));
 	       bouton.setEnabled(true);
 	    
 	     }
 	   }
-	
+	   public class BoutonListener2 implements ActionListener{
+		      public void actionPerformed(ActionEvent arg0) {
+		    
+		      Controleur.getInstance().supprimerPointLivraison(comboBoxPointLivraison.getItemAt(comboBoxPointLivraison.getSelectedIndex()));
+		       bouton.setEnabled(true);
+		    
+		     }
+		   }
 }
