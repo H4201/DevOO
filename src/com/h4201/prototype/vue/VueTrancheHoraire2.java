@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -108,6 +109,10 @@ public class VueTrancheHoraire2 extends MouseAdapter {
 		 fenetre.setVisible(true);
 	}
 	
+	public void ouvert(Noeud noeudClique){
+		noeud=noeudClique;
+	}
+	
 	 class ItemState implements ItemListener{
 		 public void itemStateChanged(ItemEvent e) {
 			 //e.getItem();
@@ -125,7 +130,7 @@ public class VueTrancheHoraire2 extends MouseAdapter {
 	 public class BoutonListener implements ActionListener{
 		 public void actionPerformed(ActionEvent e) {
 			 System.out.println(trancheHoraire.toString());
-			 //Controleur.getInstance().ajoutPointLivraison(noeud, trancheHoraire);
+			 Controleur.getInstance().ajoutPointLivraison(noeud, trancheHoraire);
 			 fenetre.dispose();
 			 //lancer controleur avec le noeud(comment passer l'arg?) et la tranche horaire(ok) puis fermer la fenetre
 
