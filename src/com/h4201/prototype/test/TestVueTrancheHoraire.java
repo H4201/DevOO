@@ -14,8 +14,8 @@ public class TestVueTrancheHoraire {
 	EventQueue.invokeLater(new Runnable() {
 	public void run() {
 		try {
-			VueTrancheHoraire frame = new VueTrancheHoraire();
-			frame.setVisible(true);
+//			VueTrancheHoraire frame = new VueTrancheHoraire();
+//			frame.setVisible(true);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

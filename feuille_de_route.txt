@@ -1,252 +1,161 @@
-Depart de l'entrepot E354
-Adresse : X = 697.0 , Y = 577.0
-
+Depart de l'entrepot E14
+Adresse : X = 144.0 , Y = 372.0
 
 Itineraire jusqu'a la prochaine livraison : 
-Longueur de l'itineraire : 2321.0
-Temps estime : 533.0
+Longueur de l'itineraire : 1746.0
+Temps estime : 396.0
 
 Suivre l'itineraire : 
-	Prendre v17
-	Tourner a h11
-	Tourner a v16
-	Tourner a h9
-	C'est au X = 608.0 , Y = 378.0
+	Prendre h4
+	Tourner a v2
+	C'est au X = 248.0 , Y = 227.0
 
 ------------------------------------------------------------
 Livraison numero 1
-Identifiant de la livraison L3 du client C328
-Adresse : X = 608.0 , Y = 378.0
-Heure d'arrivee estimee : 08h30m00s
-
+Identifiant de la livraison L15 du client C690
+Adresse : X = 248.0 , Y = 227.0
+Heure d'arrivee estimee : 08h00m00s
 
 Itineraire jusqu'a la prochaine livraison : 
-Longueur de l'itineraire : 1724.0
-Temps estime : 408.0
+Longueur de l'itineraire : 5121.0
+Temps estime : 1266.0
 
 Suivre l'itineraire : 
-	Prendre v15
-	Tourner a h10
-	C'est au X = 430.0 , Y = 419.0
+	Prendre v2
+	Tourner a h3
+	Tourner a v3
+	Tourner a h4
+	Tourner a v4
+	Tourner a h5
+	Tourner a v6
+	Tourner a h6
+	Tourner a v7
+	C'est au X = 578.0 , Y = 595.0
 
 ------------------------------------------------------------
 Livraison numero 2
-Identifiant de la livraison L2 du client C532
-Adresse : X = 430.0 , Y = 419.0
-Heure d'arrivee estimee : 08h30m00s
-
-
-Itineraire jusqu'a la prochaine livraison : 
-Longueur de l'itineraire : 2820.0
-Temps estime : 680.0
-
-Suivre l'itineraire : 
-	Prendre v10
-	Tourner a h11
-	Tourner a v9
-	Tourner a h16
-	C'est au X = 335.0 , Y = 638.0
-
-------------------------------------------------------------
-Livraison numero 3
-Identifiant de la livraison L1 du client C823
-Adresse : X = 335.0 , Y = 638.0
-Heure d'arrivee estimee : 08h30m00s
-
+Identifiant de la livraison L14 du client C608
+Adresse : X = 578.0 , Y = 595.0
+Heure d'arrivee estimee : 08h00m00s
 
 Itineraire jusqu'a la prochaine livraison : 
-Longueur de l'itineraire : 2661.0
-Temps estime : 620.0
-
-Suivre l'itineraire : 
-	Prendre h16
-	Tourner a v9
-	Tourner a h15
-	Tourner a v10
-	Tourner a h16
-	Tourner a v11
-	C'est au X = 449.0 , Y = 745.0
-
-------------------------------------------------------------
-Livraison numero 4
-Identifiant de la livraison L5 du client C560
-Adresse : X = 449.0 , Y = 745.0
-Heure d'arrivee estimee : 10h00m00s
-
-
-Itineraire jusqu'a la prochaine livraison : 
-Longueur de l'itineraire : 903.0
-Temps estime : 217.0
-
-Suivre l'itineraire : 
-	Prendre h19
-	Tourner a v12
-	C'est au X = 501.0 , Y = 692.0
-
-------------------------------------------------------------
-Livraison numero 5
-Identifiant de la livraison L6 du client C145
-Adresse : X = 501.0 , Y = 692.0
-Heure d'arrivee estimee : 10h00m00s
-
-
-Itineraire jusqu'a la prochaine livraison : 
-Longueur de l'itineraire : 3835.0
-Temps estime : 891.0
-
-Suivre l'itineraire : 
-	Prendre h17
-	Tourner a v13
-	Tourner a h18
-	Tourner a v14
-	Tourner a h15
-	Tourner a v15
-	Tourner a h14
-	Tourner a v16
-	Tourner a h15
-	C'est au X = 771.0 , Y = 602.0
-
-------------------------------------------------------------
-Livraison numero 6
-Identifiant de la livraison L7 du client C596
-Adresse : X = 771.0 , Y = 602.0
-Heure d'arrivee estimee : 10h00m00s
-
-
-Itineraire jusqu'a la prochaine livraison : 
-Longueur de l'itineraire : 3153.0
-Temps estime : 772.0
-
-Suivre l'itineraire : 
-	Prendre h15
-	Tourner a v16
-	Tourner a h13
-	Tourner a v12
-	C'est au X = 493.0 , Y = 506.0
-
-------------------------------------------------------------
-Livraison numero 7
-Identifiant de la livraison L8 du client C948
-Adresse : X = 493.0 , Y = 506.0
-Heure d'arrivee estimee : 10h00m00s
-
-
-Itineraire jusqu'a la prochaine livraison : 
-Longueur de l'itineraire : 6116.0
-Temps estime : 1444.0
-
-Suivre l'itineraire : 
-	Prendre v12
-	Tourner a h11
-	Tourner a v11
-	Tourner a h10
-	Tourner a v9
-	Tourner a h5
-	Tourner a v8
-	Tourner a h2
-	Tourner a v5
-	Tourner a h0
-	C'est au X = 187.0 , Y = 35.0
-
-------------------------------------------------------------
-Livraison numero 8
-Identifiant de la livraison L4 du client C188
-Adresse : X = 187.0 , Y = 35.0
-Heure d'arrivee estimee : 10h00m00s
-
-
-Itineraire jusqu'a la prochaine livraison : 
-Longueur de l'itineraire : 2542.0
-Temps estime : 597.0
-
-Suivre l'itineraire : 
-	Prendre h0
-	Tourner a v3
-	Tourner a h1
-	Tourner a v1
-	Tourner a h2
-	Tourner a v0
-	Tourner a h3
-	C'est au X = 80.0 , Y = 152.0
-
-------------------------------------------------------------
-Livraison numero 9
-Identifiant de la livraison L9 du client C28
-Adresse : X = 80.0 , Y = 152.0
-Heure d'arrivee estimee : 14h00m00s
-
-
-Itineraire jusqu'a la prochaine livraison : 
-Longueur de l'itineraire : 2480.0
-Temps estime : 568.0
-
-Suivre l'itineraire : 
-	Prendre v1
-	Tourner a h4
-	Tourner a v0
-	Tourner a h5
-	Tourner a v3
-	C'est au X = 164.0 , Y = 298.0
-
-------------------------------------------------------------
-Livraison numero 10
-Identifiant de la livraison L11 du client C641
-Adresse : X = 164.0 , Y = 298.0
-Heure d'arrivee estimee : 14h00m00s
-
-
-Itineraire jusqu'a la prochaine livraison : 
-Longueur de l'itineraire : 1672.0
-Temps estime : 394.0
+Longueur de l'itineraire : 3346.0
+Temps estime : 751.0
 
 Suivre l'itineraire : 
 	Prendre h7
-	Tourner a v4
-	Tourner a h8
 	Tourner a v3
-	C'est au X = 145.0 , Y = 458.0
+	C'est au X = 315.0 , Y = 701.0
 
 ------------------------------------------------------------
-Livraison numero 11
-Identifiant de la livraison L12 du client C325
-Adresse : X = 145.0 , Y = 458.0
-Heure d'arrivee estimee : 14h00m00s
-
+Livraison numero 3
+Identifiant de la livraison L16 du client C53
+Adresse : X = 315.0 , Y = 701.0
+Heure d'arrivee estimee : 08h00m00s
 
 Itineraire jusqu'a la prochaine livraison : 
-Longueur de l'itineraire : 6590.0
-Temps estime : 1565.0
+Longueur de l'itineraire : 1172.0
+Temps estime : 291.0
 
 Suivre l'itineraire : 
 	Prendre v3
-	Tourner a h12
-	Tourner a v5
-	Tourner a h13
-	Tourner a v9
-	Tourner a h12
-	Tourner a v12
-	Tourner a h13
-	Tourner a v15
-	Tourner a h14
-	Tourner a v16
-	Tourner a h15
-	C'est au X = 736.0 , Y = 620.0
+	C'est au X = 319.0 , Y = 579.0
 
 ------------------------------------------------------------
-Livraison numero 12
-Identifiant de la livraison L10 du client C929
-Adresse : X = 736.0 , Y = 620.0
-Heure d'arrivee estimee : 14h00m00s
-
+Livraison numero 4
+Identifiant de la livraison L18 du client C921
+Adresse : X = 319.0 , Y = 579.0
+Heure d'arrivee estimee : 09h30m00s
 
 Itineraire jusqu'a la prochaine livraison : 
-Longueur de l'itineraire : 506.0
-Temps estime : 128.0
+Longueur de l'itineraire : 4575.0
+Temps estime : 1028.0
 
 Suivre l'itineraire : 
-	Prendre v18
-	Tourner a h14
-	C'est au X = 697.0 , Y = 577.0
+	Prendre h7
+	Tourner a v1
+	Tourner a h6
+	Tourner a v0
+	C'est au X = 103.0 , Y = 248.0
+
+------------------------------------------------------------
+Livraison numero 5
+Identifiant de la livraison L19 du client C257
+Adresse : X = 103.0 , Y = 248.0
+Heure d'arrivee estimee : 09h30m00s
+
+Itineraire jusqu'a la prochaine livraison : 
+Longueur de l'itineraire : 6733.0
+Temps estime : 1605.0
+
+Suivre l'itineraire : 
+	Prendre h2
+	Tourner a v1
+	Tourner a h3
+	Tourner a v3
+	Tourner a h4
+	Tourner a v6
+	Tourner a h3
+	Tourner a v7
+	Tourner a h4
+	Tourner a v8
+	Tourner a h3
+	C'est au X = 715.0 , Y = 288.0
+
+------------------------------------------------------------
+Livraison numero 6
+Identifiant de la livraison L17 du client C259
+Adresse : X = 715.0 , Y = 288.0
+Heure d'arrivee estimee : 09h30m00s
+
+Itineraire jusqu'a la prochaine livraison : 
+Longueur de l'itineraire : 5016.0
+Temps estime : 1159.0
+
+Suivre l'itineraire : 
+	Prendre h3
+	Tourner a v8
+	Tourner a h5
+	Tourner a v9
+	Tourner a h9
+	C'est au X = 666.0 , Y = 724.0
+
+------------------------------------------------------------
+Livraison numero 7
+Identifiant de la livraison L20 du client C523
+Adresse : X = 666.0 , Y = 724.0
+Heure d'arrivee estimee : 11h00m00s
+
+Itineraire jusqu'a la prochaine livraison : 
+Longueur de l'itineraire : 7406.0
+Temps estime : 1695.0
+
+Suivre l'itineraire : 
+	Prendre h9
+	Tourner a v7
+	Tourner a h8
+	Tourner a v6
+	Tourner a h7
+	Tourner a v1
+	Tourner a h6
+	Tourner a v0
+	C'est au X = 45.0 , Y = 579.0
+
+------------------------------------------------------------
+Livraison numero 8
+Identifiant de la livraison L21 du client C363
+Adresse : X = 45.0 , Y = 579.0
+Heure d'arrivee estimee : 11h00m00s
+
+Itineraire jusqu'a la prochaine livraison : 
+Longueur de l'itineraire : 2737.0
+Temps estime : 636.0
+
+Suivre l'itineraire : 
+	Prendre v0
+	Tourner a h5
+	Tourner a v1
+	C'est au X = 144.0 , Y = 372.0
 
 ------------------------------------------------------------
 
