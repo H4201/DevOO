@@ -1,5 +1,6 @@
 package com.h4201.prototype.vue;
 
+import java.awt.Color;
 import java.awt.Graphics;
 
 import javax.swing.JPanel;
@@ -48,6 +49,16 @@ public class VuePanel extends JPanel
 	public PointLivraison getLePointLivraison(double x, double y)
 	{
 		return VuePlan.getInstance().getLePointLivraison(x, y);
+	}
+	
+	public void ajouterNouveauPointLivraison(PointLivraison pointLivraison)
+	{
+		VueTournee.getInstance().ajouterNouveauPointLivraison(pointLivraison);
+	}
+	
+	public void supprimerPointLivraison(PointLivraison pointLivraison)
+	{
+		VueTournee.getInstance().supprimerPointLivraison(pointLivraison);
 	}
 	
 	/**
