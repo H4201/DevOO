@@ -38,7 +38,7 @@ public class PointLivraison
   
   protected void setHeureArriveeEstimee(Calendar heureArriveeEstimee)
   {
-	  this.heureArriveeEstimee = heureArriveeEstimee;
+	  this.heureArriveeEstimee = (Calendar) heureArriveeEstimee.clone();
   }
   
   public Calendar getHeureArriveeEstimee()
@@ -58,8 +58,11 @@ public class PointLivraison
   
   	public boolean getRespecteTrancheHoraireDemandee()
   	{
-  		return (heureArriveeEstimee.after(trancheHoraire.getHeureDebut()) 
-  				&& heureArriveeEstimee.before(trancheHoraire.getHeureFin()));
+  		if(getHeureArriveeEstimee() == null)
+  			return false;
+  		else
+  			return (getHeureArriveeEstimee().after(trancheHoraire.getHeureDebut()) 
+  				&& getHeureArriveeEstimee().before(trancheHoraire.getHeureFin()));
   	}
 	
 	public int getIdPointLivraison() {
