@@ -1,10 +1,13 @@
 package com.h4201.prototype.vue;
 
+import java.awt.Color;
+import java.awt.Component;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Vector;
 
 import javax.swing.JTable;
+import javax.swing.table.TableCellRenderer;
 
 
 //import javax.swing.table.AbstractTableModel;
@@ -76,6 +79,16 @@ public class TableRecap {
 		tableau = new JTable(objets, entetes) {
 			private static final long serialVersionUID = -1070527324413234766L;
 
+			@Override
+			public Component prepareRenderer(TableCellRenderer renderer, int row, int column)
+		    {
+		        Component c = super.prepareRenderer(renderer, row, column);
+
+		        c.setBackground(Color.RED);
+
+		        return c;
+		    }
+			
 			@Override
 			public boolean isCellEditable(int row, int col) {
 				return false;
