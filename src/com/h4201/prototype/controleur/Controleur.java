@@ -1,10 +1,12 @@
 package com.h4201.prototype.controleur;
 
+import java.awt.Graphics;
 import java.io.File;
 import java.util.Stack;
 
 import com.h4201.prototype.modele.*;
 import com.h4201.prototype.vue.VuePanel;
+import com.h4201.prototype.vue.VuePlan;
 import com.h4201.prototype.vue.VueSupervision;
 import com.h4201.prototype.modele.AppGraphe;
 import com.h4201.prototype.utilitaire.Constante;
@@ -99,6 +101,8 @@ public final class Controleur
 	    	redos.clear(); // popAll()
 	    	undos.push(commandeAjout);
 	    	// comportement attendu sur la vue : 'retablir' est grise && 'annuler' est degrise
+	    	Graphics g = VuePanel.getInstance().getGraphics();
+	    	VuePlan.getInstance().dessinerNouveauPointLivraison(g, noeud, Constante.LARGEUR, Constante.HAUTEUR, trancheHoraire);
     	}
     }
     
@@ -123,6 +127,8 @@ public final class Controleur
 	    	redos.clear(); // popAll()
 	    	undos.push(commandeSuppr);
 	    	// comportement attendu sur la vue : 'retablir' est grise && 'annuler' est degrise
+	    	Graphics g = VuePanel.getInstance().getGraphics();
+	    	VuePlan.getInstance().griserPointLivraisonSupprimer(g, pointLivraison, Constante.LARGEUR, Constante.HAUTEUR);
 	    }
     }
         
@@ -178,12 +184,10 @@ public final class Controleur
 	 * @return vrai si le calcul de la tournee a ete correctement effectue, faux si il y a eu une erreur.
      */
     public boolean calculTournee()
-    {    	
-    	AppGraphe appG = AppGraphe.getInstance();
-    	
+    {    	    	
     	try 
     	{
-			appG.genererTournee();
+    		AppGraphe.getInstance().genererTournee();
 	    	VuePanel.getInstance().repaint();
 	    	passerEnModeNormal();
 		}
