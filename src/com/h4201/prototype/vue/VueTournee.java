@@ -75,11 +75,12 @@ public class VueTournee
 		
 		couleursTranchesHoraires = new HashMap<TrancheHoraire,Color>();
 		lesTrancheHoraires = tournee.getTranchesHoraire().toArray(new TrancheHoraire[tournee.getTranchesHoraire().size()]);
-		Color CouleurTrancheHoraire[] = Constante.tabCouleur;
+		Color couleurTrancheHoraire[] = Constante.tabCouleur;
 
-		for(int i=0; i<CouleurTrancheHoraire.length && i<lesTrancheHoraires.length; i++)
+		for(int i=0; i<lesTrancheHoraires.length; i++)
 		{
-			couleursTranchesHoraires.put(lesTrancheHoraires[i], CouleurTrancheHoraire[i]);				
+			couleursTranchesHoraires.put(lesTrancheHoraires[i], 
+					(i<couleurTrancheHoraire.length) ? couleurTrancheHoraire[i] : Color.BLACK);				
 		}
 		
 		if(couleursTranchesHoraires.size()!=0)
@@ -181,6 +182,8 @@ public class VueTournee
 	
 	public  Vector<PointLivraison> lesPointLivraisonsClique(double x, double y)
 	{
+		lesPointLivraisonsClique = new Vector<PointLivraison>();
+		
 		for(VuePointLivraison vuePointLivraison : lesVuePointLivraisons)
 		{
 			double x1 = vuePointLivraison.getPointLivraison().getNoeud().getX();
