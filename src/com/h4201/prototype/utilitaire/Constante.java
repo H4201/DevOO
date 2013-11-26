@@ -47,7 +47,8 @@ public abstract class Constante
 	/*
 	 * tableau couleurs des tranches horaires
 	 */
-	public static final Color tabCouleur[] = { Color.RED, Color.GREEN, Color.BLUE,Color.MAGENTA,Color.PINK, Color.ORANGE };
+	public static final Color tabCouleur[] = { Color.RED, Color.GREEN, Color.BLUE,Color.MAGENTA,Color.PINK, Color.ORANGE,
+		Color.CYAN, Color.YELLOW };
 	
 	/*
 	 * constantes pour la fenetre de supervision
