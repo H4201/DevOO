@@ -56,18 +56,10 @@ public class PointLivraison
   		cheminSortant = chemin;
   	}
   
-  	/**
-  	 * Permet d'indiquer que la livraison ne respecte 
-  	 * pas la tranche horaire demandee par le client.
-  	 */
-    public void neRespectePlusTrancheHoraireDemandee()
-    {
-    	respecteTrancheHoraireDemandee = false;
-    }
-  
   	public boolean getRespecteTrancheHoraireDemandee()
   	{
-  		return respecteTrancheHoraireDemandee;
+  		return (heureArriveeEstimee.after(trancheHoraire.getHeureDebut()) 
+  				&& heureArriveeEstimee.before(trancheHoraire.getHeureFin()));
   	}
 	
 	public int getIdPointLivraison() {
