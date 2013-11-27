@@ -7,6 +7,7 @@ import com.h4201.prototype.test.TestFeuilleDeRoute;
 import com.h4201.prototype.test.TestInterface;
 import com.h4201.prototype.test.TestLogic;
 import com.h4201.prototype.test.TestTournee;
+import com.h4201.prototype.vue.VueSupervision;
 
 
 public class Lanceur
@@ -15,7 +16,7 @@ public class Lanceur
 	{
 		if(argv.length == 0)
 		{
-			// TODO Lancement de l'application
+			VueSupervision.getInstance();
 		}
 		else if(argv[0].equals("chargementXml"))
 		{
