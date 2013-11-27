@@ -171,12 +171,18 @@ public class VueTournee
 	 
 	public void supprimerPointLivraison (PointLivraison pointLivraison)
 	{		
+		VuePointLivraison vuePointLivraisonASupprimer = null;
 		for (VuePointLivraison vuePointLivraison : lesVuePointLivraisons)
 		{
 			if(vuePointLivraison.getPointLivraison().equals(pointLivraison))
 			{
-				lesVuePointLivraisons.remove(vuePointLivraison);
+				vuePointLivraisonASupprimer = vuePointLivraison;
 			}
+		}
+		
+		if(vuePointLivraisonASupprimer != null)
+		{
+			lesVuePointLivraisons.remove(vuePointLivraisonASupprimer);
 		}
 	}
 	

@@ -40,11 +40,5 @@ public class VueTroncon
 		g.setColor(Constante.COULEURTRONCON);
 		g.drawLine(x1, y1, x2, y2);
 		g.setColor(cTemp);
-	}
-	
-	public void desactiverTroncon(boolean etat)
-	{
-		
-	}
-	
+	}	
 }
