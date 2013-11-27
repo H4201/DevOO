@@ -1,12 +1,10 @@
 package com.h4201.prototype.controleur;
 
-import java.awt.Graphics;
 import java.io.File;
 import java.util.Stack;
 
 import com.h4201.prototype.modele.*;
 import com.h4201.prototype.vue.VuePanel;
-import com.h4201.prototype.vue.VuePlan;
 import com.h4201.prototype.vue.VueSupervision;
 import com.h4201.prototype.modele.AppGraphe;
 import com.h4201.prototype.utilitaire.Constante;
