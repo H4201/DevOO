@@ -2,8 +2,6 @@ package com.h4201.prototype.modele;
 
 import java.util.Calendar;
 
-import com.h4201.prototype.utilitaire.Constante;
-
 /**
  * L'entrepot est le point de depart et d'arrivee de la tournee.
  * Entrepot herite de PointLivraison car c'est un cas particulier de PointLivraison.

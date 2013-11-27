@@ -1,6 +1,5 @@
 package com.h4201.prototype.modele;
 
-import java.util.Calendar;
 import java.util.Vector;
 
 import com.h4201.prototype.exception.ExceptionNonInstancie;

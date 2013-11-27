@@ -2,7 +2,6 @@ package com.h4201.prototype.modele;
 
 import java.util.Calendar;
 
-import com.h4201.prototype.utilitaire.Constante;
 import com.h4201.prototype.utilitaire.Date;
 
 /**
