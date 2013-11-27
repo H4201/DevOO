@@ -1,5 +1,12 @@
 package com.h4201.prototype.utilitaire;
 
+/**
+ * Structure de donnees (une paire d'objets).
+ * @author Anonyme
+ *
+ * @param <A>
+ * @param <B>
+ */
 public class Pair<A, B> 
 {
     private A first;
