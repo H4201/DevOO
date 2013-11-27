@@ -72,7 +72,7 @@ public class TableRecap {
 		    				pointLivraison.getHeureArriveeEstimee());
 		    	
 		    	lesLivraisons.add(listeLivraisonPourTH);
-		    	listeObjets.add((Object)listeLivraisonPourTH);
+		    	listeObjets.add((Object)pointLivraison);
 		    }
 		}
 		
@@ -98,17 +98,29 @@ public class TableRecap {
 			        Object obj = listeObjets.get(row);
 			        if(obj instanceof TrancheHoraire)
 			        {
-				        System.out.println(couleursTranchesHoraires);
+//				        System.out.println(couleursTranchesHoraires);
 				        c.setBackground(couleursTranchesHoraires.get((TrancheHoraire)obj));
+			        }
+			        else if(obj instanceof PointLivraison)
+			        {
+			        	if(((PointLivraison)obj).getHeureArriveeEstimee() != null
+			        			&& !((PointLivraison)obj).getRespecteTrancheHoraireDemandee())
+			        	{
+			        		c.setBackground(Color.LIGHT_GRAY);
+			        	}
+			        	else
+			        	{
+			        		c.setBackground(Color.WHITE);
+			        	}
 			        }
 			        else
 			        {
-			        	c.setBackground(null);
+			        	c.setBackground(Color.WHITE);
 			        }
 		        }
 		        else
 		        {
-		        	c.setBackground(null);
+		        	c.setBackground(Color.WHITE);
 		        }
 		        
 		        return c;
@@ -119,6 +131,9 @@ public class TableRecap {
 				return false;
 			}
 		};
+		
+		tableau.setFocusable(false);
+		tableau.setRowSelectionAllowed(false);
 	}
 	
 	public JTable getTableau()
