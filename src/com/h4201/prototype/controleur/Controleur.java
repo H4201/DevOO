@@ -260,7 +260,7 @@ public final class Controleur
     /* Mode */
 
     /**
-     * Methode appellee par la vue pour connaitre le mode actuel parmi {MODE_NORMAL, MODE_AJOUT, MODE_SUPPRESSION}.
+     * Methode appelee par la vue pour connaitre le mode actuel parmi {MODE_NORMAL, MODE_AJOUT, MODE_SUPPRESSION}.
      * @return Retourne le mode.
      */
     public int getMode()
