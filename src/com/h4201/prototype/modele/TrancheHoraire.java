@@ -80,8 +80,7 @@ public class TrancheHoraire
 
 	@Override
 	public String toString() {
-		return "TrancheHoraire [idTrancheHoraire=" + idTrancheHoraire
-				+ ", heureDebut=" + Date.getHeureFrDepuisCalendar(heureDebut) 
-				+ ", heureFin=" + Date.getHeureFrDepuisCalendar(heureFin) + "]";
+		return Date.getHeureFrSimplifieeDepuisCalendar(this.getHeureDebut())
+				 + " - " + Date.getHeureFrSimplifieeDepuisCalendar(this.getHeureFin());
 	}
 }

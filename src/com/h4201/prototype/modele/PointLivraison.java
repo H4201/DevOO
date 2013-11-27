@@ -3,6 +3,7 @@ package com.h4201.prototype.modele;
 import java.util.Calendar;
 
 import com.h4201.prototype.utilitaire.Constante;
+import com.h4201.prototype.utilitaire.Date;
 
 /**
  * PointLivraison est un noeud du plan faisant partie d'une tournee et donc livre.
@@ -116,9 +117,13 @@ public class PointLivraison
 
 	@Override
 	public String toString() {
-		return "PointLivraison [respecteTrancheHoraireDemandee="
-				+ respecteTrancheHoraireDemandee + ", idPointLivraison="
-				+ idPointLivraison + ", client=" + client
-				+ ", noeud=" + noeud + "]";
+		String str = "L" + this.getIdPointLivraison();
+		if(this.getHeureArriveeEstimee() != null)
+		{
+			str += " - " + Date.getHeureFrSimplifieeDepuisCalendar(
+					this.getHeureArriveeEstimee());
+		}		
+		
+		return str;
 	}
 }
