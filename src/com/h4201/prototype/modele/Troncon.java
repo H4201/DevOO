@@ -50,6 +50,11 @@ public class Troncon
 	  return (this.nbCheminPassantParCeTroncon += 1);
   }
   
+  public void reinitialisationDesChemins()
+  {
+	  this.nbCheminPassantParCeTroncon = 0;
+  }
+  
   public int getNbCheminPassantParCeTroncon()
   {
 	  return this.nbCheminPassantParCeTroncon;

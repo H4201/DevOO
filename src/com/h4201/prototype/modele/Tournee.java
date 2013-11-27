@@ -68,69 +68,84 @@ public class Tournee
 	  
 	  public void supprimerTousLesChemins()
 	  {
+		  for(Chemin chemin : this.chemins)
+		  {
+			  for(Troncon troncon : chemin.getTroncons())
+			  {
+				  troncon.reinitialisationDesChemins();
+			  }
+		  }
+		  
 		  this.chemins = new Vector<Chemin>();
 	  }
 		
-		public Entrepot getEntrepot() {
-			return entrepot;
-		}
-		
-		public Vector<Chemin> getChemins() {
-			return chemins;
-		}
-		
-		public Vector<TrancheHoraire> getTranchesHoraire() { 
-			return tranchesHoraire;
-		}
-		
-		public void afficher()
-		{
-			System.out.println("\n" + this.toString());
-			System.out.println("Chemins : ");
-			for(Chemin chemin : chemins)
-			{
-				chemin.afficher();
-			}
-			
-			System.out.println("Tranches horaire : ");
-			for(TrancheHoraire trancheHoraire : tranchesHoraire)
-			{
-				trancheHoraire.afficher();
-			}
-		}
+	public Entrepot getEntrepot() {
+		return entrepot;
+	}
+	
+	public Vector<Chemin> getChemins() {
+		return chemins;
+	}
+	
+	public Vector<TrancheHoraire> getTranchesHoraire() { 
+		return tranchesHoraire;
+	}
+	
 
-		@Override
-		public String toString() {
-			return "Tournee [entrepot=" + entrepot + "]";
-		}
+	
+	public void ajouterPointLivraison(PointLivraison ptLivraison)
+	{
+		TrancheHoraire th = ptLivraison.getTrancheHoraire();
 		
-		public void ajouterPointLivraison(PointLivraison ptLivraison)
-		{
-			TrancheHoraire t = ptLivraison.getTrancheHoraire();
-			
-	    	for(int i=0 ; i<tranchesHoraire.size() ; i++)
-	    		if(tranchesHoraire.get(i).getHeureDebut() == t.getHeureDebut())
-	    			tranchesHoraire.get(i).getPointsLivraisons().add(ptLivraison);
-	    	// postcondition : on a necessairement ajoute ptLivraison a 1 et 1 seule trancheHoraire
-		}
-
-		public void supprimerPointLivraison(PointLivraison ptLivraison)
+		if(th != null)
 		{
 	    	for(int i=0 ; i<tranchesHoraire.size() ; i++)
 	    	{
-	    		if(tranchesHoraire.get(i).getHeureDebut() == ptLivraison.getTrancheHoraire().getHeureDebut())
-	    		{
-	    			Vector<PointLivraison> ptsLivraison = tranchesHoraire.get(i).getPointsLivraisons();
-	    			for(int j=0 ; j<ptsLivraison.size() ; j++)
-	    			{
-	    				if(ptsLivraison.get(j).getIdPointLivraison() == ptLivraison.getIdPointLivraison())
-	    				{
-	    					ptsLivraison.remove(j);
-	    				}
-	    			}    	
-	    			// postcondition : on a necessairement suprimm� ptLivraison 1 et 1 seule fois.
-	    		}
+	    		if((tranchesHoraire.get(i)).equals(th))
+	    			tranchesHoraire.get(i).getPointsLivraisons().add(ptLivraison);
 	    	}
+	    	// postcondition : on a necessairement ajoute ptLivraison a 1 et 1 seule trancheHoraire
+		}
+	}
+
+	public void supprimerPointLivraison(PointLivraison ptLivraison)
+	{
+    	for(int i=0 ; i<tranchesHoraire.size() ; i++)
+    	{
+    		if(ptLivraison.getTrancheHoraire() != null
+    				&& tranchesHoraire.get(i).equals(ptLivraison.getTrancheHoraire()))
+    		{
+    			Vector<PointLivraison> ptsLivraison = tranchesHoraire.get(i).getPointsLivraisons();
+    			for(int j=0 ; j<ptsLivraison.size() ; j++)
+    			{
+    				if((ptsLivraison.get(j)).equals(ptLivraison))
+    				{
+    					ptsLivraison.remove(j);
+    				}
+    			}    	
+    			// postcondition : on a necessairement suprimm� ptLivraison 1 et 1 seule fois.
+    		}
+    	}
+	}
+	
+	public void afficher()
+	{
+		System.out.println("\n" + this.toString());
+		System.out.println("Chemins : ");
+		for(Chemin chemin : chemins)
+		{
+			chemin.afficher();
 		}
 		
+		System.out.println("Tranches horaire : ");
+		for(TrancheHoraire trancheHoraire : tranchesHoraire)
+		{
+			trancheHoraire.afficher();
+		}
+	}
+
+	@Override
+	public String toString() {
+		return "Tournee [entrepot=" + entrepot + "]";
+	}
 }
