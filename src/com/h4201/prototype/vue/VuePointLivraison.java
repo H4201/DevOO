@@ -13,7 +13,7 @@ public class VuePointLivraison
 	private Color couleur;
 
 	/**
-	 * Constructeur d une vue pour point de livraison.
+	 * Constructeur de la vue pour un point de livraison.
 	 * @param pointLivraison
 	 * @param couleur du point de livraison
 	 */

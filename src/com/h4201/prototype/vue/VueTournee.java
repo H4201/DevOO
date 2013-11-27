@@ -21,13 +21,15 @@ public class VueTournee
 	private TrancheHoraire lesTrancheHoraires[];
 	private Map<TrancheHoraire, Color> couleursTranchesHoraires;
 	private Vector<PointLivraison> lesPointLivraisonsClique;
-	
-	
-	public Vector<VueChemin> getLesVueChemins() {
+
+
+	public Vector<VueChemin> getLesVueChemins()
+	{
 		return lesVueChemins;
 	}
 
-	public TrancheHoraire[] getLesTrancheHoraires() {
+	public TrancheHoraire[] getLesTrancheHoraires()
+	{
 		return lesTrancheHoraires;
 	}
 
@@ -40,17 +42,24 @@ public class VueTournee
 	{
 		return lesVuePointLivraisons;
 	}
-	
+
 	public Map<TrancheHoraire, Color> getCouleursTranchesHoraires()
 	{
 		return this.couleursTranchesHoraires;
 	}
 	
+	/**
+	 * Constructeur de la vue pour une tournee.
+	 */
 	private VueTournee()
 	{
 		super();
 	}
 	
+	/**
+	 * Cette methode permet de renvoyer une instance de la classe VueTournee.
+	 * @return instance du singleton VueTournee
+	 */
 	public final static VueTournee getInstance()
 	{
 		if (VueTournee.instance == null)
@@ -67,12 +76,17 @@ public class VueTournee
 		return VueTournee.instance;
 	}
 	
+	/**
+	 * Cette methode permet d'initialiser une tournee
+	 * On recupere ainsi toute les tranches horaires et on associe a chaque tranche horaire une couleur predefinie.
+	 * @return vrai si la map des tranches horaires - couleurs n'est pas vide.
+	 */
 	protected boolean initialiserTout()
 	{
 		// On recupere la tournee
 		boolean flag = false;
 		Tournee tournee = Tournee.getInstance();
-		
+
 		couleursTranchesHoraires = new HashMap<TrancheHoraire,Color>();
 		lesTrancheHoraires = tournee.getTranchesHoraire().toArray(new TrancheHoraire[tournee.getTranchesHoraire().size()]);
 		Color couleurTrancheHoraire[] = Constante.tabCouleur;
@@ -82,7 +96,7 @@ public class VueTournee
 			couleursTranchesHoraires.put(lesTrancheHoraires[i], 
 					(i<couleurTrancheHoraire.length) ? couleurTrancheHoraire[i] : Color.BLACK);				
 		}
-		
+
 		if(couleursTranchesHoraires.size()!=0)
 		{
 			flag = true;
@@ -90,11 +104,12 @@ public class VueTournee
 		return flag;
 	}
 	
+	/**
+	 * Cette methode permet de creer la vue pour l'entrepot et les vues pour chaque point de livraison.
+	 * @return vrai si la liste constituee des VuePointLivraison n est pas vide
+	 */
 	protected boolean initialiserPointLivraisons()
 	{
-		/*
-		 * On charge l'entrepot et les points de livraisons de la tournee
-		 */
 		boolean flag = false;
 		boolean ret = initialiserTout();
 		vueEntrepot = new VueEntrepot(Tournee.getInstance().getEntrepot());
@@ -107,24 +122,28 @@ public class VueTournee
 						couleursTranchesHoraires.get(trancheHoraire)));
 			}
 		}
-		
+
 		if(lesVuePointLivraisons.size() > 0)
 		{
 			flag = true;
 		}
-		
+
 		return flag;		
 	}
 	
+	/**
+	 * Cette methode permet d initialiser les vues pour les chemins.
+	 * @return vrai si la liste constituee des chemins n est pas vide
+	 */
 	protected boolean initialiserTournee()
 	{
 		/*
 		 * on charge les chemins de la tournee
 		 */
-	
+
 		boolean flag = false;
 		boolean ret  = initialiserTout();
-		
+
 		lesVueChemins = new Vector<VueChemin>();
 		int numeroChemin = 0;
 		for(Chemin chemin : Tournee.getInstance().getChemins())
@@ -133,18 +152,24 @@ public class VueTournee
 
 			if(th == null)
 				th = chemin.getPointLivraisonOrigine().getTrancheHoraire();
-			
+
 			lesVueChemins.add(new VueChemin(numeroChemin++, chemin, couleursTranchesHoraires.get(th)));
 		}
-		
+
 		if(lesVueChemins.size()!=0)
 		{
 			flag = true;
 		}
-		
+
 		return flag;
 	}
 	
+	/**
+	 * Cette methode permet de dessiner tous les points de livraisons de la tournee
+	 * @param g graphique ou il faudra dessiner
+	 * @param facteurConversionLarg largeur du cadre du plan
+	 * @param facteurConversionHaut hauteur du cadre du plan
+	 */
 	public void dessinerLespointLivraisons(Graphics g,  int facteurConversionLarg, int facteurConversionHaut)
 	{		
 		vueEntrepot.dessinerEntrepot(g, facteurConversionLarg, facteurConversionHaut, Constante.COULEURENTREPOT);
@@ -154,6 +179,13 @@ public class VueTournee
 		}		
 	}
 	
+	/**
+	 * Cette methode permet de dessiner une tournee.
+	 * On dessine l ensemble des chemins appartennant a la tournee.
+	 * @param g graphique ou il faudra dessiner
+	 * @param facteurConversionLarg largeur du cadre du plan
+	 * @param facteurConversionHaut hauteur du cadre du plan
+	 */
 	public void dessinerTournee(Graphics g,  int facteurConversionLarg, int facteurConversionHaut)
 	{
 		for(VueChemin vueChemin : lesVueChemins)
@@ -162,13 +194,20 @@ public class VueTournee
 		}		
 	}
 	
+	/**
+	 * Cette methode permet d ajouter un nouveau point de livraison au plan.
+	 * @param pointLivraison
+	 */
 	public void ajouterNouveauPointLivraison(PointLivraison pointLivraison)
 	{
 		Color couleur = VueTournee.getInstance().getCouleursTranchesHoraires().get(pointLivraison.getTrancheHoraire());
 		lesVuePointLivraisons.add(new VuePointLivraison(pointLivraison, couleur));
 	}
-	
-	 
+
+	/**
+	 * Cette methode permet de supprimer un point de livraison.
+	 * @param pointLivraison
+	 */
 	public void supprimerPointLivraison (PointLivraison pointLivraison)
 	{		
 		VuePointLivraison vuePointLivraisonASupprimer = null;
@@ -179,17 +218,23 @@ public class VueTournee
 				vuePointLivraisonASupprimer = vuePointLivraison;
 			}
 		}
-		
+
 		if(vuePointLivraisonASupprimer != null)
 		{
 			lesVuePointLivraisons.remove(vuePointLivraisonASupprimer);
 		}
 	}
 	
+	/**
+	 * Cette methode retourne les points de livraisons qui ont ete clique s il en existe plusieurs pour le meme noeud.
+	 * @param x coordonnee x du clic
+	 * @param y coordonne y du clic
+	 * @return liste de point de livraison
+	 */
 	public  Vector<PointLivraison> lesPointLivraisonsClique(double x, double y)
 	{
 		lesPointLivraisonsClique = new Vector<PointLivraison>();
-		
+
 		for(VuePointLivraison vuePointLivraison : lesVuePointLivraisons)
 		{
 			double x1 = vuePointLivraison.getPointLivraison().getNoeud().getX();

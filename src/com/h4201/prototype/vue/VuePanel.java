@@ -26,8 +26,8 @@ public class VuePanel extends JPanel
 	}
 	
 	/**
-	 * 
-	 * @return instance de vuePanel
+	 * Cette methode permet de renvoyer une instance de la classe VuePanel.
+	 * @return instance du singleton VuePanel
 	 */
 	public final static VuePanel getInstance()
 	{
@@ -45,7 +45,7 @@ public class VuePanel extends JPanel
 		return VuePanel.instance;
 	}
 	
-	public void initialiserVuePlan()
+	void initialiserVuePlan()
 	{
 		VuePlan.getInstance().initialiserVuePlan(); 
 	}
@@ -78,6 +78,9 @@ public class VuePanel extends JPanel
 	/**
 	 * Chargement du plan.
 	 * On dessine le cadre du plan, puis tous les noeuds et troncons.
+	 * Si on a charger une demande de livraison, on dessine les points de livraison.
+	 * Si on a charger la tournee en la calculant, on dessine les chemins.
+	 * @param g 
 	 */
 	@Override
 	public void paintComponent(Graphics g)

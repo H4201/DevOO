@@ -26,22 +26,31 @@ public class VuePlan
 		return lesVueTroncons;
 	}
 	
+	/**
+	 * cette methode permet de retourner le noeud qui a ete clique.
+	 * @param x coordonee du clic suivant l axe x
+	 * @param y coordonnee y du clic suivant l axe y
+	 * @return noeud
+	 */
 	public Noeud getLeNoeud(double x, double y)
 	{
 		Noeud noeud = null;
 		for(VueNoeud laVueNoeud : lesVueNoeuds )
 		{
-//			System.out.println("lavueNoeud : "+ "coordX: "+ laVueNoeud.getNoeud().getX()+ " coordY: "+ laVueNoeud.getNoeud().getY());
-			
 			if(laVueNoeud.estClique(x, y, laVueNoeud.getNoeud().getX(), laVueNoeud.getNoeud().getY()))
 			{			
 				noeud = laVueNoeud.getNoeud();
-//				System.out.println("noeud correspondant : "+ "coordX: "+ noeud.getX()+ " coordY: "+ noeud.getY());
 			}
 		}
 		return noeud;
 	}
 	
+	/**
+	 * Cette methode permet de retournee le point de livraison qui a ete clique.
+	 * @param x coordonee du clic suivant l axe x
+	 * @param y coordonnee y du clic suivant l axe y
+	 * @return
+	 */
 	public PointLivraison getLePointLivraison(double x, double y)
 	{
 		PointLivraison pointLivraison = null;
@@ -58,11 +67,18 @@ public class VuePlan
 		return pointLivraison;
 	}
 	
+	/**
+	 * Constructeur de la vue pour le plan.
+	 */
 	private VuePlan()
 	{
 		super();
 	}
-
+	
+	/**
+	 * cette methode permet de renvoyer une instance de la classe VuePlan
+     * @return instance du singleton VuePlan.
+	 */
 	public final static VuePlan getInstance()
 	{
 		if (VuePlan.instance == null)
@@ -78,7 +94,10 @@ public class VuePlan
 
 		return VuePlan.instance;
 	}
-
+	
+	/**
+	 * Initialise le plan, les VueNoeuds et les VueTroncons à partir du modele.
+	 */
 	public void initialiserVuePlan()
 	{
 		try
@@ -106,10 +125,10 @@ public class VuePlan
 	}
 	
 	/**
-	 * Dessine les noeuds et les troncons ï¿½ partir du fichier xml plan charge.
-	 * @param g
-	 * @param facteurConversionLarg
-	 * @param facteurConversionHaut
+	 * Cette methode dessine les noeuds et les troncons a partir du fichier xml du plan charge.
+	 * @param g graphique ou il faudra dessiner
+	 * @param facteurConversionLarg largeur du cadre du plan
+	 * @param facteurConversionHaut hauteur du cadre du plan
 	 */
 	public void dessinerNoeudsTroncons(Graphics g, int facteurConversionLarg, int facteurConversionHaut)
 	{

@@ -19,7 +19,7 @@ public class VueChemin
 	private int numeroChemin;
 
 	/**
-	 * Contructeur d une vue pour le chemin entre deux points de livraison.
+	 * Contructeur de la vue pour le chemin entre deux points de livraison.
 	 * @param numeroChemin numero du chemin
 	 * @param chemin
 	 * @param couleur du chemin

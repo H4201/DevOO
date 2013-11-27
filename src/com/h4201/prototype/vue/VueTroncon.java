@@ -12,7 +12,7 @@ public class VueTroncon
 	private Troncon troncon;
 	
 	/**
-	 * Constructeur d une vue pour le troncon.
+	 * Constructeur de la vue pour le troncon.
 	 * @param troncon
 	 */
 	public VueTroncon(Troncon troncon)

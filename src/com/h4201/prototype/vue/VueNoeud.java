@@ -12,7 +12,7 @@ public class VueNoeud
 	private Noeud noeud;
 	
 	/**
-	 * Constructeur d une vue pour le noeud.
+	 * Constructeur de la vue pour le noeud.
 	 * @param noeud
 	 */
 	public VueNoeud(Noeud noeud)
