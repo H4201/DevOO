@@ -10,8 +10,11 @@ import com.h4201.prototype.utilitaire.Constante;
 public class VueTroncon
 {
 	private Troncon troncon;
-	private boolean etat;
 	
+	/**
+	 * Constructeur d une vue pour le troncon.
+	 * @param troncon
+	 */
 	public VueTroncon(Troncon troncon)
 	{
 		this.troncon = troncon;
@@ -22,11 +25,14 @@ public class VueTroncon
 		return troncon;
 	}
 	
-	public boolean getEtat()
-	{
-		return etat;		
-	}
-	
+	/**
+	 * Cette methode permet de dessiner un troncon.
+	 * Elle dessine une droite entre deux noeuds et 
+	 * elle associe une couleur predefinie au troncon.
+	 * @param g graphique ou il faudra dessiner
+	 * @param facteurConversionLarg largeur du cadre du plan
+	 * @param facteurConversionHaut hauteur du cadre du plan
+	 */
 	public void dessinerTroncon(Graphics g, int facteurConversionLarg, int facteurConversionHaut)
 	{
 		Color cTemp = g.getColor();

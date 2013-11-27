@@ -17,11 +17,18 @@ public class VuePanel extends JPanel
 {
 	private static volatile VuePanel instance = null;
 	
+	/**
+	 * Contructeur d'une vue pour le cadre du plan.
+	 */
 	private VuePanel()
 	{
 		super();
 	}
-
+	
+	/**
+	 * 
+	 * @return instance de vuePanel
+	 */
 	public final static VuePanel getInstance()
 	{
 		if (VuePanel.instance == null)
