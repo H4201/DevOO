@@ -356,7 +356,7 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 			{
 				System.out.println("clic sur noeud : " + noeudClique.getIdNoeud());
 				if(Controleur.getInstance().getMode()==Constante.MODE_AJOUT){ //AJOUT
-					VueTrancheHoraire2.getInstance().ouvert(noeudClique);
+					VueComboBox.getInstance().ouvrirTrancheHoraire(noeudClique);
 					//ouvre pop up avec tranches horaires
 					//Controleur.getInstance().ajoutPointLivraison(noeudClique, trancheHoraire); -> fait par la fenetre?
 					boutonCalcT.setEnabled(true);
@@ -370,7 +370,7 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 				else if(Controleur.getInstance().getMode()==Constante.MODE_SUPPRESSION){//SUPPRESSION
 					noeudEstLiv = VuePanel.getInstance().getLePointLivraison(posX, posY);
 					if(noeudEstLiv!=null){
-						VueTrancheHoraire.getInstance().ouvert2(noeudClique);
+						VueComboBox.getInstance().ouvrirPointLivraison(noeudClique);
 						//Controleur.getInstance().supprimerPointLivraison(noeudEstLiv); -> fait par la fenetre?
 						boutonCalcT.setEnabled(true);
 						boutonFeuilleDeRoute.setEnabled(false);
