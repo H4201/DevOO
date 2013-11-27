@@ -1,25 +1,14 @@
 package com.h4201.prototype.vue;
 
-import java.awt.BorderLayout;
-
-
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Vector;
 
-import javax.swing.AbstractButton;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import javax.swing.JComboBox;
 
 import com.h4201.prototype.controleur.Controleur;
@@ -27,12 +16,10 @@ import com.h4201.prototype.modele.Noeud;
 import com.h4201.prototype.modele.PointLivraison;
 import com.h4201.prototype.modele.Tournee;
 import com.h4201.prototype.modele.TrancheHoraire;
-import com.h4201.prototype.utilitaire.Constante;
 
 
 public class VueComboBox extends MouseAdapter {
 
-	private static final long serialVersionUID = 1L;
 	//private JPanel contentPane;
 	private JComboBox<TrancheHoraire> comboBox;
 	private JComboBox<PointLivraison> comboBox2;
@@ -74,7 +61,7 @@ public class VueComboBox extends MouseAdapter {
 		//TrancheHoraire trancheHoraire; 
 		
 		//creation de la fenetre
-		fenetre = new JFrame("Supervision");
+		fenetre = new JFrame("Ajout d'un point de livraison");
 		fenetre.setSize(300,300);
 		//un clic sur la croix entraine la fermeture de la fenetre
 		//fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -98,7 +85,7 @@ public class VueComboBox extends MouseAdapter {
 		}
 		comboBox.setSelectedIndex(0);
 		
-		label = new JLabel("TranchesHoraires");
+		label = new JLabel("Choix de la tranche horaire : ");
 		JPanel top = new JPanel();
 		//comboBox.setLayout(null);
 		comboBox.setBounds(0, 100, 200, 100);
@@ -122,7 +109,7 @@ public class VueComboBox extends MouseAdapter {
 		//TrancheHoraire trancheHoraire; 
 		
 		//creation de la fenetre
-		fenetre = new JFrame("Supervision");
+		fenetre = new JFrame("Suppression d'un point de livraison");
 		fenetre.setSize(300,300);
 		//un clic sur la croix entraine la fermeture de la fenetre
 		//fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -150,9 +137,8 @@ public class VueComboBox extends MouseAdapter {
 		}
 		comboBox2.setSelectedIndex(0);
 		
-		label = new JLabel("PointLivraison");
+		label = new JLabel("Choix du point de livraison : ");
 		JPanel top = new JPanel();
-		//comboBox.setLayout(null);
 		comboBox2.setBounds(0, 100, 200, 100);
 		label.setLayout(null);
 		label.setBounds(0, 0, 200, 100);
@@ -162,46 +148,24 @@ public class VueComboBox extends MouseAdapter {
 	    top.setLayout(null);
 	    top.setBounds(0, 0, 200, 200);
 	    fenetre.getContentPane().add(top, "North");		
-	    
-//	    comboBox2.addActionListener(new ItemAction2());
-		 
+	    		 
 		 fenetre.repaint();
 			
 		 fenetre.setVisible(true);
 	}
 
-//	 class ItemAction implements ActionListener{
-//		 public void actionPerformed(ActionEvent e) {
-//			 //comboBox.getSelectedItem();
-////			 System.out.println("ActionListener : action sur " + comboBox.getSelectedItem());
-////			 trancheHoraire = comboBox.getItemAt(comboBox.getSelectedIndex());
-//		 }               
-//	 }
-//	 class ItemAction2 implements ActionListener{
-//		 public void actionPerformed(ActionEvent e) {
-//			 //comboBox.getSelectedItem();
-////			 System.out.println("ActionListener : action sur " + comboBox2.getSelectedItem());
-////			 pointLivraison = comboBox2.getItemAt(comboBox2.getSelectedIndex());
-//		 }               
-//	 }
 	 public class BoutonListener implements ActionListener{
 		 public void actionPerformed(ActionEvent e) {
-//			 System.out.println(trancheHoraire.toString());
 			 trancheHoraire = comboBox.getItemAt(comboBox.getSelectedIndex());
 			 Controleur.getInstance().ajoutPointLivraison(noeud, trancheHoraire);
 			 fenetre.dispose();
-			 //lancer controleur avec le noeud(comment passer l'arg?) et la tranche horaire(ok) puis fermer la fenetre
-
 		 }
 	}
 	 public class BoutonListener2 implements ActionListener{
 		 public void actionPerformed(ActionEvent e) {
-//			 System.out.println(pointLivraison.toString());
 			 pointLivraison = comboBox2.getItemAt(comboBox2.getSelectedIndex());
 			 Controleur.getInstance().supprimerPointLivraison(pointLivraison);
 			 fenetre.dispose();
-			 //lancer controleur avec le noeud(comment passer l'arg?) et la tranche horaire(ok) puis fermer la fenetre
-
 		 }
 	}
 }

@@ -1,6 +1,5 @@
 package com.h4201.prototype.app;
 
-
 import com.h4201.prototype.test.TestChargementXml;
 import com.h4201.prototype.test.TestControleur;
 import com.h4201.prototype.test.TestFeuilleDeRoute;
@@ -10,8 +9,19 @@ import com.h4201.prototype.test.TestTournee;
 import com.h4201.prototype.vue.VueSupervision;
 
 
+/**
+ * Classe Main
+ * @author Paul
+ *
+ */
 public class Lanceur
 {
+	/**
+	 * Lancement de l'application ou de tests.
+	 * Ouvre la fenetre de supervision si aucun argv.
+	 * sinon l'argument indique en premier parametre.
+	 * @param argv eventuellement argv[0] le nom du test a lancer
+	 */
 	public static void main(String[] argv)
 	{
 		if(argv.length == 0)
