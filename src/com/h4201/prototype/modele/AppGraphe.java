@@ -191,21 +191,33 @@ public class AppGraphe implements Graph {
 							&& chemins.get(j).getPointLivraisonDestination().equals(pointsLivraisonOptimum.get(iPlus1)))
 					{
 						
-						heure.add(Calendar.SECOND, (int) chemins.get(j).getTemps());
+//						heure.add(Calendar.SECOND, (int) chemins.get(j).getTemps());
 						
 						// Cas d'attente
-						if (!chemins.get(j).getPointLivraisonDestination().equals(entrepot)
+						if (chemins.get(j).getPointLivraisonOrigine().equals(entrepot))
+						{
+							heure = (Calendar) chemins.get(j).getPointLivraisonDestination().
+									getTrancheHoraire().getHeureDebut().clone();
+							
+							Calendar heureEntrepot = (Calendar) heure.clone();
+							heureEntrepot.add(Calendar.SECOND, (int) chemins.get(j).getTemps()*-1);
+							((Entrepot)chemins.get(j).getPointLivraisonOrigine()).
+								setHeureDepartEstimee(heureEntrepot);
+						}
+						else if(!chemins.get(j).getPointLivraisonDestination().equals(entrepot)
 								&& heure.before(chemins.get(j).getPointLivraisonDestination().
 										getTrancheHoraire().getHeureDebut()))
 						{
 							heure = (Calendar) chemins.get(j).getPointLivraisonDestination().
 									getTrancheHoraire().getHeureDebut().clone();
 						}
-						
-						heure.add(Calendar.SECOND, (int) chemins.get(j).getTemps());
+						else
+						{
+							heure.add(Calendar.SECOND, Constante.DUREE_LIVRAISON_ESTIMEE);
+							heure.add(Calendar.SECOND, (int) chemins.get(j).getTemps());
+						}
 						chemins.get(j).getPointLivraisonDestination().setHeureArriveeEstimee(heure);
-//						System.out.println("Trajet Final : " + chemins.get(j).getPointLivraisonOrigine().getIdPointLivraison() + "->" + chemins.get(j).getPointLivraisonDestination().getIdPointLivraison() + " : " + heure);
-						heure.add(Calendar.SECOND, Constante.DUREE_LIVRAISON_ESTIMEE);
+						
 						
 						tournee.ajouterChemin(chemins.get(j));
 					}

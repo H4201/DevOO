@@ -4,9 +4,11 @@ import java.io.FileWriter;
 import java.io.PrintWriter;
 
 import com.h4201.prototype.modele.Chemin;
+import com.h4201.prototype.modele.Entrepot;
 import com.h4201.prototype.modele.Tournee;
 import com.h4201.prototype.modele.Troncon;
 import com.h4201.prototype.utilitaire.Constante;
+import com.h4201.prototype.utilitaire.Conversion;
 import com.h4201.prototype.utilitaire.Date;
 
 
@@ -48,7 +50,7 @@ public final class FeuilleDeRouteEnTexte {
 		{
 			fw = new FileWriter(Constante.FICHIER_NOM_FEUILLE_DE_ROUTE, false);
 			PrintWriter pw = new PrintWriter(fw, false);
-			Chemin cheminCourant;
+			Chemin cheminCourant = null;
             for(int i=0;i<tournee.getChemins().size();i++)
             {
             	cheminCourant = tournee.getChemins().get(i);
@@ -69,12 +71,22 @@ public final class FeuilleDeRouteEnTexte {
             	if(cheminCourant.getPointLivraisonOrigine().getTrancheHoraire() != null)
             	{
             		pw.println("Heure d'arrivee estimee : " + Date.getHeureFrDepuisCalendar(
-            				cheminCourant.getPointLivraisonOrigine().getTrancheHoraire().getHeureDebut()));
+            				cheminCourant.getPointLivraisonOrigine().getHeureArriveeEstimee()));
+            	}
+            	else
+            	{
+            		pw.println("Heure de depart : " + Date.getHeureFrDepuisCalendar(
+            				((Entrepot)cheminCourant.getPointLivraisonOrigine()).getHeureDepartEstimee()));
             	}
             	
             	pw.println("\nItineraire jusqu'a la prochaine livraison : ");
-            	pw.println("Longueur de l'itineraire : " + cheminCourant.getLongueur());
-            	pw.println("Temps estime : " + cheminCourant.getTemps());
+            	pw.println("Longueur du chemin : " 
+            			+ Conversion.getKilometreDepuisMetre(cheminCourant.getLongueur()) 
+            			+ "km");
+            	pw.println("Temps estime : " 
+            			+ Date.getHeureFrDepuisCalendar(
+            					Date.getCalendarDepuisSecondes(cheminCourant.getTemps())
+            					));
             	
             	pw.println("\nSuivre l'itineraire : ");
             
@@ -100,6 +112,9 @@ public final class FeuilleDeRouteEnTexte {
             }
             
             pw.println("\nDe retour a l'entrepot");
+            if(cheminCourant != null)
+	            pw.println("Heure de retour : " + Date.getHeureFrDepuisCalendar(
+	    				cheminCourant.getPointLivraisonDestination().getHeureArriveeEstimee()));
             
 			pw.close();
 		}

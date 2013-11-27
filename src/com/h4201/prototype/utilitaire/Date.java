@@ -25,7 +25,7 @@ public abstract class Date
 		return gcalendar;
 	}
 	
-	public static Calendar getCalendarDepuisSecondes(long nombreDeSecondes)
+	public static Calendar getCalendarDepuisSecondes(double nombreDeSecondes)
 	{
 		TimeZone tz = TimeZone.getTimeZone("GMT+1" ); // Paris
 		GregorianCalendar gcalendar = new GregorianCalendar();

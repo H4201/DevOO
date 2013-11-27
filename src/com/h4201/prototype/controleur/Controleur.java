@@ -190,6 +190,7 @@ public final class Controleur
 		}
     	catch (Exception e) 
 		{
+    		e.printStackTrace();
     		VueSupervision.getInstance().fenetreErreur((e.getMessage()));
     		return false;
 		}

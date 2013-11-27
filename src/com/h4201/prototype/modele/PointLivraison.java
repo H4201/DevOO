@@ -19,7 +19,6 @@ public class PointLivraison
   private String client;
   private Noeud noeud;
   private TrancheHoraire trancheHoraire;
-  private boolean respecteTrancheHoraireDemandee;
   private Calendar heureArriveeEstimee;
 
   /**
@@ -34,7 +33,6 @@ public class PointLivraison
 	  this.client = client;
 	  this.noeud = noeud;
 	  this.trancheHoraire = trancheHoraire;
-	  this.respecteTrancheHoraireDemandee = true;
   }
   
   protected void setHeureArriveeEstimee(Calendar heureArriveeEstimee)
@@ -62,8 +60,10 @@ public class PointLivraison
   		if(getHeureArriveeEstimee() == null)
   			return false;
   		else
-  			return (getHeureArriveeEstimee().after(trancheHoraire.getHeureDebut()) 
-  				&& getHeureArriveeEstimee().before(trancheHoraire.getHeureFin()));
+  			return ((getHeureArriveeEstimee().after(trancheHoraire.getHeureDebut()) 
+  				&& getHeureArriveeEstimee().before(trancheHoraire.getHeureFin()))
+  				|| getHeureArriveeEstimee().equals(trancheHoraire.getHeureDebut())
+  				|| getHeureArriveeEstimee().equals(trancheHoraire.getHeureFin()));
   	}
 	
 	public int getIdPointLivraison() {
