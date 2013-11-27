@@ -2,6 +2,11 @@ package com.h4201.prototype.exception;
 
 import com.h4201.prototype.utilitaire.Constante;
 
+/**
+ * Exception levee si le XML ne respecte pas la DTD.
+ * @author Paul
+ *
+ */
 public class ExceptionXML extends Exception
 {
 	/**

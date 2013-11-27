@@ -2,6 +2,11 @@ package com.h4201.prototype.exception;
 
 import com.h4201.prototype.utilitaire.Constante;
 
+/**
+ * Exception levee si utilisation d'un objet qui n'a pas encore ete intancie.
+ * @author Paul
+ *
+ */
 public class ExceptionNonInstancie extends Exception
 {
 	/**

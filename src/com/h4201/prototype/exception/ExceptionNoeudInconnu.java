@@ -2,6 +2,11 @@ package com.h4201.prototype.exception;
 
 import com.h4201.prototype.utilitaire.Constante;
 
+/**
+ * Cette exception est levee si le noeud demande n'existe pas.
+ * @author Paul
+ *
+ */
 public class ExceptionNoeudInconnu extends Exception
 {
 	/**
