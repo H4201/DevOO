@@ -14,11 +14,18 @@ public class ExceptionXML extends Exception
 	 */
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * Constructeur par defaut.
+	 */
 	public ExceptionXML()
 	{
 		super(Constante.EXCEPTION_XML);
 	}
 	
+	/**
+	 * Constructeur permettant de personnaliser le message d'erreur.
+	 * @param s : personnalisation du message
+	 */
 	public ExceptionXML(String s)
 	{
 		super(Constante.EXCEPTION_XML + " : " + s);

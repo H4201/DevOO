@@ -16,11 +16,18 @@ public class ExceptionTrancheHoraire extends Exception
 	 */
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * Constructeur par defaut.
+	 */
 	public ExceptionTrancheHoraire()
 	{
 		super(Constante.EXCEPTION_TRANCHE_HORAIRE);
 	}
 	
+	/**
+	 * Constructeur permettant de personnaliser le message d'erreur.
+	 * @param s : personnalisation du message
+	 */
 	public ExceptionTrancheHoraire(String s)
 	{
 		super(Constante.EXCEPTION_TRANCHE_HORAIRE + " : " + s);

@@ -14,16 +14,27 @@ public class ExceptionNoeudInconnu extends Exception
 	 */
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * Constructeur par defaut.
+	 */
 	public ExceptionNoeudInconnu()
 	{
 		super(Constante.EXCEPTION_NOEUD_INCONNU);
 	}
 	
+	/**
+	 * Constructeur permettant de personnaliser le message d'erreur.
+	 * @param s : personnalisation du message
+	 */
 	public ExceptionNoeudInconnu(String s)
 	{
 		super(Constante.EXCEPTION_NOEUD_INCONNU + " : " + s);
 	}
 	
+	/**
+	 * Constructeur permettant d'indiquer quel noeud pose probleme.
+	 * @param idNoeud id du noeud qui pose probleme.
+	 */
 	public ExceptionNoeudInconnu(int idNoeud)
 	{
 		super(Constante.EXCEPTION_NOEUD_INCONNU + ", idNoeud = " + idNoeud);

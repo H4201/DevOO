@@ -14,11 +14,18 @@ public class ExceptionNonInstancie extends Exception
 	 */
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * Constructeur par defaut.
+	 */
 	public ExceptionNonInstancie()
 	{
 		super(Constante.EXCEPTION_NON_INSTANCIE);
 	}
 	
+	/**
+	 * Constructeur permettant de personnaliser le message d'erreur.
+	 * @param s : personnalisation du message
+	 */
 	public ExceptionNonInstancie(String s)
 	{
 		super(Constante.EXCEPTION_NON_INSTANCIE + " : " + s);

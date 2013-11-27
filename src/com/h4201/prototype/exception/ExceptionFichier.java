@@ -15,11 +15,18 @@ public class ExceptionFichier extends Exception
 	 */
 	private static final long serialVersionUID = 1929329573059L;
 
+	/**
+	 * Constructeur par defaut.
+	 */
 	public ExceptionFichier()
 	{
 		super(Constante.EXCEPTION_FICHIER);
 	}
 	
+	/**
+	 * Constructeur permettant de personnaliser le message d'erreur.
+	 * @param s : personnalisation du message
+	 */
 	public ExceptionFichier(String s)
 	{
 		super(Constante.EXCEPTION_FICHIER + " : " + s);
