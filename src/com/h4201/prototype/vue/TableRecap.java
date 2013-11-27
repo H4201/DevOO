@@ -47,19 +47,20 @@ public class TableRecap {
 			Vector<PointLivraison> livraisons = trancheHoraire.getPointsLivraisons();
 			
 			// Tri
-			if(livraisons.get(0).getHeureArriveeEstimee() != null)
-			{
-				Collections.sort(livraisons, new Comparator<PointLivraison>() {
-			        @Override public int compare(PointLivraison p1, PointLivraison p2) {
-			            if(p1.getHeureArriveeEstimee().equals(p2.getHeureArriveeEstimee()))
-			            	return 0;
+			Collections.sort(livraisons, new Comparator<PointLivraison>() {
+		        @Override public int compare(PointLivraison p1, PointLivraison p2) {
+		            if(p1.getHeureArriveeEstimee() != null 
+		            		&& p2.getHeureArriveeEstimee() != null)
+		            {
+			        	if(p1.getHeureArriveeEstimee().after(p2.getHeureArriveeEstimee()))
+			            	return 1;
 			            else if(p1.getHeureArriveeEstimee().before(p2.getHeureArriveeEstimee()))
 			            	return -1;
-			            else
-			            	return 1;
-			        }
-			    });
-			}
+		            }
+		            
+		            return 0;
+		        }
+		    });
 			
 			// Affichage
 		    for(PointLivraison pointLivraison : livraisons)
