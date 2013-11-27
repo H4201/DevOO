@@ -3,14 +3,14 @@ package com.h4201.prototype.utilitaire;
 import java.awt.Color;
 
 /**
- * 
- * @author Paul
- *
+ * Classe de constantes de l'application.
+ * Classe qui ne contient que des classes statiques. Elle est abstraite car non instanciable. 
+ * @author H4201
  */
 public abstract class Constante
 {	
-	/*
-	 * Exceptions
+	/**
+	 * Exceptions.
 	 */
 	public static final String EXCEPTION_XML = "Le XML ne correspond pas a ce qui est attendu";
 	public static final String EXCEPTION_FICHIER = "Le fichier n'existe pas ou est illisible";
@@ -20,15 +20,15 @@ public abstract class Constante
 	public static final String EXCEPTION_TRANCHE_HORAIRE = "La tranche horaire est invalide";
 	
 	
-	/*
-	 * Conversions
+	/**
+	 * Conversions.
 	 */
 	public static final double CONVERSION_METRES_EN_PIXELS = 0.1;
 	public static final double CONVERSION_PIXELS_EN_METRES = 10.0;
 	
 	
-	/*
-	 * constantes pour le plan
+	/**
+	 * Constantes pour le plan.
 	 */
 	public static final int HAUTEUR = 500;
 	public static final int LARGEUR = 800;
@@ -44,14 +44,14 @@ public abstract class Constante
 	public static final double DECALAGE_CHEMIN = 0.5;
 	public static final Color COULEURPOINTLIVNONRESPECTE = Color.BLACK;
 
-	/*
-	 * tableau couleurs des tranches horaires
+	/**
+	 * Tableau couleurs des tranches horaires.
 	 */
 	public static final Color tabCouleur[] = { Color.RED, Color.GREEN, Color.BLUE,Color.MAGENTA,Color.PINK, Color.ORANGE,
 		Color.CYAN, Color.YELLOW };
 	
-	/*
-	 * constantes pour la fenetre de supervision
+	/**
+	 * Constantes pour la fenetre de supervision.
 	 */
 	public static final int LARGEURSUPERV = 1200;
 	public static final int HAUTEURSUPERV = 800;
@@ -62,22 +62,22 @@ public abstract class Constante
 	public static final int LIGNEBOUTON3 = 650;
 	
 	
-	/*
-	 * Controleur : 3 modes dans l'interaction de supervision 
+	/**
+	 * Controleur : 3 modes dans l'interaction de supervision. 
 	 */
 	public static final int MODE_NORMAL = 0;
 	public static final int MODE_AJOUT = 1;
 	public static final int MODE_SUPPRESSION = 2;
 	
 	
-	/*
-	 * Tournee
+	/**
+	 * Tournee.
 	 */
 	public static final int DUREE_LIVRAISON_ESTIMEE = 600; // en secondes
 	
 	
-	/*
-	 * Feuille de route
+	/**
+	 * Feuille de route.
 	 */
 	public static final String FICHIER_NOM_FEUILLE_DE_ROUTE = "feuille_de_route.txt";
 }

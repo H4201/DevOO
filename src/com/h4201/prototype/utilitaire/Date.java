@@ -4,8 +4,18 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.TimeZone;
 
+/**
+ * Classe des actions possibles sur une date.
+ * Classe qui ne contient que des classes statiques. Elle est abstraite car non instanciable. 
+ * @author H4201
+ */
 public abstract class Date
 {
+	/**
+	 * Convertit un heure au format anglais en un Calendar.
+	 * @param heureFormatAnglais de type hh:ii:ss
+	 * @return un calendar instancie selon la date en parametre.
+	 */
 	public static Calendar getCalendarDepuisHeureAn(String heureFormatAnglais)
 	{
 		String[] eltsHeure = heureFormatAnglais.split(":");
@@ -25,6 +35,11 @@ public abstract class Date
 		return gcalendar;
 	}
 	
+	/**
+	 * Convertit des secondes en un Calendar.
+	 * @param nombreDeSecondes secondes a convertir.
+	 * @return un Calendar instancie.
+	 */
 	public static Calendar getCalendarDepuisSecondes(double nombreDeSecondes)
 	{
 		TimeZone tz = TimeZone.getTimeZone("GMT+1" ); // Paris
@@ -47,6 +62,11 @@ public abstract class Date
 		return gcalendar;
 	}
 	
+	/**
+	 * Convertit un Calendar en une chaine de caracteres heure minute seconde.
+	 * @param cal Calendar instancie.
+	 * @return chaine de caracteres : heure minute seconde.
+	 */
 	public static String getHeureFrDepuisCalendar(Calendar cal)
 	{
 		String seconde = String.valueOf(cal.get(Calendar.SECOND));
@@ -59,6 +79,11 @@ public abstract class Date
 		return heure + "h" + minute + "m" + seconde + "s";
 	}
 	
+	/**
+	 * Convertit un Calendar en une chaine de caracteres heure minute.
+	 * @param cal Calendar instancie.
+	 * @return chaine de caracteres : heure minute.
+	 */
 	public static String getHeureFrSimplifieeDepuisCalendar(Calendar cal)
 	{
 		String minute = String.valueOf(cal.get(Calendar.MINUTE));
