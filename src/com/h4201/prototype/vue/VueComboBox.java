@@ -96,6 +96,8 @@ public class VueComboBox extends MouseAdapter {
 		for(int i=0; i<tournee.getTranchesHoraire().size();i++){
 			comboBox.addItem(tournee.getTranchesHoraire().get(i));
 		}
+		comboBox.setSelectedIndex(0);
+		
 		label = new JLabel("TranchesHoraires");
 		JPanel top = new JPanel();
 		//comboBox.setLayout(null);
@@ -109,10 +111,7 @@ public class VueComboBox extends MouseAdapter {
 	    top.setBounds(0, 0, 200, 200);
 	    fenetre.getContentPane().add(top, "North");		
 	    
-				
-		
-		 comboBox.addItemListener(new ItemState());
-		 comboBox.addActionListener(new ItemAction());
+//		 comboBox.addActionListener(new ItemAction());
 		 
 		 fenetre.repaint();
 			
@@ -143,10 +142,14 @@ public class VueComboBox extends MouseAdapter {
 		VueTournee tournee = VueTournee.getInstance();
 		comboBox2 = new JComboBox<PointLivraison>();
 		System.out.println(tournee.toString());
-		Vector <PointLivraison> listePointLiv=tournee.lesPointLivraisonsClique(noeudClique.getX(), noeudClique.getY());
-		for(int i=0; i<listePointLiv.size();i++){
+		Vector <PointLivraison> listePointLiv = 
+				tournee.lesPointLivraisonsClique(noeudClique.getX(), noeudClique.getY());
+		for(int i=0; i<listePointLiv.size();i++)
+		{
 			comboBox2.addItem(listePointLiv.get(i));
 		}
+		comboBox2.setSelectedIndex(0);
+		
 		label = new JLabel("PointLivraison");
 		JPanel top = new JPanel();
 		//comboBox.setLayout(null);
@@ -160,40 +163,31 @@ public class VueComboBox extends MouseAdapter {
 	    top.setBounds(0, 0, 200, 200);
 	    fenetre.getContentPane().add(top, "North");		
 	    
-				
-		
-	    comboBox2.addItemListener(new ItemState());
-	    comboBox2.addActionListener(new ItemAction2());
+//	    comboBox2.addActionListener(new ItemAction2());
 		 
 		 fenetre.repaint();
 			
 		 fenetre.setVisible(true);
 	}
-	
-	 class ItemState implements ItemListener{
-		 public void itemStateChanged(ItemEvent e) {
-			 //e.getItem();
-//			 System.out.println("evenement declenche sur : " + e.getItem());
-		  }               
-	}
 
-	 class ItemAction implements ActionListener{
-		 public void actionPerformed(ActionEvent e) {
-			 //comboBox.getSelectedItem();
-//			 System.out.println("ActionListener : action sur " + comboBox.getSelectedItem());
-			 trancheHoraire = comboBox.getItemAt(comboBox.getSelectedIndex());
-		 }               
-	 }
-	 class ItemAction2 implements ActionListener{
-		 public void actionPerformed(ActionEvent e) {
-			 //comboBox.getSelectedItem();
-//			 System.out.println("ActionListener : action sur " + comboBox2.getSelectedItem());
-			 pointLivraison = comboBox2.getItemAt(comboBox2.getSelectedIndex());
-		 }               
-	 }
+//	 class ItemAction implements ActionListener{
+//		 public void actionPerformed(ActionEvent e) {
+//			 //comboBox.getSelectedItem();
+////			 System.out.println("ActionListener : action sur " + comboBox.getSelectedItem());
+////			 trancheHoraire = comboBox.getItemAt(comboBox.getSelectedIndex());
+//		 }               
+//	 }
+//	 class ItemAction2 implements ActionListener{
+//		 public void actionPerformed(ActionEvent e) {
+//			 //comboBox.getSelectedItem();
+////			 System.out.println("ActionListener : action sur " + comboBox2.getSelectedItem());
+////			 pointLivraison = comboBox2.getItemAt(comboBox2.getSelectedIndex());
+//		 }               
+//	 }
 	 public class BoutonListener implements ActionListener{
 		 public void actionPerformed(ActionEvent e) {
 //			 System.out.println(trancheHoraire.toString());
+			 trancheHoraire = comboBox.getItemAt(comboBox.getSelectedIndex());
 			 Controleur.getInstance().ajoutPointLivraison(noeud, trancheHoraire);
 			 fenetre.dispose();
 			 //lancer controleur avec le noeud(comment passer l'arg?) et la tranche horaire(ok) puis fermer la fenetre
@@ -203,6 +197,7 @@ public class VueComboBox extends MouseAdapter {
 	 public class BoutonListener2 implements ActionListener{
 		 public void actionPerformed(ActionEvent e) {
 //			 System.out.println(pointLivraison.toString());
+			 pointLivraison = comboBox2.getItemAt(comboBox2.getSelectedIndex());
 			 Controleur.getInstance().supprimerPointLivraison(pointLivraison);
 			 fenetre.dispose();
 			 //lancer controleur avec le noeud(comment passer l'arg?) et la tranche horaire(ok) puis fermer la fenetre
