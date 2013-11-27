@@ -30,7 +30,7 @@ import com.h4201.prototype.modele.TrancheHoraire;
 import com.h4201.prototype.utilitaire.Constante;
 
 
-public class VueTrancheHoraire extends MouseAdapter {
+public class VueComboBox extends MouseAdapter {
 
 	private static final long serialVersionUID = 1L;
 	//private JPanel contentPane;
@@ -44,32 +44,32 @@ public class VueTrancheHoraire extends MouseAdapter {
 	private PointLivraison pointLivraison;
 	private Noeud noeud;
 
-	private static volatile VueTrancheHoraire instance = null;
+	private static volatile VueComboBox instance = null;
 
 	/**
 	 * Create the frame.
 	 */
-	public final static VueTrancheHoraire getInstance()
+	public final static VueComboBox getInstance()
 	{
-		if (VueTrancheHoraire.instance == null)
+		if (VueComboBox.instance == null)
 		{
-			synchronized(VueTrancheHoraire.class)
+			synchronized(VueComboBox.class)
 			{
-				if (VueTrancheHoraire.instance == null)
+				if (VueComboBox.instance == null)
 				{
-					VueTrancheHoraire.instance = new VueTrancheHoraire();
+					VueComboBox.instance = new VueComboBox();
 				}
 			}
 		}
 
-		return VueTrancheHoraire.instance;
+		return VueComboBox.instance;
 	}
-	private VueTrancheHoraire() {
+	private VueComboBox() {
 		
 	}
 	
 	
-	public void ouvert(Noeud noeudClique){
+	public void ouvrirTrancheHoraire(Noeud noeudClique){
 		noeud=noeudClique;
 		//TrancheHoraire trancheHoraire; 
 		
@@ -118,7 +118,7 @@ public class VueTrancheHoraire extends MouseAdapter {
 			
 		 fenetre.setVisible(true);
 	}
-	public void ouvert2(Noeud noeudClique){
+	public void ouvrirPointLivraison(Noeud noeudClique){
 		noeud=noeudClique;
 		//TrancheHoraire trancheHoraire; 
 		
@@ -173,27 +173,27 @@ public class VueTrancheHoraire extends MouseAdapter {
 	 class ItemState implements ItemListener{
 		 public void itemStateChanged(ItemEvent e) {
 			 //e.getItem();
-			 System.out.println("evenement declenche sur : " + e.getItem());
+//			 System.out.println("evenement declenche sur : " + e.getItem());
 		  }               
 	}
 
 	 class ItemAction implements ActionListener{
 		 public void actionPerformed(ActionEvent e) {
 			 //comboBox.getSelectedItem();
-			 System.out.println("ActionListener : action sur " + comboBox.getSelectedItem());
+//			 System.out.println("ActionListener : action sur " + comboBox.getSelectedItem());
 			 trancheHoraire = comboBox.getItemAt(comboBox.getSelectedIndex());
 		 }               
 	 }
 	 class ItemAction2 implements ActionListener{
 		 public void actionPerformed(ActionEvent e) {
 			 //comboBox.getSelectedItem();
-			 System.out.println("ActionListener : action sur " + comboBox2.getSelectedItem());
+//			 System.out.println("ActionListener : action sur " + comboBox2.getSelectedItem());
 			 pointLivraison = comboBox2.getItemAt(comboBox2.getSelectedIndex());
 		 }               
 	 }
 	 public class BoutonListener implements ActionListener{
 		 public void actionPerformed(ActionEvent e) {
-			 System.out.println(trancheHoraire.toString());
+//			 System.out.println(trancheHoraire.toString());
 			 Controleur.getInstance().ajoutPointLivraison(noeud, trancheHoraire);
 			 fenetre.dispose();
 			 //lancer controleur avec le noeud(comment passer l'arg?) et la tranche horaire(ok) puis fermer la fenetre
@@ -202,7 +202,7 @@ public class VueTrancheHoraire extends MouseAdapter {
 	}
 	 public class BoutonListener2 implements ActionListener{
 		 public void actionPerformed(ActionEvent e) {
-			 System.out.println(pointLivraison.toString());
+//			 System.out.println(pointLivraison.toString());
 			 Controleur.getInstance().supprimerPointLivraison(pointLivraison);
 			 fenetre.dispose();
 			 //lancer controleur avec le noeud(comment passer l'arg?) et la tranche horaire(ok) puis fermer la fenetre
