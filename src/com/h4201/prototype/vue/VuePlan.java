@@ -31,12 +31,12 @@ public class VuePlan
 		Noeud noeud = null;
 		for(VueNoeud laVueNoeud : lesVueNoeuds )
 		{
-			System.out.println("lavueNoeud : "+ "coordX: "+ laVueNoeud.getNoeud().getX()+ " coordY: "+ laVueNoeud.getNoeud().getY());
+//			System.out.println("lavueNoeud : "+ "coordX: "+ laVueNoeud.getNoeud().getX()+ " coordY: "+ laVueNoeud.getNoeud().getY());
 			
 			if(laVueNoeud.estClique(x, y, laVueNoeud.getNoeud().getX(), laVueNoeud.getNoeud().getY()))
 			{			
 				noeud = laVueNoeud.getNoeud();
-				System.out.println("noeud correspondant : "+ "coordX: "+ noeud.getX()+ " coordY: "+ noeud.getY());
+//				System.out.println("noeud correspondant : "+ "coordX: "+ noeud.getX()+ " coordY: "+ noeud.getY());
 			}
 		}
 		return noeud;
@@ -106,7 +106,7 @@ public class VuePlan
 	}
 	
 	/**
-	 * Dessine les noeuds et les troncons à partir du fichier xml plan charge.
+	 * Dessine les noeuds et les troncons ï¿½ partir du fichier xml plan charge.
 	 * @param g
 	 * @param facteurConversionLarg
 	 * @param facteurConversionHaut
