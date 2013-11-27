@@ -296,7 +296,7 @@ public final class Controleur
     	if(!undos.isEmpty())
     	{
     		mode = undos.get(undos.size()-1).getMode();
-            Tournee.getInstance().supprimerTousLesChemins(); // Suppression des chemins de la tournee, ils serons recalcules 
+            Tournee.getInstance().supprimerTousLesChemins(); // Suppression des chemins de la tournee, ils seront recalcules 
 	    	VuePanel.getInstance().repaint();
     	}
     	else // cas particulier ou l'on est revenu a l'etat inital ou aucune commande n'a encore ete faite.
@@ -310,7 +310,7 @@ public final class Controleur
     private void majModeApresRetablissement()
     {
     	mode = undos.get(undos.size()-1).getMode();
-        Tournee.getInstance().supprimerTousLesChemins(); // Suppression des chemins de la tournee, ils serons recalcules 
+        Tournee.getInstance().supprimerTousLesChemins(); // Suppression des chemins de la tournee, ils seront recalcules 
     	VuePanel.getInstance().repaint();
     }
 }
