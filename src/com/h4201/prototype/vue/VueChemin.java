@@ -60,10 +60,10 @@ public class VueChemin
 				int x2 = (int)leTroncon.getNoeudDestination().getX() * facteurConversionLarg / Constante.LARGEURSUPERV;
 				int y2 = (int)leTroncon.getNoeudDestination().getY() * facteurConversionHaut/ Constante.HAUTEURSUPERV;		
 				
-				double x3 = x1;
-				double y3 = y1;
-				double x4 = x2;
-				double y4 = y2;
+				double x3 = (double)x1;
+				double y3 = (double)y1;
+				double x4 = (double)x2;
+				double y4 = (double)y2;
 				int facteur = 1;
 				// Decalage des chemins si besoin
 				if(leTroncon.getNbCheminPassantParCeTroncon() > 1)
