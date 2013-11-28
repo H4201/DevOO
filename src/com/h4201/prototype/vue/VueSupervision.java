@@ -6,7 +6,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.util.ArrayList;
-
 import java.util.Iterator;
 
 import javax.swing.JButton;
@@ -19,17 +18,21 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
 import com.h4201.prototype.controleur.Controleur;
+import com.h4201.prototype.exception.ExceptionNoeudInconnu;
 import com.h4201.prototype.modele.Noeud;
 import com.h4201.prototype.modele.PointLivraison;
 import com.h4201.prototype.utilitaire.Constante;
 import com.h4201.prototype.utilitaire.Date;
 import com.sun.file.ExampleFileFilter;
 
+/**
+ * Vuesupervision est l'instance qui va permettre et faire l'affichage de la fenetre de supervision
+ * @author Marina
+ *
+ */
 public class VueSupervision extends MouseAdapter implements ActionListener
 {
-	//la fenetre
 	private JFrame fenetre;
-	//pour la sauvegarde et la lecture des fichiers en xml
 	private JFileChooser jFileChooserXML;
 	private JButton boutonChargerPlan;
 	private JButton boutonChargerDemande;
@@ -49,6 +52,10 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 	
 	private static volatile VueSupervision instance = null;
 	
+	  /**
+	   * Recuperer l'instance de VueSupervision.
+	   * @return L'instance de VueSupervision.
+	   */
 	public final static VueSupervision getInstance(){
 		if(VueSupervision.instance ==  null){
 			synchronized(VueSupervision.class){
@@ -60,9 +67,13 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 		return VueSupervision.instance;
 	}
 	
+	/**
+	 * Constructeur de VueSupervision
+	 * @param x : la longueur de la fenetre
+	 * @param y : la hauteur de la fenetre
+	 */
 	private VueSupervision(int x, int y){
 		
-		//creation de la fenetre
 		fenetre = new JFrame("Supervision");
 		
 		jFileChooserXML = new JFileChooser();
@@ -73,17 +84,9 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 	    jFileChooserXML.setFileSelectionMode(JFileChooser.FILES_ONLY);
 		
 		fenetre.setSize(x,y);
-		//un clic sur la croix entraine la fermeture de la fenetre
 		fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		//centrer la fenetre par rapport a l'ecran de l'ordi
 		fenetre.setLocationRelativeTo(null);
 
-		// Scroll
-//		JScrollPane pane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, 
-//				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-//		fenetre.setContentPane(pane);
-		
-		
 		// Creation d'une liste contenant tous les boutons		
 		ArrayList<AbstractButton> boutons = new ArrayList<AbstractButton>();
 		
@@ -176,7 +179,10 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 		fenetre.setVisible(true);
 	}
 	
-	// Methode appelee quand un bouton est clique 
+	  /**
+	   * Methode appelee quand un bouton est clique
+	   * @param ActionEvent evt qui represente l'evenement : clique sur un bouton
+	   */
 	@Override
 	public void actionPerformed(ActionEvent evt) {
 		boolean videRetablir;
@@ -186,10 +192,7 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 			textTH.setVisible(false);
 			textPL.setVisible(false);
 			if (returnVal == JFileChooser.APPROVE_OPTION) {
-				// debug
-				//System.out.println("nom de fichier " + jFileChooserXML.getSelectedFile().getAbsolutePath());
 				
-				//lecture du contenu d'un fichier XML avec DOM
 				File xml = new File(jFileChooserXML.getSelectedFile().getAbsolutePath());
 				Controleur.getInstance().chargerPlan(xml);
 				VuePanel.getInstance().initialiserVuePlan();
@@ -198,7 +201,7 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 				VuePanel.getInstance().setBounds(Constante.POSVUEX, Constante.POSVUEY, Constante.LARGEUR, Constante.HAUTEUR);
 				boutonChargerDemande.setEnabled(true);
 				
-				//pour cas ou on est pas au premier chargement, il faut passer les boutons en grises.
+				//pour cas ou on est pas au premier chargement, il faut passer les boutons en gris
 				boutonAnnuler.setEnabled(false);
 				boutonRetablir.setEnabled(false);
 				boutonCalcT.setEnabled(false);
@@ -212,8 +215,6 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 			textTH.setVisible(false);
 			textPL.setVisible(false);
 			if (returnVal == JFileChooser.APPROVE_OPTION) {
-				// debug
-				System.out.println("nom de fichier " + jFileChooserXML.getSelectedFile().getAbsolutePath());
 					
 				//lecture du contenu d'un fichier XML avec DOM
 				File xml = new File(jFileChooserXML.getSelectedFile().getAbsolutePath());
@@ -226,8 +227,6 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 				
 				//Tableau des horaires				
 				majTableDesTranchesHoraire();
-				
-//				fenetre.getContentPane().add(paneT);
 			}
 		}
 		else if (evt.getActionCommand().equals("Generer la feuille de route")){
@@ -307,6 +306,9 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 		fenetre.repaint();
 	}
 	
+	  /**
+	   * Mise a jour de la table recapitulative des livraisons par tranche horaire (structure + affichage)
+	   */
 	public void majTableDesTranchesHoraire()
 	{
 		if(paneT != null) fenetre.getContentPane().remove(paneT);
@@ -323,8 +325,11 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 		fenetre.getContentPane().add(paneT);
 	}
 	
-	
-	//Methode appelee quand la souris est cliquee dans la fenetre
+	  /**
+	   * Methode appelee quand la souris est cliquee dans la fenetre supervision
+	   * Sert pour les cliques sur les noeuds du plan
+	   * @param idNoeud id du noeud recherche.
+	   */
 	@Override
 	public void mouseClicked(MouseEvent evt){
 		double posX;
@@ -343,18 +348,12 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 			posX=(int)posX*Constante.LARGEURSUPERV/Constante.LARGEUR;
 			posY=(int)posY*Constante.HAUTEURSUPERV/Constante.HAUTEUR;
 			noeudClique = VuePlan.getInstance().getLeNoeud(posX, posY);
-			System.out.println("il y a eu un clic");
-			System.out.println("evt : " + evt.getX() + ", " + evt.getY());
-			System.out.println("pos : " + posX + ", " + posY);
 
 
 			if(noeudClique != null)
 			{
-				System.out.println("clic sur noeud : " + noeudClique.getIdNoeud());
 				if(Controleur.getInstance().getMode()==Constante.MODE_AJOUT){ //AJOUT
 					VueComboBox.getInstance().ouvrirTrancheHoraire(noeudClique);
-					//ouvre pop up avec tranches horaires
-					//Controleur.getInstance().ajoutPointLivraison(noeudClique, trancheHoraire); -> fait par la fenetre?
 					boutonCalcT.setEnabled(true);
 					boutonFeuilleDeRoute.setEnabled(false);
 					boutonAnnuler.setEnabled(true);
@@ -367,7 +366,6 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 					noeudEstLiv = VuePanel.getInstance().getLePointLivraison(posX, posY);
 					if(noeudEstLiv!=null){
 						VueComboBox.getInstance().ouvrirPointLivraison(noeudClique);
-						//Controleur.getInstance().supprimerPointLivraison(noeudEstLiv); -> fait par la fenetre?
 						boutonCalcT.setEnabled(true);
 						boutonFeuilleDeRoute.setEnabled(false);
 						boutonAnnuler.setEnabled(true);
@@ -397,11 +395,14 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 				}
 			}
 			else{
-				System.out.println("null");
 			}
 		}
 	}
 	
+	  /**
+	   * popup d'erreur 
+	   * @param message d'erreur a afficher dans la popup
+	   */
 	public void fenetreErreur(String messageErreur){
 		JOptionPane.showMessageDialog(fenetre, messageErreur, "Erreur", JOptionPane.ERROR_MESSAGE);
 	}

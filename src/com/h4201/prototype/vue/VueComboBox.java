@@ -12,19 +12,24 @@ import javax.swing.JPanel;
 import javax.swing.JComboBox;
 
 import com.h4201.prototype.controleur.Controleur;
+import com.h4201.prototype.exception.ExceptionNoeudInconnu;
+import com.h4201.prototype.exception.ExceptionNonInstancie;
 import com.h4201.prototype.modele.Noeud;
 import com.h4201.prototype.modele.PointLivraison;
 import com.h4201.prototype.modele.Tournee;
 import com.h4201.prototype.modele.TrancheHoraire;
 
-
+/**
+ * Fenetre avec une combobox pour selectionner une tranche horaire ou un point de livraison
+ * Utilisee lors de l'ajout ou de la suppression
+ * @author Marina
+ *
+ */
 public class VueComboBox extends MouseAdapter {
 
-	//private JPanel contentPane;
 	private JComboBox<TrancheHoraire> comboBox;
 	private JComboBox<PointLivraison> comboBox2;
 	private JLabel label;
-	//la fenetre
 	private JFrame fenetre;
 	private JButton boutonOK;
 	private TrancheHoraire trancheHoraire;
@@ -33,9 +38,10 @@ public class VueComboBox extends MouseAdapter {
 
 	private static volatile VueComboBox instance = null;
 
-	/**
-	 * Create the frame.
-	 */
+	  /**
+	   * Recuperer l'instance de VueComboBox
+	   * @return L'instance de VueComboBox
+	   */
 	public final static VueComboBox getInstance()
 	{
 		if (VueComboBox.instance == null)
@@ -51,24 +57,25 @@ public class VueComboBox extends MouseAdapter {
 
 		return VueComboBox.instance;
 	}
+	
+	/**
+	 * Constructeur de VueComboBox
+	 */
 	private VueComboBox() {
 		
 	}
 	
-	
+	/**
+	 * Ouverture de la fenetre, avec les tranches horaires dans la combobox
+	 * @param Noeud noeudClique : le noeud qui a ete clique sur le plan en mode Ajout
+	 */
 	public void ouvrirTrancheHoraire(Noeud noeudClique){
 		noeud=noeudClique;
-		//TrancheHoraire trancheHoraire; 
 		
-		//creation de la fenetre
 		fenetre = new JFrame("Ajout d'un point de livraison");
 		fenetre.setSize(300,300);
-		//un clic sur la croix entraine la fermeture de la fenetre
-		//fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		//centrer la fenetre par rapport a l'ecran de l'ordi
 		fenetre.setLocationRelativeTo(null);
-		
-		
+
 		fenetre.getContentPane().setLayout(null);
 		
 		boutonOK = new JButton("OK");
@@ -87,7 +94,6 @@ public class VueComboBox extends MouseAdapter {
 		
 		label = new JLabel("Choix de la tranche horaire : ");
 		JPanel top = new JPanel();
-		//comboBox.setLayout(null);
 		comboBox.setBounds(0, 100, 200, 100);
 		label.setLayout(null);
 		label.setBounds(0, 0, 200, 100);
@@ -97,23 +103,21 @@ public class VueComboBox extends MouseAdapter {
 	    top.setLayout(null);
 	    top.setBounds(0, 0, 200, 200);
 	    fenetre.getContentPane().add(top, "North");		
-	    
-//		 comboBox.addActionListener(new ItemAction());
 		 
 		 fenetre.repaint();
 			
 		 fenetre.setVisible(true);
 	}
+	
+	/**
+	 * Ouverture de la fenetre, avec des livraisons dans la combobox
+	 * @param Noeud noeudClique : le noeud qui a ete clique sur le plan en mode Suppression
+	 */
 	public void ouvrirPointLivraison(Noeud noeudClique){
 		noeud=noeudClique;
-		//TrancheHoraire trancheHoraire; 
-		
-		//creation de la fenetre
+
 		fenetre = new JFrame("Suppression d'un point de livraison");
 		fenetre.setSize(300,300);
-		//un clic sur la croix entraine la fermeture de la fenetre
-		//fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		//centrer la fenetre par rapport a l'ecran de l'ordi
 		fenetre.setLocationRelativeTo(null);
 		
 		
@@ -128,7 +132,6 @@ public class VueComboBox extends MouseAdapter {
 		
 		VueTournee tournee = VueTournee.getInstance();
 		comboBox2 = new JComboBox<PointLivraison>();
-		System.out.println(tournee.toString());
 		Vector <PointLivraison> listePointLiv = 
 				tournee.lesPointLivraisonsClique(noeudClique.getX(), noeudClique.getY());
 		for(int i=0; i<listePointLiv.size();i++)
@@ -154,14 +157,27 @@ public class VueComboBox extends MouseAdapter {
 		 fenetre.setVisible(true);
 	}
 
+	
 	 public class BoutonListener implements ActionListener{
+		 /**
+		  * Methode appelee quand le bouton OK est clique pour le choix de tranche horaire
+		  * charge la tranche horaire selectionnee et appelle la methode d'ajout du controleur
+		  * @param ActionEvent e qui represente l'evenement : clique sur le bouton OK
+		  */
 		 public void actionPerformed(ActionEvent e) {
 			 trancheHoraire = comboBox.getItemAt(comboBox.getSelectedIndex());
 			 Controleur.getInstance().ajoutPointLivraison(noeud, trancheHoraire);
 			 fenetre.dispose();
 		 }
 	}
+	 
+	 
 	 public class BoutonListener2 implements ActionListener{
+		 /**
+		  * Methode appelee quand le bouton OK est clique pour le choix de livraison
+		  * charge le point de livraison selectionne et appelle la methode de suppression du controleur
+		  * @param ActionEvent e qui represente l'evenement : clique sur le bouton OK
+		  */
 		 public void actionPerformed(ActionEvent e) {
 			 pointLivraison = comboBox2.getItemAt(comboBox2.getSelectedIndex());
 			 Controleur.getInstance().supprimerPointLivraison(pointLivraison);

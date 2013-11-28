@@ -11,20 +11,27 @@ import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;
 
 
-//import javax.swing.table.AbstractTableModel;
-
 
 import com.h4201.prototype.modele.PointLivraison;
 import com.h4201.prototype.modele.Tournee;
 import com.h4201.prototype.modele.TrancheHoraire;
 import com.h4201.prototype.utilitaire.Date;
 
+/**
+ * Il s'agit d'une structure qui va nous permettre de stocker les tranches horaires et ses points de livraisons
+ * pour ensuite les afficher sur l'interface, dans un tableau recapitulatif.
+ * @author Marina
+ *
+ */
 public class TableRecap {
 	
 	private Vector<String> lesLivraisons;
 	private Vector<Object> listeObjets;
 	private JTable tableau;
 
+	/**
+	 * Constructeur de la table recapitulative
+	 */
 	public TableRecap()
 	{
 		listeObjets = new Vector<Object>();
@@ -98,7 +105,6 @@ public class TableRecap {
 			        Object obj = listeObjets.get(row);
 			        if(obj instanceof TrancheHoraire)
 			        {
-//				        System.out.println(couleursTranchesHoraires);
 				        c.setBackground(couleursTranchesHoraires.get((TrancheHoraire)obj));
 			        }
 			        else if(obj instanceof PointLivraison)
@@ -136,15 +142,27 @@ public class TableRecap {
 		tableau.setRowSelectionAllowed(false);
 	}
 	
+	/**
+	 * Recuperer le tableau recaptitulatif (celui d'affichage).
+	 * @return le tableau (celui d'affichage)
+	 */
 	public JTable getTableau()
 	{
 		return tableau;
 	}
 	
+	/**
+	 * Recuperer les string decrivant les livraisons
+	 * @return les string decrivant les livraisons
+	 */
 	public Vector<String> getLesLivraisons(){
 		return lesLivraisons;
 	}
 	
+	/**
+	 * Recuperer le nombre de livraison
+	 * @return le nombre de livraison
+	 */
 	public int getLongueur(){
 		return lesLivraisons.size();
 	}
