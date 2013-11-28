@@ -111,7 +111,7 @@ public class VueTournee
 	protected boolean initialiserPointLivraisons()
 	{
 		boolean flag = false;
-		boolean ret = initialiserTout();
+		initialiserTout();
 		vueEntrepot = new VueEntrepot(Tournee.getInstance().getEntrepot());
 		lesVuePointLivraisons = new Vector<VuePointLivraison>();
 		for(TrancheHoraire trancheHoraire : couleursTranchesHoraires.keySet())
@@ -142,7 +142,7 @@ public class VueTournee
 		 */
 
 		boolean flag = false;
-		boolean ret  = initialiserTout();
+		initialiserTout();
 
 		lesVueChemins = new Vector<VueChemin>();
 		int numeroChemin = 0;
