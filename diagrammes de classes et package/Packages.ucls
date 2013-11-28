@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.1.4" icons="true" automaticImage="PNG" always-add-relationships="false" generalizations="true" 
+  realizations="true" associations="true" dependencies="true" nesting-relationships="true">  
+  <package id="1" language="java" name="com.h4201.prototype.modele" project="DevOO" 
+    file="/DevOO/src/com/h4201/prototype/modele" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="50" width="223" x="229" y="450"/>    
+    <display autosize="true" stereotype="true" accessors="true"/>  
+  </package>  
+  <package id="2" language="java" name="com.h4201.prototype.app" project="DevOO" 
+    file="/DevOO/src/com/h4201/prototype/app" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="50" width="199" x="575" y="90"/>    
+    <display autosize="true" stereotype="true" accessors="true"/>  
+  </package>  
+  <package id="3" language="java" name="com.h4201.prototype.utilitaire" project="DevOO" 
+    file="/DevOO/src/com/h4201/prototype/utilitaire" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="50" width="229" x="438" y="540"/>    
+    <display autosize="true" stereotype="true" accessors="true"/>  
+  </package>  
+  <package id="4" language="java" name="com.h4201.prototype.controleur" project="DevOO" 
+    file="/DevOO/src/com/h4201/prototype/controleur" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="50" width="244" x="268" y="270"/>    
+    <display autosize="true" stereotype="true" accessors="true"/>  
+  </package>  
+  <package id="5" language="java" name="com.h4201.prototype.vue" project="DevOO" 
+    file="/DevOO/src/com/h4201/prototype/vue" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="50" width="198" x="573" y="360"/>    
+    <display autosize="true" stereotype="true" accessors="true"/>  
+  </package>  
+  <package id="6" language="java" name="com.sun.file" project="DevOO" file="/DevOO/src/com/sun/file" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="50" width="115" x="728" y="450"/>    
+    <display autosize="true" stereotype="true" accessors="true"/>  
+  </package>  
+  <package id="7" language="java" name="com.h4201.prototype.exception" project="DevOO" 
+    file="/DevOO/src/com/h4201/prototype/exception" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="50" width="241" x="438" y="630"/>    
+    <display autosize="true" stereotype="true" accessors="true"/>  
+  </package>  
+  <package id="8" language="java" name="fr.insa.lyon.if4.tsp" project="DevOO" file="/DevOO/src/fr/insa/lyon/if4/tsp" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="50" width="148" x="229" y="540"/>    
+    <display autosize="true" stereotype="true" accessors="true"/>  
+  </package>  
+  <package id="9" language="java" name="com.h4201.prototype.test" project="DevOO" 
+    file="/DevOO/src/com/h4201/prototype/test" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="50" width="199" x="355" y="180"/>    
+    <display autosize="true" stereotype="true" accessors="true"/>  
+  </package>  
+  <dependency id="10">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="6"/>  
+  </dependency>  
+  <dependency id="11">    
+    <bendpoint x="697" y="450"/>    
+    <bendpoint x="697" y="540"/>    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="7"/>  
+  </dependency>  
+  <dependency id="12">    
+    <bendpoint x="743" y="180"/>    
+    <bendpoint x="745" y="291"/>    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="5"/>  
+  </dependency>  
+  <dependency id="13">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="1"/>  
+  </dependency>  
+  <dependency id="14">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="7"/>  
+  </dependency>  
+  <dependency id="15">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="9"/>  
+  </dependency>  
+  <dependency id="16">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="8"/>  
+  </dependency>  
+  <dependency id="17">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="4"/>  
+  </dependency>  
+  <dependency id="18">    
+    <bendpoint x="563" y="270"/>    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="5"/>  
+  </dependency>  
+  <dependency id="19">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="5"/>  
+  </dependency>  
+  <dependency id="20">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="3"/>  
+  </dependency>  
+  <dependency id="21">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="1"/>  
+  </dependency>  
+  <dependency id="22">    
+    <bendpoint x="647" y="479"/>    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="3"/>  
+  </dependency>  
+  <dependency id="23">    
+    <bendpoint x="237" y="270"/>    
+    <bendpoint x="237" y="360"/>    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="1"/>  
+  </dependency>  
+  <dependency id="24">    
+    <bendpoint x="407" y="540"/>    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="7"/>  
+  </dependency>  
+  <dependency id="25">    
+    <bendpoint x="482" y="360"/>    
+    <bendpoint x="482" y="450"/>    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="3"/>  
+  </dependency>  
+  <dependency id="26">    
+    <bendpoint x="542" y="270"/>    
+    <bendpoint x="542" y="360"/>    
+    <bendpoint x="542" y="450"/>    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="3"/>  
+  </dependency>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    accessors="true" visibility="true">    
+    <attributes public="false" package="false" protected="false" private="false" static="false"/>    
+    <operations public="false" package="false" protected="false" private="false" static="false"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>
