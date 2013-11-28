@@ -54,7 +54,7 @@ public class VuePlan
 	 * Cette methode permet de retournee le point de livraison qui a ete clique.
 	 * @param x coordonee du clic suivant l axe x
 	 * @param y coordonnee y du clic suivant l axe y
-	 * @return
+	 * @return PointLivraison le point de livraison recherche
 	 */
 	public PointLivraison getLePointLivraison(double x, double y)
 	{

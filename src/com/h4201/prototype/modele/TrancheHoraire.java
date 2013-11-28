@@ -42,7 +42,7 @@ public class TrancheHoraire
 
   /** 
    * Recuperer l'id unique de la tranche horaire.
-   * @return
+   * @return int id de la tranche horaire
    */
     public int getIdTrancheHoraire()
     {

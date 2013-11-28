@@ -20,8 +20,8 @@ public class CmdAjouterPtLivraison extends Commande
 
     /**
      * Constructeur de la commande.
-     * @param noeud, le noeud a ajouter.
-     * @param trancheHoraire, la tranche horaire correspondante.
+     * @param noeud , le noeud a ajouter.
+     * @param trancheHoraire , la tranche horaire correspondante.
      */
 	public CmdAjouterPtLivraison(Noeud noeud, TrancheHoraire trancheHoraire)
 	{

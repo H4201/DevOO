@@ -180,7 +180,7 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 	
 	  /**
 	   * Methode appelee quand un bouton est clique
-	   * @param ActionEvent evt qui represente l'evenement : clique sur un bouton
+	   * @param evt qui represente l'evenement : clique sur un bouton
 	   */
 	@Override
 	public void actionPerformed(ActionEvent evt) {
@@ -327,7 +327,7 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 	  /**
 	   * Methode appelee quand la souris est cliquee dans la fenetre supervision
 	   * Sert pour les cliques sur les noeuds du plan
-	   * @param idNoeud id du noeud recherche.
+	   * @param evt
 	   */
 	@Override
 	public void mouseClicked(MouseEvent evt){
@@ -400,7 +400,7 @@ public class VueSupervision extends MouseAdapter implements ActionListener
 	
 	  /**
 	   * popup d'erreur 
-	   * @param message d'erreur a afficher dans la popup
+	   * @param messageErreur a afficher dans la popup
 	   */
 	public void fenetreErreur(String messageErreur){
 		JOptionPane.showMessageDialog(fenetre, messageErreur, "Erreur", JOptionPane.ERROR_MESSAGE);

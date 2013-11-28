@@ -16,7 +16,7 @@ public class CmdSupprimerPtLivraison extends Commande
 	
 	/**
 	 * Constructeur de la commande.
-	 * @param pointLivraison, le point de livraison cible par l'action de suppression.
+	 * @param pointLivraison , le point de livraison cible par l'action de suppression.
 	 */
 	public CmdSupprimerPtLivraison(PointLivraison pointLivraison)
 	{

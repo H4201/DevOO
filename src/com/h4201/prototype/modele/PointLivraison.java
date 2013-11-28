@@ -34,7 +34,7 @@ public class PointLivraison
   
   /**
    * Modifier l'heure d'arrivee estimee au point de livraison.
-   * @param nouvelle heureArriveeEstimee 
+   * @param heureArriveeEstimee nouvelle heureArriveeEstimee 
    */
   protected void setHeureArriveeEstimee(Calendar heureArriveeEstimee)
   {
@@ -43,7 +43,7 @@ public class PointLivraison
   
   /**
    * Recuperer l'heure d'arrivee estimee au point de livraison.
-   * @return l'heure au format Calendar.
+   * @return Calendar l'heure au format Calendar.
    */
   public Calendar getHeureArriveeEstimee()
   {

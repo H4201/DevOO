@@ -83,8 +83,8 @@ public final class Controleur
      * Ajouter un Point de Livraison a la Tournee.
      * 1. Deleguer l'ajout a do_() dans le pattern Command.
      * 2. Mise a jour de la pile d'annulation.
-     * @param noeud, le noeud a ajouter.
-     * @param trancheHoraire, la tranche horaire qui lui correspond.
+     * @param noeud , le noeud a ajouter.
+     * @param trancheHoraire , la tranche horaire qui lui correspond.
      */
     public void ajoutPointLivraison(Noeud noeud, TrancheHoraire trancheHoraire)
     {
@@ -131,7 +131,7 @@ public final class Controleur
     /**
      * Charger un Plan (dans le modele) a partir d'un fichier XML,
      * et gestin de son affichage (dans la vue).
-     * @param fichierXML, le fichier contenant le Plan.
+     * @param fichierXML , le fichier contenant le Plan.
      * @return vrai si le chargement a ete effectue sans erreur, faux si il y en a eu une.
      */
     public boolean chargerPlan(File fichierXML)
@@ -154,7 +154,7 @@ public final class Controleur
     /**
      * Charger une demande de Livraison (dans le modele) a partir d'un fichier XML,
      * et gestion de son affichage (dans la vue).
-     * @param fichierXML, le fichier contenant la Demande de Livraison.
+     * @param fichierXML , le fichier contenant la Demande de Livraison.
      * @return vrai si le chargement a ete effectue sans erreur, faux si il y en a eu une.
      */
     public boolean chargerDemandeLivraison(File fichierXML)

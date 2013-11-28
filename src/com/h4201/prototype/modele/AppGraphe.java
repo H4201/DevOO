@@ -49,9 +49,6 @@ public class AppGraphe implements Graph
 	/**
 	 * Genere et cree la tournee optimisee de la journee. Il faut au prealable que le modele soit entierement genere
 	 * (tranchesHoraires etc.). Ne verifie pas si les tranches horaires sont respectees
-	 * @param entrepot
-	 * @param tranchesHoraire
-	 * @return La tournee creee.
 	 * @throws ExceptionTrancheHoraire Si les tranches horaires ne sont pas dans l'ordre, et sans
 	 * chevauchement, la tournee n'est pas calculee.
 	 * @throws ExceptionNonInstancie Si le plan n'est pas correctement instancie

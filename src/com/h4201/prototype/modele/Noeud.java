@@ -73,7 +73,7 @@ public class Noeud
 
   /**
    * Ajouter un troncon a la liste des troncons entrant.
-   * @param le troncon a ajouter
+   * @param troncon - le troncon a ajouter
    */
   protected void ajouterTronconEntrant(Troncon troncon)
   {
@@ -91,7 +91,7 @@ public class Noeud
 
   /**
    * Ajouter un troncon sortant a la liste des troncons sortants.
-   * @param le troncon a ajouter a la liste des troncons sortants
+   * @param troncon - le troncon a ajouter a la liste des troncons sortants
    */
   protected void ajouterTronconSortant(Troncon troncon)
   {

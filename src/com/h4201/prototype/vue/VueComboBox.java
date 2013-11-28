@@ -65,7 +65,7 @@ public class VueComboBox extends MouseAdapter {
 	
 	/**
 	 * Ouverture de la fenetre, avec les tranches horaires dans la combobox
-	 * @param Noeud noeudClique : le noeud qui a ete clique sur le plan en mode Ajout
+	 * @param noeudClique : le noeud qui a ete clique sur le plan en mode Ajout
 	 */
 	public void ouvrirTrancheHoraire(Noeud noeudClique){
 		noeud=noeudClique;
@@ -109,7 +109,7 @@ public class VueComboBox extends MouseAdapter {
 	
 	/**
 	 * Ouverture de la fenetre, avec des livraisons dans la combobox
-	 * @param Noeud noeudClique : le noeud qui a ete clique sur le plan en mode Suppression
+	 * @param noeudClique : le noeud qui a ete clique sur le plan en mode Suppression
 	 */
 	public void ouvrirPointLivraison(Noeud noeudClique){
 		noeud=noeudClique;
@@ -160,7 +160,7 @@ public class VueComboBox extends MouseAdapter {
 		 /**
 		  * Methode appelee quand le bouton OK est clique pour le choix de tranche horaire
 		  * charge la tranche horaire selectionnee et appelle la methode d'ajout du controleur
-		  * @param ActionEvent e qui represente l'evenement : clique sur le bouton OK
+		  * @param e qui represente l'evenement : clique sur le bouton OK
 		  */
 		 public void actionPerformed(ActionEvent e) {
 			 trancheHoraire = comboBox.getItemAt(comboBox.getSelectedIndex());
@@ -174,7 +174,7 @@ public class VueComboBox extends MouseAdapter {
 		 /**
 		  * Methode appelee quand le bouton OK est clique pour le choix de livraison
 		  * charge le point de livraison selectionne et appelle la methode de suppression du controleur
-		  * @param ActionEvent e qui represente l'evenement : clique sur le bouton OK
+		  * @param e qui represente l'evenement : clique sur le bouton OK
 		  */
 		 public void actionPerformed(ActionEvent e) {
 			 pointLivraison = comboBox2.getItemAt(comboBox2.getSelectedIndex());
