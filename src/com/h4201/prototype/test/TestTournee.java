@@ -14,6 +14,11 @@ import com.h4201.prototype.utilitaire.Date;
 
 import static org.junit.Assert.*;
 
+/**
+ * Test du calcul de la tournee 2.
+ * @author Paul
+ *
+ */
 public class TestTournee
 {
 	public TestTournee()

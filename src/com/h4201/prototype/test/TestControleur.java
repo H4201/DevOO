@@ -13,7 +13,11 @@ import com.h4201.prototype.vue.VueSupervision;
 
 import static org.junit.Assert.*;
 
-
+/**
+ * Test du controleur et actions sur le modele.
+ * @author Paul
+ *
+ */
 public class TestControleur
 {
 	public TestControleur()

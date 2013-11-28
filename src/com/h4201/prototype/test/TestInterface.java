@@ -1,8 +1,12 @@
 package com.h4201.prototype.test;
 
-
 import com.h4201.prototype.vue.VueSupervision;
 
+/**
+ * Test de l'interface.
+ * @author Marina
+ *
+ */
 public class TestInterface {
 	
 	public TestInterface()
