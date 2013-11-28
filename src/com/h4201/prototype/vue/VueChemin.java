@@ -56,8 +56,6 @@ public class VueChemin
 		AffineTransform at = AffineTransform.getTranslateInstance(x1, y1);
 		at.concatenate(AffineTransform.getRotateInstance(angle));
 		g.transform(at);
-
-		// Draw horizontal arrow starting in (0, 0)
 		g.drawLine(0, 0, len, 0);
 		g.fillPolygon(new int[] {len, len-ARR_SIZE, len-ARR_SIZE, len},
 				new int[] {0, -ARR_SIZE, ARR_SIZE, 0}, 4);
@@ -106,10 +104,8 @@ public class VueChemin
 				x4 = x3 + x2 - x1;
 				y4 = y3 + y2 - y1;
 			}
-
 			g.setColor(couleur);
-			drawArrow(g, (int) Math.round(x3), (int) Math.round(y3), 
-					(int) Math.round(x4), (int) Math.round(y4));
+			drawArrow(g, (int) Math.round(x3), (int) Math.round(y3), (int) Math.round(x4), (int) Math.round(y4));
 			g.setColor(cTemp);
 		}		
 	}
