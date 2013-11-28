@@ -34,27 +34,44 @@ public class Tournee
 		  this.chemins = new Vector<Chemin>();
 	  }
 	  
+	  /**
+	   * Modification de l'instance de la tournee (singleton).
+	   * @param entrepot - point de depart de la tournee.
+	   * @param tranchesHoraire - la liste des tranches horaires de la tournee.
+	   * @return la nouvelle instance.
+	   */
 	  protected static Tournee setInstance(Entrepot entrepot, 
-			  Vector<TrancheHoraire> tranchesHoraire) throws ExceptionNonInstancie
+			  Vector<TrancheHoraire> tranchesHoraire)
 	  {
 		synchronized(Tournee.class)
 		{
 			Tournee.instance = new Tournee(entrepot, tranchesHoraire);
 		}
 		
-		return getInstance();
+		return Tournee.instance;
 	  }
 	  
+	  /**
+	   * Recuperer l'instance de la tournee.
+	   * @return l'instance.
+	   */
 	  public final static Tournee getInstance()
 	  {
 	      return Tournee.instance;
 	  }
 	  
+	  /**
+	   * Reinitialisation de l'instance.
+	   */
 	  protected static void reinitialiserTournee()
 	  {
 		  Tournee.instance = null;
 	  }
 
+	  /**
+	   * Ajouter un chemin a la tournee.
+	   * @param chemin entre 2 noeuds.
+	   */
 	  protected void ajouterChemin(Chemin chemin)
 	  {
 		  this.chemins.addElement(chemin);
@@ -65,6 +82,9 @@ public class Tournee
 		  }
 	  }
 	  
+	  /**
+	   * Supprimer tous les chemins de la tournee.
+	   */
 	  public void supprimerTousLesChemins()
 	  {
 		  for(Chemin chemin : this.chemins)
@@ -78,20 +98,35 @@ public class Tournee
 		  this.chemins = new Vector<Chemin>();
 	  }
 		
+	  /**
+	   * Recuperer l'entrepot de la tournee.
+	   * @return l'entrepot.
+	   */
 	public Entrepot getEntrepot() {
 		return entrepot;
 	}
 	
+	/**
+	 * Recuperer les chemins de la tournee.
+	 * @return les chemins.
+	 */
 	public Vector<Chemin> getChemins() {
 		return chemins;
 	}
 	
+	/**
+	 * Recuperer les tranches horaire de la tournee.
+	 * @return les tranches horaire.
+	 */
 	public Vector<TrancheHoraire> getTranchesHoraire() { 
 		return tranchesHoraire;
 	}
 	
-
-	
+	/**
+	 * Ajouter un point de livraison a la tournee.
+	 * Pre-condition : Indiquer la tranche horaire.
+	 * @param ptLivraison ajoute.
+	 */
 	public void ajouterPointLivraison(PointLivraison ptLivraison)
 	{
 		TrancheHoraire th = ptLivraison.getTrancheHoraire();
@@ -107,6 +142,11 @@ public class Tournee
 		}
 	}
 
+	/**
+	 * Supprimer un point de livraison.
+	 * Pre-condition : Indiquer la tranche horaire.
+	 * @param ptLivraison supprime
+	 */
 	public void supprimerPointLivraison(PointLivraison ptLivraison)
 	{
     	for(int i=0 ; i<tranchesHoraire.size() ; i++)
@@ -127,6 +167,9 @@ public class Tournee
     	}
 	}
 	
+	/**
+	 * Afficher les informations de la tournee.
+	 */
 	public void afficher()
 	{
 		System.out.println("\n" + this.toString());
@@ -143,6 +186,9 @@ public class Tournee
 		}
 	}
 
+	/**
+	 * Recuperer les informations de la tournee dans une string.
+	 */
 	@Override
 	public String toString() {
 		return "Tournee [entrepot=" + entrepot + "]";

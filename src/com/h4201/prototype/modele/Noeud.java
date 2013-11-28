@@ -35,36 +35,64 @@ public class Noeud
 	  this.tronconsEntrants = new Vector<Troncon>();
   }
 
+  /**
+   * Recuperer la coordonnee X.
+   * @return x
+   */
   public double getX()
   {
 	  return this.x;
   }
 
+  /**
+   * Recuperer la coordonnee Y.
+   * @return y
+   */
   public double getY()
   {
 	  return this.y;
   }
   
+  /**
+   * Recuperer l'id du noeud.
+   * @return id du noeud
+   */
   public int getIdNoeud()
   {
 	  return this.idNoeud;
   }
 
-  public Vector<Troncon> getTronconsEntrants()
+  /**
+   * Recuperer la liste des troncons qui arrive a ce noeud.
+   * @return la liste des troncons entrants.
+   */
+  protected Vector<Troncon> getTronconsEntrants()
   {
 	  return this.tronconsEntrants;
   }
 
+  /**
+   * Ajouter un troncon a la liste des troncons entrant.
+   * @param le troncon a ajouter
+   */
   protected void ajouterTronconEntrant(Troncon troncon)
   {
 	  this.tronconsEntrants.addElement(troncon);
   }
 
-  public Vector<Troncon> getTronconsSortants()
+  /**
+   * Recuperer la liste des troncons qui partent de ce noeud.
+   * @return la liste des troncons sortants
+   */
+  protected Vector<Troncon> getTronconsSortants()
   {
 	  return this.tronconsSortants;
   }
 
+  /**
+   * Ajouter un troncon sortant a la liste des troncons sortants.
+   * @param le troncon a ajouter a la liste des troncons sortants
+   */
   protected void ajouterTronconSortant(Troncon troncon)
   {
 	  this.tronconsSortants.addElement(troncon);
@@ -78,6 +106,9 @@ public class Noeud
 	  System.out.println(this.toString());
   }
   
+  /**
+   * Les informations du neoud dans une chaine de caracteres
+   */
 	@Override
 	public String toString() {
 		return "Noeud [idNoeud=" + idNoeud + ", x=" + x + ", y=" + y + "]";

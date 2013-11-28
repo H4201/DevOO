@@ -31,28 +31,51 @@ public class TrancheHoraire
 	  this.pointsLivraison = new Vector<PointLivraison>();
   }
 
+  /**
+   * Ajouter un point de livraison a la tranche horaire.
+   * @param pointLivraison a ajouter.
+   */
   protected void ajouterPointLivraison(PointLivraison pointLivraison)
   {
 	  this.pointsLivraison.add(pointLivraison);
   }
 
+  /** 
+   * Recuperer l'id unique de la tranche horaire.
+   * @return
+   */
     public int getIdTrancheHoraire()
     {
     	return idTrancheHoraire;
     }
     
+    /**
+     * Recuperer l'heure de debut de la tranche horaire.
+     * @return l'heure au format Calendar.
+     */
 	public Calendar getHeureDebut() {
 		return heureDebut;
 	}
 	
+	/**
+	 * Recuperer l'heure de fin de la tranche horaire.
+	 * @return l'heure au format Calendar.
+	 */
 	public Calendar getHeureFin() {
 		return heureFin;
 	}
 	
+	/**
+	 * Recuperer la liste des points de livraison de la tranche horaire.
+	 * @return la liste des point de livraison.
+	 */
 	public Vector<PointLivraison> getPointsLivraisons() {
 		return pointsLivraison;
 	}
 	
+	/**
+	 * Afficher les informations de la tranche horaire.
+	 */
 	public void afficher()
 	{
 		System.out.println("\n" + this.toString());
@@ -63,6 +86,9 @@ public class TrancheHoraire
 		}
 	}
 	
+	/**
+	 * Redefinition de l'egalite entre 2 tranches horaire.
+	 */
 	@Override
 	public boolean equals(Object obj)
 	{
@@ -78,6 +104,9 @@ public class TrancheHoraire
 		return false;
 	}
 
+	/**
+	 * Recuperer les informations de la tranche horaire dans une string.
+	 */
 	@Override
 	public String toString() {
 		return Date.getHeureFrSimplifieeDepuisCalendar(this.getHeureDebut())

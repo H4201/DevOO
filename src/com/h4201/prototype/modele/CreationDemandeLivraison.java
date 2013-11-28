@@ -35,9 +35,11 @@ public abstract class CreationDemandeLivraison
 	 * @param demandeLivraisonXML Fichier contenant le XML
 	 * @return Une tournee sans les chemins pour aller 
 	 * d'un point de livraison a l'autre.
-	 * @throws ExceptionXML
-	 * @throws ExceptionFichier
-	 * @throws ExceptionNonInstancie
+	 * @throws ExceptionXML XML incorrect.
+	 * @throws ExceptionFichier Impossible de lire le fichier
+	 * @throws ExceptionNonInstancie Plan non intancie
+	 * @throws ExceptionNoeudInconnu Si un noeud n'a pas ete defini dans le plan.
+	 * @throws ExceptionTrancheHoraire Une tranche horaire ne respecte pas les regles.
 	 */
 	public static Tournee depuisXML(File demandeLivraisonXML) 
 			throws ExceptionXML, ExceptionFichier, ExceptionNonInstancie,

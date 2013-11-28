@@ -39,30 +39,57 @@ public class Chemin
     	this.idChemin = Chemin.dernierIdChemin++;
     }
 
+    /**
+     * Recuperer la somme des longueurs des troncons du chemin.
+     * @return la longueur du chemin.
+     */
 	public double getLongueur() {
 		return longueur;
 	}
 
+	/**
+	 * Recuperer le temps cumule des troncons du chemin.
+	 * @return temps total pour parcourir le chemin.
+	 */
 	public double getTemps() {
 		return temps;
 	}
 
+	/**
+	 * Recuperer le point de depart du chemin.
+	 * @return le point de livraison origine.
+	 */
 	public PointLivraison getPointLivraisonOrigine() {
 		return pointLivraisonOrigine;
 	}
 
+	/**
+	 * Recuperer le point d'arrivee du chemin.
+	 * @return le point de livraison destination.
+	 */
 	public PointLivraison getPointLivraisonDestination() {
 		return pointLivraisonDestination;
 	}
 
+	/**
+	 * Recuperer la liste des troncons qui composent le chemin.
+	 * @return liste des troncons.
+	 */
 	public Vector<Troncon> getTroncons() {
 		return troncons;
 	}
 	
+	/**
+	 * Recuperer l'id unique du chemin.
+	 * @return l'id du chemin.
+	 */
 	public int getIdChemin() {
 		return idChemin;
 	}
 	
+	/**
+	 * Permet d'afficher les informations du chemin.
+	 */
 	public void afficher()
 	{
 		System.out.println(this.toString());
@@ -74,6 +101,9 @@ public class Chemin
 		}
 	}
 
+	/**
+	 * Permet de recuperer dans une string les informations du chemin.
+	 */
 	@Override
 	public String toString() {
 		return "Chemin [longueur=" + longueur + ", temps=" + temps

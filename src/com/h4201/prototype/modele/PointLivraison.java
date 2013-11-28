@@ -13,8 +13,6 @@ public class PointLivraison
 {
   private static int dernierIdPointLivraison = 0;
   private int idPointLivraison;
-  private Chemin cheminEntrant;
-  private Chemin cheminSortant;
   private String client;
   private Noeud noeud;
   private TrancheHoraire trancheHoraire;
@@ -34,26 +32,30 @@ public class PointLivraison
 	  this.trancheHoraire = trancheHoraire;
   }
   
+  /**
+   * Modifier l'heure d'arrivee estimee au point de livraison.
+   * @param nouvelle heureArriveeEstimee 
+   */
   protected void setHeureArriveeEstimee(Calendar heureArriveeEstimee)
   {
 	  this.heureArriveeEstimee = (Calendar) heureArriveeEstimee.clone();
   }
   
+  /**
+   * Recuperer l'heure d'arrivee estimee au point de livraison.
+   * @return l'heure au format Calendar.
+   */
   public Calendar getHeureArriveeEstimee()
   {
 	  return heureArriveeEstimee;
   }
-
-  	protected void ajouterCheminEntrant(Chemin chemin)
-  	{
-  		cheminEntrant = chemin;
-  	}
-  	
-  	protected void ajouterCheminSortant(Chemin chemin)
-  	{
-  		cheminSortant = chemin;
-  	}
   
+  /**
+   * Repond a la question : est-ce que la livraison aura lieu sur la 
+   * tranche horaire demandee par le client ?.
+   * @return true la livraison aura lieu dans la tranche horaire demandee par 
+   * le client, false sinon.
+   */
   	public boolean getRespecteTrancheHoraireDemandee()
   	{
   		if(getHeureArriveeEstimee() == null)
@@ -65,35 +67,41 @@ public class PointLivraison
   				|| getHeureArriveeEstimee().equals(trancheHoraire.getHeureFin()));
   	}
 	
+  	/**
+  	 * Recuperer l'id unique du point de livraison.
+  	 * @return l'id.
+  	 */
 	public int getIdPointLivraison() {
 		return idPointLivraison;
 	}
 	
-	public Chemin getCheminEntrant() {
-		return cheminEntrant;
-	}
-	
-	public Chemin getCheminSortant() {
-		return cheminSortant;
-	}
-	
+	/**
+	 * Recuperer les informations du client.
+	 * @return le numero du client.
+	 */
 	public String getClient() {
 		return client;
 	}
 	
+	/**
+	 * Recuperer le noeud sur lequel est place le point de livraison.
+	 * @return le noeud lie au point de livraison.
+	 */
 	public Noeud getNoeud() {
 		return noeud;
 	}
 	
+	/**
+	 * Recuperer la tranche horaire demandee par le client.
+	 * @return la tranche horaire demandee.
+	 */
 	public TrancheHoraire getTrancheHoraire() {
 		return trancheHoraire;
 	}
 	
-	protected void setTrancheHoraire(TrancheHoraire trancheHoraire)
-	{
-		this.trancheHoraire = trancheHoraire;
-	}
-	
+	/**
+	 * Redefinition de l'egalite entre 2 points de livraison.
+	 */
 	@Override
 	public boolean equals(Object obj)
 	{
@@ -109,11 +117,17 @@ public class PointLivraison
 		return false;
 	}
 	
+	/**
+	 * Permet d'afficher les informations d'un point de livraison.
+	 */
 	public void afficher()
 	{
 		System.out.println(this.toString());
 	}
 
+	/**
+	 * Recuperer les informations du point de livraison dans une string.
+	 */
 	@Override
 	public String toString() {
 		String str = "L" + this.getIdPointLivraison();

@@ -9,7 +9,6 @@ import org.w3c.dom.*;
 import com.h4201.prototype.exception.ExceptionCoordonnees;
 import com.h4201.prototype.exception.ExceptionFichier;
 import com.h4201.prototype.exception.ExceptionNoeudInconnu;
-import com.h4201.prototype.exception.ExceptionNonInstancie;
 import com.h4201.prototype.exception.ExceptionXML;
 import com.h4201.prototype.utilitaire.Fichier;
 
@@ -28,12 +27,12 @@ public abstract class CreationPlan
 	 * 
 	 * @param planXML Fichier contenant le XML
 	 * @return L'instance du plan
-	 * @throws ExceptionXML
-	 * @throws ExceptionFichier
-	 * @throws ExceptionNonInstancie
+	 * @throws ExceptionXML Si XML incorrect
+	 * @throws ExceptionFichier Si lecture du fichier impossible
+	 * @throws ExceptionNoeudInconnu Si un noeud destination n'a pas ete defini au prealable
 	 */
 	public static Plan depuisXML(File planXML) 
-			throws ExceptionXML, ExceptionFichier, ExceptionNonInstancie,
+			throws ExceptionXML, ExceptionFichier,
 			ExceptionCoordonnees, ExceptionNoeudInconnu
 	{
 		Plan plan = null;

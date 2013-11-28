@@ -50,11 +50,18 @@ public class Troncon
 	  return (this.nbCheminPassantParCeTroncon += 1);
   }
   
+  /**
+   * Reinitialise le compteur de chemins passants par ce troncon.
+   */
   public void reinitialisationDesChemins()
   {
 	  this.nbCheminPassantParCeTroncon = 0;
   }
   
+  /**
+   * Recuperer le nombre de chemins passants par ce troncon.
+   * @return nombre de chemins
+   */
   public int getNbCheminPassantParCeTroncon()
   {
 	  return this.nbCheminPassantParCeTroncon;
@@ -69,12 +76,16 @@ public class Troncon
 	  return (longueur/vitesse);
   }
 
+  /**
+   * Recuperer le nom de la rue dont fait partie le troncon.
+   * @return nom de la rue.
+   */
     public String getNomRue() {
     	return nomRue;
     }
     
     /**
-     * 
+     * Recuperer la longueur du troncon.
      * @return Longueur en metres
      */
 	public double getLongueur() {
@@ -82,30 +93,48 @@ public class Troncon
 	}
 	
 	/**
-	 * 
+	 * Vitesse moyenne sur le troncon.
 	 * @return vitesse en m/s
 	 */
 	public double getVitesse() {
 		return vitesse;
 	}
 	
+	/**
+	 * Recuperer l'id du troncon.
+	 * @return id unique du troncon.
+	 */
 	public int getIdTroncon() {
 		return idTroncon;
 	}
 	
+	/**
+	 * Noeud de depart du troncon.
+	 * @return noeud.
+	 */
 	public Noeud getNoeudOrigine() { 
 		return noeudOrigine;
 	}
 	
+	/**
+	 * Noeud d'arrivee du troncon.
+	 * @return noeud.
+	 */
 	public Noeud getNoeudDestination() {
 		return noeudDestination;
 	}
 	
+	/**
+	 * Afficher les informations du troncon.
+	 */
 	public void afficher()
 	{
 		System.out.println(this.toString());
 	}
 
+	/**
+	 * Recuperer dans une string les informations du troncon.
+	 */
 	@Override
 	public String toString() {
 		return "Troncon [idTroncon=" + idTroncon + ", longueur=" + longueur 
