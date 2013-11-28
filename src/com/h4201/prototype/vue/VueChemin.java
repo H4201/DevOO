@@ -10,7 +10,11 @@ import com.h4201.prototype.modele.Chemin;
 import com.h4201.prototype.modele.Troncon;
 import com.h4201.prototype.utilitaire.Constante;
 
-
+/**
+ * Affichage d'un chemin.
+ * @author Eva
+ *
+ */
 public class VueChemin
 {
 

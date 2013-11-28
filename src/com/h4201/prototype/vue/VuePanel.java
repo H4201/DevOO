@@ -12,6 +12,11 @@ import com.h4201.prototype.modele.Tournee;
 import com.h4201.prototype.modele.TrancheHoraire;
 import com.h4201.prototype.utilitaire.Constante;
 
+/**
+ * Affichage du plan et de la tournee.
+ * @author Eva
+ *
+ */
 @SuppressWarnings("serial")
 public class VuePanel extends JPanel
 {

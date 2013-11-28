@@ -12,8 +12,6 @@ import javax.swing.JPanel;
 import javax.swing.JComboBox;
 
 import com.h4201.prototype.controleur.Controleur;
-import com.h4201.prototype.exception.ExceptionNoeudInconnu;
-import com.h4201.prototype.exception.ExceptionNonInstancie;
 import com.h4201.prototype.modele.Noeud;
 import com.h4201.prototype.modele.PointLivraison;
 import com.h4201.prototype.modele.Tournee;

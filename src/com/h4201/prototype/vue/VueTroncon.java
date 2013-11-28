@@ -6,7 +6,11 @@ import java.awt.Graphics;
 import com.h4201.prototype.modele.Troncon;
 import com.h4201.prototype.utilitaire.Constante;
 
-
+/**
+ * Affiche un troncon.
+ * @author Eva
+ *
+ */
 public class VueTroncon
 {
 	private Troncon troncon;

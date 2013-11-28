@@ -13,6 +13,11 @@ import fr.insa.lyon.if4.tsp.Graph;
 import fr.insa.lyon.if4.tsp.TSP;
 import fr.insa.lyon.if4.tsp.SolutionState;
 
+/**
+ * Calcul de la tournee.
+ * @author Nicolas
+ *
+ */
 public class AppGraphe implements Graph
 {
 

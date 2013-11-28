@@ -6,7 +6,11 @@ import java.awt.Graphics;
 import com.h4201.prototype.modele.Noeud;
 import com.h4201.prototype.utilitaire.Constante;
 
-
+/**
+ * Affichage d'un noeud.
+ * @author Eva
+ *
+ */
 public class VueNoeud
 {
 	private Noeud noeud;

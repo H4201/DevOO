@@ -10,6 +10,11 @@ import com.h4201.prototype.modele.Plan;
 import com.h4201.prototype.modele.PointLivraison;
 import com.h4201.prototype.modele.Troncon;
 
+/**
+ * Gestion de l'affichage du plan.
+ * @author Eva
+ *
+ */
 public class VuePlan
 {
 	private static volatile VuePlan instance = null;
@@ -96,7 +101,7 @@ public class VuePlan
 	}
 	
 	/**
-	 * Initialise le plan, les VueNoeuds et les VueTroncons à partir du modele.
+	 * Initialise le plan, les VueNoeuds et les VueTroncons ï¿½ partir du modele.
 	 */
 	public void initialiserVuePlan()
 	{

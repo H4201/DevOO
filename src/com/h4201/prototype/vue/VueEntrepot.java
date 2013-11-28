@@ -6,6 +6,11 @@ import java.awt.Graphics;
 import com.h4201.prototype.modele.Entrepot;
 import com.h4201.prototype.utilitaire.Constante;
 
+/**
+ * Affichage de l'entrepot
+ * @author Eva
+ *
+ */
 public class VueEntrepot
 {
 	private Entrepot entrepot;

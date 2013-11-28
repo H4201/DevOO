@@ -18,7 +18,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
 import com.h4201.prototype.controleur.Controleur;
-import com.h4201.prototype.exception.ExceptionNoeudInconnu;
 import com.h4201.prototype.modele.Noeud;
 import com.h4201.prototype.modele.PointLivraison;
 import com.h4201.prototype.utilitaire.Constante;

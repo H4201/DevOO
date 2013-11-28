@@ -12,6 +12,11 @@ import com.h4201.prototype.modele.Tournee;
 import com.h4201.prototype.modele.TrancheHoraire;
 import com.h4201.prototype.utilitaire.Constante;
 
+/**
+ * Gere l'affichage d'une tournee.
+ * @author Eva
+ *
+ */
 public class VueTournee 
 {
 	private static volatile VueTournee instance = null;

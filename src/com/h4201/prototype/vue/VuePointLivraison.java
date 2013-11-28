@@ -6,7 +6,11 @@ import java.awt.Graphics;
 import com.h4201.prototype.modele.PointLivraison;
 import com.h4201.prototype.utilitaire.Constante;
 
-
+/**
+ * Affichage d'un point de livraison
+ * @author Eva
+ *
+ */
 public class VuePointLivraison
 {
 	private PointLivraison pointLivraison;

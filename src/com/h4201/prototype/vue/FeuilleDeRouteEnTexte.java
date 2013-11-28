@@ -11,7 +11,11 @@ import com.h4201.prototype.utilitaire.Constante;
 import com.h4201.prototype.utilitaire.Conversion;
 import com.h4201.prototype.utilitaire.Date;
 
-
+/**
+ * Generation de la feuille de route
+ * @author Xinlu
+ *
+ */
 public final class FeuilleDeRouteEnTexte {
 
 	private static volatile FeuilleDeRouteEnTexte instance = null;
@@ -21,6 +25,10 @@ public final class FeuilleDeRouteEnTexte {
 	{
 	}
 
+	/**
+	 * Recuperer/creation de l'instance feuille de route.
+	 * @return l'instance.
+	 */
 	public final static FeuilleDeRouteEnTexte getInstance()
     {
         if (FeuilleDeRouteEnTexte.instance == null)
@@ -38,11 +46,9 @@ public final class FeuilleDeRouteEnTexte {
     }
 
 	/**
-	 * 
-	 * @param tournee
-	 * @return
+	 * Generation de la feuille de route dans un fichier texte.
 	 */
-	public FileWriter realisation()
+	public void realisation()
 	{
 		Tournee tournee = Tournee.getInstance();
 		
@@ -122,8 +128,6 @@ public final class FeuilleDeRouteEnTexte {
 		{
 			e.printStackTrace();
 		}
-		return fw;
-
 	}
 
 }
