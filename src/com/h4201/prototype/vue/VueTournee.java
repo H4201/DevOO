@@ -83,7 +83,6 @@ public class VueTournee
 	 */
 	protected boolean initialiserTout()
 	{
-		// On recupere la tournee
 		boolean flag = false;
 		Tournee tournee = Tournee.getInstance();
 
@@ -137,10 +136,6 @@ public class VueTournee
 	 */
 	protected boolean initialiserTournee()
 	{
-		/*
-		 * on charge les chemins de la tournee
-		 */
-
 		boolean flag = false;
 		initialiserTout();
 
@@ -160,7 +155,7 @@ public class VueTournee
 		{
 			flag = true;
 		}
-
+		
 		return flag;
 	}
 	
