@@ -12,6 +12,11 @@ import com.h4201.prototype.modele.AppGraphe;
 
 import static org.junit.Assert.*;
 
+/**
+ * Test du calcul de la tournee.
+ * @author Nicolas
+ *
+ */
 public class TestLogic
 {
 	

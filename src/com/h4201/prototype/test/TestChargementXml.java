@@ -9,6 +9,11 @@ import com.h4201.prototype.modele.Tournee;
 
 import static org.junit.Assert.*;
 
+/**
+ * Test du chargement d'un plan et demande de livraison.
+ * @author Paul
+ *
+ */
 public class TestChargementXml
 {
 	public TestChargementXml()

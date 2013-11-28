@@ -5,7 +5,11 @@ import java.io.File;
 import com.h4201.prototype.controleur.Controleur;
 import com.h4201.prototype.vue.FeuilleDeRouteEnTexte;
 
-
+/**
+ * Test generation de la feuille de route.
+ * @author Paul
+ *
+ */
 public class TestFeuilleDeRoute
 {
 	public TestFeuilleDeRoute()
