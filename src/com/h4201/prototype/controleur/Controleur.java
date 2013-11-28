@@ -10,9 +10,8 @@ import com.h4201.prototype.modele.AppGraphe;
 import com.h4201.prototype.utilitaire.Constante;
 
 /**
- * 
+ * Classe Controleur du modele MVC.
  * @author Steevens
- *
  */
 public final class Controleur
 {
@@ -21,13 +20,16 @@ public final class Controleur
 	private Stack<Commande> redos = new Stack<Commande>();
 	private int mode = Constante.MODE_NORMAL; // mode de la modification interactive par le superviseur
 
+	/**
+	 * Constructeur du Controleur.
+	 */
     private Controleur() 
     {
         super();
     } 
 
     /**
-     * Methode permettant de renvoyer une instance de la classe Controleur
+     * Methode permettant de renvoyer l'unique instance de la classe Controleur.
      * @return Retourne l'instance du singleton Controleur.
      */
     public final static Controleur getInstance()
@@ -81,8 +83,8 @@ public final class Controleur
      * Ajouter un Point de Livraison a la Tournee.
      * 1. Deleguer l'ajout a do_() dans le pattern Command.
      * 2. Mise a jour de la pile d'annulation.
-     * @param noeud
-     * @param trancheHoraire
+     * @param noeud, le noeud a ajouter.
+     * @param trancheHoraire, la tranche horaire qui lui correspond.
      */
     public void ajoutPointLivraison(Noeud noeud, TrancheHoraire trancheHoraire)
     {
@@ -99,7 +101,6 @@ public final class Controleur
 	    	redos.clear(); // popAll()
 	    	undos.push(commandeAjout);
 	    	// comportement attendu sur la vue : 'retablir' est grise && 'annuler' est degrise
-	    	
     	}
     }
     
@@ -107,7 +108,7 @@ public final class Controleur
      * Supprimer un Point de Livraison de la Tournee.
      * 1. Deleguer la suppression a do_() dans le pattern Command.
      * 2. Mise a jour de la pile d'annulation.     
-     * * @param pointLivraison
+     * * @param pointLivraison, le point de livraison a ajouter.
      */
     public void supprimerPointLivraison(PointLivraison pointLivraison)
     {   
@@ -128,10 +129,10 @@ public final class Controleur
     }
         
     /**
-     * Charger un Plan a partir d'un fichier XML,
-     * et affichage dans la vue.
-     * @param fichierXML
-     * @return vrai si le chargement a ete correctement effectue, faux si il y a eu une erreur.
+     * Charger un Plan (dans le modele) a partir d'un fichier XML,
+     * et gestin de son affichage (dans la vue).
+     * @param fichierXML, le fichier contenant le Plan.
+     * @return vrai si le chargement a ete effectue sans erreur, faux si il y en a eu une.
      */
     public boolean chargerPlan(File fichierXML)
     {
@@ -151,10 +152,10 @@ public final class Controleur
     }
     
     /**
-     * Charger une demande de Livraison a partir d'un fichier XML,
-     * et affichage dans la vue.
-     * @param fichierXML
-     * @return vrai si le chargement a ete correctement effectue, faux si il y a eu une erreur.
+     * Charger une demande de Livraison (dans le modele) a partir d'un fichier XML,
+     * et gestion de son affichage (dans la vue).
+     * @param fichierXML, le fichier contenant la Demande de Livraison.
+     * @return vrai si le chargement a ete effectue sans erreur, faux si il y en a eu une.
      */
     public boolean chargerDemandeLivraison(File fichierXML)
     {
@@ -204,7 +205,7 @@ public final class Controleur
      * Annuler la derniere Commande effectuee dans l'interface interactive du superviseur.
 	 * 1. Deleguer l'annulation a undo() dans le pattern Command.
      * 2. Mise a jour de la pile de retablissement.
-     * 3. Mise a jour du mode 	
+     * 3. Mise a jour du mode d'interaction.
      */
     public void annuler()
     {    	
@@ -222,7 +223,7 @@ public final class Controleur
      * Retablir la derniere Commande annulee dans l'interface interactive du superviseur.
 	 * 1. Deleguer le retablissement a redo() dans le pattern Command.
      * 2. Mise a jour de la pile d'annulation.
-     * 3. Mise a jour du mode 	   
+     * 3. Mise a jour du mode d'interaction.
      */
     public void retablir()
     {
@@ -238,8 +239,9 @@ public final class Controleur
     }
     
     /**
+     * Methode testant, compte tenu de l'etat de la pile d'annulation, l'existence d'une action a 'annuler'.
      * @return true si il est possible d'annuler, false sinon.
-     * Permet d'informer la vue qu'il faux griser/muter le bouton 'annuler' dans l'interface si plus d'annulation possible.
+     * La vue peut utiliser cette methode pour determiner si il faut griser/muter le bouton 'annuler'.
      */
     public boolean annulationPossible()
     {
@@ -247,8 +249,9 @@ public final class Controleur
     }
     
     /**
+     * Methode testant, compte tenu de l'etat de la pile de retablissemnt, l'existence d'une action a 'retablir'.
      * @return true si il est possible de retablir, false sinon.
-     * Permet d'informer la vue qu'il faux griser/muter le bouton 'retablir' dans l'interface si plus de retablissement possible.
+     * La vue peut utiliser cette methode pour determiner si il faut griser/muter le bouton 'retablir'.
      */
     public boolean retablissementPossible()
     {
@@ -260,19 +263,26 @@ public final class Controleur
     /* Mode */
 
     /**
-     * Methode appelee par la vue pour connaitre le mode actuel parmi {MODE_NORMAL, MODE_AJOUT, MODE_SUPPRESSION}.
-     * @return Retourne le mode.
+     * Methode permettant de connaitre dans la modification interactive par le superviseur,
+     * le mode courant d'interaction.
+     * @return Retourne le mode d'interaction.
      */
     public int getMode()
     {
     	return mode;
     }    
     
+    /**
+     * Methode factorisant le traitement correspondant a un passage du mode interactif en mode NORMAL.
+     */
     private void passerEnModeNormal()
     {
     	mode = Constante.MODE_NORMAL;
     }
     
+    /**
+     * Methode factorisant le traitement correspondant a un passage du mode interactif en mode AJOUT.
+     */
     private void passerEnModeAjout()
     {    	
     	mode = Constante.MODE_AJOUT;
@@ -280,6 +290,9 @@ public final class Controleur
     	VuePanel.getInstance().repaint();
     }
     
+    /**
+     * Methode factorisant le traitement correspondant a un passage du mode interactif en mode SUPPRESSION.
+     */
     private void passerEnModeSuppression()
     {
     	mode = Constante.MODE_SUPPRESSION;
@@ -288,7 +301,8 @@ public final class Controleur
     }
     
     /**
-     * MAJ du mode : celui de la commande precedente celle que l'on vient d'annuler.
+     * Methode de MAJ du mode interactif apres une action d'annulation,
+     * Le mode deviens celui de la commande qui a ete effectuee avant celle que l'on vient d'annuler.
      */
     private void majModeApresAnnulation()
     {
@@ -304,7 +318,7 @@ public final class Controleur
     
     /**
      * Precondition : un retablissement a ete la derniere action effectuee => !undos.isEmpty().
-     * MAJ du mode : celui de la commande retablie
+     * Methode de MAJ du mode interactif : il devient celui de la commande retablie.
      */
     private void majModeApresRetablissement()
     {
