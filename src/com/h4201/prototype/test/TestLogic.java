@@ -2,11 +2,9 @@ package com.h4201.prototype.test;
 
 import java.io.File;
 
-import com.h4201.prototype.modele.Chemin;
 import com.h4201.prototype.modele.CreationDemandeLivraison;
 import com.h4201.prototype.modele.CreationPlan;
 import com.h4201.prototype.modele.Plan;
-import com.h4201.prototype.modele.PointLivraison;
 import com.h4201.prototype.modele.Tournee;
 import com.h4201.prototype.modele.AppGraphe;
 
@@ -28,8 +26,8 @@ public class TestLogic
 		{
 			testChargerPlan();
 			Tournee tournee = testChargerDemandeLivraison();
-			testDijkstra(tournee.getTranchesHoraire().get(0).getPointsLivraisons().get(1),
-						 tournee.getTranchesHoraire().get(0).getPointsLivraisons().get(2));
+//			testDijkstra(tournee.getTranchesHoraire().get(0).getPointsLivraisons().get(1),
+//						 tournee.getTranchesHoraire().get(0).getPointsLivraisons().get(2));
 			testTSP();
 		}
 		catch(Exception e)
@@ -69,12 +67,12 @@ public class TestLogic
 		return tournee;
 	}
 	
-	public void testDijkstra(PointLivraison pointLivraisonDepart, PointLivraison pointLivraisonArrivee){
-		AppGraphe appGraphe = AppGraphe.getInstance();
-		Chemin chemin = appGraphe.creerChemin(pointLivraisonDepart, pointLivraisonArrivee);
-		
-		chemin.afficher();
-	}
+//	public void testDijkstra(PointLivraison pointLivraisonDepart, PointLivraison pointLivraisonArrivee){
+//		AppGraphe appGraphe = AppGraphe.getInstance();
+//		Chemin chemin = appGraphe.creerChemin(pointLivraisonDepart, pointLivraisonArrivee);
+//		
+//		chemin.afficher();
+//	}
 	
 	public void testTSP() throws Exception{
 		AppGraphe appGraphe = AppGraphe.getInstance();

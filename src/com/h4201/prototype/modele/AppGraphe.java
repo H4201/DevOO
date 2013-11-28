@@ -208,7 +208,7 @@ public class AppGraphe implements Graph
 	 * @param plan
 	 * @return Le chemin cree.
 	 */
-	public Chemin creerChemin(PointLivraison pointLivraisonDepart, PointLivraison pointLivraisonArrivee){
+	private Chemin creerChemin(PointLivraison pointLivraisonDepart, PointLivraison pointLivraisonArrivee){
 		//Calcule le plus court chemin entre pointLivraisonDepart et pointLivraisonArivee dans G
 		Vector<Troncon> troncons = calculerPlusCourtChemin(pointLivraisonDepart, pointLivraisonArrivee);
 		int longueur = 0;

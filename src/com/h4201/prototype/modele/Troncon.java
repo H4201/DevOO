@@ -45,7 +45,7 @@ public class Troncon
    * Permet d'indiquer que le troncon est utilise par un nouveau chemin
    * @return le nombre de chemins passant par ce troncon
    */
-  public int unCheminSupplementairePasseParCeTroncon()
+  protected int unCheminSupplementairePasseParCeTroncon()
   {
 	  return (this.nbCheminPassantParCeTroncon += 1);
   }
@@ -53,7 +53,7 @@ public class Troncon
   /**
    * Reinitialise le compteur de chemins passants par ce troncon.
    */
-  public void reinitialisationDesChemins()
+  protected void reinitialisationDesChemins()
   {
 	  this.nbCheminPassantParCeTroncon = 0;
   }
